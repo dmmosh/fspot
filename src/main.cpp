@@ -10,7 +10,7 @@
 #define SAVE boost::archive::text_oarchive  //serialize
 #define LOAD boost::archive::text_iarchive  //deserialize
 #define OUT std::ofstream //output file stream
-#define IN std::ifstream //input file stream
+#define IN std::iftream //input file stream
 
 // DEBUG DEFINITIONS
 
@@ -43,9 +43,9 @@ class gps_position
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-        ar << degrees;
-        ar << minutes;
-        ar << seconds;
+        ar & degrees;
+        ar & minutes;
+        ar & seconds;
     }
 public:
     int degrees;
