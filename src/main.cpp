@@ -4,7 +4,6 @@
 #include <string>
 #include <boost/archive/text_oarchive.hpp> // saving
 #include <boost/archive/text_iarchive.hpp> //loading
-#include <curl/curl.h>
 
 
 // DEFINITIONS
