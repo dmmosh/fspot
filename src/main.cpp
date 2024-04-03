@@ -1,16 +1,17 @@
-
+// LIBRARIES
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <boost/archive/text_oarchive.hpp> // saving
 #include <boost/archive/text_iarchive.hpp> //loading
+#include <curl/curl.h>
 
 
 // DEFINITIONS
 #define SAVE boost::archive::text_oarchive  //serialize
 #define LOAD boost::archive::text_iarchive  //deserialize
 #define OUT std::ofstream //output file stream
-#define IN std::istream //input file stream
+#define IN std::ifstream //input file stream
 
 // DEBUG DEFINITIONS
 
@@ -25,23 +26,27 @@ a fast and lightweight cli client for spotify
 important to link boost serialization library 
 (see all libraries by running `ls /usr/lib/ | grep boost`)
 
+
+MANUAL COMPILE:
+g++ src/main.cpp -o ./exec -lboost_serialization;
+
+
 COMPILE:
-git-cl test.cpp -o main -lboost_serialization 
+git-all; clang++ src/main.cpp -o ./exec -lboost_serialization; ./exec 
 */
 
 
 class gps_position
 {
+
+    // required for class
     friend class boost::serialization::access;
-    // When the class Archive corresponds to an output archive, the
-    // & operator is defined similar to <<.  Likewise, when the class Archive
-    // is a type of input archive the & operator is defined similar to >>.
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-        ar & degrees;
-        ar & minutes;
-        ar & seconds;
+        ar << degrees;
+        ar << minutes;
+        ar << seconds;
     }
 public:
     int degrees;
