@@ -14,7 +14,11 @@ def LOAD(var_name:str): # pickle loading variables
         return pickle.load(open(FOLDER+ 'var/' + var_name, 'rb')) 
     else:
         return None
-
+    
+def ERROR(*args:str)->None: # prints error message
+    print("FATAL ERROR:") 
+    for to_print in args:
+        print('\t' + to_print)
 
 # adds the authorization code to the header
 def HEADER(request:dict = None)-> dict: # returns a dict
@@ -32,3 +36,21 @@ def POST(where_from:str, request:dict = None): # a put request, changes and/or r
 
 def DELETE(where_from:str, request:dict = None): # a delete request, deletes resources
     return requests.delete(BASE_URL + where_from, headers=HEADER(request), allow_redirects=True)
+
+def refresh():
+    if datetime.now().timestamp() > gl.auth_codes['expires_at']:
+        req_body = {
+                'grant_type': 'refresh_token',
+                'refresh_token': gl.auth_codes['refresh_token',],
+                'client_id': CLIENT_ID,
+                'client_secret': CLIENT_SECRET
+            }
+        response = requests.post(TOKEN_URL, data=req_body)
+        new_token_info = response.json()
+        gl.auth_codes['access_token'] = new_token_info['access_token']
+        gl.auth_codes['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
+        gl.def_header = {  # the default header
+            'Authorization': f'Bearer {auth_codes["access_token"]}'
+        }
+        SAVE(gl.auth_codes, 'auth.obj') # saves the new auth codes
+        SAVE(gl.def_header, 'header.obj') # saves the new header

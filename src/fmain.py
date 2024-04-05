@@ -40,7 +40,11 @@ def login():
 @app.route('/callback')
 def callback():
     if 'error' in request.args: # if login is unsuccessful
-        return jsonify({'error': request.args['error']}) 
+        if request.args['error'] == 'access_denied': # if user denied access
+            ERROR('You denied the authorization request.')
+        return '''FATAL ERROR:<br>   
+                    You denied the authorization request.<br>   
+                    <a href="/"><button>Try again?</button>''' # returns html to callback page
     
     if 'code' in request.args: # if login is successful
         req_body = { 
@@ -51,8 +55,16 @@ def callback():
             'client_secret': CLIENT_SECRET # client secret
         }
 
-    response = requests.post(TOKEN_URL, data=req_body)
-    token_info = response.json()
+    response = requests.post(TOKEN_URL, data=req_body) # the response
+    if response.status_code != 200:
+        ERROR('Something went wrong. Unable to get authorization credentials.')
+        return '''FATAL ERROR:<br>   
+                    Something went wrong. 
+                    Unable to get authorization credentials.<br>   
+                    <a href="/"><button>Try again?</button>''' # returns html to callback page
+
+
+    token_info = response.json() # the token info
 
     gl.auth_codes['access_token'] = token_info['access_token'] # the access token, lasts a day
     gl.auth_codes['refresh_token'] = token_info['refresh_token'] # the refresh token
@@ -82,7 +94,9 @@ def get_playlists():
     if(name.status_code == 200):
         return f'Successfully logged in, {name.json()["display_name"]}!<br>You can now quit this page.'
     else:
+        print("SOMETHING WENT WRONG. UNSUCCESSFUL LOGIN. TRY AGAIN.")
         return redirect('/')
+    
 
 
 @app.route('/refresh_token')
@@ -90,23 +104,12 @@ def refresh_token():
     if 'refresh_token' not in gl.auth_codes:
         return redirect('/login')
     
-    if datetime.now().timestamp() > gl.auth_codes['expires_at']:
-        req_body = {
-            'grant_type': 'refresh_token',
-            'refresh_token': gl.auth_codes['refresh_token',],
-            'client_id': CLIENT_ID,
-            'client_secret': CLIENT_SECRET
-        }
+    refresh()
+    return redirect('/playlists')
 
-        response = requests.post(TOKEN_URL, data=req_body)
-        new_token_info = response.json()
-        gl.auth_codes['access_token'] = new_token_info['access_token']
-        gl.auth_codes['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
+load_var = LOAD('auth.obj')
 
-        return redirect('/playlists')
-
-gl.auth_codes = LOAD('auth.obj')
-if gl.auth_codes is None or GET('me') != 200:
+if load_var is None:
     webbrowser.open('http://127.0.0.1:5000')
     app.run(debug=False)
     SAVE(gl.auth_codes, 'auth.obj')
@@ -115,9 +118,11 @@ if gl.auth_codes is None or GET('me') != 200:
 gl.auth_codes = LOAD('auth.obj')
 gl.def_header = LOAD('header.obj')
 
+refresh()
 
 data = GET('me')
-
+if data.status_code !=200: # if token has expired, refresh it
+    refresh()
     
 
 print(data.json())
