@@ -8,27 +8,30 @@ FSPOT
 a lightweight spotify clients
 
 manual compiling:
-python -m PyInstaller --onefile src/auth.py --name fspot
+python -m PyInstaller --onefile src/fmain.py --name fspot
 
 remove the pickled files:
 rm ./fspot/var/*
 '''
 
 app = Flask(__name__)
-app.secret_key = open("src/key.txt", "r").readline()
+
+# suppress the flask output
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
-
 def secho(text, file=None, nl=None, err=None, color=None, **styles):
     pass
-
 def echo(text, file=None, nl=None, err=None, color=None, **styles):
     pass
-
 click.echo = echo
 click.secho = secho
 
-CLIENT_SECRET = open("src/secret.txt", "r").readline()
+
+# TODO: change these when compiling
+app.secret_key = os.environ['FSPOT_FLASK_KEY']
+CLIENT_SECRET = os.environ['FSPOT_CLIENT_SECRET']
+gl.PASSWORD = os.environ['FSPOT_PASSWORD']
+# gl.FOLDER = '/usr/share/fspot/' # for distribution
 
 
 
@@ -68,8 +71,8 @@ def callback():
         }
 
     response = requests.post(TOKEN_URL, data=req_body) # the response
-    if response.status_code != 200:
-        ERROR('Something went wrong. Unable to get authorization credentials.')
+    if response.status_code != 200: # if the response didnt come back for whatever reason
+        ERROR('Something went wrong. Unable to get authorization credentials.') # error throw
         return '''FATAL ERROR:<br>   
                     Something went wrong. 
                     Unable to get authorization credentials.<br>   
@@ -82,24 +85,23 @@ def callback():
     gl.auth_codes['refresh_token'] = token_info['refresh_token'] # the refresh token
     gl.auth_codes['expires_at'] = datetime.now().timestamp() + token_info['expires_in'] # duration the access token lasts
 
-    gl.def_header = {  # the default header
-            'Authorization': f'Bearer {auth_codes["access_token"]}'
+    gl.def_header = {  # sets the default header
+            'Authorization': f'Bearer {auth_codes["access_token"]}' 
     }
+    SAVE(gl.auth_codes, 'auth.obj')
+    SAVE(gl.def_header, 'header.obj')
 
-    return redirect('/playlists')
+    return redirect('/success_login') # redirects to the success login page
 
 
-@app.route('/playlists')
-def get_playlists():
+@app.route('/success_login')
+def success_login():
     if 'access_token' not in gl.auth_codes: # if no access token
         return redirect('/login')
     
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         return redirect('/refresh-token')
 
-    headers = {
-        'Authorization': f'Bearer {gl.auth_codes["access_token"]}'
-    }
 
     name = GET('me')
 
@@ -110,29 +112,32 @@ def get_playlists():
         return redirect('/')
     
 
-
 @app.route('/refresh_token')
 def refresh_token():
     if 'refresh_token' not in gl.auth_codes:
-        return redirect('/login')
-    
+        return redirect('/login')    
     refresh()
-    return redirect('/playlists')
+    return redirect('/success_login')
 
-load_var = LOAD('auth.obj')
 
-if load_var is None:
-    webbrowser.open('http://127.0.0.1:5000')
-    app.run(debug=False)
-    SAVE(gl.auth_codes, 'auth.obj')
-    SAVE(gl.def_header, 'header.obj')
+# BASICALLY MAIN
 
-gl.auth_codes = LOAD('auth.obj')
+load_var = LOAD('auth.obj') # loads the authorization info
+if load_var is None: # if there isnt any, open sign in screen
+    webbrowser.open('http://127.0.0.1:5000') 
+    app.run(debug=False) # will save the auth codes
+
+# loads from pickled 
+gl.auth_codes = LOAD('auth.obj') 
 gl.def_header = LOAD('header.obj')
 
 refresh()
 data = GET('me')
 
-    
+if data.status_code != 200:
+    webbrowser.open('http://127.0.0.1:5000')
+    app.run(debug=False)
+    data = GET('me')
 
 print(data.json())
+    

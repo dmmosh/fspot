@@ -7,13 +7,19 @@ import fglobal as gl
 # saves the pickle object to var folder
 def SAVE(to_save, var_name:str): # pickle saving variables
     pickle.dump(to_save, open(FOLDER+ 'var/' + var_name, 'wb'))
+    pyAesCrypt.encryptFile(FOLDER+'var/'+var_name, FOLDER+'var/'+var_name + '.aes', PASSWORD)
+    os.remove(FOLDER+ 'var/' + var_name)
 
 # loads the pickle object from the var folder
 def LOAD(var_name:str): # pickle loading variables
-    if os.path.exists(FOLDER+ 'var/' + var_name):
-        return pickle.load(open(FOLDER+ 'var/' + var_name, 'rb')) 
+    if os.path.exists(FOLDER+ 'var/' + var_name + '.aes'):
+        pyAesCrypt.decryptFile(FOLDER+'var/'+var_name+'.aes', FOLDER+'var/'+var_name, PASSWORD)
+        output = pickle.load(open(FOLDER+ 'var/' + var_name, 'rb')) 
+        os.remove(FOLDER+ 'var/' + var_name)
+        return output
     else:
         return None
+
     
 def ERROR(*args:str)->None: # prints error message
     print("FATAL ERROR:") 
@@ -41,7 +47,7 @@ def refresh():
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         req_body = {
                 'grant_type': 'refresh_token',
-                'refresh_token': gl.auth_codes['refresh_token',],
+                'refresh_token': gl.auth_codes['refresh_token'],
                 'client_id': CLIENT_ID,
                 'client_secret': CLIENT_SECRET
             }
