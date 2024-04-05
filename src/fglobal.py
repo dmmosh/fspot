@@ -21,4 +21,4 @@ REDIRECT_URI = 'http://localhost:5000/callback'
 
 AUTH_URL = 'https://accounts.spotify.com/authorize'
 TOKEN_URL = 'https://accounts.spotify.com/api/token'
-BASE_URL = 'https://api.spotify.com'
+BASE_URL = 'https://api.spotify.com/v1/'
