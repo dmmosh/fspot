@@ -10,12 +10,25 @@ def SAVE(to_save, var_name:str): # pickle saving variables
 
 # loads the pickle object from the var folder
 def LOAD(var_name:str): # pickle loading variables
-    return pickle.load(open(FOLDER+ 'var/' + var_name, 'rb')) 
+    if os.path.exists(FOLDER+ 'var/' + var_name):
+        return pickle.load(open(FOLDER+ 'var/' + var_name, 'rb')) 
+    else:
+        return None
 
 
 # adds the authorization code to the header
-def HEADER(request:dict = None)-> dict: 
-    return request | gl.def_header
+def HEADER(request:dict = None)-> dict: # returns a dict
+    return gl.def_header if request is None else request | gl.def_header 
+    # returns just the default header if empty OR the request with the def header
 
-def GET(where_from:str, request:dict = None)->dict:
-    
+def GET(where_from:str, request:dict = None): # a get request, retrieves resources
+    return requests.get(BASE_URL + where_from, headers=HEADER(request))
+
+def PUT(where_from:str, request:dict = None): # a post request, creates resources
+    return requests.put(BASE_URL + where_from, headers=HEADER(request))
+
+def POST(where_from:str, request:dict = None): # a put request, changes and/or replaces resources
+    return requests.post(BASE_URL + where_from, headers=HEADER(request))
+
+def DELETE(where_from:str, request:dict = None): # a delete request, deletes resources
+    return requests.delete(BASE_URL + where_from, headers=HEADER(request))

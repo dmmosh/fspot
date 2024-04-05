@@ -2,13 +2,15 @@ from fglobal import *
 from futils import *
 import fglobal as gl
 
+# the flask setup
 app = Flask(__name__)
 app.secret_key = open("src/key.txt", "r").readline()
 gl.CLIENT_SECRET = open("src/secret.txt", "r").readline()
 
+
+# suppresses the flask messages
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
-
 def secho(text, file=None, nl=None, err=None, color=None, **styles):
     pass
 
@@ -23,7 +25,7 @@ click.secho = secho
 
 # redirect to login screen
 @app.route('/')
-def login():
+def index():
     scope = 'user-read-private user-read-email user-read-playback-state'
     params = {
         'client_id': CLIENT_ID, # the client id
@@ -49,43 +51,41 @@ def callback():
             'grant_type': 'authorization_code', # the auth code
             'redirect_uri': REDIRECT_URI, # redirect uri
             'client_id': CLIENT_ID, # client id
-            'client_secret': gl.CLIENT_SECRET # client secret
+            'client_secret': gl.CLIENT_SECRET
         }
 
-    response = requests.post(TOKEN_URL, data=req_body)
-    token_info = response.json()
+        token_info = requests.post(TOKEN_URL, data=req_body).json()
 
-    gl.auth_codes['access_token'] = token_info['access_token'] # the access token, lasts a day
-    gl.auth_codes['refresh_token'] = token_info['refresh_token'] # the refresh token
-    gl.auth_codes['expires_at'] = datetime.now().timestamp() + token_info['expires_in'] # duration the access token lasts
+        gl.auth_codes['access_token'] = token_info['access_token'] # the access token, lasts a day
+        gl.auth_codes['refresh_token'] = token_info['refresh_token'] # the refresh token
+        gl.auth_codes['expires_at'] = datetime.now().timestamp() + token_info['expires_in'] # duration the access token lasts
 
-    return redirect('/playlists')
+        gl.def_header = {  # the default header
+            'Authorization': f'Bearer {auth_codes["access_token"]}'
+        }
+    
+        return redirect('/playlists')
 
 
 @app.route('/playlists')
 def get_playlists():
     if 'access_token' not in gl.auth_codes: # if no access token
-        return redirect('/login')
+        return redirect('/')
     
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         return redirect('/refresh-token')
 
-    gl.def_header = {
-        'Authorization': f'Bearer {gl.auth_codes["access_token"]}'
-    }
-
-    response = requests.get(BASE_URL + 'me/playlists', headers=gl.def_header)
-    playlists = response.json()
-
-    get_playback = requests.get(BASE_URL + 'me/player', headers=HEADER({}))
-    print(get_playback.status_code)
-    return 'fgdkgfdjgfilk'
+    info = requests.get('https://api.spotify.com/me', headers=gl.def_header)
+    print(info.status_code)
+    info2 = info.json()
+    print(info2)
+    return f'Successfully logged in.<br>You may now leave the window.'
 
 
 @app.route('/refresh_token')
 def refresh_token():
     if 'refresh_token' not in gl.auth_codes:
-        return redirect('/login')
+        return redirect('/')
     
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         req_body = {
@@ -102,10 +102,6 @@ def refresh_token():
 
         return redirect('/playlists')
     
-gl.auth_codes = LOAD('auth.obj')
 
-get_playback = requests.get(BASE_URL + 'me/player', headers=HEADER({}))
-print(get_playback.status_code)
-
-webbrowser.open('http://127.0.0.1:5000')
-app.run(debug=False)
+webbrowser.open('http://127.0.0.1:5000') # opens the port
+app.run(debug=False) # runs the login screen
