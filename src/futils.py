@@ -14,7 +14,8 @@ def LOAD(var_name:str): # pickle loading variables
 
 
 # adds the authorization code to the header
-def HEADER(request:dict):
-    return request | {  # the default header
-        'Authorization': f'Bearer {auth_codes["access_token"]}'
-        }
+def HEADER(request:dict = None)-> dict: 
+    return request | gl.def_header
+
+def GET(where_from:str, request:dict = None)->dict:
+    

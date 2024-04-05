@@ -76,6 +76,9 @@ def get_playlists():
 
     response = requests.get(BASE_URL + 'me/playlists', headers=gl.def_header)
     playlists = response.json()
+
+    get_playback = requests.get(BASE_URL + 'me/player', headers=HEADER({}))
+    print(get_playback.status_code)
     return 'fgdkgfdjgfilk'
 
 
@@ -101,7 +104,8 @@ def refresh_token():
     
 gl.auth_codes = LOAD('auth.obj')
 
-get_palyback
+get_playback = requests.get(BASE_URL + 'me/player', headers=HEADER({}))
+print(get_playback.status_code)
 
 webbrowser.open('http://127.0.0.1:5000')
 app.run(debug=False)
