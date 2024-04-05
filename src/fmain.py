@@ -12,25 +12,24 @@ python -m PyInstaller --onefile src/auth.py --name fspot
 note: CHANGE THE SECRET KEY AND CLIENT SECRET AND THEN COMPILE
 """
 
-app = Flask(__name__)
+app = Flask(__name__) # inits flask for auth
 app.secret_key = open("src/key.txt", "r").readline() #CHANGE FOPR COMPILING
+
+
+# TO SILENCE FLASK MESSAGE
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
-
-
 def secho(text, file=None, nl=None, err=None, color=None, **styles):
     pass
-
 def echo(text, file=None, nl=None, err=None, color=None, **styles):
     pass
-
 click.echo = echo
 click.secho = secho
 
 # redirect to login screen
 @app.route('/')
 def login():
-    scope = 'user-read-private user-read-email'
+    scope = 'playlist-read-private user-library-modify user-library-read user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming'
     params = {
         'client_id': CLIENT_ID, # the client id
         'response_type': 'code', # the response data type
