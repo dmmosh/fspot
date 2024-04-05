@@ -1,4 +1,5 @@
 from fglobal import *
+from futils import *
 import fglobal as gl
 
 app = Flask(__name__)
@@ -23,7 +24,7 @@ click.secho = secho
 # redirect to login screen
 @app.route('/')
 def login():
-    scope = 'user-read-private user-read-email'
+    scope = 'user-read-private user-read-email user-read-playback-state'
     params = {
         'client_id': CLIENT_ID, # the client id
         'response_type': 'code', # the response data type
@@ -54,50 +55,53 @@ def callback():
     response = requests.post(TOKEN_URL, data=req_body)
     token_info = response.json()
 
-    session['access_token'] = token_info['access_token'] # the access token, lasts a day
-    session['refresh_token'] = token_info['refresh_token'] # the refresh token
-    session['expires_at'] = datetime.now().timestamp() + token_info['expires_in'] # duration the access token lasts
+    gl.auth_codes['access_token'] = token_info['access_token'] # the access token, lasts a day
+    gl.auth_codes['refresh_token'] = token_info['refresh_token'] # the refresh token
+    gl.auth_codes['expires_at'] = datetime.now().timestamp() + token_info['expires_in'] # duration the access token lasts
 
     return redirect('/playlists')
 
 
 @app.route('/playlists')
 def get_playlists():
-    if 'access_token' not in session: # if no access token
+    if 'access_token' not in gl.auth_codes: # if no access token
         return redirect('/login')
     
-    if datetime.now().timestamp() > session['expires_at']:
+    if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         return redirect('/refresh-token')
 
-    headers = {
-        'Authorization': f'Bearer {session["access_token"]}'
+    gl.def_header = {
+        'Authorization': f'Bearer {gl.auth_codes["access_token"]}'
     }
 
-    response = requests.get(API_BASE_URL + 'me/playlists', headers=headers)
+    response = requests.get(BASE_URL + 'me/playlists', headers=gl.def_header)
     playlists = response.json()
-    return jsonify(playlists)
+    return 'fgdkgfdjgfilk'
 
 
 @app.route('/refresh_token')
 def refresh_token():
-    if 'refresh_token' not in session:
+    if 'refresh_token' not in gl.auth_codes:
         return redirect('/login')
     
-    if datetime.now().timestamp() > session['expires_at']:
+    if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         req_body = {
             'grant_type': 'refresh_token',
-            'refresh_token': session['refresh_token',],
+            'refresh_token': gl.auth_codes['refresh_token',],
             'client_id': CLIENT_ID,
             'client_secret': gl.CLIENT_SECRET
         }
 
         response = requests.post(TOKEN_URL, data=req_body)
         new_token_info = response.json()
-        session['access_token'] = new_token_info['access_token']
-        session['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
+        gl.auth_codes['access_token'] = new_token_info['access_token']
+        gl.auth_codes['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
 
         return redirect('/playlists')
     
+gl.auth_codes = LOAD('auth.obj')
+
+get_palyback
 
 webbrowser.open('http://127.0.0.1:5000')
 app.run(debug=False)
