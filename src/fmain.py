@@ -63,7 +63,6 @@ def callback():
         gl.def_header = {  # the default header
             'Authorization': f'Bearer {auth_codes["access_token"]}'
         }
-    
         return redirect('/playlists')
 
 
@@ -74,12 +73,9 @@ def get_playlists():
     
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         return redirect('/refresh-token')
-
-    info = requests.get('https://api.spotify.com/me', headers=gl.def_header)
-    print(info.status_code)
-    info2 = info.json()
-    print(info2)
-    return f'Successfully logged in.<br>You may now leave the window.'
+    
+    
+    return "fdhnjsfkhdfk"
 
 
 @app.route('/refresh_token')
