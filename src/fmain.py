@@ -11,7 +11,7 @@ manual compiling:
 python -m PyInstaller --onefile src/fmain.py --name fspot
 
 remove the pickled files:
-rm ./fspot/var/*
+rm ./fspot/*
 '''
 
 app = Flask(__name__)
