@@ -6,9 +6,11 @@ import webbrowser
 from datetime import datetime, timedelta
 from flask import Flask, redirect, request, jsonify, session
 import urllib
+import pickle
+
 
 CLIENT_ID = 'bbdff8f6b6524edc90d968c3f971b5da'
-CLIENT_SECRET = open("src/secret.txt", "r").readline()
+CLIENT_SECRET = "" # change in fmain
 REDIRECT_URI = 'http://localhost:5000/callback'
 
 AUTH_URL = 'https://accounts.spotify.com/authorize'

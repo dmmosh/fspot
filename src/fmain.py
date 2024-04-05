@@ -1,35 +1,29 @@
 from fglobal import *
 import fglobal as gl
 
+app = Flask(__name__)
+app.secret_key = open("src/key.txt", "r").readline()
+gl.CLIENT_SECRET = open("src/secret.txt", "r").readline()
 
-"""
-FSPOT
-
-a fast spotify player
-
-manual compiling:
-python -m PyInstaller --onefile src/auth.py --name fspot
-note: CHANGE THE SECRET KEY AND CLIENT SECRET AND THEN COMPILE
-"""
-
-app = Flask(__name__) # inits flask for auth
-app.secret_key = open("src/key.txt", "r").readline() #CHANGE FOPR COMPILING
-
-
-# TO SILENCE FLASK MESSAGE
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
+
 def secho(text, file=None, nl=None, err=None, color=None, **styles):
     pass
+
 def echo(text, file=None, nl=None, err=None, color=None, **styles):
     pass
+
 click.echo = echo
 click.secho = secho
+
+
+
 
 # redirect to login screen
 @app.route('/')
 def login():
-    scope = 'playlist-read-private user-library-modify user-library-read user-read-playback-state user-modify-playback-state user-read-currently-playing app-remote-control streaming'
+    scope = 'user-read-private user-read-email'
     params = {
         'client_id': CLIENT_ID, # the client id
         'response_type': 'code', # the response data type
@@ -54,7 +48,7 @@ def callback():
             'grant_type': 'authorization_code', # the auth code
             'redirect_uri': REDIRECT_URI, # redirect uri
             'client_id': CLIENT_ID, # client id
-            'client_secret': CLIENT_SECRET # client secret
+            'client_secret': gl.CLIENT_SECRET # client secret
         }
 
     response = requests.post(TOKEN_URL, data=req_body)
@@ -72,7 +66,7 @@ def get_playlists():
     if 'access_token' not in session: # if no access token
         return redirect('/login')
     
-    if datetime.now().timestamp() > session['expires_at']: # if session expired
+    if datetime.now().timestamp() > session['expires_at']:
         return redirect('/refresh-token')
 
     headers = {
@@ -94,7 +88,7 @@ def refresh_token():
             'grant_type': 'refresh_token',
             'refresh_token': session['refresh_token',],
             'client_id': CLIENT_ID,
-            'client_secret': CLIENT_SECRET
+            'client_secret': gl.CLIENT_SECRET
         }
 
         response = requests.post(TOKEN_URL, data=req_body)
@@ -107,4 +101,3 @@ def refresh_token():
 
 webbrowser.open('http://127.0.0.1:5000')
 app.run(debug=False)
-
