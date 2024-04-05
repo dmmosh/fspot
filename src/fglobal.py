@@ -9,7 +9,7 @@ from flask import Flask, redirect, request, jsonify, session
 import urllib
 import pickle
 
-auth_codes = {}
+auth_codes = {'access_token': '', 'refresh_token': '', 'expires_at': 0}
 
 def_header = {}
 

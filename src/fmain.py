@@ -104,11 +104,20 @@ def refresh_token():
         gl.auth_codes['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
 
         return redirect('/playlists')
+
+gl.auth_codes = LOAD('auth.obj')
+if gl.auth_codes is None or GET('me') != 200:
+    webbrowser.open('http://127.0.0.1:5000')
+    app.run(debug=False)
+    SAVE(gl.auth_codes, 'auth.obj')
+    SAVE(gl.def_header, 'header.obj')
+
+gl.auth_codes = LOAD('auth.obj')
+gl.def_header = LOAD('header.obj')
+
+
+data = GET('me')
+
     
 
-webbrowser.open('http://127.0.0.1:5000')
-app.run(debug=False)
-
-data = GET('me').json()
-
-print(data)
+print(data.json())
