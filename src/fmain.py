@@ -2,6 +2,18 @@ from fglobal import *
 from futils import *
 import fglobal as gl
 
+
+'''
+FSPOT
+a lightweight spotify clients
+
+manual compiling:
+python -m PyInstaller --onefile src/auth.py --name fspot
+
+remove the pickled files:
+rm ./fspot/var/*
+'''
+
 app = Flask(__name__)
 app.secret_key = open("src/key.txt", "r").readline()
 log = logging.getLogger('werkzeug')
@@ -119,10 +131,8 @@ gl.auth_codes = LOAD('auth.obj')
 gl.def_header = LOAD('header.obj')
 
 refresh()
-
 data = GET('me')
-if data.status_code !=200: # if token has expired, refresh it
-    refresh()
+
     
 
 print(data.json())
