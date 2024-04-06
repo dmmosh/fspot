@@ -40,8 +40,11 @@ buffer = ''
 while(buffer != 'quit'):
     buffer = input('/ ')
 
-    if buffer == 'pause':
+
+    if buffer == 'play': # starts playback
         PUT('me/player/play')
+    elif buffer == 'pause': # pauses playback
+        PUT('me/player/pause')
 
 
 #print(data.json())
