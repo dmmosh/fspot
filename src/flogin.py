@@ -104,8 +104,6 @@ def success_login():
     name = GET('me')
 
     if(name.status_code == 200):
-        global process
-        process.terminate()
         return "<script>window.open('','_self').close()</script>"
     else:
         ERROR('Something went wrong. Please try again.')
