@@ -11,7 +11,6 @@ app.secret_key = gl.SECRET_KEY
 exiting = False # to exit the program
 
 
-
 process = Process(target=app.run)
 
 def login_start():
