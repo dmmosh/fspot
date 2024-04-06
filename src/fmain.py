@@ -54,7 +54,7 @@ template = """
 
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script>
-        window.onSpotifyWebPlaybackSDKReady = () => \{
+        window.onSpotifyWebPlaybackSDKReady = () => {
             const token = '""" + gl.auth_codes["access_token"] + """';
             const player = new Spotify.Player({
                 name: 'fspot player',
@@ -96,6 +96,7 @@ template = """
 
 """
 f.write(template)
+f.close()
 
 buffer = ''
 while(buffer != 'quit'):
@@ -109,7 +110,6 @@ while(buffer != 'quit'):
         case 'print':
             info = GET('me/player').json()
             print(info)
-f.close()
     
 
 #print(data.json())
