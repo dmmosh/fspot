@@ -6,24 +6,25 @@ import fglobal as gl
 
 # saves the pickle object to var folder
 def SAVE(to_save, var_name:str): # pickle saving variables
-    if not os.path.exists(FOLDER+ 'var/'):
-        os.mkdir(FOLDER+ 'var/')
-    pickle.dump(to_save, open(FOLDER+ 'var/' + var_name, 'wb'))
-    pyAesCrypt.encryptFile(FOLDER+'var/'+var_name, FOLDER+'var/'+var_name + '.aes', PASSWORD)
-    os.remove(FOLDER+ 'var/' + var_name)
+    if not os.path.exists(FOLDER+ 'var/'): # if the variable directory doesnt exist, make one
+        os.mkdir(FOLDER+ 'var/') # makes directory
+    pickle.dump(to_save, open(FOLDER+ 'var/' + var_name, 'wb')) # dumps the file
+    pyAesCrypt.encryptFile(FOLDER+'var/'+var_name, FOLDER+'var/'+var_name + '.aes', PASSWORD) # encrypts the file
+    os.remove(FOLDER+ 'var/' + var_name) # removes the folder
 
 # loads the pickle object from the var folder
 def LOAD(var_name:str): # pickle loading variables
-    if not os.path.exists(FOLDER+ 'var/'):
-        os.mkdir(FOLDER+ 'var/')
+    if not os.path.exists(FOLDER+ 'var/'): # if the variable directory doesnt exist, make one
+        os.mkdir(FOLDER+ 'var/') # makes directory
     
-    if os.path.exists(FOLDER+ 'var/' + var_name + '.aes'):
-        pyAesCrypt.decryptFile(FOLDER+'var/'+var_name+'.aes', FOLDER+'var/'+var_name, PASSWORD)
-        output = pickle.load(open(FOLDER+ 'var/' + var_name, 'rb')) 
-        os.remove(FOLDER+ 'var/' + var_name)
-        return output
-    else:
+    if os.path.exists(FOLDER+ 'var/' + var_name + '.aes'): # if variable exists
+        pyAesCrypt.decryptFile(FOLDER+'var/'+var_name+'.aes', FOLDER+'var/'+var_name, PASSWORD) #decrypts the file
+        output = pickle.load(open(FOLDER+ 'var/' + var_name, 'rb'))  # loads the decrypted file
+        os.remove(FOLDER+ 'var/' + var_name) # deletes the decrypted file
+        return output # returns the decrypted file
+    else: # if it doesnt, returns nothing
         return None
+
 
     
 def ERROR(*args:str)->None: # prints error message
@@ -64,4 +65,3 @@ def refresh():
             'Authorization': f'Bearer {auth_codes["access_token"]}'
         }
         SAVE(gl.auth_codes, 'auth.obj') # saves the new auth codes
-        SAVE(gl.def_header, 'header.obj') # saves the new header
