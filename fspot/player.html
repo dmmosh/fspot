@@ -10,7 +10,7 @@
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script>
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQBzCDdCKDI9rvFTW7ZwJl6xIfFixtkkOjtvCJ8825tlUfLOvWaoXyPpx3ygWtK4nD5yk5QNzvWXH8w0nmN1oViGfj5IpTETLa46xSVHFRW4Ckgb9QfIqAC0uD3PLEUqmGRBmW8nphS7IH8XztS1GZkeiZOW48ckgkFGOjoNmnV9wpjarH0N-MgnfGDzNlaowpa231wvafDl-i6kW1Cz9m-ptQw6';
+            const token = 'BQBbktpBvycpxI8GSZXIsJg7x8i03gzCZiCk8j-TWUSULq1JAiBHj8dI2BcH2CBhq0pWQYKTQcHtBo81c5Ig80eN-Pveq1NkChT7RrUKg7J0TB_VzdP4hpHF81z2j7MCGqCcXZEhiqDie9kltm5dWjZUB2yenDELUR5e7owDn5bsdrEARdb67djU1XtqZ2sNVdzRokRa7gIzb1rrwcS3AgMa1cd4';
             const player = new Spotify.Player({
                 name: 'fspot player',
                 getOAuthToken: cb => { cb(token); },
@@ -38,10 +38,6 @@
             player.addListener('account_error', ({ message }) => {
                 console.error(message);
             });
-
-            document.getElementById('togglePlay').onclick = function() {
-              player.togglePlay();
-            };
 
             player.connect();
         }

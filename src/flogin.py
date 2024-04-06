@@ -38,7 +38,12 @@ click.secho = secho
 # redirect to login screen
 @app.route('/')
 def login():
-    scope = '''user-read-playback-state 
+    scope = '''app-remote-control 
+                streaming 
+                user-top-read 
+                user-read-currently-playing 
+                user-read-recently-played 
+                user-read-playback-state 
                 user-modify-playback-state 
                 user-read-private 
                 user-read-email'''

@@ -84,10 +84,6 @@ template = """
                 console.error(message);
             });
 
-            document.getElementById('togglePlay').onclick = function() {
-              player.togglePlay();
-            };
-
             player.connect();
         }
     </script>
