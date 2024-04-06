@@ -39,7 +39,7 @@ click.secho = secho
 # redirect to login screen
 @app.route('/')
 def login():
-    scope = 'user-read-private user-read-email user-modify-playback-state'
+    scope = 'user-read-playback-state user-read-private user-read-email'
     params = {
         'client_id': CLIENT_ID, # the client id
         'response_type': 'code', # the response data type
@@ -58,7 +58,7 @@ def callback():
     if 'error' in request.args: # if login is unsuccessful
         if request.args['error'] == 'access_denied': # if user denied access
             ERROR('You denied the authorization request.')
-        return '''FATAL ERROR:<br>   
+        return '''<title>FATAL ERROR:</title><br>   
                     You denied the authorization request.<br>   
                     <a href="/"><button>Try again?</button>''' # returns html to callback page
     
