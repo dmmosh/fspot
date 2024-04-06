@@ -15,9 +15,12 @@ def call_app():
     webbrowser.open('http://127.0.0.1:5000')
     app.run(debug=False)
 
+process = Process(target=call_app)
+
 def login_start():
-    process = Process(target=call_app)
-    
+    global process
+    process.start()
+    process.join()
     
 
 
@@ -103,7 +106,8 @@ def success_login():
     name = GET('me')
 
     if(name.status_code == 200):
-        run.terminate()
+        global process
+        process.terminate()
         return "<script>window.open('','_self').close()</script>"
     else:
         ERROR('Something went wrong. Please try again.')
