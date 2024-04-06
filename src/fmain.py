@@ -19,7 +19,7 @@ rm ./fspot/*
 
 load_var = LOAD('auth.obj') # loads the authorization info
 if load_var is None: # if there isnt any, open sign in screen
-    login_start
+    login_start()
 
 
 # loads from pickled 
