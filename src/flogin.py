@@ -120,6 +120,7 @@ def exit_app():
 
 @app.teardown_request
 def teardown(exception):
+    global process
     if exiting:
         process.terminate()
 
