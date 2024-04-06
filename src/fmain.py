@@ -22,6 +22,7 @@ if load_var is None: # if there isnt any, open sign in screen
     login_start()
 
 
+
 # loads from pickled 
 gl.auth_codes = LOAD('auth.obj') 
 gl.def_header = {  # sets the default header

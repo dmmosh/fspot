@@ -18,8 +18,14 @@ def login_start():
     global process
     process.start()
     webbrowser.open('http://127.0.0.1:5000')
-    process.join()
-    process.terminate()
+
+    stop_signal = GET('me')
+    while (stop_signal.status_code != 200):
+        stop_signal = GET('me')
+        print("waiting...")
+        time.sleep(1)
+    #process.join()
+    #process.terminate()
     
 
 
