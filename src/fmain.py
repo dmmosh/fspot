@@ -47,7 +47,8 @@ template = """
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Spotify Web Playback SDK Quick Start</title>
+    <title>Hot diggitty dog !!! This place is magnificent!!</title>
+    <b1>You've found my lair!!</b1>
 </head>
 <body>
     <h1>Spotify Web Playback SDK Quick Start</h1>
