@@ -121,7 +121,6 @@ def exit_app():
 @app.teardown_request
 def teardown(exception):
     if exiting:
-        time.sleep(2)
         os._exit(0)
 
 @app.route('/refresh_token')
