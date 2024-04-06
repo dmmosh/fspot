@@ -116,7 +116,7 @@ def success_login():
 def exit_app():
     global exiting
     exiting = True
-    return "Done"
+    return "<script>window.open('','_self').close()</script>"
 
 @app.teardown_request
 def teardown(exception):
