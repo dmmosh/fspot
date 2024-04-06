@@ -18,6 +18,7 @@ def login_start():
     global process
     process.start()
     webbrowser.open('http://127.0.0.1:5000')
+    process.join()
     
 
 
