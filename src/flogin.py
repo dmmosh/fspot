@@ -74,7 +74,7 @@ def callback():
     response = requests.post(TOKEN_URL, data=req_body) # the response
     if response.status_code != 200: # if the response didnt come back for whatever reason
         ERROR('Something went wrong. Unable to get authorization credentials.') # error throw
-        return '''FATAL ERROR:<br>   
+        return '''<title>FATAL ERROR:</title><br>   
                     Something went wrong. 
                     Unable to get authorization credentials.<br>   
                     <a href="/"><button>Try again?</button>''' # returns html to callback page
@@ -108,33 +108,12 @@ def success_login():
     if(name.status_code == 200):
         global exiting
         exiting = True
-        return """
-            <!DOCTYPE html>
-            <html>
-              <head>
-                <title>Loading...</title>
-                <meta http-equiv="refresh" content="0; url=http://localhost:5000/exit">
-                <script>
-                window.location.href = "http://localhost:5000/exit"
-                window.open('','_self').close()
-                </script>
-              </head>
-              <body>
-                <p>Not redirected? Go to <a href="http://localhost:5000/exit">Success login page.</a></p>
-              </body>
-            </html>
-            """
+        return "SUCCESS"
     else:
         ERROR('Something went wrong. Please try again.')
         return redirect('/')
 
-
-
-@app.route("/exit")
-def exit_app():
-    global exiting
-    exiting = True
-    return "<script>window.open('','_self').close()</script>"
+#return "<script>window.open('','_self').close()</script>"
 
 @app.teardown_request
 def teardown(exception):
