@@ -48,10 +48,10 @@ template = """
 <html>
 <head>
     <title>Hot diggitty dog !!! This place is magnificent!!</title>
-    <b1>You've found my lair!!</b1>
 </head>
 <body>
-    <h1>Spotify Web Playback SDK Quick Start</h1>
+    <h1>Hot diggitty dog !!! This place is magnificent!!</h1>
+    <b1>You've found my lair!!</b1>
 
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script>
