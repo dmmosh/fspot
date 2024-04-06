@@ -139,7 +139,7 @@ def exit_app():
 def teardown(exception):
     global process
     if exiting:
-        os._exit(0)
+        return os._exit(0)
 
 @app.route('/refresh_token')
 def refresh_token():
