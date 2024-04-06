@@ -105,19 +105,21 @@ def success_login():
     name = GET('me')
 
     if(name.status_code == 200):
+        global exiting
+        exiting = True
         return """
-                <!DOCTYPE html>
-                <html>
-                  <head>
-                    <title>Loading...</title>
-                    <meta http-equiv="refresh" content="0; url=http://localhost:5000/success_login">
-                    <script>window.location.href = "http://localhost:5000/success_login"</script>
-                  </head>
-                  <body>
-                    <p>Not redirected? Go to <a href="http://localhost:5000/success_login">Success login page.</a></p>
-                  </body>
-                </html>
-                """
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <title>Loading...</title>
+                <meta http-equiv="refresh" content="0; url=http://localhost:5000/exit">
+                <script>window.location.href = "http://localhost:5000/exit"</script>
+              </head>
+              <body>
+                <p>Not redirected? Go to <a href="http://localhost:5000/exit">Success login page.</a></p>
+              </body>
+            </html>
+            """
     else:
         ERROR('Something went wrong. Please try again.')
         return redirect('/')
