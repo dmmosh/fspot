@@ -41,7 +41,7 @@ while(buffer != 'quit'):
     buffer = input('/ ')
 
     if buffer == 'pause':
-        song = PUT('/me/player/play')
+        song = PUT('me/player/play')
         print(song.json())
 
 
