@@ -39,7 +39,10 @@ click.secho = secho
 # redirect to login screen
 @app.route('/')
 def login():
-    scope = 'user-read-playback-state user-read-private user-read-email'
+    scope = '''user-read-playback-state 
+                user-modify-playback-state 
+                user-read-private 
+                user-read-email'''
     params = {
         'client_id': CLIENT_ID, # the client id
         'response_type': 'code', # the response data type
