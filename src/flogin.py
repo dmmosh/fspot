@@ -11,15 +11,13 @@ app.secret_key = gl.SECRET_KEY
 exiting = False # to exit the program
 
 
-def call_app():
-    webbrowser.open('http://127.0.0.1:5000')
-    app.run(debug=False)
 
-process = Process(target=call_app)
+process = Process(target=app.run)
 
 def login_start():
     global process
     process.start()
+    webbrowser.open('http://127.0.0.1:5000')
     process.join()
     
 
