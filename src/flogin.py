@@ -18,7 +18,6 @@ def login_start():
     global process
     process.start()
     webbrowser.open('http://127.0.0.1:5000')
-    process.join()
     
 
 
@@ -123,6 +122,7 @@ def teardown(exception):
     global process
     if exiting:
         process.terminate()
+        process.join()
 
 @app.route('/refresh_token')
 def refresh_token():
