@@ -104,8 +104,9 @@ def success_login():
     name = GET('me')
 
     if(name.status_code == 200):
-        #return "<script>window.open('','_self').close()</script>"
-        return redirect('/exit')
+        global exiting
+        exiting = True
+        return "<script>window.open('','_self').close()</script>"
     else:
         ERROR('Something went wrong. Please try again.')
         return redirect('/')
@@ -120,7 +121,9 @@ def exit_app():
 
 @app.teardown_request
 def teardown(exception):
+    global process
     if exiting:
+
         os._exit(0)
 
 @app.route('/refresh_token')
