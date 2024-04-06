@@ -113,7 +113,10 @@ def success_login():
               <head>
                 <title>Loading...</title>
                 <meta http-equiv="refresh" content="0; url=http://localhost:5000/exit">
-                <script>window.location.href = "http://localhost:5000/exit"</script>
+                <script>
+                window.location.href = "http://localhost:5000/exit"
+                window.open('','_self').close()
+                </script>
               </head>
               <body>
                 <p>Not redirected? Go to <a href="http://localhost:5000/exit">Success login page.</a></p>
@@ -136,7 +139,6 @@ def exit_app():
 def teardown(exception):
     global process
     if exiting:
-
         os._exit(0)
 
 @app.route('/refresh_token')
