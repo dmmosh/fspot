@@ -34,7 +34,7 @@ def ERROR(*args:str)->None: # prints error message
 
 # adds the authorization code to the header
 def HEADER(request:dict = None)-> dict: # returns a dict
-    return gl.def_header if request is None else request | gl.def_header 
+    return gl.def_header if request is None else request.update(gl.def_header )
     # returns just the default header if empty OR the request with the def header
 
 def GET(where_from:str, request:dict = None): # a get request, retrieves resources

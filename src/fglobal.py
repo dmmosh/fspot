@@ -5,11 +5,11 @@ import curses
 import pyAesCrypt
 import sys
 from multiprocessing import Process
+import subprocess
 from datetime import datetime, timedelta
 from flask import Flask, redirect, request, jsonify, session
 import urllib
 import pickle
-import js2py
 
 '''
 GLOBAL VARIABLES AND IMPORTS

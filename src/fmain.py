@@ -95,6 +95,12 @@ template = """
 f.write(template)
 f.close()
 
+players = GET('me/player/devices').json()
+for device in players:
+    if 'fspot player' in device:
+        print(device)
+        break
+
 buffer = ''
 while(buffer != 'quit'):
     buffer = input('/ ')
@@ -105,8 +111,13 @@ while(buffer != 'quit'):
         case 'pause': 
             PUT('me/player/pause')
         case 'print':
-            info = GET('me/player').json()
-            print(info)
+            players = GET('me/player/devices').json()['devices']
+            for device in players:
+                if device['name'] == 'fspot player':
+                    my_list = [str(device['id'])]
+                    status = PUT('me/player', {'device_ids': my_list })
+                    print(status.status_code)
+            
     
 
 #print(data.json())
