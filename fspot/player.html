@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,11 +7,12 @@
 </head>
 <body>
     <h1>well well well...</h1>
-    <button id="togglePlay">Toggle Play</button>
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <button id="togglePlay">Toggle Play</button>
     <script>
+
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQBTtuNhig3ptm3WA4vOZU7Pe_ZGlp67YfGelVUNZsH7t3Z4xomi3-vQhAlLRlXOljHMfCRutIlOZApUeGWYOVALTeeF21_8y1rwW1eOclHfksUFl8herVZRDZs3BT5bRFUcIkFqv9aFc0fGtknWOfpxDGynjImuC1au0nsBWGoWf6KmkTBmmem_F3NjTSwWvRvWDnEG3iZwbg715IlIf-S8TatuhRAdOojHiGYkGA';
+            const token = 'BQDGrz77_uzQOjwfpHd77aw8u-0gEMnkTDtOHXzkmRnfa0F1-mGnTy5Z9vbgQ6yL9w_Hwgu2iJX8JqwC-uRr_XREPPz7KuYiZ17yg-UUq6MG6W9xqr4WJY7JUtjHAWGYoIo0Nzx3S5JHMOR7h7kQznPUbXlQuTHU7_8XlBpYNcVp81sa-zhqxtTULs4UCrkmQFdv09hpmnA9pEhnNkZMcbkUZSVnC-SlDAh-bkhoCQ';
             const player = new Spotify.Player({
                 name: 'fspot player',
                 getOAuthToken: cb => { cb(token); },
@@ -42,11 +44,29 @@
             document.getElementById('togglePlay').onclick = function() {
               player.togglePlay();
             };
+            player.pause().then(() => {
+                console.log('Paused!');
+            });
 
-            player.togglePlay();
+            player.connect().then(success => {
+              if (success) {
+                player.togglePlay();
+                console.log('SPOTIFY CONNECTED');
+              }
+            });
+            player.getCurrentState().then(state => {
+              if (!state) {
+                console.log('User is not playing music through fspot');
+                return;
+              }
+                player.togglePlay();
+            });
+
+
             player.connect();
+            //window.open('','_self').close() //closes the window
         }
-    </script>
+        </script>
 </body>
 </html>
 
