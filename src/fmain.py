@@ -36,7 +36,7 @@ if data.status_code != 200:
     login_start()
     data = GET('me')
 
-
+# fds
 players = GET('me/player/devices').json()
 print(players)
 for device in players:
