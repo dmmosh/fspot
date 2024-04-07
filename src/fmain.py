@@ -36,70 +36,29 @@ if data.status_code != 200:
     login_start()
     data = GET('me')
 
-player = '''
-        import * from './player.js';
-        console.log('fsdfd');
-'''
-
-f = open(FOLDER + 'player.html', 'w')
-
-template = """
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hot diggitty dog !!! This place is magnificent!!</title>
-</head>
-<body>
-    <h1>Hot diggitty dog !!! This place is magnificent!!</h1>
-    <b1>You've found my lair!!</b1>
-
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
-    <script>
-        window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = '""" + gl.auth_codes["access_token"] + """';
-            const player = new Spotify.Player({
-                name: 'fspot player',
-                getOAuthToken: cb => { cb(token); },
-                volume: 0.5
-            });
-
-            // Ready
-            player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with Device ID', device_id);
-            });
-
-            // Not Ready
-            player.addListener('not_ready', ({ device_id }) => {
-                console.log('Device ID has gone offline', device_id);
-            });
-
-            player.addListener('initialization_error', ({ message }) => {
-                console.error(message);
-            });
-
-            player.addListener('authentication_error', ({ message }) => {
-                console.error(message);
-            });
-
-            player.addListener('account_error', ({ message }) => {
-                console.error(message);
-            });
-
-            player.connect();
-        }
-    </script>
-</body>
-</html>
-
-"""
-f.write(template)
-f.close()
 
 players = GET('me/player/devices').json()
+print(players)
 for device in players:
     if 'fspot player' in device:
         print(device)
         break
+
+device_list = GET('me/player/devices').json()['devices']
+is_player_active = 0
+for device in device_list:
+    if device['name'] == 'fspot player':
+        player = {'device_ids': [device['id']],
+                  'play': False}
+        print(player)
+        request = PUT('me/player', json=player)
+        print(request.status_code)
+        PUT('me/player/pause')
+        is_player_active = 1
+        break
+if is_player_active == 0:
+    ERROR('Player inactive. Try restarting the app.')
+    os._exit(0)
 
 buffer = ''
 while(buffer != 'quit'):
@@ -111,13 +70,9 @@ while(buffer != 'quit'):
         case 'pause': 
             PUT('me/player/pause')
         case 'print':
-            players = GET('me/player/devices').json()['devices']
-            for device in players:
-                if device['name'] == 'fspot player':
-                    my_list = [str(device['id'])]
-                    status = PUT('me/player', {'device_ids': my_list })
-                    print(status.status_code)
-            
+            device_list = GET('me/player/devices').json()['devices']
+            print(device_list)
+
     
 
 #print(data.json())

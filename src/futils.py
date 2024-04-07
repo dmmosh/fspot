@@ -34,20 +34,40 @@ def ERROR(*args:str)->None: # prints error message
 
 # adds the authorization code to the header
 def HEADER(request:dict = None)-> dict: # returns a dict
-    return gl.def_header if request is None else request.update(gl.def_header )
+    return gl.def_header if request is None else request.update(gl.def_header)
     # returns just the default header if empty OR the request with the def header
 
-def GET(where_from:str, request:dict = None): # a get request, retrieves resources
-    return requests.get(BASE_URL + where_from, headers=HEADER(request), allow_redirects=True )
+def GET(where_from:str, params:dict = None, data:dict = None, json:dict = None, headers:dict = None): # a get request, retrieves resources
+    return requests.get(BASE_URL + where_from,
+                         params=params,
+                         data=data,
+                         json=json,
+                         headers=HEADER(headers), 
+                         allow_redirects=True )
 
-def PUT(where_from:str, request:dict = None): # a post request, creates resources
-    return requests.put(BASE_URL + where_from, headers=HEADER(request), allow_redirects=True)
+def PUT(where_from:str, params:dict = None, data:dict = None, json:dict = None, headers:dict = None): # a post request, creates resources
+    return requests.put(BASE_URL + where_from, 
+                         params=params,
+                         data=data,
+                         json=json,
+                         headers=HEADER(headers), 
+                         allow_redirects=True)
 
-def POST(where_from:str, request:dict = None): # a put request, changes and/or replaces resources
-    return requests.post(BASE_URL + where_from, headers=HEADER(request), allow_redirects=True)
+def POST(where_from:str, params:dict = None, data:dict = None, json:dict = None, headers:dict = None): # a put request, changes and/or replaces resources
+    return requests.post(BASE_URL + where_from, 
+                          params=params,
+                          data=data,
+                          json=json,
+                          headers=HEADER(headers), 
+                          allow_redirects=True)
 
-def DELETE(where_from:str, request:dict = None): # a delete request, deletes resources
-    return requests.delete(BASE_URL + where_from, headers=HEADER(request), allow_redirects=True)
+def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = None, headers:dict = None): # a delete request, deletes resources
+    return requests.delete(BASE_URL + where_from, 
+                            params=params,
+                            data=data,
+                            json=json,
+                            headers=HEADER(headers), 
+                            allow_redirects=True)
 
 def refresh():
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
