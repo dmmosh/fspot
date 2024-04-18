@@ -16,9 +16,9 @@ class MainWindow(QMainWindow):
         # setting default browser url as google
         self.browser.setUrl(QUrl("file://" + FOLDER+'player.html?access_token=' + gl.auth_codes['access_token']))
     
-        print("test")
         # set this browser as central widget or main window
         self.setCentralWidget(self.browser)
+        print("test")
     
 
 # starts the browser in a thread
