@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         
         # creating a QWebEngineView
-        self.browser = QWebEngineView()
+        self.browser = QWebView()
         
         # setting default browser url as google
         self.browser.setUrl(QUrl("file://" + FOLDER+'player.html?access_token=' + gl.auth_codes['access_token']))

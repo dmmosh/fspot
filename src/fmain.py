@@ -41,7 +41,6 @@ if data.status_code != 200: # if token is still invalid, rerun the login page
 
 browser = Process(target=start_browser) # run as process rather than thread
 browser.start()
-print("test")
 
 
 #os.system('kill -9 ' + app.applicationPid())
