@@ -105,14 +105,19 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 
 # HELPER FUNCTIONS
 
-def loading_msg(process:threading.Thread, msg:str = 'Loading ')-> None:
+def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
+    print_msg = msg
     while(process.is_alive()):
         for char in "/—\|":
-            sys.stdout.write('\r'+msg+char+'\r')
-            time.sleep(.1)
-            sys.stdout.flush() 
+            term_col = os.get_terminal_size().columns
+            print_msg = msg[:6] if (len(msg)+1 > term_col) else msg
+            sys.stdout.write(print_msg + char + '\r')
+            sys.stdout.flush()
+            time.sleep(0.15)
+    print('')
+    clear_string(len(print_msg))
 
-    print("\r") # carriage return
+    #print("\r") # carriage return
     
 
 def connect_player():
@@ -144,11 +149,14 @@ def connect_player():
 
 
 # DELETES LAST LINE
-def delete_line():
-    sys.stdout.write('\x1b[1A')
+def delete_line(n:int = 1)-> None:
+    while(n):
+        sys.stdout.write('\x1b[1A')
+        sys.stdout.write('\x1b[2K')
+        n-=1
 
-    sys.stdout.write('\x1b[2K')
-
+def clear_string(strlen:int)->None:
+    delete_line(math.ceil(strlen / os.get_terminal_size().columns))
 
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):

@@ -38,6 +38,8 @@ if data.status_code != 200: # if token is still invalid, rerun the login page
 #device_list = GET('me/player/devices').json()['devices']
 #print(device_list)
 
+
+
 browser = Process(target=start_browser) # run as process rather than thread
 browser.start()
 
@@ -47,13 +49,9 @@ browser.start()
 change_player = threading.Thread(target=connect_player) # runs connection to the player
 change_player.start() # starts thread
 
-loading_msg(change_player) # starts the loading msg
+loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
 change_player.join() # joins the thread to main
 
-delete_line()
-delete_line()
-delete_line()
-delete_line()
 
 buffer = '' # input command buffer
 while(buffer != 'quit'):
