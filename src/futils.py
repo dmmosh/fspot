@@ -71,6 +71,8 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 
 def refresh():
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
+        print("Token expired. Refreshing.")
+        return
         req_body = {
                 'grant_type': 'refresh_token',
                 'refresh_token': gl.auth_codes['refresh_token'],
