@@ -75,6 +75,8 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading')-> None:
             sys.stdout.write('\r'+ msg +char)
             time.sleep(.20)
             sys.stdout.flush()
+    sys.stdout.write('\r\n')
+        
 
 
 def connect_player():
