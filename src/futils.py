@@ -93,3 +93,5 @@ def refresh():
                 'Authorization': f'Bearer {auth_codes["access_token"]}'
             }
         # SAVE(gl.auth_codes, 'auth.obj') # saves the new auth codes
+        data = GET('me').json()
+        print(data)
