@@ -69,9 +69,9 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
                             headers=HEADER(headers), 
                             allow_redirects=True)
 
-def loading_msg(process:threading.Thread, msg:str = 'Loading ')-> None:
+def loading_msg(process:threading.Thread, msg:str = 'Loading')-> None:
     while(process.is_alive()):
-        for char in "/—\|":
+        for char in ['.', '..', '...']:
             sys.stdout.write('\r'+msg+char+'\r')
             time.sleep(.1)
             sys.stdout.flush() 
