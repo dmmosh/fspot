@@ -142,6 +142,14 @@ def connect_player():
     if timer == 0: # request took too long
         ERROR('Request took too long. Maybe get better internet.')
 
+
+# DELETES LAST LINE
+def delete_line():
+    sys.stdout.write('\x1b[1A')
+
+    sys.stdout.write('\x1b[2K')
+
+
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):
     if (datetime.now().timestamp() > gl.auth_codes['expires_at']) or force:

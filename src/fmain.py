@@ -50,6 +50,7 @@ change_player.start() # starts thread
 loading_msg(change_player) # starts the loading msg
 change_player.join() # joins the thread to main
 
+delete_line()
 
 buffer = '' # input command buffer
 while(buffer != 'quit'):
