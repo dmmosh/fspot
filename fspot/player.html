@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,16 +6,15 @@
 </head>
 <body>
     <h1>well well well...</h1>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <button id="togglePlay">Toggle Play</button>
     <script>
-        function silentErrorHandler() {return true;}
-        window.onerror=silentErrorHandler;
-
-        let script = document.createElement('script');
-        script.src = "https://sdk.scdn.co/spotify-player.js";
-         
-        document.head.appendChild(script);
-
+        var audio = document.createElement("audio");
+        //
+        audio.autoplay = true;
+        //
+        audio.load()
+        
         const params = new URLSearchParams(document.location.search);
         window.onSpotifyWebPlaybackSDKReady = () => {
             const token = params.get("access_token");
@@ -25,48 +23,48 @@
                 getOAuthToken: cb => { cb(token); },
                 volume: 1 //TODO: change to the pickled value
             });
-
+            
             // Ready
             player.addListener('ready', ({ device_id }) => {
                 console.log('Ready with Device ID', device_id);
             });
-
+            
             // Not Ready
             player.addListener('not_ready', ({ device_id }) => {
                 console.log('Device ID has gone offline', device_id);
             });
-
+            
             player.addListener('initialization_error', ({ message }) => {
                 console.error(message);
             });
-
+            
             player.addListener('authentication_error', ({ message }) => {
                 console.error(message);
             });
-
+            
             player.addListener('account_error', ({ message }) => {
                 console.error(message);
             });
-
+            
             document.getElementById('togglePlay').onclick = function() {
-              console.log('BUTTON CLICKED');
-              player.togglePlay();
+                player.activateElement();
+                console.log('BUTTON CLICKED');
+                player.togglePlay();
             };
             player.pause().then(() => {
                 console.log('Paused!');
             });
-
+            
             player.connect().then(success => {
-            if (success) {
-                console.log('FSPOT successfully connected to Spotify!');
-            }
+                if (success) {
+                    console.log('FSPOT successfully connected to Spotify!');
+                }
             });
-
-
+            
+            
             player.connect();
             //window.open('','_self').close() //closes the window
         }
-        document.getElementById("togglePlay").click();
         </script>
 </body>
 </html>
