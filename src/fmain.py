@@ -115,10 +115,10 @@ template = """
 f.write(template)
 f.close()
 
-webbrowser.open(FOLDER+'player.html')
 #device_list = GET('me/player/devices').json()['devices']
 #print(device_list)
 
+webbrowser.open(FOLDER+'player.html')
 change_player = threading.Thread(target=connect_player)
 change_player.start()
 
