@@ -95,13 +95,6 @@ template = """
                 console.log('SPOTIFY CONNECTED');
               }
             });
-            player.getCurrentState().then(state => {
-              if (!state) {
-                console.log('User is not playing music through fspot');
-                return;
-              }
-                player.togglePlay();
-            });
 
 
             player.connect();
