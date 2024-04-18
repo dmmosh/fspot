@@ -75,7 +75,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading')-> None:
         for i in range(0,3):
             print(msg + '.'*i, end='\r')
             time.sleep(0.2)
-    print('\n')
+    print('\r\n')
         
 
 
