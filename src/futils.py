@@ -9,9 +9,7 @@ class MainWindow(QMainWindow):
     # constructor
     def __init__(self, parent=None):
         super().__init__(parent)
-        sys.stdout= open('/dev/null', 'w')
-        sys.stderr= open('/dev/null', 'w')
-
+        print("test")
         
         # creating a QWebEngineView
         self.browser = QWebEngineView()
