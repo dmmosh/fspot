@@ -156,6 +156,7 @@ def delete_line(n:int = 1)-> None:
         sys.stdout.write('\x1b[2K')
         n-=1
 
+# clears the string length from the printed lines (every char after newline)
 def clear_string(strlen:int)->None:
     delete_line(math.ceil(strlen / os.get_terminal_size().columns))
 
