@@ -37,7 +37,7 @@ if data.status_code != 200: # if token is still invalid, rerun the login page
 
 #device_list = GET('me/player/devices').json()['devices']
 #print(device_list)
-
+sys.stdout = open(os.devnull, 'w')
 
 browser = Process(target=start_browser) # run as process rather than thread
 browser.start()
