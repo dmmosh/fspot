@@ -51,7 +51,7 @@ change_player.start() # starts thread
 
 loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
 change_player.join() # joins the thread to main
-clear_string(132)
+clear_string(132) # clears the weird warning idk how to get rid of, dont change
 
 buffer = '' # input command buffer
 while(buffer != 'quit'):
