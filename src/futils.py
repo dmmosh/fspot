@@ -70,10 +70,11 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
                             allow_redirects=True)
 
 def loading_msg(process:threading.Thread, msg:str = 'Loading')-> None:
-    while process.is_alive() :
-        for char in ['.', '..', '...']:
-            sys.stdout.write('\r'+ msg +char)
-            time.sleep(.20)
+    while process.isAlive() :
+        chars = "/—\|" 
+        for char in chars:
+            sys.stdout.write('\r'+'loading '+char)
+            time.sleep(.1)
             sys.stdout.flush()
     sys.stdout.write('\r\n')
         
