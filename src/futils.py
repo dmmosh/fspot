@@ -28,7 +28,6 @@ def start_browser():
     
     window = MainWindow()
     window.show()
-    print("test")
     return app.exec()
 
 
