@@ -91,7 +91,7 @@ template = """
 
             player.connect().then(success => {
               if (success) {
-                player.togglePlay();
+                //player.togglePlay();
                 console.log('SPOTIFY CONNECTED');
               }
             });
