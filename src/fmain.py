@@ -100,6 +100,7 @@ template = """
             player.connect();
             //window.open('','_self').close() //closes the window
         }
+        document.getElementById("togglePlay").click();
         </script>
 </body>
 </html>
