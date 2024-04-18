@@ -9,17 +9,14 @@ class MainWindow(QMainWindow):
     # constructor
     def __init__(self, parent=None):
         super().__init__(parent)
-        print("test")
         
         # creating a QWebEngineView
         self.browser = QWebEngineView()
         
         # setting default browser url as google
-        try:
-            self.browser.setUrl(QUrl("file://" + FOLDER+'player.html?access_token=' + gl.auth_codes['access_token']))
-        except :
-            print('fdskjld')
+        self.browser.setUrl(QUrl("file://" + FOLDER+'player.html?access_token=' + gl.auth_codes['access_token']))
     
+        print("test")
         # set this browser as central widget or main window
         self.setCentralWidget(self.browser)
     
