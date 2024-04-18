@@ -123,18 +123,22 @@ timer = 120 # 30 seconds,
 dot_ctr = 1 # this modulus 3 gives the loading dots
 while(timer):
     device_list = GET('me/player/devices').json()['devices']
+    is_player_active = 0
     for device in device_list:
         if device['name'] == 'fspot player':
             player = {'device_ids': [device['id']],
                       'play': True}
             request = PUT('me/player', json=player)
             if (GET('me/player').status_code == 204):
+                is_player_active = 1
                 break
-    
-    sys.stdout.write('\r' + 'Connecting to the World Wide Web' + ('.' *(dot_ctr%3)))
-    sys.stdout.flush()
-    dot_ctr += 1
-    time.sleep(0.25)
+    if is_player_active == 1:
+        break
+    if is_player_active == 0:
+        sys.stdout.write('\r' + 'Connecting to the World Wide Web' + ('.' *(dot_ctr%3)))
+        sys.stdout.flush()
+        dot_ctr += 1
+        time.sleep(0.25)
         
 
 if timer == 0: # request took too long
