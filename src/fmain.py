@@ -116,28 +116,15 @@ f.write(template)
 f.close()
 
 webbrowser.open(FOLDER+'player.html')
-device_list = GET('me/player/devices').json()['devices']
-print(device_list)
+#device_list = GET('me/player/devices').json()['devices']
+#print(device_list)
 
-timer = 30 # does player connection request
-while(timer):
-    device_list = GET('me/player/devices').json()['devices']
-    is_player_active = 0
-    for device in device_list:
-        if device['name'] == 'fspot player':
-            player = {'device_ids': [device['id']],
-                      'play': True}
-            request = PUT('me/player', json=player)
-            is_player_active = 1
-            break
-    if is_player_active == 1:
-        break
-    if is_player_active == 0:
-        time.sleep(1)
-        
+change_player = threading.Thread(target=connect_player)
+change_player.start()
 
-if timer == 0: # request took too long
-    ERROR('Request took too long. Maybe get better internet.')
+loading_msg(change_player)
+change_player.join()
+
 
 buffer = ''
 while(buffer != 'quit'):

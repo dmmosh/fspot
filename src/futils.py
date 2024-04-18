@@ -69,13 +69,34 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
                             headers=HEADER(headers), 
                             allow_redirects=True)
 
-def the_process_function():
-    n = 20
-    for i in range(n):
-        time.sleep(1)
-        sys.stdout.write('\r'+'loading...  process '+str(i)+'/'+str(n)+' '+ '{:.2f}'.format(i/n*100)+'%')
-        sys.stdout.flush()
-    sys.stdout.write('\r'+'loading... finished               \n')
+def loading_msg(process:threading.Thread, msg:str = 'Loading')-> None:
+    while process.isAlive() :
+        for char in ['.', '..', '...']:
+            sys.stdout.write('\r'+ msg +char)
+            time.sleep(.20)
+            sys.stdout.flush()
+
+
+def connect_player():
+    timer = 60 # 30 seconds (iterates every half a second)
+    while(timer):
+        device_list = GET('me/player/devices').json()['devices']
+        is_player_active = 0
+        for device in device_list:
+            if device['name'] == 'fspot player':
+                player = {'device_ids': [device['id']],
+                          'play': True}
+                request = PUT('me/player', json=player)
+
+                if(request.status_code == 204): # exits the function
+                    return
+                break   
+        
+        time.sleep(0.5)
+        
+
+    if timer == 0: # request took too long
+        ERROR('Request took too long. Maybe get better internet.')
 
 # REFRESH THE ACCESS TOKEN
 def refresh():
