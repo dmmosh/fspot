@@ -127,11 +127,8 @@ while(timer):
         if device['name'] == 'fspot player':
             player = {'device_ids': [device['id']],
                       'play': True}
-            print(player)
             request = PUT('me/player', json=player)
-            print(request.status_code)
             is_player_active = 1
-            print(GET('me/player').status_code)
             break
     if is_player_active == 1:
         break
