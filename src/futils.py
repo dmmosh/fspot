@@ -90,9 +90,9 @@ def connect_player():
                 request = PUT('me/player', json=player)
 
 
-                ##if(request.status_code == 204): # exits the function
-                    ##return
-                ##break   
+                if(request.status_code == 204): # exits the function
+                    return
+                break   
         
         time.sleep(0.5)
         
