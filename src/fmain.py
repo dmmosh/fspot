@@ -65,7 +65,7 @@ while(buffer != 'quit'):
             device_list = GET('me/player/devices').json()['devices']
             print(device_list)
         case 'refresh':
-            refresh()
+            refresh(force=True)
 
 browser.terminate()
 sys.exit()

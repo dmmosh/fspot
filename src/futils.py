@@ -145,8 +145,8 @@ def connect_player():
         ERROR('Request took too long. Maybe get better internet.')
 
 # REFRESH THE ACCESS TOKEN
-def refresh():
-    if datetime.now().timestamp() > gl.auth_codes['expires_at']:
+def refresh(force:bool = False):
+    if (datetime.now().timestamp() > gl.auth_codes['expires_at']) or force:
         print("Token expired. Refreshing.")
         req_headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
