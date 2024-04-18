@@ -10,9 +10,9 @@
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <button id="togglePlay">Toggle Play</button>
     <script>
-
+        const params = new URLSearchParams(document.location.search);
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = 'BQDGrz77_uzQOjwfpHd77aw8u-0gEMnkTDtOHXzkmRnfa0F1-mGnTy5Z9vbgQ6yL9w_Hwgu2iJX8JqwC-uRr_XREPPz7KuYiZ17yg-UUq6MG6W9xqr4WJY7JUtjHAWGYoIo0Nzx3S5JHMOR7h7kQznPUbXlQuTHU7_8XlBpYNcVp81sa-zhqxtTULs4UCrkmQFdv09hpmnA9pEhnNkZMcbkUZSVnC-SlDAh-bkhoCQ';
+            const token = params.get("access_token");
             const player = new Spotify.Player({
                 name: 'fspot player',
                 getOAuthToken: cb => { cb(token); },
@@ -42,6 +42,7 @@
             });
 
             document.getElementById('togglePlay').onclick = function() {
+              console.log('BUTTON CLICKED');
               player.togglePlay();
             };
             player.pause().then(() => {
@@ -49,23 +50,16 @@
             });
 
             player.connect().then(success => {
-              if (success) {
-                player.togglePlay();
-                console.log('SPOTIFY CONNECTED');
-              }
-            });
-            player.getCurrentState().then(state => {
-              if (!state) {
-                console.log('User is not playing music through fspot');
-                return;
-              }
-                player.togglePlay();
+            if (success) {
+                console.log('FSPOT successfully connected to Spotify!');
+            }
             });
 
 
             player.connect();
             //window.open('','_self').close() //closes the window
         }
+        document.getElementById("togglePlay").click();
         </script>
 </body>
 </html>

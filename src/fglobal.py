@@ -23,7 +23,8 @@ def_header = {  # sets the default header
             'Authorization': f'Bearer {auth_codes["access_token"]}' 
     }
 
-FOLDER = os.environ['OLDPWD'] + '/coding/fspot/fspot/' # folder
+FOLDER = os.environ['OLDPWD'] + '/coding/fspot/fspot/' # folder, change later
+
 DIRNAME, FILENAME = os.path.split(os.path.abspath(__file__)) # fglobal directory
 
 # TODO: change these when compiling

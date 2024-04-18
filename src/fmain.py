@@ -51,9 +51,9 @@ template = """
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <button id="togglePlay">Toggle Play</button>
     <script>
-
+        const params = new URLSearchParams(document.location.search);
         window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = '"""+ gl.auth_codes['access_token'] +"""';
+            const token = params.get("access_token");
             const player = new Spotify.Player({
                 name: 'fspot player',
                 getOAuthToken: cb => { cb(token); },
@@ -83,6 +83,7 @@ template = """
             });
 
             document.getElementById('togglePlay').onclick = function() {
+              console.log('BUTTON CLICKED');
               player.togglePlay();
             };
             player.pause().then(() => {
@@ -90,10 +91,9 @@ template = """
             });
 
             player.connect().then(success => {
-              if (success) {
-                //player.togglePlay();
-                console.log('SPOTIFY CONNECTED');
-              }
+            if (success) {
+                console.log('FSPOT successfully connected to Spotify!');
+            }
             });
 
 
@@ -112,7 +112,7 @@ f.close()
 #device_list = GET('me/player/devices').json()['devices']
 #print(device_list)
 
-webbrowser.open(FOLDER+'player.html')
+webbrowser.open("file://" + FOLDER+'player.html?access_token=' + gl.auth_codes['access_token'])
 change_player = threading.Thread(target=connect_player)
 change_player.start()
 
