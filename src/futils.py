@@ -75,6 +75,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading ')-> None:
             sys.stdout.write('\r'+msg+char)
             time.sleep(.1)
             sys.stdout.flush() 
+    print("\r")
         
 
 
