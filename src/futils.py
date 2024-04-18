@@ -89,7 +89,6 @@ def refresh():
             print('Access token accessed.')
             gl.auth_codes['access_token'] = new_token_info['access_token']
             gl.auth_codes['refresh_token'] = new_token_info['refresh_token']
-            gl.auth_codes['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
             gl.def_header = {  # the default header
                 'Authorization': f'Bearer {auth_codes["access_token"]}'
             }
