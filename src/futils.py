@@ -84,7 +84,6 @@ def refresh():
             }
         response = requests.post(TOKEN_URL, headers=req_headers, data=req_body)
         new_token_info = response.json()
-        print(new_token_info)
         if (response.status_code == 200):
             print('Access token accessed.')
             gl.auth_codes['access_token'] = new_token_info['access_token']
@@ -92,6 +91,4 @@ def refresh():
             gl.def_header = {  # the default header
                 'Authorization': f'Bearer {auth_codes["access_token"]}'
             }
-        # SAVE(gl.auth_codes, 'auth.obj') # saves the new auth codes
-        data = GET('me').json()
-        print(data)
+            SAVE(gl.auth_codes, 'auth.obj') # saves the new auth codes

@@ -98,6 +98,13 @@ def callback():
     }
     SAVE(gl.auth_codes, 'auth.obj')
 
+
+    # loads from pickled 
+    gl.auth_codes = LOAD('auth.obj') 
+    gl.def_header = {  # sets the default header
+            'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
+    }
+
     return redirect('/success_login') # redirects to the success login page
 
 
