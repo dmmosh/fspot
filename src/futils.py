@@ -72,7 +72,6 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 def refresh():
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         print("Token expired. Refreshing.")
-        return
         req_headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic ' + base64.b64encode((CLIENT_ID + ':' + CLIENT_SECRET).encode()).decode()
