@@ -70,12 +70,17 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
                             allow_redirects=True)
 
 def loading_msg(process:threading.Thread, msg:str = 'Loading')-> None:
-    while process.is_alive() :
-        for char in [msg +'.', msg +'..', msg +'...']:
-            sys.stdout.write('\r'+ char)
-            time.sleep(.15)
-            sys.stdout.flush()
-    sys.stdout.write('\r\n')
+    while(process.is_alive()):
+        for index, char in enumerate('......'):
+            # you can check your loading status here
+            # if the loading is done set `loading` to false and break
+            sys.stdout.write(char)  # write the next char to STDOUT
+            sys.stdout.flush()  # flush the output
+            time.sleep(0.25)  # wait to match our speed
+        index += 1  # lists are zero indexed, we need to increase by one for the accurate count
+        # backtrack the written characters, overwrite them with space, backtrack again:
+        sys.stdout.write("\b" * index + " " * index + "\b" * index)
+        sys.stdout.flush()  # flush the output
         
 
 
