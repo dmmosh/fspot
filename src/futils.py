@@ -18,7 +18,6 @@ class MainWindow(QMainWindow):
     
         # set this browser as central widget or main window
         self.setCentralWidget(self.browser)
-        print("test")
     
 
 # starts the browser in a thread
@@ -29,6 +28,7 @@ def start_browser():
     
     window = MainWindow()
     window.show()
+    print("test")
     return app.exec()
 
 
