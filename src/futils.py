@@ -1,8 +1,37 @@
 from fglobal import *
 import fglobal as gl
 
+# WEB PLAYBACK SDK
 
-# HELPER FUNCTIONS
+# creating main window class
+class MainWindow(QMainWindow):
+ 
+    # constructor
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        # creating a QWebEngineView
+        self.browser = QWebEngineView()
+        
+        # setting default browser url as google
+        self.browser.setUrl(QUrl("file://" + FOLDER+'player.html?access_token=' + gl.auth_codes['access_token']))
+ 
+        # set this browser as central widget or main window
+        self.setCentralWidget(self.browser)
+    
+        # showing all the components
+# starts the browser in a thread
+def start_browser():
+    # WEB PLAYER STARTUP
+    app = QApplication([])
+    app.setApplicationName("fspot player")
+
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec())
+
+
+# PICKLING
 
 # saves the pickle object to var folder
 def SAVE(to_save, var_name:str): # pickle saving variables
@@ -24,18 +53,25 @@ def LOAD(var_name:str): # pickle loading variables
         return output # returns the decrypted file
     else: # if it doesnt, returns nothing
         return None
-
-
     
+
+# HELPER FUNCTIONS
+
+# fatal error
 def ERROR(*args:str)->None: # prints error message
     print("FATAL ERROR:") 
     for to_print in args:
         print('\t' + to_print)
+    sys.exit()
 
 # adds the authorization code to the header
 def HEADER(request:dict = None)-> dict: # returns a dict
     return gl.def_header if request is None else request.update(gl.def_header)
     # returns just the default header if empty OR the request with the def header
+
+
+
+# API CALLS
 
 def GET(where_from:str, params:dict = None, data:dict = None, json:dict = None, headers:dict = None): # a get request, retrieves resources
     return requests.get(BASE_URL + where_from,
@@ -69,6 +105,9 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
                             headers=HEADER(headers), 
                             allow_redirects=True)
 
+
+# HELPER FUNCTIONS
+
 def loading_msg(process:threading.Thread, msg:str = 'Loading ')-> None:
     while(process.is_alive()):
         for char in "/—\|":
@@ -76,27 +115,31 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading ')-> None:
             time.sleep(.1)
             sys.stdout.flush() 
 
-    print("\r")
-        
-
+    print("\r") # carriage return
+    
 
 def connect_player():
     timer = 60 # 30 seconds (iterates every half a second)
     while(timer):
-        device_list = GET('me/player/devices').json()['devices']
-        is_player_active = 0
-        for device in device_list:
+        
+        device_list = GET('me/player/devices').json()
+        if 'devices' not in device_list:
+            ERROR('Something else happened. Failed to connect player.')
+
+        for device in device_list['devices']:
             if device['name'] == 'fspot player':
                 player = {'device_ids': [device['id']],
                           'play': True}
+                
                 request = PUT('me/player', json=player)
 
 
                 if(request.status_code == 204): # exits the function
                     return
-                break   
+                break
         
         time.sleep(0.5)
+        timer-=1
         
 
     if timer == 0: # request took too long
