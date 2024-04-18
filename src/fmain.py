@@ -3,7 +3,6 @@ from futils import *
 from flogin import *
 import fglobal as gl
 import flogin as fl
-
 '''
 FSPOT
 a lightweight spotify clients
@@ -38,6 +37,7 @@ if data.status_code != 200: # if token is still invalid, rerun the login page
 
 #device_list = GET('me/player/devices').json()['devices']
 #print(device_list)
+
 
 browser = Process(target=start_browser) # run as process rather than thread
 browser.start()

@@ -6,7 +6,7 @@ import flogin as fl
 
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
  
 # creating main window class
 class MainWindow(QMainWindow):
@@ -17,14 +17,15 @@ class MainWindow(QMainWindow):
 
         # creating a QWebEngineView
         self.browser = QWebEngineView()
-        
         # setting default browser url as google
         self.browser.setUrl(QUrl("file://" + FOLDER+'player.html?access_token=' + gl.auth_codes['access_token']))
- 
+        QWebEngineSettings.ErrorPageEnabled(False)
         # set this browser as central widget or main window
         self.setCentralWidget(self.browser)
         # showing all the components
         self.show()
+    def javaScriptConsoleMessage(self, level, msg, line, sourceID):
+        pass
 
 
 gl.auth_codes = LOAD('auth.obj')
