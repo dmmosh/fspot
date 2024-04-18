@@ -69,6 +69,15 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
                             headers=HEADER(headers), 
                             allow_redirects=True)
 
+def the_process_function():
+    n = 20
+    for i in range(n):
+        time.sleep(1)
+        sys.stdout.write('\r'+'loading...  process '+str(i)+'/'+str(n)+' '+ '{:.2f}'.format(i/n*100)+'%')
+        sys.stdout.flush()
+    sys.stdout.write('\r'+'loading... finished               \n')
+
+# REFRESH THE ACCESS TOKEN
 def refresh():
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         print("Token expired. Refreshing.")

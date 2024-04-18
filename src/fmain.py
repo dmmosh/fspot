@@ -120,6 +120,7 @@ device_list = GET('me/player/devices').json()['devices']
 print(device_list)
 
 timer = 30 # does player connection request
+dot_ctr = 1 # this modulus 3 gives the loading dots
 while(timer):
     device_list = GET('me/player/devices').json()['devices']
     is_player_active = 0
@@ -136,8 +137,10 @@ while(timer):
     if is_player_active == 1:
         break
     if is_player_active == 0:
-        print("Connecting to the World Wide Web...")
-    time.sleep(1)
+        sys.stdout.write('\r' + 'Connecting to the World Wide Web' + ('.' *(dot_ctr%3)))
+        sys.stdout.flush()
+        dot_ctr += 1
+        time.sleep(1)
         
 
 if timer == 0: # request took too long
