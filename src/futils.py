@@ -105,15 +105,16 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 
 # HELPER FUNCTIONS
 
+# a loading message, clears itself when finishes
 def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     print_msg = msg
     while(process.is_alive()):
         for char in "/—\|":
-            term_col = os.get_terminal_size().columns
-            print_msg = msg[:term_col-7] + '...  ' if (len(msg)+1 > term_col) else msg
+            time.sleep(0.15)
+            term_col = os.get_terminal_size().columns # gets column size
+            print_msg = msg[:term_col-7] + '...  ' if (len(msg)+1 > term_col) else msg # shortens the print message if need be
             sys.stdout.write(print_msg + char + '\r')
             sys.stdout.flush()
-            time.sleep(0.15)
     print('')
     clear_string(len(print_msg))
 
