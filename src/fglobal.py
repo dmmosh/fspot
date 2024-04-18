@@ -1,10 +1,9 @@
 import requests
 import os
 import time
-import curses
 import pyAesCrypt
 import sys
-from multiprocessing import Process
+import threading
 import subprocess
 from datetime import datetime, timedelta
 from flask import Flask, redirect, request, jsonify, session

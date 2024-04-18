@@ -29,7 +29,9 @@ gl.def_header = {  # sets the default header
             'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
 }
 
-refresh()
+login_refresh = threading.Thread(target=refresh, name='login_refresh')
+login_refresh.start()
+login_refresh.join()
 data = GET('me')
 
 if data.status_code != 200:
