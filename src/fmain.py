@@ -39,8 +39,7 @@ if data.status_code != 200: # if token is still invalid, rerun the login page
 #device_list = GET('me/player/devices').json()['devices']
 #print(device_list)
 
-browser = threading.Thread(target=start_browser)
-browser.daemon = True
+browser = Process(target=start_browser) # run as process rather than thread
 browser.start()
 
 
@@ -54,13 +53,10 @@ change_player.join() # joins the thread to main
 
 
 buffer = '' # input command buffer
-while(1):
+while(buffer != 'quit'):
     buffer = input('/ ')
 
     match buffer:
-        case 'quit':
-            browser.join()
-            sys.exit()
         case 'play': 
             PUT('me/player/play')
         case 'pause': 
@@ -69,6 +65,7 @@ while(1):
             device_list = GET('me/player/devices').json()['devices']
             print(device_list)
 
-
+browser.terminate()
+sys.exit()
 #print(data.json())
     

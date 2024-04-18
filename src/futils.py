@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
  
         # set this browser as central widget or main window
         self.setCentralWidget(self.browser)
-    
+
         # showing all the components
 # starts the browser in a thread
 def start_browser():
@@ -28,7 +28,7 @@ def start_browser():
 
     window = MainWindow()
     window.show()
-    sys.exit(app.exec())
+    return app.exec()
 
 
 # PICKLING
