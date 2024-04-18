@@ -73,17 +73,24 @@ def refresh():
     if datetime.now().timestamp() > gl.auth_codes['expires_at']:
         print("Token expired. Refreshing.")
         return
+        req_headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + base64.b64encode((CLIENT_ID + ':' + CLIENT_SECRET).encode()).decode()
+        }
         req_body = {
                 'grant_type': 'refresh_token',
                 'refresh_token': gl.auth_codes['refresh_token'],
                 'client_id': CLIENT_ID,
                 'client_secret': CLIENT_SECRET
             }
-        response = requests.post(TOKEN_URL, data=req_body)
+        response = requests.post(TOKEN_URL, headers=req_headers, data=req_body)
         new_token_info = response.json()
-        gl.auth_codes['access_token'] = new_token_info['access_token']
-        gl.auth_codes['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
-        gl.def_header = {  # the default header
-            'Authorization': f'Bearer {auth_codes["access_token"]}'
-        }
-        SAVE(gl.auth_codes, 'auth.obj') # saves the new auth codes
+
+        if (response.status_code == 200):
+            print('Access token accessed.')
+            gl.auth_codes['access_token'] = new_token_info['access_token']
+            gl.auth_codes['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
+            gl.def_header = {  # the default header
+                'Authorization': f'Bearer {auth_codes["access_token"]}'
+            }
+        # SAVE(gl.auth_codes, 'auth.obj') # saves the new auth codes
