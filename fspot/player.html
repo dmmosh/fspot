@@ -9,8 +9,8 @@
     <p id="debug"></p>
     <button id="togglePlay">Toggle Play</button>
     <p id="token">{{ access_token }}</p> <!-- gets access token from args in flask -->
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script>
-    import(/* webpackIgnore: true */ "https://sdk.scdn.co/spotify-player.js").then(module => console.log(module.default));
 
     function PRINT(text){
         document.getElementById("debug").textContent += (" | " + text);
