@@ -64,7 +64,7 @@ while(buffer != 'quit'):
 
     match buffer:
         case 'play': 
-            requests.put('http://localhost:5000', json={'hello':'testing'})
+            requests.put('http://localhost:5000', data={'test': 'hello'})
             PUT('me/player/play')
         case 'pause': 
             PUT('me/player/pause')

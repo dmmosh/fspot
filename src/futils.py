@@ -3,8 +3,9 @@ import fglobal as gl
 
 # BROWSER ACTIONS
 browser = Flask(__name__, template_folder=FOLDER)
+browser.config['TEMPLATES_AUTO_RELOAD'] = True
 browser.secret_key = gl.SECRET_KEY
-browser_run = Process(target=browser.run, args=('localhost', 5000, None, True), daemon=True)
+browser_run = Process(target=lambda: browser.run(host='localhost', port=5000), daemon=True)
 
 def browser_localhost():
 
@@ -20,16 +21,22 @@ def browser_localhost():
 
 
 
-@browser.route('/', methods=['GET', 'POST', 'PUT']) # localhost main windo
+@browser.route('/') # localhost main windo
 def show_user_profile():
-    if request.method == 'PUT': # exit window post request 
-        print(request.get_json(force=True))
-        return render_template('player.html', access_token=gl.auth_codes['access_token'], exit='True') 
 
     # access token parameter, can only be accessed by html, then retrieved by the js
-    return render_template('player.html', access_token=gl.auth_codes['access_token'], exit='False') 
+    return render_template('player.html', access_token=gl.auth_codes['access_token']) 
 
-@browser.route('/change_token')
+@browser.route('/change_token', methods=['GET', 'POST', 'PUT'])
+def token():
+    if request.method == 'PUT':
+        response= jsonify(request.get_json(request))
+        response.headers["Cache-Control"] = "no-store, max-age=0"
+        return response
+    else:
+        response = jsonify({'test': 'nothing yet'})
+        response.headers["Cache-Control"] = "no-store, max-age=0"
+        return response
 
 
 # PICKLING
