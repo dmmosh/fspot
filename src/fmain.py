@@ -28,6 +28,7 @@ gl.def_header = {  # sets the default header
             'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
 }
 
+
 refresh() # refreshes the token
 
 data = GET('me') # testing
@@ -43,6 +44,8 @@ if data.status_code != 200: # if token is still invalid, rerun the login page
 
 #browser = Process(target=start_browser) # run as process rather than thread
 #browser.start()
+
+
 browser_localhost()
 
 
@@ -61,6 +64,7 @@ while(buffer != 'quit'):
 
     match buffer:
         case 'play': 
+            requests.put('http://localhost:5000', json={'hello':'testing'})
             PUT('me/player/play')
         case 'pause': 
             PUT('me/player/pause')
@@ -69,10 +73,9 @@ while(buffer != 'quit'):
             print(device_list)
         case 'refresh':
             refresh(force=True)
+            
 
 
-futils.browser_run.terminate() # terminates the browser localhost
-futils.browser_run.join()
 #browser.terminate()
 #print(data.json())
     

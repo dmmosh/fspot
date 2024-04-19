@@ -7,18 +7,29 @@ browser.secret_key = gl.SECRET_KEY
 browser_run = Process(target=browser.run, args=('localhost', 5000, None, True), daemon=True)
 
 def browser_localhost():
-    global browser_run
 
+
+    global browser_run
     browser_run.start()
     #webbrowser.open('http://127.0.0.1:5000?access_token=' + gl.auth_codes['access_token'])
     #result = sock.connect_ex(('localhost',5000))
-    webbrowser.open('http://localhost:5000')
+    #webbrowser.open('http://localhost:5000')
+
+    # DEBUG 
+    os.system('(kitty -e nohup google-chrome-stable --new-window "http://localhost:5000" 2> /dev/null )') # debugging
 
 
 
-@browser.route('/')
+@browser.route('/', methods=['GET', 'POST', 'PUT']) # localhost main windo
 def show_user_profile():
-    return render_template('player.html', access_token=gl.auth_codes['access_token'])
+    if request.method == 'PUT': # exit window post request 
+        print(request.get_json(force=True))
+        return render_template('player.html', access_token=gl.auth_codes['access_token'], exit='True') 
+
+    # access token parameter, can only be accessed by html, then retrieved by the js
+    return render_template('player.html', access_token=gl.auth_codes['access_token'], exit='False') 
+
+@browser.route('/change_token')
 
 
 # PICKLING

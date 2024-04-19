@@ -2,25 +2,39 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="shortcut icon" href="#">
     <title>fspot</title>
 </head>
 <body>
+
     <h1>DEBUGGING</h1>
     <p id="debug"></p>
     <button id="togglePlay">Toggle Play</button>
-    <p id="token">{{ access_token }}</p> <!-- gets access token from args in flask -->
     <script type="text/javascript" src="https://sdk.scdn.co/spotify-player.js" ></script>
     <script>
-    
-    function PRINT(text){
-        document.getElementById("debug").textContent += (" | " + text);
-    };
 
+        setInterval(                               //Periodically 
+          function()
+          {
+             $.getJSON(                            //Get some values from the server
+                $SCRIPT_ROOT + '/get_values',      // At this URL
+                {},                                // With no extra parameters
+                function(data)                     // And when you get a response
+                {
+                  $("#result").text(data.result);  // Write the results into the 
+                                                   // #result element
+                });
+          },
+          500);                                    // And do it every 500ms
+        
+        function PRINT(text){
+            document.getElementById("debug").textContent += (" | " + text);
+        };
+        
     const params = new URLSearchParams(document.location.search);
     window.onSpotifyWebPlaybackSDKReady = () => {
         //const token = params.get("access_token");
-        const token = document.getElementById("token").innerHTML; // stores the access token from the html
-
+        const token = '{{ access_token }}';
         const player = new Spotify.Player({
             name: 'fspot player',
             getOAuthToken: cb => { cb(token); },
@@ -31,7 +45,6 @@
         player.addListener('ready', ({ device_id }) => {
             //eventFire(document.getElementById("togglePlay"), "click");
             PRINT('ready');
-            player.resume();
         });
 
 
@@ -42,15 +55,16 @@
         });
 
         player.addListener('initialization_error', ({ message }) => {
-            PRINT(message);
+            PRINT('init error');
         });
 
         player.addListener('authentication_error', ({ message }) => {
-            PRINT(message);
+
+            PRINT('auth error');
         });
 
         player.addListener('account_error', ({ message }) => {
-            PRINT(message);
+            PRINT('account error');
         });
 
         document.getElementById('togglePlay').onclick = function() {
