@@ -9,9 +9,7 @@ from multiprocessing import Process
 from datetime import datetime, timedelta
 from flask import Flask, redirect, request, jsonify, session, send_from_directory, render_template
 import webbrowser
-from PyQt5.QtCore import QUrl, QCoreApplication
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+import socket
 import urllib
 import io
 import base64

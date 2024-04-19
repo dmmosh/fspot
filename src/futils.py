@@ -1,38 +1,7 @@
 from fglobal import *
 import fglobal as gl
 
-# WEB PLAYBACK SDK
-
-# creating main window class
-class MainWindow(QMainWindow):
- 
-    # constructor
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        
-        # creating a QWebEngineView
-        self.browser = QWebEngineView()
-        
-        # setting default browser url as google
-        self.browser.load(QUrl("file://" + FOLDER+'player.html?access_token=' + gl.auth_codes['access_token']))
-        # set this browser as central widget or main window
-        self.setCentralWidget(self.browser)
-    
-
-# starts the browser in a thread
-def start_browser():
-    # WEB PLAYER STARTUP
-    app = QApplication([])
-    app.setApplicationName("fspot player")
-    
-    window = MainWindow()
-    window.show()
-    return app.exec()
-
-
 # BROWSER ACTIONS
-
-
 browser = Flask(__name__, template_folder=FOLDER)
 browser.secret_key = gl.SECRET_KEY
 browser_run = Process(target=browser.run, args=('localhost', 5000, None, True), daemon=True)
@@ -41,6 +10,11 @@ def browser_localhost():
     global browser_run
     browser_run.start()
     #webbrowser.open('http://127.0.0.1:5000?access_token=' + gl.auth_codes['access_token'])
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #result = sock.connect_ex(('localhost',5000))
+    if sock.connect_ex(('localhost',5000)): # checks if localhost port is open or not
+        ERROR('Localhost post is not open. Make sure to save anything that\'s running on it and run \'kill -9 $(lsof -t -i:5000)\'.')
+    sock.close()
     webbrowser.open('http://localhost:5000')
 
 
@@ -78,7 +52,7 @@ def LOAD(var_name:str): # pickle loading variables
 
 # fatal error
 def ERROR(*args:str)->None: # prints error message
-    print("FATAL ERROR:") 
+    print("\n\nFATAL ERROR:") 
     for to_print in args:
         print('\t' + to_print)
     os._exit(0)
@@ -163,8 +137,6 @@ def connect_player():
         timer-=1
         
     # once timer runs out
-    print('')
-    print('')
     ERROR('Request took too long. Maybe get better internet.')
 
 
