@@ -2,7 +2,6 @@ from fglobal import *
 from futils import *
 import fglobal as gl 
 from multiprocessing import Process
-import webbrowser
 import logging
 import click
 
@@ -11,15 +10,15 @@ app.secret_key = gl.SECRET_KEY
 exiting = False # to exit the program
 
 
-process = Process(target=app.run)
+browser_run = Process(target=app.run)
 
 def login_start():
-    global process
-    process.start()
+    global browser_run
+    browser_run.start()
     webbrowser.open('http://127.0.0.1:5000')
 
-    process.join()
-    process.terminate()
+    browser_run.join()
+    browser_run.terminate()
     
 
 
@@ -131,7 +130,7 @@ def success_login():
 
 @app.teardown_request
 def teardown(exception):
-    global process
+    global browser_run
     if exiting:
         return os._exit(0)
 

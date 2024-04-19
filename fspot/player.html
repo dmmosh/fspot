@@ -5,62 +5,76 @@
     <title>fspot</title>
 </head>
 <body>
-    <p id="debug">hello there </p>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <h1>DEBUGGING</h1>
+    <p id="debug"></p>
     <button id="togglePlay">Toggle Play</button>
+    <p id="token">{{ access_token }}</p> <!-- gets access token from args in flask -->
+    <script type="text/javascript" src="https://sdk.scdn.co/spotify-player.js" ></script>
     <script>
-        
-        const params = new URLSearchParams(document.location.search);
-        window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = params.get("access_token");
-            const player = new Spotify.Player({
-                name: 'fspot player',
-                getOAuthToken: cb => { cb(token); },
-                volume: 1 //TODO: change to the pickled value
-            });
-            
-            // Ready
-            player.addListener('ready', ({ device_id }) => {
-                console.log('ready');
-            });
-            
-            // Not Ready
-            player.addListener('not_ready', ({ device_id }) => {
-                console.log('Device ID has gone offline', device_id);
-            });
-            
-            player.addListener('initialization_error', ({ message }) => {
-                console.error(message);
-            });
-            
-            player.addListener('authentication_error', ({ message }) => {
-                console.error(message);
-            });
-            
-            player.addListener('account_error', ({ message }) => {
-                console.error(message);
-            });
-            
-            document.getElementById('togglePlay').onclick = function() {
-                player.activateElement();
-                console.log('BUTTON CLICKED');
-                player.togglePlay();
-            };
-            player.pause().then(() => {
-                console.log('Paused!');
-            });
-            
-            player.connect().then(success => {
-                if (success) {
-                    console.log('FSPOT successfully connected to Spotify!');
-                }
-            });
-            
-            
-            player.connect();
-            //window.open('','_self').close() //closes the window
-        }
-        </script>
+            function PRINT(text){
+        document.getElementById("debug").textContent += (" | " + text);
+        };
+
+    const params = new URLSearchParams(document.location.search);
+    window.onSpotifyWebPlaybackSDKReady = () => {
+        //const token = params.get("access_token");
+        const token = document.getElementById("token").innerHTML; // stores the access token from the html
+
+        const player = new Spotify.Player({
+            name: 'fspot player',
+            getOAuthToken: cb => { cb(token); },
+            volume: 1 //TODO: change to the pickled value
+        });
+
+
+        player.addListener('ready', ({ device_id }) => {
+            //eventFire(document.getElementById("togglePlay"), "click");
+            PRINT('ready');
+            player.resume();
+        });
+
+
+
+        // Not Ready
+        player.addListener('not_ready', ({ device_id }) => {
+            PRINT('Device ID has gone offline', device_id);
+        });
+
+        player.addListener('initialization_error', ({ message }) => {
+            PRINT(message);
+        });
+
+        player.addListener('authentication_error', ({ message }) => {
+            PRINT(message);
+        });
+
+        player.addListener('account_error', ({ message }) => {
+            PRINT(message);
+        });
+
+        document.getElementById('togglePlay').onclick = function() {
+            PRINT('BUTTON CLICKED');
+            player.togglePlay();
+        };
+        player.pause().then(() => {
+            PRINT('Paused!');
+        });
+
+
+
+        player.connect().then(success => {
+            if (success) {
+                PRINT('FSPOT successfully connected to Spotify!');
+            }
+        });
+
+
+        //player.connect();
+        //window.open('','_self').close() //closes the window
+
+
+    }
+    </script>
 </body>
 </html>
 

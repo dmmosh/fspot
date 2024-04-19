@@ -3,46 +3,36 @@ from futils import *
 from flogin import *
 import fglobal as gl
 import flogin as fl
+import tkinter as tk
+from tkhtmlview import HTMLLabel  # For tkhtmlview
+# Or
+# import webview  # For pywebview
 
-from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
- 
-# creating main window class
-class MainWindow(QMainWindow):
- 
-    # constructor
-    def __init__(self, parent=None):
-        super().__init__(parent)
+class SimpleBrowser(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Simple Python Browser")
 
-        # creating a QWebEngineView
-        self.browser = QWebEngineView()
-        # setting default browser url as google
-        self.browser.setUrl(QUrl("file://" + FOLDER+'player.html?access_token=' + gl.auth_codes['access_token']))
-        QWebEngineSettings.ErrorPageEnabled(False)
-        # set this browser as central widget or main window
-        self.setCentralWidget(self.browser)
-        # showing all the components
-        self.show()
-    def javaScriptConsoleMessage(self, level, msg, line, sourceID):
-        pass
+        # Create a web view component
+        self.web_view = HTMLLabel(self, html="")
+        self.web_view.pack(fill=tk.BOTH, expand=True)
 
+        # Or, for pywebview:
+        # self.web_view = webview.create_window("Simple Python Browser")
 
-gl.auth_codes = LOAD('auth.obj')
-gl.def_header = {  # sets the default header
-                        'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
-}
- 
-# creating a pyQt5 application
-app = QApplication([])
-# setting name to the application
-app.setApplicationName("fspot player")
- 
-# creating a main window object
-window = MainWindow()
+        # Load an initial URL
+        self.load_url("https://google.com")
 
- 
-# loop
+    def load_url(self, url):
+        # Load a URL into the web view
+        self.web_view.set_html(f'<iframe src="{url}" width="100%" height="100%"></iframe>')
 
-sys.exit(app.exec())
-#os.system('kill -9 ' + app.applicationPid())
+        # Or, for pywebview:
+        # self.web_view.load_url(url)
+
+if __name__ == "__main__":
+    # Create and run the browser window
+    browser = SimpleBrowser()
+    browser.load_url('google.com')
+    browser.geometry("800x600")  # Set initial window size
+    browser.mainloop()

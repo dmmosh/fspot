@@ -30,6 +30,26 @@ def start_browser():
     return app.exec()
 
 
+# BROWSER ACTIONS
+
+
+browser = Flask(__name__, template_folder=FOLDER)
+browser.secret_key = gl.SECRET_KEY
+browser_run = Process(target=browser.run, args=('localhost', 5000, None, True), daemon=True)
+
+def browser_localhost():
+    global browser_run
+    browser_run.start()
+    #webbrowser.open('http://127.0.0.1:5000?access_token=' + gl.auth_codes['access_token'])
+    webbrowser.open('http://localhost:5000')
+
+
+
+@browser.route('/')
+def show_user_profile():
+    return render_template('player.html', access_token=gl.auth_codes['access_token'])
+
+
 # PICKLING
 
 # saves the pickle object to var folder
@@ -61,7 +81,7 @@ def ERROR(*args:str)->None: # prints error message
     print("FATAL ERROR:") 
     for to_print in args:
         print('\t' + to_print)
-    sys.exit()
+    os._exit(0)
 
 # adds the authorization code to the header
 def HEADER(request:dict = None)-> dict: # returns a dict
@@ -136,17 +156,18 @@ def connect_player():
                 
                 request = PUT('me/player', json=player)
 
-
                 if(request.status_code == 204): # exits the function
                     return
-                break
         
         time.sleep(0.5)
         timer-=1
         
+    # once timer runs out
+    print('')
+    print('')
+    ERROR('Request took too long. Maybe get better internet.')
 
-    if timer == 0: # request took too long
-        ERROR('Request took too long. Maybe get better internet.')
+
 
 
 # DELETES LAST LINE

@@ -7,7 +7,8 @@ import threading
 import math
 from multiprocessing import Process
 from datetime import datetime, timedelta
-from flask import Flask, redirect, request, jsonify, session
+from flask import Flask, redirect, request, jsonify, session, send_from_directory, render_template
+import webbrowser
 from PyQt5.QtCore import QUrl, QCoreApplication
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtWebEngineWidgets import QWebEngineView
@@ -21,6 +22,7 @@ import json
 GLOBAL VARIABLES AND IMPORTS
 
 '''
+
 
 auth_codes = {'access_token': '', 'refresh_token': '', 'expires_at': -1} # the auth code default values, will be overriden
 
