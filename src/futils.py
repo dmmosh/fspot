@@ -13,7 +13,7 @@ def browser_localhost():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     #result = sock.connect_ex(('localhost',5000))
     if sock.connect_ex(('localhost',5000)): # checks if localhost port is open or not
-        ERROR('Localhost post is not open. Make sure to save anything that\'s running on it and run \'kill -9 $(lsof -t -i:5000)\'.')
+        ERROR('Localhost post is not open.', 'Make sure to save anything that\'s running on it and run \'kill -9 $(lsof -t -i:5000)\'.')
     sock.close()
     webbrowser.open('http://localhost:5000')
 
