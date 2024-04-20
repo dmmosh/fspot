@@ -1,48 +1,35 @@
 from fglobal import *
+from flogin import *
 import fglobal as gl
 
-# BROWSER ACTIONS
-browser = Flask(__name__, template_folder=FOLDER)
-browser.config['TEMPLATES_AUTO_RELOAD'] = True
-browser.secret_key = gl.SECRET_KEY
-browser_run = Process(target=lambda: browser.run(host='localhost', port=5000), daemon=True)
 
-def browser_localhost():
+# USER INPUT FUNCTION
+def user_input():
+    buffer = '' # input command buffer
+    while(1):
+        buffer = input('/ ')
+        clear_string(len('/ ' + buffer)) # clears the string buffer
 
-
-    global browser_run
-    browser_run.start()
-    #webbrowser.open('http://127.0.0.1:5000?access_token=' + gl.auth_codes['access_token'])
-    #result = sock.connect_ex(('localhost',5000))
-    #webbrowser.open('http://localhost:5000')
-
-    # DEBUG 
-    os.system('(kitty -e nohup google-chrome-stable --new-window "http://localhost:5000" 2> /dev/null )') # debugging
-
-
-
-@browser.route('/') # localhost main windo
-def show_user_profile():
-
-    # access token parameter, can only be accessed by html, then retrieved by the js
-    return render_template('player.html', access_token=gl.auth_codes['access_token']) 
-
-@browser.route('/change_token', methods=['GET', 'POST', 'PUT'])
-def token():
-    if request.method == 'PUT':
-        response= jsonify(request.get_json(request))
-        response.headers["Cache-Control"] = "no-store, max-age=0"
-        return response
-    else:
-        response = jsonify({'test': 'nothing yet'})
-        response.headers["Cache-Control"] = "no-store, max-age=0"
-        return response
-
+        match buffer:
+            case 'play': 
+                PUT('me/player/play')
+            case 'pause': 
+                PUT('me/player/pause')
+            case 'print':
+                device_list = GET('me/player/devices').json()
+                print(device_list)
+            case 'refresh':
+                refresh(force=True)
+            case 'quit':
+                return
+            case 'player_end':
+                end_player()
+                return
+                
 
 
 
 # PICKLING
-
 # saves the pickle object to var folder
 def SAVE(to_save, var_name:str): # pickle saving variables
     if not os.path.exists(FOLDER+ 'var/'): # if the variable directory doesnt exist, make one
@@ -116,10 +103,6 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 
 # HELPER FUNCTIONS
 
-# gets output of a system command
-def sys_out(input:str)-> str:
-    return str(subprocess.Popen(input, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0])[2:-1].replace('\\n', '')
-
 # a loading message, clears itself when finishes
 def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     print_msg = msg
@@ -136,6 +119,27 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     #print("\r") # carriage return
     
 
+def start_player():
+
+    player = subprocess.Popen('librespot ' + 
+                                '--name \"fspot player\" ' +
+                                '--disable-audio-cache ' +
+                                '--disable-credential-cache ' +
+                                '--device-type homething ' +
+                                '-u \"'+ gl.auth_codes['user_id'] +'\" ' +
+                                '-p \"' + gl.auth_codes['password'] + '\"',
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    
+    SAVE(player.pid, 'player.obj')
+
+
+    change_player = threading.Thread(target=connect_player) # runs connection to the player
+    change_player.start() # starts thread
+
+    loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
+    change_player.join() # joins the thread to main
+    #clear_string(132) # clears the weird warning idk how to get rid of, dont change
+
 def connect_player():
     timer = 60 # 30 seconds (iterates every half a second)
     while(timer):
@@ -147,19 +151,37 @@ def connect_player():
         for device in device_list['devices']:
             if device['name'] == 'fspot player':
                 player = {'device_ids': [device['id']],
-                          'play': True}
+                          'play': False}
                 
                 request = PUT('me/player', json=player)
 
                 if(request.status_code == 204): # exits the function
+                    time.sleep(1) # wait an extra second for the put request
                     return
         
         time.sleep(0.5)
         timer-=1
         
     # once timer runs out
-    ERROR('Request took too long. Maybe get better internet.')
+    ERROR('Request took too long. Maybe get better internet.', 'You might have set the wrong password. Run \"fpost --reset\"')
 
+
+# end player
+def end_player():
+    player = GET('me/player')
+
+    # if the player is already playing in the background
+    if player.status_code == 200: # makes sure the fspot player is there
+        player = player.json()['device']
+        if player['name'] == 'fspot player' and player['is_active']:
+            pid = LOAD('player.obj')
+            if pid == None:
+                ERROR('No pid file found. Please reboot your system for the playback to stop.')
+            os.system('kill -9 ' + str(LOAD('player.obj')))
+            return
+
+            
+        
 
 
 

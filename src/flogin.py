@@ -18,7 +18,47 @@ def login_start():
 
     browser_run.join()
     browser_run.terminate()
+
+    # loads from pickled 
+    gl.auth_codes = LOAD('auth.obj') 
+    gl.def_header = {  # sets the default header
+            'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
+    }
+
+    get_password() # gets the user's password
+
     
+# GETS USER'S PASSWORD 
+# only run after login
+def get_password():
+
+    user = GET('me') # gets user info
+    if (user.status_code != 200): # base case
+        ERROR('Unable to connect to the API.')
+
+    user = user.json()
+
+    msg = 'Hello ' + user['display_name'] + ', please enter your password:  '
+
+    input = getpass(msg) # gets the password
+    if input == '':
+        clear_string(len(msg)) # clears the password box
+        get_password()
+        return
+    
+    gl.auth_codes['user_id'] = user['id']
+    gl.auth_codes['password'] = input
+    SAVE(gl.auth_codes, 'auth.obj') # saves the password
+
+    # loads from pickled 
+    gl.auth_codes = LOAD('auth.obj') 
+    gl.def_header = {  # sets the default header
+            'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
+    }
+
+    clear_string(len(msg)) # clears the password box
+
+
 
 
 # suppress the flask output
@@ -97,24 +137,11 @@ def callback():
     SAVE(gl.auth_codes, 'auth.obj')
 
 
-    # loads from pickled 
-    gl.auth_codes = LOAD('auth.obj') 
-    gl.def_header = {  # sets the default header
-            'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
-    }
-
     return redirect('/success_login') # redirects to the success login page
 
 
 @app.route('/success_login')
 def success_login():
-    if 'access_token' not in gl.auth_codes: # if no access token
-        return redirect('/login')
-    
-    if datetime.now().timestamp() > gl.auth_codes['expires_at']:
-        return redirect('/refresh-token')
-
-
     name = GET('me')
 
     if(name.status_code == 200):
@@ -132,15 +159,6 @@ def teardown(exception):
     global browser_run
     if exiting:
         return os._exit(0)
-
-@app.route('/refresh_token')
-def refresh_token():
-    if 'refresh_token' not in gl.auth_codes:
-        return redirect('/login')    
-    refresh()
-    return redirect('/success_login')
-
-# webbrowser.open('http://127.0.0.1:5000')
 
 
 

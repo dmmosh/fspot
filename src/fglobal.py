@@ -6,8 +6,10 @@ import sys
 import threading
 from multiprocessing import Process
 import subprocess
+import math
 from datetime import datetime, timedelta
 from flask import Flask, redirect, request, jsonify, session, send_from_directory, render_template
+from getpass import getpass
 import webbrowser
 import urllib
 import io
@@ -21,7 +23,11 @@ GLOBAL VARIABLES AND IMPORTS
 '''
 
 
-auth_codes = {'access_token': '', 'refresh_token': '', 'password': '', 'expires_at': -1} # the auth code default values, will be overriden
+auth_codes = {'access_token': '', 
+              'refresh_token': '', 
+              'user_id':'', 
+              'password': '', 
+              'expires_at': -1} # the auth code default values, will be overriden
 
 def_header = {  # sets the default header
             'Authorization': f'Bearer {auth_codes["access_token"]}' 
