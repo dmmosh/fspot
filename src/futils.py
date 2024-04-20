@@ -39,6 +39,8 @@ def token():
         return response
 
 
+
+
 # PICKLING
 
 # saves the pickle object to var folder
@@ -113,6 +115,10 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 
 
 # HELPER FUNCTIONS
+
+# gets output of a system command
+def sys_out(input:str)-> str:
+    return str(subprocess.Popen(input, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()[0])[2:-1].replace('\\n', '')
 
 # a loading message, clears itself when finishes
 def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:

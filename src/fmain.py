@@ -46,30 +46,29 @@ if data.status_code != 200: # if token is still invalid, rerun the login page
 #browser.start()
 
 
-browser_localhost()
+#browser_localhost()
 
 
 #os.system('kill -9 ' + app.applicationPid())
 
-change_player = threading.Thread(target=connect_player) # runs connection to the player
-change_player.start() # starts thread
-
-loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
-change_player.join() # joins the thread to main
-#clear_string(132) # clears the weird warning idk how to get rid of, dont change
+#change_player = threading.Thread(target=connect_player) # runs connection to the player
+#change_player.start() # starts thread
+#
+#loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
+#change_player.join() # joins the thread to main
+##clear_string(132) # clears the weird warning idk how to get rid of, dont change
 
 buffer = '' # input command buffer
 while(buffer != 'quit'):
     buffer = input('/ ')
-
+    
     match buffer:
         case 'play': 
-            requests.put('http://localhost:5000', data={'test': 'hello'})
             PUT('me/player/play')
         case 'pause': 
             PUT('me/player/pause')
         case 'print':
-            device_list = GET('me/player/devices').json()['devices']
+            device_list = GET('me/player/devices').json()
             print(device_list)
         case 'refresh':
             refresh(force=True)

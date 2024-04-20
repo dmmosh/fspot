@@ -4,8 +4,8 @@ import time
 import pyAesCrypt
 import sys
 import threading
-import math
 from multiprocessing import Process
+import subprocess
 from datetime import datetime, timedelta
 from flask import Flask, redirect, request, jsonify, session, send_from_directory, render_template
 import webbrowser
@@ -21,7 +21,7 @@ GLOBAL VARIABLES AND IMPORTS
 '''
 
 
-auth_codes = {'access_token': '', 'refresh_token': '', 'expires_at': -1} # the auth code default values, will be overriden
+auth_codes = {'access_token': '', 'refresh_token': '', 'password': '', 'expires_at': -1} # the auth code default values, will be overriden
 
 def_header = {  # sets the default header
             'Authorization': f'Bearer {auth_codes["access_token"]}' 
