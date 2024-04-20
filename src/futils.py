@@ -8,7 +8,7 @@ def user_input():
     buffer = '' # input command buffer
     while(1):
         buffer = input('/ ')
-        clear_string(len('/ ' + buffer)) # clears the string buffer
+        clear_string(len('/ ' + buffer)) # clears the string bufferf
 
         match buffer:
             case 'play': 
