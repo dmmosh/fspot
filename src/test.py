@@ -102,7 +102,7 @@ class user_input():
         while(not self.current['quit']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
-
+            print("sdfjslkdsfjlkdfjl")
             print(self.buffer) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
