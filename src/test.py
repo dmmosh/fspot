@@ -124,5 +124,5 @@ class user_input():
     
 
 
-
-test = user_input()
+if __name__ == '__main__':
+    test = user_input()
