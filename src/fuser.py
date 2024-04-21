@@ -118,7 +118,6 @@ class user_input():
     def main_input(self):
         print('')
         delete_line()
-        song_data = GET('me/player')
         while(self.current['logging']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
@@ -131,6 +130,7 @@ class user_input():
             print('\033[1A', end='\x1b[2K') # moves up and clears
             clear_string(len(self.buffer))
             print('/ ' + self.buffer, end='') # moves cursor to the right
+            song_data = GET('me/player')
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
