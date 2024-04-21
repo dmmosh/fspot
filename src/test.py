@@ -24,7 +24,7 @@ def on_click(key:Key) -> None:
             print('\033[1A', end='\x1b[2K') # clears the current line
         case None:
             pass
-        case _: # regular letters
+        case _: # regular letterssd
             try:
                 user += key.char
             except:
