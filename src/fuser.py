@@ -119,25 +119,22 @@ class user_input():
         print('')
         delete_line()
         while(self.current['logging']):
-            if len(self.buffer) > 10:
-                self.buffer = self.buffer[:10]
-            
             song_data = GET('me/player')
             if song_data.status_code != 200:
                 ERROR('Could not get the song.')
             song_data = song_data.json()
 
-            print(song_data['progress_ms'], end='')
 
+            if len(self.buffer) > 10:
+                self.buffer = self.buffer[:10]
+            
+            print(song_data['progress_ms']) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
-
             time.sleep(0.5) # waits a second
-
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
-            print('\033[1A', end='\x1b[2K') # moves up and clears
-
-            print('\n/ ' + self.buffer, end='') # moves cursor to the right
+            clear_string(len(str(song_data['progress_ms'])))
+            print('/ ' + self.buffer, end='') # moves cursor to the right
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
