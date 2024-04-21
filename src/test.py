@@ -25,6 +25,7 @@ class user_input():
         self.main = threading.Thread(target=self.main_input, daemon=True)
         self.search = threading.Thread(target=self.searcher, daemon=True)
 
+        self.curr_input = self.main
 
         # THREADS
         self.keylog.start()
@@ -44,6 +45,7 @@ class user_input():
                 self.current['quit'] = True
             case 'search': 
                 self.current['quit'] = True
+                self.curr_input.join()
                 self.current['quit'] = False
                 self.current['window'] = 'search' #picker window
                 self.search.start()
@@ -83,7 +85,7 @@ class user_input():
         while(not self.current['quit']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
-            print(self.keylog.is_alive)
+            
             print(self.buffer) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
@@ -101,7 +103,8 @@ class user_input():
         while(not self.current['quit']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
-            print("sdfjslkdsfjlkdfjl")
+            print(self.keylog.is_alive)
+
             print(self.buffer) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
