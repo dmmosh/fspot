@@ -20,7 +20,6 @@ def on_click(key:Key) -> None:
         user=''
 
         print('\033[1A', end='\x1b[2K')
-        print('/ ' + user, end='')
     else:
         user += key.char
 
