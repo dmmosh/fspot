@@ -46,7 +46,7 @@ class user_input():
                 self.current['quit'] = True
             case 'search': 
                 self.current['input'] = False # exits the input loop
-                self.current['window'] = 'picker' #picker window
+                self.current['window'] = 'search' #picker window
                 self.pick.start()
                 self.dummy()
 
