@@ -36,4 +36,4 @@ def prints():
 
 
 nums = threading.Thread(target=prints, daemon=True)
-#nums.start()
+nums.start()
