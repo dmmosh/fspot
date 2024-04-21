@@ -56,9 +56,6 @@ class user_input():
 
             case 'refresh': # refresh
                 refresh(force=True)
-
-            case 'quit': # quit program
-                return
             
             case 'player_end': # end the player
                 end_player()
