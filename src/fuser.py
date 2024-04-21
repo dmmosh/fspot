@@ -138,8 +138,8 @@ class user_input():
             print('\033[1A', end='\x1b[2K') # moves up and clears
             clear_string(len(self.buffer))
             print('/ ' + self.buffer, end='') # moves cursor to the right
-            print('') # prints newline
-            delete_line(1) # deletes it (so lines in next iteration will start at beginning)
+            print('\n\n') # prints newline
+            delete_line(3) # deletes it (so lines in next iteration will start at beginning)
 
     def searcher(self):
         print('\n\n\n\n')
