@@ -14,10 +14,9 @@ class user_input():
         self.buffer = '' # user input
 
         # current variables (focus, etc)
-        self.current = {'input': True, # whether there's input to take (turn on/off when switching tabs), change only in threads
-                        'quit': False, # whether to quit or not (only when to quit the program)
+        self.current = { 'quit': False, # whether to quit or not from current, only change in threads
                         'window': 'main' # the current focus window
-        }
+                        }
         
 
          # THREADS
@@ -47,7 +46,6 @@ class user_input():
             case 'search': 
                 self.current['quit'] = True
                 self.current['quit'] = False
-                self.current['input'] = False # exits the input loop
                 self.current['window'] = 'search' #picker window
                 self.search.start()
                 self.dummy()
@@ -75,7 +73,7 @@ class user_input():
 
     # dummy loop to redirect input from terminal to python
     def dummy(self):
-        while (self.current['input']):
+        while (not self.current['quit']):
             input() # dummy input
 
     # the main input window
@@ -98,7 +96,6 @@ class user_input():
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
     def searcher(self):
-        self.current['quit'] = False
         print('')
         delete_line()
         while(not self.current['quit']):
