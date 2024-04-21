@@ -126,11 +126,11 @@ class user_input():
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             
             time.sleep(0.5) # waits a second
+            song_data = GET('me/player')
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
             clear_string(len(self.buffer))
             print('/ ' + self.buffer, end='') # moves cursor to the right
-            song_data = GET('me/player')
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
