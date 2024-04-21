@@ -15,8 +15,12 @@ def on_click(key:Key) -> None:
     elif key == Key.backspace:
         user = user[:-1]
     elif key == Key.enter:
+
         if user == 'q':
             os._exit(0)
+
+        print('\033[1A', end='\x1b[2K')
+        print('/ ' + user, end='')
     else:
         user += key.char
 
