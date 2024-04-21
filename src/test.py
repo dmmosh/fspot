@@ -13,6 +13,7 @@ def on_press(key:Key) -> None:
     global quit 
 
     if len(user) > 10:
+        user = user[:10]
         return
 
     match key:
