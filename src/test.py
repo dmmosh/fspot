@@ -31,7 +31,7 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        #self.dummy() # dummy input function
+        self.dummy() # dummy input function
 
     # options menu (to minimize nesting)
     # ONLY CALL WHEN ENTER KEY IS CALLED
@@ -48,7 +48,7 @@ class user_input():
                 self.current['quit'] = False
                 self.current['window'] = 'search' #picker window
                 self.search.start()
-                #self.dummy()
+                self.dummy()
 
     # on each key press
     def on_press(self, key:Key):
@@ -65,14 +65,10 @@ class user_input():
             case None:
                 pass
             case _: # regular letterssd
-                if key.char == '2':
-                    print('')
-                    self.current['quit'] = True
-
                 try:
                     self.buffer += key.char
                 except:
-                    pass
+                    ERROR('Weird key.')
     
 
 
@@ -121,8 +117,5 @@ class user_input():
 
 
 
-    
 
-
-if __name__ == '__main__':
-    test = user_input()
+test = user_input()
