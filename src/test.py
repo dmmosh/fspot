@@ -58,12 +58,12 @@ class user_input():
 
 
     # dummy loop to redirect input from terminal to python
-    def dummy():
+    def dummy(self):
         while (user_input):
             input() # dummy input
 
     # the main input window
-    def main_input():
+    def main_input(self):
         print('')
         delete_line()
         while(not quit):
