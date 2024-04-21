@@ -77,7 +77,7 @@ class user_input():
                 #self.curr_input.join()
                 self.current['window'] = 'main' #picker window
                 self.main.start()
-            case 'back':
+            case 'back': #WIP TODO: finish this
                 match self.current['window']:
                     case 'main':
                         print('')
@@ -119,10 +119,16 @@ class user_input():
         print('')
         delete_line()
         while(self.current['logging']):
+            song_state = GET('me/player') # gets the current song state
+            if song_state.status_code != 200: # error handling
+                ERROR('Could not get the specified song.')
+            
+            song_state = song_state.json() # makes it a json file
+
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
             
-            print(self.buffer) # debug
+            print(song_state['progress_ms'])
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
             print('', end='\x1b[2K') # clears current
@@ -150,7 +156,7 @@ class user_input():
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
         
-        # EXIT CONDITION
+        # EXIT CONDITION maybe
         print('fdjdfk')
 
 
