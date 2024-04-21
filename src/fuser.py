@@ -135,6 +135,7 @@ class user_input():
 
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
+            print('\033[1A', end='\x1b[2K') # moves up and clears
 
             print('\n/ ' + self.buffer, end='') # moves cursor to the right
             print('') # prints newline
