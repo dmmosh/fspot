@@ -60,6 +60,7 @@ class user_input():
                 print('') # have to do this idk why 
                 command = self.buffer
                 self.buffer = ''
+                print('\033[1A', end='\x1b[2K')
                 self.options(command) # calls options function
             case None:
                 pass
