@@ -26,7 +26,6 @@ class user_input():
         self.search = threading.Thread(target=self.searcher, daemon=True)
 
 
-
         # THREADS
         self.keylog.start()
         self.main.start()
@@ -84,7 +83,7 @@ class user_input():
         while(not self.current['quit']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
-
+            print(self.keylog.is_alive)
             print(self.buffer) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
