@@ -59,6 +59,7 @@ class user_input():
             # ALL INPUT COMMANDS
             
             case Key.enter:
+                print('hello')
                 command = self.buffer
                 self.buffer = ''
                 print('\033[1A', end='\x1b[2K')
