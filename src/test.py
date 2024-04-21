@@ -30,6 +30,9 @@ def on_press(key:Key) -> None:
             except:
                 pass
 
+
+Listener(on_press=on_press).start()
+
 def prints():
     global user
     global quit
@@ -61,4 +64,4 @@ printing.start()
 dummy_input = threading.Thread(target=dummy, daemon=True)
 dummy_input.start()
 
-Listener(on_press=on_press).start()
+
