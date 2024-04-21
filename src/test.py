@@ -17,7 +17,6 @@ def on_click(key:Key) -> None:
         user = user[:-1]
     elif key == Key.enter:
         if user == 'q':
-            print('')
             quit = True
         user=''
 
