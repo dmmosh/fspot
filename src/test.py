@@ -61,6 +61,4 @@ printing.start()
 dummy_input = threading.Thread(target=dummy, daemon=True)
 dummy_input.start()
 
-
-with Listener(on_press=on_press) as listener:
-    listener.join()
+Listener(on_press=on_press).start()
