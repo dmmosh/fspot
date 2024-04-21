@@ -42,7 +42,7 @@ class user_input():
         match command:
             case 'quit':
                 print('')
-                self.current['quit'] = True
+                #self.current['quit'] = True
                 os._exit(0)
             case 'search': 
                 self.current['quit'] = True
