@@ -18,39 +18,40 @@ class user_input():
                         'quit': False, # whether to quit or not (only when to quit the program)
                         'window': 'main' # the current focus window
         }
-
+        
 
          # THREADS
         # all threads should be daemons
         self.keylog = Listener(on_press=self.on_press) # daemon on default
         self.main = threading.Thread(target=self.main_input, daemon=True)
-        self.picker = threading.Thread(target=self.picker, daemon=True)
+        self.pick = threading.Thread(target=self.picker, daemon=True)
+
 
 
         # THREADS
         self.keylog.start()
         self.main.start()
-        self.picker.start()
 
         self.dummy() # dummy input function
 
     # options menu (to minimize nesting)
+    # ONLY CALL WHEN ENTER KEY IS CALLED
     def options(self):
-        match self.current['window']:
-            # MAIN SEARCH
-            case 'main':
-                match self.buffer:
-                    case 'quit':
-                        print('') # have to do this idk why 
-                        self.current['input'] = False
-                        self.current['quit'] = True
-                    case 'search': 
-                        print('njdkdfhsdhjk')
-                        self.current['input'] = False # exits the input loop
-                        self.current['window'] = 'picker' #picker window
-                        self.picker.start()
+        # NON-TERMINAL SPECIFIC OPTIONS
 
-    
+        match self.buffer:
+            case 'quit':
+                print('') # have to do this idk why 
+                self.current['input'] = False
+                self.current['quit'] = True
+            case 'search': 
+                print('njdkdfhsdhjk')
+                self.current['input'] = False # exits the input loop
+                self.current['window'] = 'picker' #picker window
+                self.pick.start()
+
+        print('\033[1A', end='\x1b[2K') # clears the current line
+        self.buffer='' # wipes the user buffer
     # on each key press
     def on_press(self, key:Key):
         match key:
@@ -59,11 +60,7 @@ class user_input():
 
             # ALL INPUT COMMANDS
             case Key.enter:
-                
                 self.options() # calls options function
-    
-                print('\033[1A', end='\x1b[2K') # clears the current line
-                self.buffer='' # wipes the user buffer
             case None:
                 pass
             case _: # regular letterssd
