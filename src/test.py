@@ -8,7 +8,7 @@ from pynput.keyboard import Key, Listener
 
 user = '' # user input
 quit = False
-def on_click(key:Key) -> None:
+def on_press(key:Key) -> None:
     global user
     global quit 
 
@@ -30,12 +30,6 @@ def on_click(key:Key) -> None:
             except:
                 pass
 
-
-
-# starts the listener
-Listener( on_press=on_click).start() # key listener
-
-
 def prints():
     global user
     global quit
@@ -54,11 +48,19 @@ def prints():
         print('') # prints newline
         delete_line() # deletes it (so lines in next iteration will start at beginning)
 
+# dummy input, captures it so the terminal doesnt
+def dummy():
+    global quit
+    while (not quit):
+        dummy = input() # dummy input
 
 
 printing = threading.Thread(target=prints, daemon=True)
 printing.start()
 
+dummy_input = threading.Thread(target=dummy, daemon=True)
+dummy_input.start()
 
-while (not quit):
-    dummy = input() # dummy input
+
+with Listener(on_press=on_press, suppress=True) as listener:
+    listener.join()
