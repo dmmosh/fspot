@@ -38,6 +38,9 @@ class user_input():
     def options(self):
         # NON-TERMINAL SPECIFIC OPTIONS
 
+        print('\033[1A', end='\x1b[2K') # clears the current line
+        self.buffer='' # wipes the user buffer
+        
         match self.buffer:
             case 'quit':
                 print('') # have to do this idk why 
@@ -50,8 +53,6 @@ class user_input():
                 self.search.start()
                 self.dummy()
 
-        print('\033[1A', end='\x1b[2K') # clears the current line
-        self.buffer='' # wipes the user buffer
     # on each key press
     def on_press(self, key:Key):
         match key:
