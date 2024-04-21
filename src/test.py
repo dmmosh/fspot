@@ -18,7 +18,7 @@ def on_click(key:Key) -> None:
         if user == 'q':
             os._exit(0)
     else:
-        print(key)
+        print(key[1])
 
 # starts the listener
 Listener( on_press=on_click).start() # key listener
