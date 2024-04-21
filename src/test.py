@@ -8,14 +8,16 @@ from pynput.keyboard import Key, Listener
 
 
 class user_input():
-    
+    user = ''
+    quit = False
+    input = True
 
     # inits everything
     def __init__(self) -> None:
         self.user = '' # user input
         self.quit = False # exits the program
         self.input = True # exits the user input (can be turned on/off)
-        
+
          # THREADS
         # all threads should be daemons
         self.keylog = Listener(on_press=self.on_press) # daemon on default
