@@ -15,6 +15,7 @@ class user_input():
 
         # current variables (focus, etc)
         self.current = { 'quit': False, # whether to quit or not from current, only change in threads
+                          'logging': True, # whether to take input or not, ends threads
                         'window': 'main' # the current focus window
                         }
         
@@ -45,19 +46,17 @@ class user_input():
                 self.current['quit'] = True
                 self.keylog.stop()
             case 'search': 
-                self.current['quit'] = True
+                self.current['logging'] = False
+                self.current['logging'] = True
                 #self.curr_input.join()
-                self.current['quit'] = False
                 self.current['window'] = 'search' #picker window
                 self.search.start()
-                self.dummy()
             case 'main':
-                self.current['quit'] = True
+                self.current['logging'] = False
+                self.current['logging'] = True
                 #self.curr_input.join()
-                self.current['quit'] = False
                 self.current['window'] = 'main' #picker window
                 self.main.start()
-                self.dummy()
 
     # on each key press
     def on_press(self, key:Key):
@@ -86,7 +85,7 @@ class user_input():
     def main_input(self):
         print('')
         delete_line()
-        while(not self.current['quit']):
+        while(self.current['logging']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
             
@@ -103,7 +102,7 @@ class user_input():
     def searcher(self):
         print('\n\n\n\n')
         delete_line()
-        while(not self.current['quit']):
+        while(self.current['logging']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
 
