@@ -104,7 +104,6 @@ class user_input():
         while(not self.current['quit']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
-            print(self.keylog.is_alive)
 
             print(self.buffer) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
