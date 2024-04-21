@@ -29,7 +29,7 @@ Listener( on_press=on_click).start() # key listener
 
 def prints():
     global user
-    for i in range(0,5):
+    for i in range(0,10):
         print(i, '\n/ ' + user, end='')
         time.sleep(1)
         print('', end='\x1b[2K')
