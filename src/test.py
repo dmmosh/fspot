@@ -57,7 +57,7 @@ class user_input():
                 self.buffer = self.buffer[:-1]
             # ALL INPUT COMMANDS
             case Key.esc:
-                print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", end='')
             case Key.enter:
                 command = self.buffer
                 self.buffer = ''
