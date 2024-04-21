@@ -12,10 +12,6 @@ def on_press(key:Key) -> None:
     global user
     global quit 
 
-    if len(user) > 10:
-        user = user[:10]
-        return
-
     match key:
         case Key.backspace:
             user = user[:-1]
@@ -37,10 +33,12 @@ def on_press(key:Key) -> None:
 def prints():
     global user
     global quit
-    i = 0
     print('')
     delete_line()
     while(not quit):
+        if len(user) > 10:
+            user = user[:10]
+
         print(user)
         print('', '\n/ ' + user, end='') # prints the initial line
         time.sleep(1) # waits a second
