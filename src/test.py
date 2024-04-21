@@ -21,7 +21,7 @@ def on_click(key:Key) -> None:
             quit = True
         user=''
 
-        print('\033[1A', end='\x1b[2K')
+        print('\033[1A', end='\x1b[2K') # clears the current line
     else:
         try:
             user += key.char
@@ -29,7 +29,9 @@ def on_click(key:Key) -> None:
             pass
 
 # starts the listener
-Listener( on_press=on_click).start() # key listener
+with Listener( on_press=on_click) as listener:
+    listener.start()
+
 
 def prints():
     global user
