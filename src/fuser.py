@@ -1,4 +1,5 @@
 from fglobal import *
+from futils import *
 import fglobal as gl
 
 class user_input():
@@ -24,7 +25,9 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        
+        # redirect input from linux to python
+        while(not self.current['quit']):
+            input()
 
 
 
@@ -35,6 +38,32 @@ class user_input():
 
 
         match command:
+            case 'start': # start
+                PUT('me/player/play')
+                
+            case 'pause':  # pause
+                PUT('me/player/pause')
+
+            case 'play':  # start/pause
+                if GET('me/player').json()['is_playing']:
+                    PUT('me/player/pause')
+                else: 
+                    PUT('me/player/play')
+            
+            case 'print': # print devices
+                device_list = GET('me/player/devices').json()
+                print(device_list)
+
+            case 'refresh': # refresh
+                refresh(force=True)
+
+            case 'quit': # quit program
+                return
+            
+            case 'player_end': # end the player
+                end_player()
+                return
+            
             case 'quit':
                 print('')
                 self.current['quit'] = True
