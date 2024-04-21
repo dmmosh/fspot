@@ -119,6 +119,7 @@ class user_input():
         print('')
         delete_line()
         while(self.current['logging']):
+            song_data = GET('me/player')
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
             
