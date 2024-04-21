@@ -7,7 +7,7 @@ import tkinter as tk
 from pynput.keyboard import Key, Listener, KeyCode
 
 user = '' # user input
-def on_click(key:Key) -> None:
+def on_click(key) -> None:
     global user
 
     if key == Key.num_lock:
@@ -18,7 +18,7 @@ def on_click(key:Key) -> None:
         if user == 'q':
             os._exit(0)
     else:
-        print(key[1])
+        print(key.char)
 
 # starts the listener
 Listener( on_press=on_click).start() # key listener
