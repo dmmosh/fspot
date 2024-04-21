@@ -17,6 +17,7 @@ def on_click(key:Key) -> None:
         user = user[:-1]
     elif key == Key.enter:
         if user == 'q':
+            print('') # have to do this idk why 
             quit = True
         user=''
 
@@ -34,7 +35,8 @@ def prints():
     print('')
     delete_line()
     while(not quit):
-        print(i, '\n/ ' + user, end='') # prints the initial line
+        print(i) 
+        print('/ ' + user, end='') # prints the initial line
         time.sleep(1) # waits a second
         print('', end='\x1b[2K') # clears current
         print('\033[1A', end='\x1b[2K') # moves up and clears
