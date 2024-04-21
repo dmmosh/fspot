@@ -97,8 +97,7 @@ class user_input():
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
     def searcher(self):
-        print('dskdsljkl')
-        print('')
+        print('\n\n\n\n')
         delete_line()
         while(not self.current['quit']):
             if len(self.buffer) > 10:
