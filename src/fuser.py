@@ -149,6 +149,9 @@ class user_input():
             print('/ ' + self.buffer, end='') # moves cursor to the right
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
+        
+        # EXIT CONDITION
+        print('fdjdfk')
 
 
 
