@@ -1,5 +1,4 @@
 from fglobal import *
-from flogin import *
 import fglobal as gl
 
 
@@ -9,20 +8,24 @@ def user_input():
     while(1):
         buffer = input('/ ')
         clear_string(len('/ ' + buffer)) # clears the string bufferf
-
         match buffer:
-            case 'play': 
+            case 'start': # start
                 PUT('me/player/play')
-            case 'pause': 
+            case 'pause':  # pause
                 PUT('me/player/pause')
-            case 'print':
+            case 'play':  # start/pause
+                if GET('me/player').json()['is_playing']:
+                    PUT('me/player/pause')
+                else: 
+                    PUT('me/player/play')
+            case 'print': # print devices
                 device_list = GET('me/player/devices').json()
                 print(device_list)
-            case 'refresh':
+            case 'refresh': # refresh
                 refresh(force=True)
-            case 'quit':
+            case 'quit': # quit program
                 return
-            case 'player_end':
+            case 'player_end': # end the player
                 end_player()
                 return
                 

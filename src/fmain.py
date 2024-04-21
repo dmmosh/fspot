@@ -1,7 +1,6 @@
 from fglobal import *
 from futils import *
 from flogin import *
-import futils
 import fglobal as gl
 import flogin as fl
 '''
@@ -24,7 +23,6 @@ for cmd in sys.argv:
 
 load_var = LOAD('auth.obj') # loads the authorization info
 if load_var is None: # if there isnt any, open sign in screen
-    
     login_start() # starts login
     
 
