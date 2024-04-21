@@ -9,16 +9,16 @@ from pynput.keyboard import Key, Listener
 user = '' # user input
 def on_click(key:Key) -> None:
     global user
-    match key:
-        case Key.num_lock:
-            pass
-        case Key.backspace:
-            user = user[:-1]
-        case Key.enter:
-            if user == 'q':
-                os._exit(0)
-        case _:
-            user += key
+
+    if key == Key.num_lock:
+        pass
+    elif key == Key.backspace:
+        user = user[:-1]
+    elif key == Key.enter:
+        if user == 'q':
+            os._exit(0)
+    else:
+        user += key
 
 # starts the listener
 Listener( on_press=on_click).start() # key listener
