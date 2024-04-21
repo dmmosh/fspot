@@ -52,7 +52,7 @@ def prints():
 def dummy():
     global quit
     while (not quit):
-        dummy = input() # dummy input
+        input() # dummy input
 
 
 printing = threading.Thread(target=prints, daemon=True)
@@ -62,5 +62,5 @@ dummy_input = threading.Thread(target=dummy, daemon=True)
 dummy_input.start()
 
 
-with Listener(on_press=on_press, suppress=True) as listener:
+with Listener(on_press=on_press) as listener:
     listener.join()
