@@ -46,8 +46,7 @@ def prints():
         clear_string(len(user))
         print('/ ' + user, end='') # moves cursor to the right
         print('') # prints newline
-        print('hello!')
-        delete_line(2) # deletes it (so lines in next iteration will start at beginning)
+        delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
 
 Listener(on_press=on_press).start()
