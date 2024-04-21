@@ -122,9 +122,6 @@ class user_input():
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
             
-            print('', '\n/ ' + self.buffer, end='') # prints the initial line
-            
-            time.sleep(0.5) # waits a second
             song_data = GET('me/player')
             if song_data.status_code != 200:
                 ERROR('Could not get the song.')
@@ -132,9 +129,13 @@ class user_input():
 
             print(song_data['progress_ms'], end='')
 
+            print('', '\n/ ' + self.buffer, end='') # prints the initial line
+
+            time.sleep(0.5) # waits a second
+
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
-            clear_string(len(self.buffer))
+            
             print('/ ' + self.buffer, end='') # moves cursor to the right
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
