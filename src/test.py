@@ -18,7 +18,7 @@ def on_click(key:Key) -> None:
         if user == 'q':
             os._exit(0)
     else:
-        print(key[1])
+        print(key.name)
 
 # starts the listener
 Listener( on_press=on_click).start() # key listener
@@ -26,11 +26,11 @@ Listener( on_press=on_click).start() # key listener
 def prints():
     global user
     for i in range(0,20):
-        print(i, '\n/ ' + user, end='')
+        print(i, '\n/ ', end='')
         time.sleep(0.3)
         print('', end='\x1b[2K')
         print('\033[1A', end='\x1b[2K')
-        print('/ ' + user, end='')
+        print('/ ', end='')
 
 
 
