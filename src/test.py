@@ -28,6 +28,8 @@ def on_click(key:Key) -> None:
         except:
             pass
 
+# starts the listener
+Listener( on_press=on_click).start() # key listener
 
 
 def prints():
@@ -51,11 +53,8 @@ def prints():
 
 
 printing = threading.Thread(target=prints, daemon=True)
-#printing.start()
-prints()
+printing.start()
 
 
-
-# starts the listener
-with Listener( on_press=on_click) as listener:
-    listener.start()
+while (not quit):
+    dummy = input() # dummy input
