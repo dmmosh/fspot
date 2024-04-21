@@ -129,7 +129,7 @@ class user_input():
 
             print(song_data['progress_ms'], end='')
 
-            print('', '\n/ ' + self.buffer) # prints the initial line
+            print('', '\n/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.5) # waits a second
 
