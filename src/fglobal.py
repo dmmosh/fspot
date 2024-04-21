@@ -8,7 +8,8 @@ from multiprocessing import Process
 import subprocess
 import math
 from datetime import datetime, timedelta
-from flask import Flask, redirect, request, jsonify, session, send_from_directory, render_template
+from flask import Flask, redirect, request, jsonify, session
+from pynput.keyboard import Key, Listener
 from getpass import getpass
 import webbrowser
 import urllib

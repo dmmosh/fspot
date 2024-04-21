@@ -1,11 +1,5 @@
 from fglobal import *
-from futils import *
-from flogin import *
 import fglobal as gl
-import flogin as fl
-import tkinter as tk
-from pynput.keyboard import Key, Listener
-
 
 class user_input():
 
@@ -26,14 +20,11 @@ class user_input():
         self.main = threading.Thread(target=self.main_input, daemon=True)
         self.search = threading.Thread(target=self.searcher, daemon=True)
 
-
-
         # THREADS
         self.keylog.start()
         self.main.start()
 
-        while(not self.current['quit']):
-            input()
+        
 
 
 
@@ -122,6 +113,3 @@ class user_input():
 
 
 
-
-
-test = user_input()

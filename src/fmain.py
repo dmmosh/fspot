@@ -1,6 +1,7 @@
 from fglobal import *
 from futils import *
 from flogin import *
+from fuser import *
 import fglobal as gl
 import flogin as fl
 '''
