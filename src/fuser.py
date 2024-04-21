@@ -131,7 +131,7 @@ class user_input():
 
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
 
-            time.sleep(1) # waits a second
+            time.sleep(0.5) # waits a second
 
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
