@@ -98,7 +98,7 @@ class user_input():
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
     def searcher(self):
-        print('he')
+        self.current['quit'] = False
         print('')
         delete_line()
         while(not self.current['quit']):
