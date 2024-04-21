@@ -10,7 +10,7 @@ from pynput.keyboard import Key, Listener
 class user_input():
 
     # inits everything
-    def __init__(self) -> None:
+    def __init__(self):
         self.user = '' # user input
         self.quit = False # exits the program
         self.input = True # exits the user input (can be turned on/off)
@@ -29,7 +29,7 @@ class user_input():
 
     
     # on each key press
-    def on_press(self, key:Key) -> None:
+    def on_press(self, key:Key):
         match key:
             case Key.backspace:
                 self.user = self.user[:-1]
@@ -64,7 +64,7 @@ class user_input():
     def main_input(self):
         print('')
         delete_line()
-        while(not quit):
+        while(not self.quit):
             if len(self.user) > 10:
                 self.user = self.user[:10]
 
