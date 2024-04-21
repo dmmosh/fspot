@@ -92,6 +92,8 @@ class user_input():
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
+    def picker(self):
+        pass
 
 
 
