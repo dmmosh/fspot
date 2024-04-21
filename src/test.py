@@ -43,6 +43,7 @@ class user_input():
             case 'quit':
                 print('')
                 #self.current['quit'] = True
+                self.keylog.stop()
                 os._exit(0)
             case 'search': 
                 self.current['quit'] = True
