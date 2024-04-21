@@ -197,7 +197,7 @@ def delete_line(n:int = 1)-> None:
 
 # clears the string length from the printed lines (every char after newline)
 def clear_string(strlen:int)->None:
-    delete_line(math.ceil(strlen / os.get_terminal_size().columns))
+    delete_line(math.ceil(strlen / os.get_terminal_size().columns) if (strlen > 0) else 1)
 
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):
