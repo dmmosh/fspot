@@ -31,7 +31,7 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        self.dummy() # dummy input function
+        #self.dummy() # dummy input function
 
     # options menu (to minimize nesting)
     # ONLY CALL WHEN ENTER KEY IS CALLED
@@ -48,7 +48,7 @@ class user_input():
                 self.current['quit'] = False
                 self.current['window'] = 'search' #picker window
                 self.search.start()
-                self.dummy()
+                #self.dummy()
 
     # on each key press
     def on_press(self, key:Key):
