@@ -54,6 +54,7 @@ class user_input():
                                 print('')
                                 self.current['input'] = False # exits the input loop
                                 self.current['window'] = 'picker' #picker window
+                                self.picker.start()
 
     
                 print('\033[1A', end='\x1b[2K') # clears the current line
@@ -93,7 +94,22 @@ class user_input():
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
     def picker(self):
-        pass
+        print('')
+        delete_line()
+        while(not self.current['quit'] and self.current['window'] == 'search'):
+            if len(self.buffer) > 10:
+                self.buffer = self.buffer[:10]
+
+            print(self.buffer) # debug
+            print('', '\n/ ' + self.buffer, end='') # prints the initial line
+            time.sleep(0.5) # waits a second
+
+            print('', end='\x1b[2K') # clears current
+            print('\033[1A', end='\x1b[2K') # moves up and clears
+            clear_string(len(self.buffer))
+            print('/ ' + self.buffer, end='') # moves cursor to the right
+            print('') # prints newline
+            delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
 
 
