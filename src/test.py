@@ -12,6 +12,9 @@ def on_press(key:Key) -> None:
     global user
     global quit 
 
+    if len(user) > 10:
+        return
+
     match key:
         case Key.backspace:
             user = user[:-1]
