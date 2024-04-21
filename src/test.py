@@ -15,20 +15,24 @@ def on_press(key:Key) -> None:
     global quit 
     global user_input
 
-    if len(user) > 10:
-            user = user[:10]
-
     match key:
         case Key.backspace:
             user = user[:-1]
         case Key.enter:
-            if user == 'q':
-                print('') # have to do this idk why 
-                user_input = False
-                quit = True
-            user=''
+            match user:
+                case 'quit':
+                    print('') # have to do this idk why 
+                    user_input = False
+                    quit = True
+                case 'search':
+                    print('')
+                    user_input = False
+
+
+            
 
             print('\033[1A', end='\x1b[2K') # clears the current line
+            user='' # wipes the user buffer
         case None:
             pass
         case _: # regular letterssd
@@ -66,5 +70,4 @@ def dummy():
 Listener(on_press=on_press).start()
 threading.Thread(target=prints, daemon=True).start()
 
-
-dummy()
+dummy() # dummy input function

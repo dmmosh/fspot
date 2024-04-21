@@ -1,35 +1,36 @@
 from fglobal import *
 import fglobal as gl
 
-
-# USER INPUT FUNCTION
-def user_input():
-    buffer = '' # input command buffer
-    while(1):
-        buffer = input('/ ')
-        clear_string(len('/ ' + buffer)) # clears the string bufferf
-        match buffer:
-            case 'start': # start
-                PUT('me/player/play')
-            case 'pause':  # pause
-                PUT('me/player/pause')
-            case 'play':  # start/pause
-                if GET('me/player').json()['is_playing']:
-                    PUT('me/player/pause')
-                else: 
-                    PUT('me/player/play')
-            case 'print': # print devices
-                device_list = GET('me/player/devices').json()
-                print(device_list)
-            case 'refresh': # refresh
-                refresh(force=True)
-            case 'quit': # quit program
-                return
-            case 'player_end': # end the player
-                end_player()
-                return
+#
+## USER INPUT FUNCTION
+#def user_input():
+#    buffer = '' # input command buffer
+#    while(1):
+#        buffer = input('/ ')
+#        clear_string(len('/ ' + buffer)) # clears the string bufferf
+#        match buffer:
+#            case 'start': # start
+#                PUT('me/player/play')
+#            case 'pause':  # pause
+#                PUT('me/player/pause')
+#            case 'play':  # start/pause
+#                if GET('me/player').json()['is_playing']:
+#                    PUT('me/player/pause')
+#                else: 
+#                    PUT('me/player/play')
+#            case 'print': # print devices
+#                device_list = GET('me/player/devices').json()
+#                print(device_list)
+#            case 'refresh': # refresh
+#                refresh(force=True)
+#            case 'quit': # quit program
+#                return
+#            case 'player_end': # end the player
+#                end_player()
+#                return
                 
-
+class user_input:
+    
 
 
 # PICKLING
