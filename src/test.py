@@ -23,7 +23,10 @@ def on_click(key:Key) -> None:
 
         print('\033[1A', end='\x1b[2K')
     else:
-        user += key.char
+        try:
+            user += key.char
+        except:
+            pass
 
 # starts the listener
 Listener( on_press=on_click).start() # key listener
@@ -40,7 +43,7 @@ def prints():
         time.sleep(1) # waits a second
         print('', end='\x1b[2K') # clears current
         print('\033[1A', end='\x1b[2K') # moves up and clears
-        print('\033[1A', end='\x1b[2K') # moves up and clears
+        clear_string
         print('/ ' + user, end='') # moves cursor to the right
         print('') # prints newline
         delete_line() # deletes it (so lines in next iteration will start at beginning)
