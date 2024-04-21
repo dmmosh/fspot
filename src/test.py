@@ -29,9 +29,9 @@ Listener( on_press=on_click).start() # key listener
 
 def prints():
     global user
-    for i in range(0,20):
-        print(i, '\n/ ' + user, end='')
-        time.sleep(0.3)
+    for i in range(0,5):
+        print(i, '\n/ ', end='')
+        time.sleep(1)
         print('', end='\x1b[2K')
         print('\033[1A', end='\x1b[2K')
         print('/ ' + user, end='')
