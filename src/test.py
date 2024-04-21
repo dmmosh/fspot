@@ -42,9 +42,8 @@ class user_input():
         match command:
             case 'quit':
                 print('')
-                #self.current['quit'] = True
+                self.current['quit'] = True
                 self.keylog.stop()
-                os._exit(0)
             case 'search': 
                 self.current['quit'] = True
                 #self.curr_input.join()
@@ -125,5 +124,5 @@ class user_input():
 
 test = user_input()
 
-while(1):
+while(not test.current['quit']):
     input()
