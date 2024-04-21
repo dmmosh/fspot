@@ -61,22 +61,35 @@ class user_input():
                 end_player()
                 return
             
-            case 'quit':
+            case 'quit': # quits the user input
                 print('')
                 self.current['quit'] = True
                 self.keylog.stop()
-            case 'search': 
+            case 'search':  # goes to the lower search bar
                 self.current['logging'] = False
                 self.current['logging'] = True
                 #self.curr_input.join()
                 self.current['window'] = 'search' #picker window
                 self.search.start()
-            case 'main':
+            case 'main': 
                 self.current['logging'] = False
                 self.current['logging'] = True
                 #self.curr_input.join()
                 self.current['window'] = 'main' #picker window
                 self.main.start()
+            case 'back':
+                match self.current['window']:
+                    case 'main':
+                        print('')
+                        self.current['quit'] = True
+                        self.keylog.stop()
+                    case 'search':
+                        self.current['logging'] = False
+                        self.current['logging'] = True
+                        #self.curr_input.join()
+                        self.current['window'] = 'main' #picker window
+                        self.main.start()
+
 
     # on each key press
     def on_press(self, key:Key):
