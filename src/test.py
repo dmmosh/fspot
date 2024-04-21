@@ -24,7 +24,6 @@ class user_input():
         self.keylog = Listener(on_press=self.on_press) # daemon on default
         self.main = threading.Thread(target=self.main_input, daemon=True)
         self.search = threading.Thread(target=self.searcher, daemon=True)
-        self.dum = threading.Thread(target=self.dummy, daemon=True)
 
 
 
@@ -44,6 +43,7 @@ class user_input():
             case 'quit':
                 print('')
                 self.current['quit'] = True
+                os._exit(0)
             case 'search': 
                 self.current['quit'] = True
                 #self.curr_input.join()
@@ -81,10 +81,6 @@ class user_input():
     
 
 
-    # dummy loop to redirect input from terminal to python
-    def dummy(self):
-        while (1):
-            input()
 
     # the main input window
     def main_input(self):
