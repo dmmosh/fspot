@@ -11,7 +11,7 @@ class user_input():
 
     # inits everything
     def __init__(self):
-        self.input = '' # user input
+        self.buffer = '' # user input
 
         # current variables (focus, etc)
         self.current = {'input': True, # whether there's input to take (turn on/off when switching tabs), change only in threads
@@ -38,31 +38,31 @@ class user_input():
     def on_press(self, key:Key):
         match key:
             case Key.backspace:
-                self.input = self.input[:-1]
+                self.buffer = self.buffer[:-1]
 
             # ALL INPUT COMMANDS
             case Key.enter:
-                match self.input_window:
+                match self.buffer_window:
                     case 'main':
                 
-                        match self.input:
+                        match self.buffer:
                             case 'quit':
                                 print('') # have to do this idk why 
-                                self.input = False
-                                self.quit = True
+                                self.current['input'] = False
+                                self.current['quit'] = True
                             case 'search': 
                                 print('')
-                                self.input = False # exits the input loop
+                                self.current['input'] = False # exits the input loop
                                 self.current['window'] = 'picker' #picker window
 
     
                 print('\033[1A', end='\x1b[2K') # clears the current line
-                self.input='' # wipes the user buffer
+                self.buffer='' # wipes the user buffer
             case None:
                 pass
             case _: # regular letterssd
                 try:
-                    self.input += key.char
+                    self.buffer += key.char
                 except:
                     pass
     
@@ -70,25 +70,25 @@ class user_input():
 
     # dummy loop to redirect input from terminal to python
     def dummy(self):
-        while (self.input):
+        while (self.buffer):
             input() # dummy input
 
     # the main input window
     def main_input(self):
         print('')
         delete_line()
-        while(not self.quit and self.current['window'] == 'main'):
-            if len(self.input) > 10:
-                self.input = self.input[:10]
+        while(not self.current['quit'] and self.current['window'] == 'main'):
+            if len(self.buffer) > 10:
+                self.buffer = self.buffer[:10]
 
-            print(self.input)
-            print('', '\n/ ' + self.input, end='') # prints the initial line
+            print(self.buffer) # debug
+            print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
 
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
-            clear_string(len(self.input))
-            print('/ ' + self.input, end='') # moves cursor to the right
+            clear_string(len(self.buffer))
+            print('/ ' + self.buffer, end='') # moves cursor to the right
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
