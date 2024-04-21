@@ -41,6 +41,7 @@ class user_input():
 
         match command:
             case 'quit':
+                print('')
                 self.current['quit'] = True
             case 'search': 
                 self.current['quit'] = True
