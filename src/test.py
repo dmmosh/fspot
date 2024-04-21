@@ -7,16 +7,17 @@ import tkinter as tk
 from pynput.keyboard import Key, Listener, KeyCode
 
 user = '' # user input
+quit = False
 def on_click(key:Key) -> None:
     global user
-
+    global quit 
     if key == Key.num_lock:
         pass
     elif key == Key.backspace:
         user = user[:-1]
     elif key == Key.enter:
         if user == 'q':
-            sys.exit()
+            quit = True
         user=''
 
         print('\033[1A', end='\x1b[2K')
@@ -28,10 +29,11 @@ Listener( on_press=on_click).start() # key listener
 
 def prints():
     global user
+    global quit
     i = 0
     print('')
     delete_line()
-    while(1):
+    while(not quit):
         print(i, '\n/ ' + user, end='')
         time.sleep(1)
         print('', end='\x1b[2K')
@@ -47,6 +49,6 @@ printing = threading.Thread(target=prints(), daemon=True)
 printing.start()
 
 
-while(user != 'q'):
+while(not quit):
     dummy = input()
 
