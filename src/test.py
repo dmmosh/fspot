@@ -8,9 +8,6 @@ from pynput.keyboard import Key, Listener
 
 
 class user_input():
-    user = ''
-    quit = False
-    input = True
 
     # inits everything
     def __init__(self) -> None:
