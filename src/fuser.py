@@ -88,6 +88,7 @@ class user_input():
                         self.current['logging'] = True
                         #self.curr_input.join()
                         self.current['window'] = 'main' #picker window
+                        self.main.join()
                         self.main.start()
 
 
