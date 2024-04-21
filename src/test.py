@@ -24,14 +24,16 @@ class user_input():
         self.keylog = Listener(on_press=self.on_press) # daemon on default
         self.main = threading.Thread(target=self.main_input, daemon=True)
         self.search = threading.Thread(target=self.searcher, daemon=True)
+        self.dum = threading.Thread(target=self.dummy, daemon=True)
 
-        self.curr_input = self.main
+
 
         # THREADS
         self.keylog.start()
         self.main.start()
 
-        self.dummy() # dummy input function
+
+        self.dum.start() # dummy input function
 
     # options menu (to minimize nesting)
     # ONLY CALL WHEN ENTER KEY IS CALLED
@@ -49,6 +51,13 @@ class user_input():
                 self.current['quit'] = False
                 self.current['window'] = 'search' #picker window
                 self.search.start()
+                self.dummy()
+            case 'main':
+                self.current['quit'] = True
+                #self.curr_input.join()
+                self.current['quit'] = False
+                self.current['window'] = 'main' #picker window
+                self.main.start()
                 self.dummy()
 
     # on each key press
@@ -76,8 +85,8 @@ class user_input():
 
     # dummy loop to redirect input from terminal to python
     def dummy(self):
-        while (not self.current['quit']):
-            input() # dummy input
+        while (1):
+            print('',end='')
 
     # the main input window
     def main_input(self):
