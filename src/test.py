@@ -56,6 +56,8 @@ class user_input():
             case Key.backspace:
                 self.buffer = self.buffer[:-1]
             # ALL INPUT COMMANDS
+            case Key.esc:
+                print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
             case Key.enter:
                 command = self.buffer
                 self.buffer = ''
