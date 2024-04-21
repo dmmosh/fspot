@@ -86,7 +86,7 @@ class user_input():
     # dummy loop to redirect input from terminal to python
     def dummy(self):
         while (1):
-            print('',end='')
+            input()
 
     # the main input window
     def main_input(self):
