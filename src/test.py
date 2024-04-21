@@ -35,9 +35,9 @@ class user_input():
     def on_press(self, key:Key) -> None:
         match key:
             case Key.backspace:
-                user = user[:-1]
+                self.user = self.user[:-1]
             case Key.enter:
-                match user:
+                match self.user:
                     case 'quit':
                         print('') # have to do this idk why 
                         self.input = False
@@ -47,12 +47,12 @@ class user_input():
                         self.input = False
     
                 print('\033[1A', end='\x1b[2K') # clears the current line
-                user='' # wipes the user buffer
+                self.user='' # wipes the user buffer
             case None:
                 pass
             case _: # regular letterssd
                 try:
-                    user += key.char
+                    self.user += key.char
                 except:
                     pass
     
@@ -60,7 +60,7 @@ class user_input():
 
     # dummy loop to redirect input from terminal to python
     def dummy(self):
-        while (user_input):
+        while (self.user_input):
             input() # dummy input
 
     # the main input window
@@ -68,17 +68,17 @@ class user_input():
         print('')
         delete_line()
         while(not quit):
-            if len(user) > 10:
-                user = user[:10]
+            if len(self.user) > 10:
+                self.user = self.user[:10]
 
-            print(user)
-            print('', '\n/ ' + user, end='') # prints the initial line
+            print(self.user)
+            print('', '\n/ ' + self.user, end='') # prints the initial line
             time.sleep(0.5) # waits a second
 
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
-            clear_string(len(user))
-            print('/ ' + user, end='') # moves cursor to the right
+            clear_string(len(self.user))
+            print('/ ' + self.user, end='') # moves cursor to the right
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
