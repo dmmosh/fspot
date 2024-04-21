@@ -6,68 +6,90 @@ import flogin as fl
 import tkinter as tk
 from pynput.keyboard import Key, Listener
 
-user = '' # user input
-quit = False # exits the program
-user_input = True # exits the user input (can be turned on/off)
 
-def on_press(key:Key) -> None:
-    global user
-    global quit 
-    global user_input
+class user_input():
+    # VARIABLES
+    user = ''
+    quit = False # whether to quit or not
+    input = True # whether to input or not
+    
+    
 
-    match key:
-        case Key.backspace:
-            user = user[:-1]
-        case Key.enter:
-            match user:
-                case 'quit':
-                    print('') # have to do this idk why 
-                    user_input = False
-                    quit = True
-                case 'search':
-                    print('')
-                    user_input = False
+    # inits everything
+    def __init__(self) -> None:
+        self.user = '' # user input
+        self.quit = False # exits the program
+        self.input = True # exits the user input (can be turned on/off)
+        self.main_input() # calls the main input
 
 
-            
+        # THREADS
+        self.keylog.start()
+        self.main.start()
 
-            print('\033[1A', end='\x1b[2K') # clears the current line
-            user='' # wipes the user buffer
-        case None:
-            pass
-        case _: # regular letterssd
-            try:
-                user += key.char
-            except:
+        self.dummy() # dummy input function
+
+    
+    # on each key press
+    def on_press(self, key:Key) -> None:
+        match key:
+            case Key.backspace:
+                user = user[:-1]
+            case Key.enter:
+                match user:
+                    case 'quit':
+                        print('') # have to do this idk why 
+                        self.input = False
+                        self.quit = True
+                    case 'search':
+                        print('')
+                        self.input = False
+    
+                print('\033[1A', end='\x1b[2K') # clears the current line
+                user='' # wipes the user buffer
+            case None:
                 pass
-
-def prints():
-    global user
-    global quit
-    print('')
-    delete_line()
-    while(not quit):
-        if len(user) > 10:
-            user = user[:10]
-
-        print(user)
-        print('', '\n/ ' + user, end='') # prints the initial line
-        time.sleep(0.5) # waits a second
-
-        print('', end='\x1b[2K') # clears current
-        print('\033[1A', end='\x1b[2K') # moves up and clears
-        clear_string(len(user))
-        print('/ ' + user, end='') # moves cursor to the right
-        print('') # prints newline
-        delete_line(1) # deletes it (so lines in next iteration will start at beginning)
-
-def dummy():
-    while (user_input):
-        input() # dummy input
+            case _: # regular letterssd
+                try:
+                    user += key.char
+                except:
+                    pass
+    
 
 
+    # dummy loop to redirect input from terminal to python
+    def dummy():
+        while (user_input):
+            input() # dummy input
 
-Listener(on_press=on_press).start()
-threading.Thread(target=prints, daemon=True).start()
+    # the main input window
+    def main_input():
+        print('')
+        delete_line()
+        while(not quit):
+            if len(user) > 10:
+                user = user[:10]
 
-dummy() # dummy input function
+            print(user)
+            print('', '\n/ ' + user, end='') # prints the initial line
+            time.sleep(0.5) # waits a second
+
+            print('', end='\x1b[2K') # clears current
+            print('\033[1A', end='\x1b[2K') # moves up and clears
+            clear_string(len(user))
+            print('/ ' + user, end='') # moves cursor to the right
+            print('') # prints newline
+            delete_line(1) # deletes it (so lines in next iteration will start at beginning)
+
+
+
+
+
+     # THREADS
+     # all threads should be daemons
+    keylog = Listener(on_press=on_press) # daemon on default
+    main = threading.Thread(target=main_input, daemon=True)
+
+
+
+test = user_input()
