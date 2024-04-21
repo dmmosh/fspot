@@ -18,7 +18,7 @@ def on_click(key:Key) -> None:
         if user == 'q':
             os._exit(0)
         user=''
-        
+
         print('\033[1A', end='\x1b[2K')
         print('/ ' + user, end='')
     else:
@@ -34,8 +34,11 @@ def prints():
         time.sleep(1)
         print('', end='\x1b[2K')
         print('\033[1A', end='\x1b[2K')
-        print('/ ', end='')
-
+        print('/ ' + user, end='')
+        print('')
+        print('')
+        print('')
+        delete_line(3)
 
 
 
