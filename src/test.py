@@ -13,7 +13,7 @@ class user_input():
     def __init__(self):
         self.user = '' # user input
         self.quit = False # exits the program
-        self.input = True # exits the user input (can be turned on/off)
+        self.input = True # exits the user input (can be turned on/off)d
 
          # THREADS
         # all threads should be daemons
