@@ -16,7 +16,7 @@ def on_click(key:Key) -> None:
         user = user[:-1]
     elif key == Key.enter:
         if user == 'q':
-            os._exit(0)
+            sys.exit()
         user=''
 
         print('\033[1A', end='\x1b[2K')
