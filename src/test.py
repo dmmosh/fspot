@@ -35,17 +35,14 @@ class user_input():
 
     # options menu (to minimize nesting)
     # ONLY CALL WHEN ENTER KEY IS CALLED
-    def options(self):
+    def options(self, command:str = 'quit'):
         # NON-TERMINAL SPECIFIC OPTIONS
 
 
-        match self.buffer:
+        match command:
             case 'quit':
-                print('') # have to do this idk why 
                 self.current['quit'] = True
             case 'search': 
-                self.buffer='' # wipes the user buffer
-                print('') # have to do this idk why 
                 self.current['quit'] = True
                 self.current['quit'] = False
                 self.current['window'] = 'search' #picker window
@@ -60,7 +57,10 @@ class user_input():
 
             # ALL INPUT COMMANDS
             case Key.enter:
-                self.options() # calls options function
+                print('') # have to do this idk why 
+                command = self.buffer
+                self.buffer = ''
+                self.options(command) # calls options function
             case None:
                 pass
             case _: # regular letterssd
