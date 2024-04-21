@@ -34,13 +34,14 @@ def prints():
     print('')
     delete_line()
     while(not quit):
-        print(i, '\n/ ' + user, end='')
-        time.sleep(1)
-        print('', end='\x1b[2K')
-        print('\033[1A', end='\x1b[2K')
-        print('/ ' + user, end='')
-        print('')
-        delete_line()
+        print(i, '\n/ ' + user, end='') # prints the initial line
+        time.sleep(1) # waits a second
+        print('', end='\x1b[2K') # clears current
+        print('\033[1A', end='\x1b[2K') # moves up and clears
+        print('/ ' + user, end='') # moves cursor to the right
+        dummy = input() # dummy input
+        print('') # prints newline
+        delete_line() # deletes it (so lines in next iteration will start at beginning)
         i+=1
 
 
@@ -48,7 +49,5 @@ def prints():
 printing = threading.Thread(target=prints(), daemon=True)
 printing.start()
 
-
-while(not quit):
-    dummy = input()
+printing.join()
 
