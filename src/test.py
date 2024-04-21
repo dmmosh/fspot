@@ -42,7 +42,7 @@ class user_input():
 
             # ALL INPUT COMMANDS
             case Key.enter:
-                match self.buffer_window:
+                match self.current['window']:
                     case 'main':
                 
                         match self.buffer:
