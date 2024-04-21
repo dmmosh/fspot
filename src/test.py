@@ -35,6 +35,7 @@ def prints():
     print('')
     delete_line()
     while(not quit):
+        print(user)
         print('', '\n/ ' + user, end='') # prints the initial line
         time.sleep(1) # waits a second
         print('', end='\x1b[2K') # clears current
