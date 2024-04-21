@@ -44,6 +44,7 @@ class user_input():
                 print('')
                 self.current['quit'] = True
             case 'search': 
+                print('fksmdlk')
                 self.current['quit'] = True
                 self.current['quit'] = False
                 self.current['window'] = 'search' #picker window
