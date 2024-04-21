@@ -118,7 +118,6 @@ class user_input():
     def main_input(self):
         print('')
         delete_line()
-        global progress
 
         while(self.current['logging']):
             song_state = GET('me/player') # gets the current song state
@@ -126,20 +125,19 @@ class user_input():
                 ERROR('Could not get the specified song.')
             
             song_state = song_state.json() # makes it a json file
-            progress = song_state['progress_ms']
 
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
             
-            print(progress) # debug
+            print('3') # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
             clear_string(len(self.buffer))
             print('/ ' + self.buffer, end='') # moves cursor to the right
-            print('\n\n') # prints newline
-            delete_line(3) # deletes it (so lines in next iteration will start at beginning)
+            print('') # prints newline
+            delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
     def searcher(self):
         print('\n\n\n\n')
