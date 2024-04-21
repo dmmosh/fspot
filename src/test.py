@@ -13,6 +13,7 @@ user_input = True # exits the user input (can be turned on/off)
 def on_press(key:Key) -> None:
     global user
     global quit 
+    global user_input
 
     if len(user) > 10:
             user = user[:10]
