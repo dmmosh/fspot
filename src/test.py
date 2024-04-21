@@ -45,7 +45,6 @@ class user_input():
                 self.current['quit'] = True
             case 'search': 
                 self.current['quit'] = True
-                self.main.join()
                 self.current['quit'] = False
                 self.current['window'] = 'search' #picker window
                 self.search.start()
