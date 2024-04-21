@@ -30,9 +30,6 @@ def on_press(key:Key) -> None:
             except:
                 pass
 
-
-Listener(on_press=on_press).start()
-
 def prints():
     global user
     global quit
@@ -51,17 +48,13 @@ def prints():
         print('') # prints newline
         delete_line() # deletes it (so lines in next iteration will start at beginning)
 
-# dummy input, captures it so the terminal doesnt
-def dummy():
-    global quit
-    while (not quit):
-        input() # dummy input
 
+Listener(on_press=on_press).start()
 
 printing = threading.Thread(target=prints, daemon=True)
 printing.start()
 
-dummy_input = threading.Thread(target=dummy, daemon=True)
-dummy_input.start()
+while (not quit):
+    input() # dummy input
 
 
