@@ -40,7 +40,7 @@ class user_input():
         match command:
             case 'start': # start
                 PUT('me/player/play')
-                
+
             case 'pause':  # pause
                 PUT('me/player/pause')
 
@@ -99,8 +99,7 @@ class user_input():
                 try:
                     self.buffer += key.char
                 except:
-                    ERROR('Weird key.')
-    
+                    pass
 
 
 
