@@ -24,7 +24,7 @@ def on_click(key:Key) -> None:
         user += key.char
 
 # starts the listener
-Listener( on_press=on_click).join() # key listener
+Listener( on_press=on_click).start() # key listener
 
 def prints():
     global user
@@ -41,4 +41,10 @@ def prints():
 
 
 
-prints()
+printing = threading.Thread(target=prints())
+printing.start()
+
+
+while(user != 'q'):
+    dummy = input()
+
