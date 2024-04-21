@@ -35,10 +35,8 @@ def prints():
         print('', end='\x1b[2K')
         print('\033[1A', end='\x1b[2K')
         print('/ ' + user, end='')
-        print('')
-        print('')
-        print('')
-        delete_line(3)
+        print('\n\n\n\n\n')
+        delete_line(6)
 
 
 
