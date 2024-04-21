@@ -44,7 +44,6 @@ class user_input():
                 print('')
                 self.current['quit'] = True
             case 'search': 
-                print('fksmdlk')
                 self.current['quit'] = True
                 self.current['quit'] = False
                 self.current['window'] = 'search' #picker window
@@ -98,6 +97,7 @@ class user_input():
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
     def searcher(self):
+        print('dskdsljkl')
         print('')
         delete_line()
         while(not self.current['quit']):
