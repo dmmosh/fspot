@@ -122,7 +122,7 @@ class user_input():
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
             
-            print(self.buffer) # debug
+            print(33454) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             
             time.sleep(0.5) # waits a second
