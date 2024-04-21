@@ -118,18 +118,11 @@ class user_input():
     def main_input(self):
         print('')
         delete_line()
-
         while(self.current['logging']):
-            song_state = GET('me/player') # gets the current song state
-            if song_state.status_code != 200: # error handling
-                ERROR('Could not get the specified song.')
-            
-            song_state = song_state.json() # makes it a json file
-
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
             
-            print('3') # debug
+            print(self.buffer) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
             print('', end='\x1b[2K') # clears current
