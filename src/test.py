@@ -24,7 +24,7 @@ class user_input():
         # all threads should be daemons
         self.keylog = Listener(on_press=self.on_press) # daemon on default
         self.main = threading.Thread(target=self.main_input, daemon=True)
-        self.pick = threading.Thread(target=self.picker, daemon=True)
+        self.search = threading.Thread(target=self.searcher, daemon=True)
 
 
 
@@ -47,7 +47,7 @@ class user_input():
             case 'search': 
                 self.current['input'] = False # exits the input loop
                 self.current['window'] = 'search' #picker window
-                self.pick.start()
+                self.search.start()
                 self.dummy()
 
         print('\033[1A', end='\x1b[2K') # clears the current line
@@ -95,7 +95,8 @@ class user_input():
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
-    def picker(self):
+    def searcher(self):
+        print('he')
         print('')
         delete_line()
         while(not self.current['quit'] and self.current['window'] == 'search'):
