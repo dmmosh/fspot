@@ -4,7 +4,7 @@ from flogin import *
 import fglobal as gl
 import flogin as fl
 import tkinter as tk
-from pynput.keyboard import Key, Listener, KeyCode
+from pynput.keyboard import Key, Listener
 
 user = '' # user input
 quit = False
@@ -33,7 +33,7 @@ def on_click(key:Key) -> None:
 
 
 # starts the listener
-Listener( on_press=on_click, suppress=True).start() # key listener
+Listener( on_press=on_click).start() # key listener
 
 
 def prints():
