@@ -56,9 +56,7 @@ class user_input():
             case Key.backspace:
                 self.buffer = self.buffer[:-1]
             # ALL INPUT COMMANDS
-            case Key.esc:
-                print('')
-                self.current['quit'] = True
+            
             case Key.enter:
                 command = self.buffer
                 self.buffer = ''
@@ -67,6 +65,10 @@ class user_input():
             case None:
                 pass
             case _: # regular letterssd
+                if key.char == '2':
+                    print('')
+                    self.current['quit'] = True
+
                 try:
                     self.buffer += key.char
                 except:
