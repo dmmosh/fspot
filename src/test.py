@@ -43,7 +43,7 @@ def prints():
         time.sleep(1) # waits a second
         print('', end='\x1b[2K') # clears current
         print('\033[1A', end='\x1b[2K') # moves up and clears
-        clear_string
+        clear_string(len(user))
         print('/ ' + user, end='') # moves cursor to the right
         print('') # prints newline
         delete_line() # deletes it (so lines in next iteration will start at beginning)
