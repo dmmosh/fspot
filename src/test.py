@@ -23,6 +23,7 @@ def on_press(key:Key) -> None:
         case Key.enter:
             if user == 'q':
                 print('') # have to do this idk why 
+                user_input = False
                 quit = True
             user=''
 
