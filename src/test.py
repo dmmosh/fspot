@@ -43,7 +43,6 @@ class user_input():
             case 'quit':
                 print('') # have to do this idk why 
                 self.current['quit'] = True
-                os._exit(0)
             case 'search': 
                 self.buffer='' # wipes the user buffer
                 print('') # have to do this idk why 
