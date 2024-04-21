@@ -35,7 +35,6 @@ def prints():
     delete_line()
     while(not quit):
         print(i, '\n/ ' + user, end='') # prints the initial line
-        dummy = input() # dummy input
         time.sleep(1) # waits a second
         print('', end='\x1b[2K') # clears current
         print('\033[1A', end='\x1b[2K') # moves up and clears
@@ -46,8 +45,9 @@ def prints():
 
 
 
-printing = threading.Thread(target=prints(), daemon=True)
+printing = threading.Thread(target=prints, daemon=True)
 printing.start()
 
-printing.join()
 
+while (not quit):
+    dummy = input() # dummy input
