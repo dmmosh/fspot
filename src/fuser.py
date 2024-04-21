@@ -130,7 +130,7 @@ class user_input():
                 ERROR('Could not get the song.')
             song_data = song_data.json()
 
-            print(song_data, end='')
+            print(song_data['progress_ms'], end='')
 
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
