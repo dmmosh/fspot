@@ -57,7 +57,8 @@ class user_input():
                 self.buffer = self.buffer[:-1]
             # ALL INPUT COMMANDS
             case Key.esc:
-                print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", end='')
+                print('')
+                self.current['quit'] = True
             case Key.enter:
                 command = self.buffer
                 self.buffer = ''
@@ -105,13 +106,13 @@ class user_input():
                 self.buffer = self.buffer[:10]
 
             print(self.buffer) # debug
-            print('', '\n/ ' + 'ds', end='') # prints the initial line
+            print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
 
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
             clear_string(len(self.buffer))
-            print('/ ' + 'dj', end='') # moves cursor to the right
+            print('/ ' + self.buffer, end='') # moves cursor to the right
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
