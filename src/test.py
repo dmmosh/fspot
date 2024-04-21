@@ -43,11 +43,11 @@ def prints():
 
         print('', end='\x1b[2K') # clears current
         print('\033[1A', end='\x1b[2K') # moves up and clears
-        print('\033[1A', end='')
         clear_string(len(user))
         print('/ ' + user, end='') # moves cursor to the right
         print('') # prints newline
-        delete_line() # deletes it (so lines in next iteration will start at beginning)
+        print('hello!')
+        delete_line(2) # deletes it (so lines in next iteration will start at beginning)
 
 
 Listener(on_press=on_press).start()
