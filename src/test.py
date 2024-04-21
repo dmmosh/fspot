@@ -53,15 +53,16 @@ def prints():
         print('') # prints newline
         delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
+def dummy_input():
+    while (not quit):
+        input() # dummy input
+
+
 
 Listener(on_press=on_press).start()
+threading.Thread(target=prints, daemon=True).start()
+threading.Thread(target=dummy_input, daemon=True).start()
 
-printing = threading.Thread(target=prints, daemon=True)
-printing.start()
 
-while (not quit):
-    input() # dummy input
-    time.sleep(0.5)
-    print("\n\n\n\ndfnlkdsjnl")
 
 
