@@ -28,16 +28,16 @@ Listener( on_press=on_click).start() # key listener
 
 def prints():
     global user
-    print('\n\n\n')
-    delete_line(4)
+    print('')
+    delete_line()
     for i in range(0,10):
         print(i, '\n/ ' + user, end='')
         time.sleep(1)
         print('', end='\x1b[2K')
         print('\033[1A', end='\x1b[2K')
         print('/ ' + user, end='')
-        print('\n')
-        delete_line(1)
+        print('')
+        delete_line()
 
 
 
