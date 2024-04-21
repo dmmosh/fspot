@@ -128,7 +128,7 @@ class user_input():
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
             
-            print(song_state['progress_ms'])
+            print(song_state['progress_ms']) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
             print('', end='\x1b[2K') # clears current
