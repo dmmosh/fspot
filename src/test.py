@@ -7,7 +7,9 @@ import tkinter as tk
 from pynput.keyboard import Key, Listener
 
 user = '' # user input
-quit = False
+quit = False # exits the program
+user_input = True # exits the user input (can be turned on/off)
+
 def on_press(key:Key) -> None:
     global user
     global quit 
@@ -53,14 +55,14 @@ def prints():
         print('') # prints newline
         delete_line(1) # deletes it (so lines in next iteration will start at beginning)
 
+def dummy():
+    while (user_input):
+        input() # dummy input
 
 
 
 Listener(on_press=on_press).start()
 threading.Thread(target=prints, daemon=True).start()
 
-while (not quit):
-    input() # dummy input
 
-
-
+dummy()
