@@ -19,7 +19,6 @@ def on_press(key:Key) -> None:
             if user == 'q':
                 print('') # have to do this idk why 
                 quit = True
-                return False
             user=''
 
             print('\033[1A', end='\x1b[2K') # clears the current line
@@ -30,7 +29,6 @@ def on_press(key:Key) -> None:
                 user += key.char
             except:
                 pass
-    return True
 
 def prints():
     global user
@@ -56,7 +54,7 @@ Listener(on_press=on_press).start()
 printing = threading.Thread(target=prints, daemon=True)
 printing.start()
 
-with Listener(on_press = on_press) as listener:
-    listener.join()
+while (not quit):
+    input() # dummy input
 
 
