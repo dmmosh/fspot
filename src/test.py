@@ -8,11 +8,6 @@ from pynput.keyboard import Key, Listener
 
 
 class user_input():
-    # VARIABLES
-    user = ''
-    quit = False # whether to quit or not
-    input = True # whether to input or not
-    
     
 
     # inits everything
@@ -20,7 +15,11 @@ class user_input():
         self.user = '' # user input
         self.quit = False # exits the program
         self.input = True # exits the user input (can be turned on/off)
-        self.main_input() # calls the main input
+        
+         # THREADS
+        # all threads should be daemons
+        self.keylog = Listener(on_press=self.on_press) # daemon on default
+        self.main = threading.Thread(target=self.main_input, daemon=True)
 
 
         # THREADS
@@ -85,10 +84,7 @@ class user_input():
 
 
 
-     # THREADS
-     # all threads should be daemons
-    keylog = Listener(on_press=on_press) # daemon on default
-    main = threading.Thread(target=main_input, daemon=True)
+    
 
 
 
