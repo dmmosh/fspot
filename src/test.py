@@ -30,8 +30,25 @@ class user_input():
         # THREADS
         self.keylog.start()
         self.main.start()
+        self.picker.start()
 
         self.dummy() # dummy input function
+
+    # options menu (to minimize nesting)
+    def options(self):
+        match self.current['window']:
+            # MAIN SEARCH
+            case 'main':
+                match self.buffer:
+                    case 'quit':
+                        print('') # have to do this idk why 
+                        self.current['input'] = False
+                        self.current['quit'] = True
+                    case 'search': 
+                        print('njdkdfhsdhjk')
+                        self.current['input'] = False # exits the input loop
+                        self.current['window'] = 'picker' #picker window
+                        self.picker.start()
 
     
     # on each key press
@@ -42,21 +59,8 @@ class user_input():
 
             # ALL INPUT COMMANDS
             case Key.enter:
-                match self.current['window']:
-                    case 'main':
                 
-                        match self.buffer:
-                            case 'quit':
-                                print('') # have to do this idk why 
-                                self.current['input'] = False
-                                self.current['quit'] = True
-                            case 'search': 
-                                print('')
-                                self.current['input'] = False # exits the input loop
-                                self.current['window'] = 'picker' #picker window
-                                self.picker.start()
-                                self.dummy()
-
+                self.options() # calls options function
     
                 print('\033[1A', end='\x1b[2K') # clears the current line
                 self.buffer='' # wipes the user buffer
