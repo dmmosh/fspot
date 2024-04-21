@@ -35,8 +35,4 @@ def prints():
 
 
 
-nums = threading.Thread(target=prints, daemon=True)
-nums.start()
-
-while(1):
-    input = ''
+prints()
