@@ -55,6 +55,7 @@ class user_input():
                                 self.current['input'] = False # exits the input loop
                                 self.current['window'] = 'picker' #picker window
                                 self.picker.start()
+                                self.dummy()
 
     
                 print('\033[1A', end='\x1b[2K') # clears the current line
