@@ -51,7 +51,8 @@ def prints():
 
 
 printing = threading.Thread(target=prints, daemon=True)
-printing.start()
+#printing.start()
+prints()
 
 
 
