@@ -11,22 +11,26 @@ quit = False
 def on_click(key:Key) -> None:
     global user
     global quit 
-    if key == Key.num_lock:
-        pass
-    elif key == Key.backspace:
-        user = user[:-1]
-    elif key == Key.enter:
-        if user == 'q':
-            print('') # have to do this idk why 
-            quit = True
-        user=''
 
-        print('\033[1A', end='\x1b[2K') # clears the current line
-    else:
-        try:
-            user += key.char
-        except:
+    match key:
+        case Key.backspace:
+            user = user[:-1]
+        case Key.enter:
+            if user == 'q':
+                print('') # have to do this idk why 
+                quit = True
+            user=''
+
+            print('\033[1A', end='\x1b[2K') # clears the current line
+        case None:
             pass
+        case _: # regular letters
+            try:
+                user += key.char
+            except:
+                pass
+
+
 
 # starts the listener
 Listener( on_press=on_click).start() # key listener
