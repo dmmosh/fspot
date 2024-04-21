@@ -14,6 +14,9 @@ def on_click(key:Key) -> None:
             pass
         case Key.backspace:
             user = user[:-1]
+        case Key.enter:
+            if user == 'q':
+                os._exit(0)
         case _:
             user += key
 
@@ -34,8 +37,3 @@ def prints():
 
 nums = threading.Thread(target=prints, daemon=True)
 #nums.start()
-
-while(1):
-    test = input()
-    if test == 'q':
-        break
