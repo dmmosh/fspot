@@ -28,9 +28,10 @@ Listener( on_press=on_click).start() # key listener
 
 def prints():
     global user
+    i = 0
     print('')
     delete_line()
-    for i in range(0,10):
+    while(1):
         print(i, '\n/ ' + user, end='')
         time.sleep(1)
         print('', end='\x1b[2K')
@@ -38,10 +39,11 @@ def prints():
         print('/ ' + user, end='')
         print('')
         delete_line()
+        i+=1
 
 
 
-printing = threading.Thread(target=prints())
+printing = threading.Thread(target=prints(), daemon=True)
 printing.start()
 
 
