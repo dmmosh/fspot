@@ -120,6 +120,7 @@ class user_input():
         delete_line()
         while(self.current['logging']):
             song_state = GET('me/player') # gets the current song state
+            time.sleep(1) # waits a second
             if song_state.status_code != 200: # error handling
                 ERROR('Could not get the specified song.')
             
@@ -130,7 +131,6 @@ class user_input():
             
             print(song_state['progress_ms']) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
-            time.sleep(1) # waits a second
             print('', end='\x1b[2K') # clears current
             print('\033[1A', end='\x1b[2K') # moves up and clears
             clear_string(len(self.buffer))
