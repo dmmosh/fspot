@@ -38,7 +38,6 @@ class user_input():
     def options(self):
         # NON-TERMINAL SPECIFIC OPTIONS
 
-        self.buffer='' # wipes the user buffer
 
         match self.buffer:
             case 'quit':
@@ -46,6 +45,7 @@ class user_input():
                 self.current['quit'] = True
                 os._exit(0)
             case 'search': 
+                self.buffer='' # wipes the user buffer
                 print('') # have to do this idk why 
                 self.current['quit'] = True
                 self.current['quit'] = False
