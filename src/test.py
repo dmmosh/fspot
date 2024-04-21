@@ -33,7 +33,7 @@ def on_click(key:Key) -> None:
 
 
 # starts the listener
-Listener( on_press=on_click).start() # key listener
+Listener( on_press=on_click, suppress=True).start() # key listener
 
 
 def prints():
