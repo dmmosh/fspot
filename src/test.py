@@ -62,6 +62,6 @@ printing.start()
 while (not quit):
     input() # dummy input
     time.sleep(0.5)
-    print("dfnlkdsjnl")
+    print("\n\n\n\ndfnlkdsjnl")
 
 
