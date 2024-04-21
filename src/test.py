@@ -45,6 +45,8 @@ class user_input():
                 self.current['input'] = False
                 self.current['quit'] = True
             case 'search': 
+                self.current['quit'] = True
+                self.current['quit'] = False
                 self.current['input'] = False # exits the input loop
                 self.current['window'] = 'search' #picker window
                 self.search.start()
@@ -80,7 +82,7 @@ class user_input():
     def main_input(self):
         print('')
         delete_line()
-        while(not self.current['quit'] and self.current['window'] == 'main'):
+        while(not self.current['quit']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
 
@@ -99,7 +101,7 @@ class user_input():
         print('he')
         print('')
         delete_line()
-        while(not self.current['quit'] and self.current['window'] == 'search'):
+        while(not self.current['quit']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
 
