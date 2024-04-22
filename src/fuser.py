@@ -11,7 +11,7 @@ class user_input():
         # current variables (focus, etc)
         self.current = { 'quit': False, # whether to quit or not from current, only change in threads
                           'logging': True, # whether to take input or not, ends threads
-                        'window': 'main' # the current focus window
+                            'window': 'main' # the current focus window
                         }
 
 
