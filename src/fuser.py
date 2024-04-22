@@ -120,8 +120,8 @@ class user_input():
             print('/ ' + self.buffer, end= '')
             time.sleep(0.5)
             print('\x1b[2K', end='')
-            print('')
-            delete_line()
+            print('/ ' + self.buffer, end= '')
+            
             
             
 
