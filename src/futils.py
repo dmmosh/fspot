@@ -92,7 +92,8 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
 def start_player():
 
-    player = subprocess.Popen('librespot ' + 
+    player = subprocess.Popen( '. ' + 
+                                'librespot ' + 
                                 '--name \"fspot player\" ' +
                                 '--disable-audio-cache ' +
                                 '--disable-credential-cache ' +
