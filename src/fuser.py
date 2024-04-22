@@ -120,8 +120,8 @@ class user_input():
         delete_line()
         while(self.current['logging']):
             print('/ ' + self.buffer, end= '')
-            sys.stdout.write('\x1b[2K')
             time.sleep(0.5)
+            sys.stdout.write('\x1b[2K')
             
             
 
