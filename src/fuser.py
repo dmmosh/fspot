@@ -144,8 +144,10 @@ class user_input():
             time.sleep(0.1) # waits a second
             clear_line()
             move_up()
-            print('\n/ ' + self.buffer, end='') # prints the initial line
+            print('\n/ ' + self.buffer +'\n', end='') # prints the initial line
             
+            clear_line()
+            move_up()
             move_up()
             for i in range(0,3):
                 move_up()
