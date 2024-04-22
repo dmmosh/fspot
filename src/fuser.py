@@ -153,14 +153,12 @@ class user_input():
 
 
             # USER LINES
-            print('')
-            print('/ ' + self.buffer, end='') # prints the initial line
+            print('\n/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.1) # waits a second
             clear_line()
             move_up()
-            print('')
-            print('/ ' + self.buffer, end='') # prints the initial line
+            print('\n/ ' + self.buffer, end='') # prints the initial line
             
             move_up()
             for i in range(0,LINE_CTR-2): # amount of lines to clear
