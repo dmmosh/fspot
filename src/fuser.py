@@ -82,7 +82,7 @@ class user_input():
             case 'back': #WIP TODO: finish this
                 match self.current['window']:
                     case 'main':
-                        print('')
+                        clear_line()
                         self.current['quit'] = True
                         self.keylog.stop()
                     case 'search':
