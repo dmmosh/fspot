@@ -126,6 +126,8 @@ class user_input():
 
         while(self.current['logging']): # update
             delete_line(2) # delete the amount of lines being printed above (including the terminal input)
+            print('\n\x1b[2K', end='')
+            
             print("hello ther") # debug
             print(progress) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
