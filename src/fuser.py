@@ -59,7 +59,7 @@ class user_input():
             
             
             case 'quit': # quits the user input
-                os._exit(0)
+                self.current['quit'] = True
 
             case 'search':  # goes to the lower search bar
                 self.current['logging'] = False
