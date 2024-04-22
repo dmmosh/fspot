@@ -141,7 +141,7 @@ class user_input():
 
             time.sleep(0.5) # waits a second
             
-            if (char_ctr < len(self.buffer)):
+            if (char_ctr > len(self.buffer)):
                 clear_line()
                 print('/ ' + self.buffer, end='')
             move_up()
