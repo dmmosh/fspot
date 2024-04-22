@@ -191,8 +191,7 @@ def end_player():
 # DELETES LAST LINE
 def delete_line(n:int = 1)-> None:
     while(n):
-        sys.stdout.write('\x1b[1A')
-        sys.stdout.write('\x1b[2K')
+        sys.stdout.write('\x1b[1A\x1b[2K')
         n-=1
 
 # clears the string length from the printed lines (every char after newline)

@@ -117,10 +117,9 @@ class user_input():
     # the main input window
     def main_input(self):
         while(self.current['logging']):
-            print('/ ' + self.buffer, end= '')
+            sys.stdout.write('/ ' + self.buffer)
             time.sleep(0.5)
-            print('\x1b[1A', end='')
-            
+            sys.stdout.write('\x1b[2K')
             
             
 
