@@ -125,7 +125,7 @@ class user_input():
         progress = 0
 
         while(self.current['logging']): # update
-            delete_line(3) # delete the amount of lines being printed above (including the terminal input)
+            delete_line(2) # delete the amount of lines being printed above (including the terminal input)
             print("hello ther") # debug
             print(progress) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
