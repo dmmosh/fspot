@@ -125,7 +125,7 @@ class user_input():
 
         while(self.current['logging']): # update
             print("hello ther") # debug
-            print(progress) # debug
+            print(342) # debug
             print('')
             print('/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
