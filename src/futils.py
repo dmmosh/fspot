@@ -1,5 +1,6 @@
 from fglobal import *
 import fglobal as gl
+from librespot.core import Session
 
 # PICKLING
 # saves the pickle object to var folder
@@ -101,6 +102,7 @@ def start_player():
                                 '-u \"'+ gl.auth_codes['user_id'] + '\" ' +
                                 '-p \"' + gl.auth_codes['password'] + '\" &> /dev/null '), daemon=True)
     player.start()
+
 
     change_player = threading.Thread(target=connect_player) # runs connection to the player
     change_player.start() # starts thread
