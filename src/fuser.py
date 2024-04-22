@@ -62,8 +62,10 @@ class user_input():
                 return
             
             case 'quit': # quits the user input
-                print('')
+                clear_line()
+
                 self.current['quit'] = True
+
                 self.keylog.stop()
             case 'search':  # goes to the lower search bar
                 self.current['logging'] = False
