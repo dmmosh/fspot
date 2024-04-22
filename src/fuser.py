@@ -124,6 +124,13 @@ class user_input():
         progress = 0 # song progress bar
         print_ctr = 0
         while(self.current['logging']): # update
+
+            print('\n'*4, end='')
+            for i in range(0,4):
+                move_up()                
+                clear_line()
+
+
             loc = GET('me/player')
             if (loc.status_code == 200):
                 loc = loc.json()
