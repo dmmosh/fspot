@@ -40,15 +40,26 @@ me = GET('me') # testing
 if me.status_code != 200: # if token is still invalid, rerun the login page
     login_start() # starts login
 
-player = GET('me/player')
 
 
-start_player()
+player = threading.Thread(target=lambda: os.system('nohup librespot ' + 
+                                '--name \"fspot player\" ' +
+                                '--disable-audio-cache ' +
+                                '--disable-credential-cache ' +
+                                '--autoplay ' + 
+                                '--device-type homething ' +
+                                '-u \"'+ gl.auth_codes['user_id'] + '\" ' +
+                                '-p \"' + gl.auth_codes['password'] + '\" &> /dev/null'), daemon=True)
+
+player.start()
+change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
+change_player.start() # starts thread
+loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
+change_player.join() # joins the thread to main
+
+
 user = user_input()
 
-if user.current['quit']:
-    print('fdjij')
-    os._exit(0)
 
 
 #browser.terminate()
