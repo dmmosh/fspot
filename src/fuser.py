@@ -119,11 +119,13 @@ class user_input():
         print('')
         delete_line()
         while(self.current['logging']):
+            print("hello ther") # debug
             print(self.buffer) # debug
-            print('', '\n\n/ ' + self.buffer, end='') # prints the initial line
+            print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
             print('', end='\x1b[2K') # clears current
-            delete_line(3)
+            delete_line(3) # delete the amount of lines being printed above (including the terminal input)
+
             print('/ ' + self.buffer, end='') # moves cursor to the right
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
