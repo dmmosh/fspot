@@ -102,7 +102,7 @@ class user_input():
             case Key.enter:
                 command = self.buffer
                 self.buffer = ''
-                print('\033[1A', end='\x1b[2K')
+                clear_line('/ ')
                 self.options(command) # calls options function
             case None:
                 pass
@@ -141,7 +141,7 @@ class user_input():
 
             time.sleep(0.5) # waits a second
             
-            if (print_ctr < len(self.buffer)):
+            if (print_ctr < len(self.buffer) and len(self.buffer)):
                 clear_line()
                 print('/ ' + self.buffer)
             move_up()
