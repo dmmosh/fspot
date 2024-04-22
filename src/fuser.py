@@ -125,7 +125,7 @@ class user_input():
         global progress
         global print_ctr
 
-        progress = 0 # song progress bar
+        progress = 0 # song progress barf
         print_ctr = 0
         while(self.current['logging']): # update
 
