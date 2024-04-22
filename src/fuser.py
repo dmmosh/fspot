@@ -102,6 +102,7 @@ class user_input():
             case Key.enter:
                 command = self.buffer
                 self.buffer = ''
+                move_up()
                 clear_line('/ ')
                 self.options(command) # calls options function
             case None:
