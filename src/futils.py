@@ -92,14 +92,14 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
 def start_player():
     
-    player = threading.Thread(target=lambda: os.system('librespot ' + 
+    player = threading.Thread(target=lambda: os.system('nohup librespot ' + 
                                 '--name \"fspot player\" ' +
                                 '--disable-audio-cache ' +
                                 '--disable-credential-cache ' +
                                 '--autoplay ' + 
                                 '--device-type homething ' +
                                 '-u \"'+ gl.auth_codes['user_id'] + '\" ' +
-                                '-p \"' + gl.auth_codes['password'] + '\"'), daemon=True)
+                                '-p \"' + gl.auth_codes['password'] + '\" &> /dev/null '), daemon=True)
     player.start()
 
     change_player = threading.Thread(target=connect_player) # runs connection to the player
