@@ -1,3 +1,7 @@
+from datetime import datetime, timedelta
+from flask import Flask, redirect, request, jsonify, session
+from pynput.keyboard import Key, Listener
+from getpass import getpass
 import requests
 import os
 import time
@@ -7,10 +11,7 @@ import threading
 from multiprocessing import Process
 import subprocess
 import math
-from datetime import datetime, timedelta
-from flask import Flask, redirect, request, jsonify, session
-from pynput.keyboard import Key, Listener
-from getpass import getpass
+import signal 
 import webbrowser
 import urllib
 import io
