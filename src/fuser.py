@@ -116,10 +116,6 @@ class user_input():
 
     # the main input window
     def main_input(self):
-        print('\n'*4, end='') # move terminal down (total + 1 whitespace line below user input)
-        clear_line(4) # delete those lines 
-
-        print('\n'*3, end='') # move terminal down (total + 1 whitespace line below user input)
             
         global progress
         global print_ctr
