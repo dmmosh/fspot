@@ -135,7 +135,8 @@ class user_input():
             delete_line(2) # delete the amount of lines being printed above (including the terminal input)
 
             print('') # prints newline
-            delete_line(1) # deletes it (so lines in next iteration will start at beginning)
+            print('') # prints newline
+            delete_line(2) # deletes it (so lines in next iteration will start at beginning)
             loc = GET('me/player')
             if (loc.status_code == 200):
                 loc = loc.json()
