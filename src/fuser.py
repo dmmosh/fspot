@@ -122,9 +122,12 @@ class user_input():
     # the main input window
     def main_input(self):
 
+        global LINE_CTR # the TOTAL lines counter 
+        LINE_CTR = 4 
+
         # MOVES THE TERMINAL DOWN
-        print('\n'*5, end='') 
-        for i in range(0,5):
+        print('\n'*4, end='') 
+        for i in range(0, LINE_CTR):
             move_up()                
             clear_line()
             
@@ -136,24 +139,31 @@ class user_input():
 
 
 
-            loc = GET('me/player')
+            loc = GET('me/player') # PLAYBACK COMMAND
             if (loc.status_code == 200):
                 loc = loc.json()
                 progress = (loc['progress_ms'] if loc['progress_ms'] else 0) // 1000
                 minute = progress // 60
                 second = progress % 60
+
+
             print('')
-            
             print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ))
-            print('\n/ ' + self.buffer, end='') # prints the initial line
+
+
+
+            # USER LINES
+            print('')
+            print('/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.1) # waits a second
             clear_line()
             move_up()
-            print('\n/ ' + self.buffer, end='') # prints the initial line
+            print('')
+            print('/ ' + self.buffer, end='') # prints the initial line
             
             move_up()
-            for i in range(0,2): # amount of lines to clear
+            for i in range(0,LINE_CTR-2): # amount of lines to clear
                 move_up()
                 clear_line()
 
