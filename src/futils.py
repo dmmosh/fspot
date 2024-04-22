@@ -158,7 +158,7 @@ def end_player():
 
 # DELETES LAST LINE
 def clear_line(replace_with:str = '')-> None:
-    sys.stdout.write('\x1b[2K' + replace_with)
+    print('\x1b[2K' + replace_with, end='')
 
 def move_up(n:int = 1)-> None:
     while(n):
