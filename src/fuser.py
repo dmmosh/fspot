@@ -128,7 +128,7 @@ class user_input():
 
         while(self.current['logging']): # update
             print("hello ther") # debug
-            print(loc) # debug
+            print(progress) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
             print('', end='\x1b[2K') # clears current
