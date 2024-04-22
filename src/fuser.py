@@ -128,6 +128,7 @@ class user_input():
             delete_line(2) # delete the amount of lines being printed above (including the terminal input)
             
             print("") # debug
+            print('hello')
             print(progress) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
