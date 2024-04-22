@@ -60,7 +60,7 @@ change_player.join() # joins the thread to main
 
 user = user_input()
 
-
+player.join()
 
 #browser.terminate()
 #print(data.json())
