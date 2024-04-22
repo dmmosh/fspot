@@ -57,13 +57,10 @@ class user_input():
             case 'refresh': # refresh
                 refresh(force=True)
             
-            case 'player_end': # end the player
-                end_player()
-                return
             
             case 'quit': # quits the user input
                 clear_line()
-
+                
                 self.current['quit'] = True
 
                 self.keylog.stop()

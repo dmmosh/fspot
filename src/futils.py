@@ -101,7 +101,6 @@ def start_player():
                                 '-u \"'+ gl.auth_codes['user_id'] + '\" ' +
                                 '-p \"' + gl.auth_codes['password'] + '\"',
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    
     SAVE(player.pid, 'player.obj')
 
 
