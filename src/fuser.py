@@ -137,14 +137,13 @@ class user_input():
             loc = GET('me/player')
             if (loc.status_code == 200):
                 loc = loc.json()
-                progress = (loc['progress_ms'] if loc['progress_ms'] else 0)
+                progress = (loc['progress_ms'] if loc['progress_ms'] else 0) // 1000
                 minute = progress // 60
                 second = progress % 60
 
             
             print("") # debug
             print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ))
-            print(progress) # debug
             print('\n/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.1) # waits a second
