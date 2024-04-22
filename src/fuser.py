@@ -125,7 +125,7 @@ class user_input():
         progress = 0
 
         while(self.current['logging']): # update
-            delete_line(2) # delete the amount of lines being printed above (including the terminal input)
+            delete_line(3) # delete the amount of lines being printed above (including the terminal input)
             
             print("") # debug
             print('hello')
@@ -134,7 +134,7 @@ class user_input():
             time.sleep(0.5) # waits a second
 
             print('', end='\x1b[2K') # clears current
-            delete_line(3) # delete the amount of lines being printed above (including the terminal input)
+            delete_line(4) # delete the amount of lines being printed above (including the terminal input)
 
             print('\n\n\n/ ' + self.buffer, end='')
             print('\x1b[1A', end='')
