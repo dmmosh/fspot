@@ -116,8 +116,8 @@ class user_input():
 
     # the main input window
     def main_input(self):
-        print('')
-        delete_line()
+        print('\n'*5, end='')
+        delete_line(5)
         while(self.current['logging']):
             print("hello ther") # debug
             print(self.buffer) # debug
