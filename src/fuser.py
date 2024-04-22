@@ -119,7 +119,7 @@ class user_input():
         print('')
         delete_line()
         while(self.current['logging']):
-            print('/ ' + self.buffer)
+            print('/ ' + self.buffer, end= '')
             delete_line()
             time.sleep(0.5)
             
