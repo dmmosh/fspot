@@ -134,7 +134,7 @@ class user_input():
             print('', end='\x1b[2K') # clears current
             delete_line(3) # delete the amount of lines being printed above (including the terminal input)
 
-            print('\n\n\n/ ', end='')
+            print('\n\n\n/ ' + self.buffer, end='')
 
             loc = GET('me/player')
             if (loc.status_code == 200):
