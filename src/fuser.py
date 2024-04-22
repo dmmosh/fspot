@@ -97,13 +97,11 @@ class user_input():
         match key:
             case Key.backspace:
                 self.buffer = self.buffer[:-1]
-                self.char_ctr -= 1
             # ALL INPUT COMMANDS
             
             case Key.enter:
                 command = self.buffer
                 self.buffer = ''
-                self.char_ctr = 0
                 print('\033[1A', end='\x1b[2K')
                 self.options(command) # calls options function
             case None:
