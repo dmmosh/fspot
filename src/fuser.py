@@ -13,7 +13,7 @@ class user_input():
                           'logging': True, # whether to take input or not, ends threads
                         'window': 'main' # the current focus window
                         }
-        
+
 
          # THREADS
         # all threads should be daemons
@@ -97,11 +97,13 @@ class user_input():
         match key:
             case Key.backspace:
                 self.buffer = self.buffer[:-1]
+                self.char_ctr -= 1
             # ALL INPUT COMMANDS
             
             case Key.enter:
                 command = self.buffer
                 self.buffer = ''
+                self.char_ctr = 0
                 print('\033[1A', end='\x1b[2K')
                 self.options(command) # calls options function
             case None:
@@ -122,10 +124,10 @@ class user_input():
         print('\n'*3, end='') # move terminal down (total + 1 whitespace line below user input)
             
         global progress
-        global char_ctr
+        global print_ctr
 
         progress = 0 # song progress bar
-        char_ctr = 0 # counts the current length (so printing isnt janky)
+        print_ctr = 0
         while(self.current['logging']): # update
             loc = GET('me/player')
             if (loc.status_code == 200):
@@ -136,14 +138,14 @@ class user_input():
             print("") # debug
             print('hello')
             print(progress) # debug
+            print_ctr = len(self.buffer) # the character print count
             print('\n/ ' + self.buffer, end='') # prints the initial line
-            char_ctr = len(self.buffer)
 
             time.sleep(0.5) # waits a second
             
-            if (char_ctr > len(self.buffer)):
+            if (print_ctr < len(self.buffer)):
                 clear_line()
-                print('/ ' + self.buffer, end='')
+                print('/ ' + self.buffer)
             move_up()
             for i in range(0,3):
                 move_up()
