@@ -137,7 +137,7 @@ class user_input():
 
             time.sleep(0.5) # waits a second
             clear_line()
-            print('\n/ ' + self.buffer, end='') # prints the initial line
+            print('/ ' + self.buffer, end='') # prints the initial line
 
             move_up()
             for i in range(0,3):
