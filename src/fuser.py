@@ -125,6 +125,13 @@ class user_input():
         progress = 0
 
         while(self.current['logging']): # update
+            move_up()
+            clear_line(3) # delete  the amount of lines being printed above (including the terminal input)
+
+            print('\n'* 3, end='')
+
+            print('/ ' + self.buffer, end='') # prints the initial line
+
             loc = GET('me/player')
             if (loc.status_code == 200):
                 loc = loc.json()
@@ -137,8 +144,6 @@ class user_input():
             print('/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
 
-            move_up()
-            clear_line(3) # delete  the amount of lines being printed above (including the terminal input)
 
             
             
