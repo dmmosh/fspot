@@ -119,10 +119,7 @@ class user_input():
         while(self.current['logging']):
             sys.stdout.write('/ ' + self.buffer)
             time.sleep(0.5)
-            sys.stdout.write('[2K')
-            print('')
-            delete_line()
-            print('[1A')
+            sys.stdout.write('\x1B[2K')
             
             
             
