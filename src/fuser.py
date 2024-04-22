@@ -103,7 +103,7 @@ class user_input():
                 command = self.buffer
                 self.buffer = ''
                 move_up()
-                clear_line('/ ')
+                clear_line()
                 self.options(command) # calls options function
             case None:
                 pass
