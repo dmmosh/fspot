@@ -127,7 +127,7 @@ class user_input():
             print("hello ther") # debug
             print(progress) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
-            time.sleep(0.5) # waits a second
+            time.sleep(0.25) # waits a second
             print('', end='\x1b[2K') # clears current
             delete_line(3) # delete the amount of lines being printed above (including the terminal input)
 
@@ -138,6 +138,7 @@ class user_input():
             if (loc.status_code == 200):
                 loc = loc.json()
                 progress = loc['progress_ms'] if loc['progress_ms'] else 0
+            time.sleep(0.25) # waits a second
             
             
             
