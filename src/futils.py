@@ -92,14 +92,14 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
 
 def start_player():
-    player = threading.Thread(target=lambda: os.system('nohup librespot ' + 
+    player = threading.Thread(target=lambda: os.system('librespot ' + 
                                 '--name \"fspot player\" ' +
                                 '--disable-audio-cache ' +
                                 '--disable-credential-cache ' +
                                 '--autoplay ' + 
                                 '--device-type homething ' +
                                 '-u \"'+ gl.auth_codes['user_id'] + '\" ' +
-                                '-p \"' + gl.auth_codes['password'] + '\" &> /dev/null '), daemon=True)
+                                '-p \"' + gl.auth_codes['password'] + '\" '), daemon=True)
     player.start()
 
 
@@ -109,7 +109,6 @@ def start_player():
     loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
     change_player.join() # joins the thread to main
 
-    atexit.register(player.join) # makes sure the player exits when the program does
 
     #clear_string(132) # clears the weird warning idk how to get rid of, dont change
 

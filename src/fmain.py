@@ -44,8 +44,6 @@ player = GET('me/player')
 
 
 start_player()
-
-
 user_input()
 
 #browser.terminate()
