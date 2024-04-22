@@ -143,7 +143,7 @@ class user_input():
 
             
             print("") # debug
-            print('PLAY STATUS:', (0 if minute <10 else None) + minute + ':' + (0 if second <10 else None) + second)
+            print('PLAY STATUS:', ('0' + minute if minute <10 else minute ) + ':' + ('0' + second if second <10 else second ))
             print(progress) # debug
             print('\n/ ' + self.buffer, end='') # prints the initial line
 
