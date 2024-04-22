@@ -133,14 +133,10 @@ class user_input():
             print("") # debug
             print('hello')
             print(progress) # debug
-            print_ctr = len(self.buffer) # the character print count
             print('\n/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.5) # waits a second
             
-            if (print_ctr < len(self.buffer) and len(self.buffer)):
-                clear_line()
-                print('/ ' + self.buffer)
             move_up()
             for i in range(0,3):
                 move_up()
