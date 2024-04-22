@@ -98,7 +98,7 @@ def start_player():
                                 '--disable-credential-cache ' +
                                 '--autoplay ' + 
                                 '--device-type homething ' +
-                                '-u \"'+ gl.auth_codes['user_id'] +'\" ' +
+                                '-u \"'+ gl.auth_codes['user_id'] + '\" ' +
                                 '-p \"' + gl.auth_codes['password'] + '\"',
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     
