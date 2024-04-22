@@ -122,8 +122,10 @@ class user_input():
         print('\n'*3, end='') # move terminal down (total + 1 whitespace line below user input)
             
         global progress
-        progress = 0
+        global char_ctr
 
+        progress = 0 # song progress bar
+        char_ctr = 0 # counts the current length (so printing isnt janky)
         while(self.current['logging']): # update
             loc = GET('me/player')
             if (loc.status_code == 200):
@@ -134,11 +136,14 @@ class user_input():
             print("") # debug
             print('hello')
             print(progress) # debug
-            print('\n/ ', end='') # prints the initial line
-            
+            print('\n/ ' + self.buffer, end='') # prints the initial line
+            char_ctr = len(self.buffer)
 
             time.sleep(0.5) # waits a second
-
+            
+            if (char_ctr < len(self.buffer)):
+                clear_line()
+                print('/ ' + self.buffer, end='')
             move_up()
             for i in range(0,3):
                 move_up()
