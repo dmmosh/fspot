@@ -64,6 +64,7 @@ class user_input():
                 self.current['quit'] = True
 
                 self.keylog.stop()
+                os._exit(0)
             case 'search':  # goes to the lower search bar
                 self.current['logging'] = False
                 self.current['logging'] = True
