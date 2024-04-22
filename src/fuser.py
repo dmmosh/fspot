@@ -133,7 +133,7 @@ class user_input():
             loc = GET('me/player')
             if (loc.status_code == 200):
                 loc = loc.json()
-                progress = loc['progress_ms'] if loc['progress_ms'] else 0
+                progress = (loc['progress_ms'] if loc['progress_ms'] else 0) // 1000
             
             
             print("") # debug
