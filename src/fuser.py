@@ -120,13 +120,10 @@ class user_input():
         delete_line(4) # delete those lines 
 
             
+        global progress
+        progress = 0
 
         while(self.current['logging']): # update
-            loc = GET('me/player')
-            global progress
-            if (loc.status_code == 200):
-                loc = loc.json()
-                progress = loc['progress_ms'] if loc['progress_ms'] else 0
             print("hello ther") # debug
             print(progress) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
@@ -137,6 +134,10 @@ class user_input():
             print('/ ' + self.buffer, end='') # moves cursor to the right
             print('') # prints newline
             delete_line(1) # deletes it (so lines in next iteration will start at beginning)
+            loc = GET('me/player')
+            if (loc.status_code == 200):
+                loc = loc.json()
+                progress = loc['progress_ms'] if loc['progress_ms'] else 0
             
             
             
