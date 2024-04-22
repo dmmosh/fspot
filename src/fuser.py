@@ -125,8 +125,7 @@ class user_input():
         global progress
         global print_ctr
 
-        progress = 0 # song progress barf
-        print_ctr = 0
+        progress = 0 # song progress bar
         while(self.current['logging']): # update
 
 
@@ -142,7 +141,7 @@ class user_input():
             print(progress) # debug
             print('\n/ ' + self.buffer, end='') # prints the initial line
 
-            time.sleep(0.5) # waits a second
+            time.sleep(0.1) # waits a second
             clear_line()
             move_up()
             print('\n/ ' + self.buffer, end='') # prints the initial line
