@@ -47,6 +47,7 @@ start_player()
 user = user_input()
 
 if user.current['quit']:
+    print('fdjij')
     os._exit(0)
 
 
