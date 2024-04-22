@@ -90,16 +90,10 @@ class user_input():
 
     # on each key press
     def on_press(self, key:Key):
+            # ALL INPUT COMMANDS
         match key:
             case Key.backspace:
                 self.buffer = self.buffer[:-1]
-            # ALL INPUT COMMANDS
-            case Key.space:
-                if GET('me/player').json()['is_playing']:
-                    PUT('me/player/pause')
-                else: 
-                    PUT('me/player/play')
-            
             case Key.enter:
                 command = self.buffer
                 self.buffer = ''
@@ -128,9 +122,9 @@ class user_input():
             move_up()                
             clear_line()
             
-        global progress
-        global minute
-        global second
+        progress = 0
+        minute = 0
+        second = 0
         progress = 0 # song progress bar
         while(self.current['logging']): # update
 
