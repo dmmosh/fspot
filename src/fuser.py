@@ -144,22 +144,23 @@ class user_input():
                 second = progress % 60
 
             
-            print("") # debug
-            print("") # debug
             print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ))
-            print('\n/ ' + self.buffer, end='') # prints the initial line
+            print('')
+            print('/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.1) # waits a second
             clear_line()
             move_up()
-            print('\n/ ' + self.buffer, end='') # prints the initial line
+            print('')
+            print('/ ' + self.buffer, end='') # prints the initial line
             
             move_up()
-            for i in range(0,3):
+            for i in range(0,1): # amount of lines 
                 move_up()
                 clear_line()
 
             
+
             
             
 
