@@ -126,7 +126,7 @@ class user_input():
         while(self.current['logging']): # update
             print("hello ther") # debug
             print(progress) # debug
-
+            
             print('', '/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
 
@@ -134,6 +134,8 @@ class user_input():
 
             delete_line(3) # delete the amount of lines being printed above (including the terminal input)
 
+            print('') # prints newline
+            delete_line(1) # deletes it (so lines in next iteration will start at beginning)
             loc = GET('me/player')
             if (loc.status_code == 200):
                 loc = loc.json()
