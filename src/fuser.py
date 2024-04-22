@@ -145,14 +145,12 @@ class user_input():
 
             
             print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ))
-            print('')
-            print('/ ' + self.buffer, end='') # prints the initial line
+            print('\n/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.1) # waits a second
             clear_line()
             move_up()
-            print('')
-            print('/ ' + self.buffer, end='') # prints the initial line
+            print('\n/ ' + self.buffer, end='') # prints the initial line
             
             move_up()
             for i in range(0,1): # amount of lines 
@@ -160,7 +158,6 @@ class user_input():
                 clear_line()
 
             
-
             
             
 
