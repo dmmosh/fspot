@@ -108,7 +108,6 @@ def start_player():
 
     loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
     change_player.join() # joins the thread to main
-    player.join()
 
     #clear_string(132) # clears the weird warning idk how to get rid of, dont change
 
