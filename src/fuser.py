@@ -134,8 +134,8 @@ class user_input():
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
 
-            print('', end='\x1b[2K') # clears current
-            delete_line(4) # delete the amount of lines being printed above (including the terminal input)
+            print('\x1B[A', end='')
+            delete_line(3) # delete the amount of lines being printed above (including the terminal input)
 
             print('\n'*4,  '/ ' + self.buffer, end='')
             print('\x1b[1A', end='')
