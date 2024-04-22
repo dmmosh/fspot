@@ -135,6 +135,8 @@ class user_input():
             print('hello')
             print(progress) # debug
             print('\n/ ' + self.buffer, end='') # prints the initial line
+            
+
             time.sleep(0.5) # waits a second
 
             move_up()
