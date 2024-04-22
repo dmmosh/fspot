@@ -3,6 +3,7 @@ from futils import *
 from flogin import *
 from fuser import *
 import fglobal as gl
+import signal
 '''
 FSPOT
 a lightweight spotify clients
@@ -42,16 +43,16 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 
 
-player = threading.Thread(target=lambda: os.system('nohup librespot ' + 
+player = subprocess.Popen(lambda: os.system('librespot ' + 
                                 '--name \"fspot player\" ' +
                                 '--disable-audio-cache ' +
                                 '--disable-credential-cache ' +
                                 '--autoplay ' + 
                                 '--device-type homething ' +
                                 '-u \"'+ gl.auth_codes['user_id'] + '\" ' +
-                                '-p \"' + gl.auth_codes['password'] + '\" &> /dev/null'), daemon=True)
+                                '-p \"' + gl.auth_codes['password'] + '\"'
+                                ), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
-player.start()
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
 loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
@@ -60,7 +61,7 @@ change_player.join() # joins the thread to main
 
 user = user_input()
 
-print('dj')
+os.killpg(os.getpgid(player.pid), signal.SIGTERM)
 #browser.terminate()
 #print(data.json())
     
