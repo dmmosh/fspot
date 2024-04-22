@@ -59,7 +59,8 @@ class user_input():
             
             
             case 'quit': # quits the user input
-                os.kill(os.getpid(), signal.SIGINT)
+                # exits the class's constructor
+                self.current['quit'] = True 
 
             case 'search':  # goes to the lower search bar
                 self.current['logging'] = False

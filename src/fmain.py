@@ -44,7 +44,11 @@ player = GET('me/player')
 
 
 start_player()
-user_input()
+user = user_input()
+
+if user.current['quit']:
+    os._exit(0)
+
 
 #browser.terminate()
 #print(data.json())
