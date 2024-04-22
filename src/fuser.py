@@ -116,12 +116,12 @@ class user_input():
 
     # the main input window
     def main_input(self):
-        print('')
-        delete_line()
         while(self.current['logging']):
             print('/ ' + self.buffer, end= '')
             time.sleep(0.5)
             print('\x1b[2K', end='')
+            print('')
+            delete_line()
             
             
 
