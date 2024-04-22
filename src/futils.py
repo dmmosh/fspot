@@ -1,6 +1,5 @@
 from fglobal import *
 import fglobal as gl
-from librespot.core import Session
 
 # PICKLING
 # saves the pickle object to var folder
@@ -91,8 +90,10 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     #print("\r") # carriage return
     
 
+global player
+
 def start_player():
-    
+    global player
     player = threading.Thread(target=lambda: os.system('librespot ' + 
                                 '--name \"fspot player\" ' +
                                 '--disable-audio-cache ' +
@@ -136,24 +137,11 @@ def connect_player():
     # once timer runs out
     ERROR('Request took too long. Maybe get better internet.', 'You might have set the wrong password. Run \"fpost --reset\"')
 
-
-# end player
-def end_player():
-    player = GET('me/player')
-
-    # if the player is already playing in the background
-    if player.status_code == 200: # makes sure the fspot player is there
-        player = player.json()['device']
-        if player['name'] == 'fspot player' and player['is_active']:
-            pid = LOAD('player.obj')
-            if pid == None:
-                ERROR('No pid file found. Please reboot your system for the playback to stop.')
-            os.system('kill -9 ' + str(LOAD('player.obj')))
-            return
-
-            
         
 
+def quit_program():
+    global player
+    player.join()
 
 
 # DELETES LAST LINE

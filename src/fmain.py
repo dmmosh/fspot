@@ -3,6 +3,7 @@ from futils import *
 from flogin import *
 from fuser import *
 import fglobal as gl
+import futils as fu
 import flogin as fl
 '''
 FSPOT
@@ -14,6 +15,8 @@ python -m PyInstaller --onefile src/fmain.py --name fspot
 remove the pickled files:
 rm ./fspot/*
 '''
+
+
 
 # commands in prompt
 for cmd in sys.argv:
@@ -41,15 +44,12 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 player = GET('me/player')
 
-# if the player is already playing in the background
-if player.status_code == 200:
-    player = player.json()['device']
-    if player['name'] == 'fspot player' and player['is_active']:
-        user_input()
-        os._exit(0)
 
 
+atexit.register(fu.quit_program())
 start_player()
+
+
 user_input()
 
 #browser.terminate()

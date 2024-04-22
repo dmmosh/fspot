@@ -6,6 +6,7 @@ import sys
 import threading
 from multiprocessing import Process
 import subprocess
+import atexit
 import math
 from datetime import datetime, timedelta
 from flask import Flask, redirect, request, jsonify, session
