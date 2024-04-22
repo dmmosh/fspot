@@ -116,11 +116,19 @@ class user_input():
 
     # the main input window
     def main_input(self):
-        print('\n'*4, end='')
-        delete_line(4)
-        while(self.current['logging']):
+        print('\n'*4, end='') # move terminal down (total + 1 whitespace line below user input)
+        delete_line(4) # delete those lines 
+
+        loc = GET('me/player')
+        global progress
+        if (loc.status_code == 200):
+            loc = loc.json()
+            progress = loc['progress_ms'] if loc['progress_ms'] else 0
+            
+
+        while(self.current['logging']): # update
             print("hello ther") # debug
-            print(self.buffer) # debug
+            print(loc) # debug
             print('', '\n/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
             print('', end='\x1b[2K') # clears current
