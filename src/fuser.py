@@ -142,7 +142,7 @@ class user_input():
                 progress = (loc['progress_ms'] if loc['progress_ms'] else 0) // 1000
                 minute = progress // 60
                 second = progress % 60
-
+            print('')
             
             print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ))
             print('\n/ ' + self.buffer, end='') # prints the initial line
@@ -153,7 +153,7 @@ class user_input():
             print('\n/ ' + self.buffer, end='') # prints the initial line
             
             move_up()
-            for i in range(0,1): # amount of lines 
+            for i in range(0,2): # amount of lines to clear
                 move_up()
                 clear_line()
 
