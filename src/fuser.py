@@ -122,6 +122,7 @@ class user_input():
             sys.stdout.write('[2K')
             print('')
             delete_line()
+            print('[1A')
             
             
             
