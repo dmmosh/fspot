@@ -116,6 +116,8 @@ class user_input():
 
     # the main input window
     def main_input(self):
+        print('')
+        delete_line()
         while(self.current['logging']):
             sys.stdout.write('/ ' + self.buffer)
             time.sleep(0.5)
