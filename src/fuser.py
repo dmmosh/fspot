@@ -117,6 +117,10 @@ class user_input():
 
     # the main input window
     def main_input(self):
+        print('\n'*4, end='')
+        for i in range(0,4):
+            move_up()                
+            clear_line()
             
         global progress
         global print_ctr
@@ -125,10 +129,6 @@ class user_input():
         print_ctr = 0
         while(self.current['logging']): # update
 
-            print('\n'*4, end='')
-            for i in range(0,4):
-                move_up()                
-                clear_line()
 
 
             loc = GET('me/player')
