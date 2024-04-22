@@ -98,7 +98,6 @@ class user_input():
                 self.buffer = self.buffer[:-1]
             # ALL INPUT COMMANDS
             case Key.space:
-                self.buffer = self.buffer[:-1]
                 if GET('me/player').json()['is_playing']:
                     PUT('me/player/pause')
                 else: 
