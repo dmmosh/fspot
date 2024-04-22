@@ -1,37 +1,6 @@
 from fglobal import *
 import fglobal as gl
 
-
-# USER INPUT FUNCTION
-def user_input():
-    buffer = '' # input command buffer
-    while(1):
-        buffer = input('/ ')
-        clear_string(len('/ ' + buffer)) # clears the string bufferf
-        match buffer:
-            case 'start': # start
-                PUT('me/player/play')
-            case 'pause':  # pause
-                PUT('me/player/pause')
-            case 'play':  # start/pause
-                if GET('me/player').json()['is_playing']:
-                    PUT('me/player/pause')
-                else: 
-                    PUT('me/player/play')
-            case 'print': # print devices
-                device_list = GET('me/player/devices').json()
-                print(device_list)
-            case 'refresh': # refresh
-                refresh(force=True)
-            case 'quit': # quit program
-                return
-            case 'player_end': # end the player
-                end_player()
-                return
-                
-
-
-
 # PICKLING
 # saves the pickle object to var folder
 def SAVE(to_save, var_name:str): # pickle saving variables
@@ -116,7 +85,6 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
             print_msg = msg[:term_col-7] + '...  ' if (len(msg)+1 > term_col) else msg # shortens the print message if need be
             sys.stdout.write(print_msg + char + '\r')
             sys.stdout.flush()
-    print('')
     clear_string(len(print_msg))
 
     #print("\r") # carriage return
@@ -189,14 +157,19 @@ def end_player():
 
 
 # DELETES LAST LINE
-def delete_line(n:int = 1)-> None:
+def clear_line(n:int = 1)-> None:
     while(n):
-        sys.stdout.write('\x1b[1A\x1b[2K')
+        sys.stdout.write('\x1b[2K')
+        n-=1
+
+def move_up(n:int = 1)-> None:
+    while(n):
+        sys.stdout.write('\x1b[1A')
         n-=1
 
 # clears the string length from the printed lines (every char after newline)
 def clear_string(strlen:int)->None:
-    delete_line(math.ceil(strlen / os.get_terminal_size().columns) if (strlen > 0) else 1)
+    clear_line(math.ceil(strlen / os.get_terminal_size().columns) if (strlen > 0) else 1)
 
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):

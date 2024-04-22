@@ -27,7 +27,7 @@ class user_input():
 
         # redirect input from linux to python
         while(not self.current['quit']):
-            input()
+            input() # dummy input (to not go to input stream )
 
 
 
@@ -117,7 +117,7 @@ class user_input():
     # the main input window
     def main_input(self):
         print('\n'*4, end='') # move terminal down (total + 1 whitespace line below user input)
-        delete_line(4) # delete those lines 
+        clear_line(4) # delete those lines 
 
         print('\n'*3, end='') # move terminal down (total + 1 whitespace line below user input)
             
@@ -125,32 +125,28 @@ class user_input():
         progress = 0
 
         while(self.current['logging']): # update
-            print('\x1B[A', end='')
-            delete_line(2) # delete the amount of lines being printed above (including the terminal input)
-            
-            print("") # debug
-            print('hello')
-            print(progress) # debug
-            print('', '\n/ ' + self.buffer, end='') # prints the initial line
-            time.sleep(0.5) # waits a second
-
-            print('\x1B[A', end='')
-            delete_line(3) # delete the amount of lines being printed above (including the terminal input)
-
-            print('\n'*4,  '/ ' + self.buffer, end='')
-            print('\x1b[1A', end='')
-
             loc = GET('me/player')
             if (loc.status_code == 200):
                 loc = loc.json()
                 progress = loc['progress_ms'] if loc['progress_ms'] else 0
             
             
+            print("") # debug
+            print('hello')
+            print(progress) # debug
+            print('/ ' + self.buffer, end='') # prints the initial line
+            time.sleep(0.5) # waits a second
+
+            move_up()
+            clear_line(3) # delete  the amount of lines being printed above (including the terminal input)
+
+            
+            
             
 
     def searcher(self):
         print('\n\n\n\n')
-        delete_line()
+        clear_line()
         while(self.current['logging']):
             if len(self.buffer) > 10:
                 self.buffer = self.buffer[:10]
@@ -164,7 +160,7 @@ class user_input():
             clear_string(len(self.buffer))
             print('/ ' + self.buffer, end='') # moves cursor to the right
             print('') # prints newline
-            delete_line(1) # deletes it (so lines in next iteration will start at beginning)
+            clear_line(1) # deletes it (so lines in next iteration will start at beginning)
         
         # EXIT CONDITION maybe
         print('fdjdfk')
