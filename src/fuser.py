@@ -126,7 +126,8 @@ class user_input():
             
         global progress
         global print_ctr
-
+        global minute
+        global second
         progress = 0 # song progress bar
         while(self.current['logging']): # update
 
@@ -135,8 +136,10 @@ class user_input():
             loc = GET('me/player')
             if (loc.status_code == 200):
                 loc = loc.json()
-                progress = (loc['progress_ms'] if loc['progress_ms'] else 0) // 1000
-            
+                progress = int((loc['progress_ms'] if loc['progress_ms'] else 0))
+                minute = progress // 60
+                second = progress % 60
+
             
             print("") # debug
             print('hello')
