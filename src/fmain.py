@@ -3,8 +3,6 @@ from futils import *
 from flogin import *
 from fuser import *
 import fglobal as gl
-import futils as fu
-import flogin as fl
 '''
 FSPOT
 a lightweight spotify clients
@@ -45,8 +43,6 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 player = GET('me/player')
 
 
-
-atexit.register(fu.quit_program())
 start_player()
 
 

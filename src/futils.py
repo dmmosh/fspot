@@ -90,10 +90,8 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     #print("\r") # carriage return
     
 
-global player
 
 def start_player():
-    global player
     player = threading.Thread(target=lambda: os.system('librespot ' + 
                                 '--name \"fspot player\" ' +
                                 '--disable-audio-cache ' +
@@ -105,11 +103,14 @@ def start_player():
     player.start()
 
 
-    change_player = threading.Thread(target=connect_player) # runs connection to the player
+    change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
     change_player.start() # starts thread
 
     loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
     change_player.join() # joins the thread to main
+
+    atexit.register(player.join()) # makes sure the player exits when the program does
+
     #clear_string(132) # clears the weird warning idk how to get rid of, dont change
 
 def connect_player():
@@ -137,11 +138,6 @@ def connect_player():
     # once timer runs out
     ERROR('Request took too long. Maybe get better internet.', 'You might have set the wrong password. Run \"fpost --reset\"')
 
-        
-
-def quit_program():
-    global player
-    player.join()
 
 
 # DELETES LAST LINE
