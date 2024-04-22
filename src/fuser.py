@@ -60,7 +60,7 @@ class user_input():
             
             case 'quit': # quits the user input
                 clear_line()
-                
+
                 self.current['quit'] = True
 
                 self.keylog.stop()
@@ -97,6 +97,12 @@ class user_input():
             case Key.backspace:
                 self.buffer = self.buffer[:-1]
             # ALL INPUT COMMANDS
+            case Key.space:
+                self.buffer = self.buffer[:-1]
+                if GET('me/player').json()['is_playing']:
+                    PUT('me/player/pause')
+                else: 
+                    PUT('me/player/play')
             
             case Key.enter:
                 command = self.buffer
