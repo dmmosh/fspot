@@ -43,15 +43,14 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 
 
-player = subprocess.Popen(lambda: os.system('librespot ' + 
-                                '--name \"fspot player\" ' +
-                                '--disable-audio-cache ' +
-                                '--disable-credential-cache ' +
-                                '--autoplay ' + 
-                                '--device-type homething ' +
-                                '-u \"'+ gl.auth_codes['user_id'] + '\" ' +
-                                '-p \"' + gl.auth_codes['password'] + '\"'
-                                ), stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+player = subprocess.Popen(['librespot ',
+                                '--name \"fspot player\" ',
+                                '--disable-audio-cache ',
+                                '--disable-credential-cache ',
+                                '--device-type homething ',
+                                '-u \"'+ gl.auth_codes['user_id'] +'\" ',
+                                '-p \"' + gl.auth_codes['password'] + '\"' ],
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
