@@ -96,6 +96,7 @@ def start_player():
                                 '--name \"fspot player\" ' +
                                 '--disable-audio-cache ' +
                                 '--disable-credential-cache ' +
+                                '--autoplay ' + 
                                 '--device-type homething ' +
                                 '-u \"'+ gl.auth_codes['user_id'] +'\" ' +
                                 '-p \"' + gl.auth_codes['password'] + '\"',
@@ -167,7 +168,13 @@ def move_up(n:int = 1)-> None:
 
 # clears the string length from the printed lines (every char after newline)
 def clear_string(strlen:int)->None:
-    clear_line(math.ceil(strlen / os.get_terminal_size().columns) if (strlen > 0) else 1)
+    line_ctr = math.ceil(strlen / os.get_terminal_size().columns) if (strlen > 0) else 1
+
+    for i in range(0, line_ctr): # moves up and clears the lines
+        if (i): # moves up every line except the first (the line it starts at)
+            move_up()
+        clear_line()
+        i-=1
 
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):
