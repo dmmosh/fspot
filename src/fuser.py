@@ -27,7 +27,7 @@ class user_input():
 
         # redirect input from linux to python
         while(not self.current['quit']):
-            input('/ ') # dummy input (to not go to )
+            input() # dummy input (to not go to )
 
 
 
