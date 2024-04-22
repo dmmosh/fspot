@@ -119,13 +119,14 @@ class user_input():
 
     # the main input window
     def main_input(self):
-        print('\n'*5, end='')
+
+        # MOVES THE TERMINAL DOWN
+        print('\n'*5, end='') 
         for i in range(0,5):
             move_up()                
             clear_line()
             
         global progress
-        global print_ctr
         global minute
         global second
         progress = 0 # song progress bar
@@ -136,13 +137,13 @@ class user_input():
             loc = GET('me/player')
             if (loc.status_code == 200):
                 loc = loc.json()
-                progress = int((loc['progress_ms'] if loc['progress_ms'] else 0))
+                progress = (loc['progress_ms'] if loc['progress_ms'] else 0)
                 minute = progress // 60
                 second = progress % 60
 
             
             print("") # debug
-            print('hello')
+            print('PLAY STATUS:', (0 if minute <10 else None) + minute + ':' + (0 if second <10 else None) + second)
             print(progress) # debug
             print('\n/ ' + self.buffer, end='') # prints the initial line
 
