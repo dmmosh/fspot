@@ -127,9 +127,9 @@ class user_input():
             print('/ ' + self.buffer, end='') # prints the initial line
             time.sleep(0.5) # waits a second
 
-            
+
             move_up()
-            clear_line(3) # delete  the amount of lines being printed above (including the terminal input)
+            clear_line(4) # delete  the amount of lines being printed above (including the terminal input)
 
             loc = GET('me/player')
             if (loc.status_code == 200):
