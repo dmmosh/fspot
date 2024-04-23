@@ -53,8 +53,7 @@ class user_input():
                         case '\n':
                             self.command = self.buffer
                             self.buffer = ''
-                            move_up()
-                            clear_line()
+                            
                             self.options(self.command) # calls options function
                         case None:
                             pass
