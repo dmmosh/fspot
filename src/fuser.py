@@ -7,6 +7,30 @@ class user_input():
     # inits everything
     def __init__(self):
         self.buffer = '' # user input
+        self.init_status = ['hello vro', 
+                            'good morning', 
+                            'i like waffles', 
+                            'dinnerbone', 
+                            'i love you vro..',
+                            'hii!!! :3,',
+                            'ready ?',
+                            'hacked in the mainframe',
+                            'haaaaiiii XD',
+                            'long live vim',
+                            'hi friend',
+                            'pancakes or waffles?',
+                            'm',
+                            'hi',
+                            'hello',
+                            'hey',
+                            'hoi',
+                            'h',
+                            'XD',
+                            'vro..',
+                            'get hacked bozooo',
+                            'you should eat some PANCAKES',
+                            'black metal?',
+                            'owo']
 
         # current variables (focus, etc)
         self.current = { 'quit': False, # whether to quit or not from current, only change in threads
@@ -28,7 +52,7 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        self.STATUS()
+        self.STATUS(self.init_status[randint(0,23)])
 
         # redirect input from linux to python
         while(not self.current['quit']):
