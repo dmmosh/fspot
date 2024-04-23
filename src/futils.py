@@ -104,11 +104,9 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
     title_text.close()
 
-    
 
     print_msg = msg
     while(process.is_alive()):
-
         for char in "/—\|":
             term_col = os.get_terminal_size().columns
             if term_col < title['col_num']:
@@ -132,6 +130,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
         move_up()
         clear_line()
         title['line_num']-=1
+    
 
     #print("\r") # carriage return
     

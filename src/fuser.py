@@ -17,9 +17,10 @@ class user_input():
 
          # THREADS
         # all threads should be daemons
-        self.keylog = Listener(on_press=self.on_press) # daemon on default
+        #self.keylog = Listener(on_press=self.on_press) # daemon on default
         self.main = threading.Thread(target=self.main_input, daemon=True)
         self.search = threading.Thread(target=self.searcher, daemon=True)
+        self.keylog = threading.Thread(target=self.key_log, daemon=True)
 
         # THREADS
         self.keylog.start()
@@ -27,15 +28,51 @@ class user_input():
 
         # redirect input from linux to python
         while(not self.current['quit']):
-            input() # dummy input (to not go to )
+            pass
 
 
+    # KEY LOGS USER INPUT 
+    def key_log(self):
+        self.fd = sys.stdin.fileno()
+
+        self.oldterm = termios.tcgetattr(self.fd)
+        self.newattr = termios.tcgetattr(self.fd)
+        self.newattr[3] = self.newattr[3] & ~termios.ICANON & ~termios.ECHO
+        termios.tcsetattr(self.fd, termios.TCSANOW, self.newattr)
+
+        self.oldflags = fcntl.fcntl(self.fd, fcntl.F_GETFL)
+        fcntl.fcntl(self.fd, fcntl.F_SETFL, self.oldflags | os.O_NONBLOCK)
+
+        try:
+            while (not self.current['quit']):
+                try:
+                    c = sys.stdin.read(1)
+                    match c:
+                        case '\x7f':
+                            self.buffer = self.buffer[:-1]
+                        case '\n':
+                            self.command = self.buffer
+                            self.buffer = ''
+                            move_up()
+                            clear_line()
+                            self.options(self.command) # calls options function
+                        case None:
+                            pass
+                        case _:
+                            try:
+                                self.buffer += c 
+                            except:
+                                pass
+                except IOError: pass
+        finally:
+            termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.oldterm)
+            fcntl.fcntl(self.fd, fcntl.F_SETFL, self.oldflags)
+        
 
     # options menu (to minimize nesting)
     # ONLY CALL WHEN ENTER KEY IS CALLED
     def options(self, command:str = 'quit'):
         # NON-TERMINAL SPECIFIC OPTIONS
-
 
         match command:
             case 'start': # start
@@ -60,7 +97,7 @@ class user_input():
             
             case 'quit': # quits the user input
                 # exits the class's constructor
-                
+                self.current['logging'] = False
                 self.current['quit'] = True 
 
             case 'search':  # goes to the lower search bar
