@@ -79,46 +79,59 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
     term_col = os.get_terminal_size().columns # gets column size of curr iteratio
-    title_num = 1 # title print number (stored in the titles folder)
-    line_num = 3  # line amount to erase
+
+    title = {'id': 1,   # the title slide properties
+             'line_num': 3,
+             'col_num': 10,
+             'len': 11}
 
     # choose which title number to print (depending on column terminal size
     if term_col < 42: # TITLE 1 (under 42)
-        title_num = 1 
-        line_num = 3
+        title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
+
     elif term_col < 52: # TITLE 2 (42 and over)
-        title_num = 2
-        line_num = 9
+        title = {'id': 2, 'line_num': 9, 'col_num': 42, 'len': 344}
+
     elif term_col < 123: # TITLE 3 (52 and over)
-        title_num = 3
-        line_num = 10
+        title = {'id': 3, 'line_num': 10, 'col_num': 52, 'len': 477}
+
     else: # TITLE 4 (123 and over)
-        title_num = 4
-        line_num = 25
-    title_text = open(FOLDER + 'titles/title' + str(title_num) + '.txt', 'r')
+        title = {'id': 4, 'line_num': 25, 'col_num': 123, 'len': 2609}
+
+    
+    title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
     print(title_text.read())
 
     title_text.close()
-    time.sleep(2)
 
-    while(line_num):
-        move_up()
-        clear_line()
-        line_num-=1
+    
 
     print_msg = msg
     while(process.is_alive()):
 
-        term_col = os.get_terminal_size().columns
         for char in "/—\|":
-            
+            term_col = os.get_terminal_size().columns
+            if term_col < title['col_num']:
+
+                title_text = open(FOLDER + 'titles/title1.txt', 'r')
+                
+                print(title_text.read())
+                title_text.close()
+                title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
+
 
             # everything message related
             print_msg = msg[:term_col-7] + '...  ' if (len(msg)+1 > term_col) else msg # shortens the print message if need be
             sys.stdout.write(print_msg + char + '\r')
             sys.stdout.flush()
             time.sleep(0.15)
+
+
     clear_string(len(print_msg))
+    while(title['line_num']): # clear the title screen
+        move_up()
+        clear_line()
+        title['line_num']-=1
 
     #print("\r") # carriage return
     
