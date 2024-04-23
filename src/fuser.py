@@ -47,8 +47,8 @@ class user_input():
             while (not self.current['quit']):
                 
                 try:
-                    if(len(self.buffer) > 10):
-                        self.buffer = self.buffer[:11]
+                    if(len(self.buffer) > 15):
+                        self.buffer = self.buffer[:16]
 
                     c = sys.stdin.read(1)
                     match c:
