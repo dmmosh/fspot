@@ -53,8 +53,13 @@ class user_input():
                         case '\n':
                             self.command = self.buffer
                             self.buffer = ''
-                            
                             self.options(self.command) # calls options function
+                        case ' ':
+                            self.buffer = self.buffer[:-1]
+                            if GET('me/player').json()['is_playing']:
+                                PUT('me/player/pause')
+                            else: 
+                                PUT('me/player/play')
                         case None:
                             pass
                         case _:
