@@ -53,6 +53,14 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
     login_start() # starts login
 
 
+def update_term():
+    while(1):
+        gl.term_size = os.get_terminal_size().columns
+        time.sleep(0.05)
+
+# ALWAYS UPDATES THE TERMINAL SIZE
+threading.Thread(target=update_term, daemon=True).start()
+
 
 program = threading.Thread(target=lambda: os.system(FOLDER+'nohup librespot ' +
                     '--name \'fspot player\' ' +
@@ -67,18 +75,16 @@ program.start()
 def quit_program():
     PUT('me/player/pause')
 
-    term_col = os.get_terminal_size().columns # gets column size of curr iteratio
-
     title = {'id': 1,   # the title slide properties
              'line_num': 3,
              'col_num': 10,
              'len': 11}
 
     # choose which title number to print (depending on column terminal size
-    if term_col < 42: # TITLE 1 (under 42)
+    if gl.term_size < 42: # TITLE 1 (under 42)
         title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
 
-    elif term_col < 52: # TITLE 2 (42 and over)
+    elif gl.term_size < 52: # TITLE 2 (42 and over)
         title = {'id': 2, 'line_num': 9, 'col_num': 42, 'len': 344}
 
     else: # TITLE 3 (52 and over)
@@ -88,7 +94,7 @@ def quit_program():
     
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
     print(title_text.read())
-    print("\tsee ya...")
+    print("\tsee ya... vro")
 
     title_text.close()
     program.join()
@@ -100,6 +106,8 @@ change_player = threading.Thread(target=connect_player, daemon=True) # runs conn
 change_player.start() # starts thread
 loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
 change_player.join() # joins the thread to mainsd
+
+
 
 
 user_input()

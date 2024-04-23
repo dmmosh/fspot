@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 from flask import Flask, redirect, request, jsonify, session
-from pynput.keyboard import Key, Listener
 from getpass import getpass
 from random import randint
 import termios
@@ -28,6 +27,9 @@ import json
 GLOBAL VARIABLES AND IMPORTS
 
 '''
+
+term_size = 0
+
 
 
 auth_codes = {'access_token': '', 

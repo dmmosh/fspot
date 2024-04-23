@@ -78,21 +78,19 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 # a loading message, clears itself when finishes
 def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
-    term_col = os.get_terminal_size().columns # gets column size of curr iteratio
-
     title = {'id': 1,   # the title slide properties
              'line_num': 3,
              'col_num': 10,
              'len': 11}
 
     # choose which title number to print (depending on column terminal size
-    if term_col < 42: # TITLE 1 (under 42)
+    if gl.term_size < 42: # TITLE 1 (under 42)
         title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
 
-    elif term_col < 52: # TITLE 2 (42 and over)
+    elif gl.term_size < 52: # TITLE 2 (42 and over)
         title = {'id': 2, 'line_num': 9, 'col_num': 42, 'len': 344}
 
-    elif term_col < 123: # TITLE 3 (52 and over)
+    elif gl.term_size < 123: # TITLE 3 (52 and over)
         title = {'id': 3, 'line_num': 10, 'col_num': 52, 'len': 477}
 
     else: # TITLE 4 (123 and over)
@@ -108,8 +106,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     print_msg = msg
     while(process.is_alive()):
         for char in "/—\|":
-            term_col = os.get_terminal_size().columns
-            if term_col < title['col_num']:
+            if gl.term_size < title['col_num']:
 
                 title_text = open(FOLDER + 'titles/title1.txt', 'r')
                 
@@ -119,7 +116,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
 
             # everything message related
-            print_msg = msg[:term_col-7] + '...  ' if (len(msg)+1 > term_col) else msg # shortens the print message if need be
+            print_msg = msg[:gl.term_size-7] + '...  ' if (len(msg)+1 > gl.term_size) else msg # shortens the print message if need be
             sys.stdout.write(print_msg + char + '\r')
             sys.stdout.flush()
             time.sleep(0.15)
@@ -176,7 +173,7 @@ def move_up(n:int = 1)-> None:
 
 # clears the string length from the printed lines (every char after newline)
 def clear_string(strlen:int)->None:
-    line_ctr = math.ceil(strlen / os.get_terminal_size().columns) if (strlen > 0) else 1
+    line_ctr = math.ceil(strlen / gl.term_size) if (strlen > 0) else 1
 
     for i in range(0, line_ctr): # moves up and clears the lines
         if (i): # moves up every line except the first (the line it starts at)

@@ -117,11 +117,11 @@ class user_input():
     # updates the status and runs it for the specified length of seconds
     def STATUS(self, message:str = 'Hello', sec:int = 5):
         # only print if it can match the length
-        if len(message) + 23 <= os.get_terminal_size().columns:
+        if (len(message) + 27) <= gl.term_size:
             self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
+            threading.Thread(target=self.decrease).start()
 
 
-        threading.Thread(target=self.decrease).start()
         
 
 
@@ -149,6 +149,9 @@ class user_input():
 
             case 'refresh': # refresh
                 refresh(force=True)
+            
+            case 'clear': # if the screen gets all messed up
+                os.system('clear')
             
             
             case 'quit': # quits the user input
@@ -214,13 +217,13 @@ class user_input():
             # TUI LINES 
 
             print('')
-            print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ))
+            print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ), gl.term_size)
 
 
             # USER LINES
 
-            if self.status['message'] != '':
-                print('\n\t\t\t\t\t' + self.status['message'])
+            if self.status['message'] != '' and len(self.status['message']) +23 <= gl.term_size:
+                print('\n' + ' '*23 + self.status['message'])
                 move_up(2)
 
             print('\n/ ' + self.buffer, end='') # prints the initial line
@@ -229,8 +232,8 @@ class user_input():
             clear_line()
             move_up()
             
-            if self.status['message'] != '':
-                print('\n\t\t\t\t\t' + self.status['message'])
+            if self.status['message'] != '' and len(self.status['message']) +23 <= gl.term_size:
+                print('\n' + ' '*23 + self.status['message'])
                 move_up(2)
 
             print('\n/ ' + self.buffer, end='') # prints the initial line
