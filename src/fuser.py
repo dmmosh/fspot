@@ -45,6 +45,10 @@ class user_input():
 
         try:
             while (not self.current['quit']):
+                if len(self.buffer > 10):
+                    self.buffer = self.buffer[:11]
+
+
                 try:
                     c = sys.stdin.read(1)
                     match c:
@@ -130,26 +134,6 @@ class user_input():
                         self.main.start()
 
 
-    # on each key press
-    def on_press(self, key:Key):
-            # ALL INPUT COMMANDS
-        match key:
-            case Key.backspace:
-                self.buffer = self.buffer[:-1]
-            case Key.enter:
-                command = self.buffer
-                self.buffer = ''
-                move_up()
-                clear_line()
-                self.options(command) # calls options function
-            case None:
-                pass
-            case _: # regular letterssd
-                try:
-                    self.buffer += key.char
-                except:
-                    pass
-
 
 
     # the main input window
@@ -171,7 +155,6 @@ class user_input():
         while(self.current['logging']): # update
 
             
-
             loc = GET('me/player') # PLAYBACK COMMAND
             if (loc.status_code == 200):
                 loc = loc.json()
