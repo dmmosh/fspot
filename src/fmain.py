@@ -55,14 +55,14 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 
 
-player = subprocess.Popen([FOLDER+'librespot ',
-                                '--name ', '\'fspot player\' ',
-                                '--disable-audio-cache ',
-                                '--disable-credential-cache ',
-                                '--device-type homething ',
-                                '-u ', '\''+ gl.auth_codes['user_id'] +'\' ',
-                                '-p ',  '\'' + gl.auth_codes['password'] + '\'' ],
-                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+os.system(FOLDER+'librespot ' +
+                    '--name ' + '\'fspot player\' ' +
+                    '--disable-audio-cache ' +
+                    '--disable-credential-cache ' +
+                    '--device-type homething ' +
+                    '-u ' + '\''+ gl.auth_codes['user_id'] +'\' ' +
+                    '-p ' +  '\'' + gl.auth_codes['password'] + '\''
+                    )
 def quit_program():
     PUT('me/player/pause')
 
