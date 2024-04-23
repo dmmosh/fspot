@@ -48,14 +48,13 @@ class user_input():
                 try:
                     c = sys.stdin.read(1)
                     match c:
-                        case '\x7f':
+                        case '\x7f': # BACKSPACE
                             self.buffer = self.buffer[:-1]
-                        case '\n':
+                        case '\n': # NEWLINE CHARACTER
                             self.command = self.buffer
                             self.buffer = ''
                             self.options(self.command) # calls options function
-                        case ' ':
-                            self.buffer = self.buffer[:-1]
+                        case ' ': # SPACE 
                             if GET('me/player').json()['is_playing']:
                                 PUT('me/player/pause')
                             else: 
@@ -63,8 +62,8 @@ class user_input():
                         case None:
                             pass
                         case _:
-                            try:
-                                self.buffer += c 
+                            try: # NORMAL CHARACTER
+                                self.buffer += c  
                             except:
                                 pass
                 except IOError: pass
@@ -171,7 +170,7 @@ class user_input():
         progress = 0 # song progress bar
         while(self.current['logging']): # update
 
-
+            
 
             loc = GET('me/player') # PLAYBACK COMMAND
             if (loc.status_code == 200):
@@ -180,16 +179,16 @@ class user_input():
                 minute = progress // 60
                 second = progress % 60
 
+            # TUI LINES 
 
             print('')
             print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ))
 
 
-
             # USER LINES
             print('\n/ ' + self.buffer, end='') # prints the initial line
 
-            time.sleep(0.1) # waits a second
+            time.sleep(0.05) # waits a second
             clear_line()
             move_up()
             print('\n/ ' + self.buffer, end='') # prints the initial line
