@@ -68,7 +68,7 @@ change_player.join() # joins the thread to mainsd
 
 
 user_input()
-
+PUT('me/player/pause')
 
 # runs after quit command
 #browser.terminate()
