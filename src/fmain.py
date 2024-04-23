@@ -19,7 +19,13 @@ rm ./fspot/*f
 
 '''
 
+def update_term():
+    while(1):
+        gl.term_size = os.get_terminal_size().columns
+        time.sleep(0.05)
 
+# ALWAYS UPDATES THE TERMINAL SIZE
+threading.Thread(target=update_term, daemon=True).start()
 
 # commands in prompt
 for cmd in sys.argv:
@@ -53,13 +59,6 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
     login_start() # starts login
 
 
-def update_term():
-    while(1):
-        gl.term_size = os.get_terminal_size().columns
-        time.sleep(0.05)
-
-# ALWAYS UPDATES THE TERMINAL SIZE
-threading.Thread(target=update_term, daemon=True).start()
 
 
 program = threading.Thread(target=lambda: os.system(FOLDER+'nohup librespot ' +

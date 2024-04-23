@@ -121,8 +121,8 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
             sys.stdout.flush()
             time.sleep(0.15)
 
-
-    clear_string(len(print_msg))
+    move_up()
+    clear_line()
     while(title['line_num']): # clear the title screen
         move_up()
         clear_line()
@@ -170,16 +170,6 @@ def move_up(n:int = 1)-> None:
 
 
 
-
-# clears the string length from the printed lines (every char after newline)
-def clear_string(strlen:int)->None:
-    line_ctr = math.ceil(strlen / gl.term_size) if (strlen > 0) else 1
-
-    for i in range(0, line_ctr): # moves up and clears the lines
-        if (i): # moves up every line except the first (the line it starts at)
-            move_up()
-        clear_line()
-        i-=1
 
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):

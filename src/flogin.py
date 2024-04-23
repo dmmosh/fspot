@@ -42,7 +42,7 @@ def get_password():
 
     input = getpass(msg) # gets the password
     if input == '':
-        clear_string(len(msg)) # clears the password box
+        clear_line()
         get_password()
         return
     
@@ -56,8 +56,7 @@ def get_password():
             'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
     }
 
-    clear_string(len(msg)) # clears the password box
-
+    clear_line()
 
 
 
