@@ -55,7 +55,7 @@ player = subprocess.Popen([FOLDER + 'librespot ',
                                 '--device-type homething ',
                                 '-u \"'+ gl.auth_codes['user_id'] +'\" ',
                                 '-p \"' + gl.auth_codes['password'] + '\"' ],
-                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 def quit_program():
     PUT('me/player/pause')
