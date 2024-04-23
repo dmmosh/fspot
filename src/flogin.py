@@ -40,7 +40,8 @@ def get_password():
 
     msg = 'Hello ' + user['display_name'] + ', please enter your password:  '
 
-    input = getpass(msg) # gets the password
+    input = 
+    (msg) # gets the password
     if input == '':
         clear_string(len(msg)) # clears the password box
         get_password()
