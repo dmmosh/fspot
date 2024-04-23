@@ -45,8 +45,7 @@ class user_input():
 
         try:
             while (not self.current['quit']):
-                if len(self.buffer > 10):
-                    self.buffer = self.buffer[:11]
+                
 
 
                 try:
