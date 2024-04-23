@@ -8,11 +8,15 @@ import signal
 FSPOT
 a lightweight spotify clients
 
+ still in development, no running version YET
+
 manual compiling:
+(cd librespot && cargo build --release) && cp ./librespot/target/release/librespot ./fspot
 python -m PyInstaller --onefile src/fmain.py --name fspot
 
 remove the pickled files:
 rm ./fspot/*
+
 '''
 
 
@@ -52,15 +56,20 @@ player = subprocess.Popen(['librespot ',
                                 '-p \"' + gl.auth_codes['password'] + '\"' ],
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
+def quit_program():
+    os.killpg(os.getpgid(player.pid), signal.SIGTERM)
+    PUT('me/player/pause')
+
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
 loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
 change_player.join() # joins the thread to main
 
 
-user = user_input()
+user_input()
 
-os.killpg(os.getpgid(player.pid), signal.SIGTERM)
+
+# runs after quit command
 #browser.terminate()
 #print(data.json())
     

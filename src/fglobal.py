@@ -3,6 +3,7 @@ from flask import Flask, redirect, request, jsonify, session
 from pynput.keyboard import Key, Listener
 from getpass import getpass
 import requests
+import atexit
 import os
 import time
 import pyAesCrypt
