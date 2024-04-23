@@ -47,29 +47,19 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
     login_start() # starts login
 
 
-#
-#player = subprocess.Popen([FOLDER + 'librespot ',
-#                                '--name \"fspot player\" ',
-#                                '--disable-audio-cache ',
-#                                '--disable-credential-cache ',
-#                                '--device-type homething ',
-#                                '-u \"'+ gl.auth_codes['user_id'] +'\" ',
-#                                '-p \"' + gl.auth_codes['password'] + '\"' ],
-#                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-player = Process(target=lambda: os.system(FOLDER + 'librespot ' +
-                                        '--name \"fspot player\" ' +
-                                        '--disable-audio-cache ' +
-                                        '--disable-credential-cache ' +
-                                        '--device-type homething ' +
-                                        '-u \"'+ gl.auth_codes['user_id'] +'\" ' +
-                                        '-p \"' + gl.auth_codes['password'] + '\"'), daemon=True)
-player.start()
+
+player = subprocess.Popen([FOLDER + 'librespot ',
+                                '--name \"fspot player\" ',
+                                '--disable-audio-cache ',
+                                '--disable-credential-cache ',
+                                '--device-type homething ',
+                                '-u \"'+ gl.auth_codes['user_id'] +'\" ',
+                                '-p \"' + gl.auth_codes['password'] + '\"' ],
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
 def quit_program():
     PUT('me/player/pause')
     player.kill()
-    player.join()
-    #os.killpg(os.getpgid(player.pid), signal.SIGTERM)
 
 atexit.register(quit_program)
 
