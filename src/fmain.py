@@ -64,7 +64,7 @@ def quit_program():
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
 loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
-change_player.join() # joins the thread to main
+change_player.join() # joins the thread to mainsd
 
 
 user_input()
