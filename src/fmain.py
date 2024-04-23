@@ -61,7 +61,7 @@ def quit_program():
     PUT('me/player/pause')
     player.kill()
 
-atexit.register(quit_program)
+#atexit.register(quit_program)
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
