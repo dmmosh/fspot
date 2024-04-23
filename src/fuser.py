@@ -52,8 +52,7 @@ class user_input():
             while (not self.current['quit']):
                 
                 try:
-                    if(len(self.buffer) > 15):
-                        self.buffer = self.buffer[:16]
+                    
 
                     c = sys.stdin.read(1)
                     match c:
@@ -199,7 +198,7 @@ class user_input():
             time.sleep(0.2) # waits a second
             clear_line()
             move_up()
-            
+
             print('\n\t\t\t\t\t' + self.status['message'])
             move_up(2)
 
