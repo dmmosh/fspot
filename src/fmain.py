@@ -58,8 +58,8 @@ player = subprocess.Popen([FOLDER + 'librespot ',
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
 def quit_program():
-    os.killpg(os.getpgid(player.pid), signal.SIGTERM)
     PUT('me/player/pause')
+    os.killpg(os.getpgid(player.pid), signal.SIGTERM)
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
