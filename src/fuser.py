@@ -191,12 +191,15 @@ class user_input():
 
 
             # USER LINES
-            print('\n/ ' + self.buffer + '\t\t' + self.status['message'], end='\033[1;2H') # prints the initial line
+            print('\n\t\t\t\t\t' + self.status['message'])
+            move_up(2)
+            
+            print('\n/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.2) # waits a second
             clear_line()
             move_up()
-            print('\n/ ' + self.buffer + '\t\t' + self.status['message'], end='\033[1;2H') # prints the initial line
+            print('\n/ ' + self.buffer, end='') # prints the initial line
             
             move_up()
             for i in range(0,LINE_CTR-2): # amount of lines to clear
