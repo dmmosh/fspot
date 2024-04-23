@@ -61,6 +61,7 @@ class user_input():
             case 'quit': # quits the user input
                 # exits the class's constructor
                 self.current['quit'] = True 
+                PUT('me/player/pause')
 
             case 'search':  # goes to the lower search bar
                 self.current['logging'] = False
