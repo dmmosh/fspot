@@ -6,122 +6,36 @@ import flogin as fl
 import tkinter as tk
 from pynput.keyboard import Key, Listener
 
+# a loading message, clears itself when finishes
+def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
-class user_input():
+    print_msg = msg
+    while(process.is_alive()):
 
-    # inits everything
-    def __init__(self):
-        self.buffer = '' # user input
+        term_col = os.get_terminal_size().columns
+        for char in "/—\|":
+            term_col = os.get_terminal_size().columns # gets column size of curr iteration
 
-        # current variables (focus, etc)
-        self.current = { 'quit': False, # whether to quit or not from current, only change in threads
-                          'logging': True, # whether to take input or not, ends threads
-                        'window': 'main' # the current focus window
-                        }
-        
-
-         # THREADS
-        # all threads should be daemons
-        self.keylog = Listener(on_press=self.on_press) # daemon on default
-        self.main = threading.Thread(target=self.main_input, daemon=True)
-        self.search = threading.Thread(target=self.searcher, daemon=True)
-
-
-
-        # THREADS
-        self.keylog.start()
-        self.main.start()
-
-        while(not self.current['quit']):
-            input()
-
-
-
-    # options menu (to minimize nesting)
-    # ONLY CALL WHEN ENTER KEY IS CALLED
-    def options(self, command:str = 'quit'):
-        # NON-TERMINAL SPECIFIC OPTIONS
-
-
-        match command:
-            case 'quit':
-                print('')
-                self.current['quit'] = True
-                self.keylog.stop()
-            case 'search': 
-                self.current['logging'] = False
-                self.current['logging'] = True
-                #self.curr_input.join()
-                self.current['window'] = 'search' #picker window
-                self.search.start()
-            case 'main':
-                self.current['logging'] = False
-                self.current['logging'] = True
-                #self.curr_input.join()
-                self.current['window'] = 'main' #picker window
-                self.main.start()
-
-    # on each key press
-    def on_press(self, key:Key):
-        match key:
-            case Key.backspace:
-                self.buffer = self.buffer[:-1]
-            # ALL INPUT COMMANDS
+            title_num = 1 # title print number (stored in the titles folder)
+            # choose which title number to print (depending on column terminal size)
             
-            case Key.enter:
-                command = self.buffer
-                self.buffer = ''
-                print('\033[1A', end='\x1b[2K')
-                self.options(command) # calls options function
-            case None:
-                pass
-            case _: # regular letterssd
-                try:
-                    self.buffer += key.char
-                except:
-                    ERROR('Weird key.')
-    
-
-
-
-    # the main input window
-    def main_input(self):
-        print('')
-        delete_line()
-        while(self.current['logging']):
-            if len(self.buffer) > 10:
-                self.buffer = self.buffer[:10]
             
-            print(self.buffer) # debug
-            print('', '\n/ ' + self.buffer, end='') # prints the initial line
-            time.sleep(0.5) # waits a second
-            print('', end='\x1b[2K') # clears current
-            print('\033[1A', end='\x1b[2K') # moves up and clears
-            clear_string(len(self.buffer))
-            print('/ ' + self.buffer, end='') # moves cursor to the right
-            print('') # prints newline
-            delete_line(1) # deletes it (so lines in next iteration will start at beginning)
+            if term_col < 52: # if undex 52 columns (title 3 width)
+                title_num = 2
+            
+            if title_col < 123:
+                title_num = 4
+            else:
+                title_num = 5
 
-    def searcher(self):
-        print('\n\n\n\n')
-        delete_line()
-        while(self.current['logging']):
-            if len(self.buffer) > 10:
-                self.buffer = self.buffer[:10]
-
-            print(self.buffer) # debug
-            print('', '\n/ ' + self.buffer, end='') # prints the initial line
-            time.sleep(0.5) # waits a second
-
-            print('', end='\x1b[2K') # clears current
-            print('\033[1A', end='\x1b[2K') # moves up and clears
-            clear_string(len(self.buffer))
-            print('/ ' + self.buffer, end='') # moves cursor to the right
-            print('') # prints newline
-            delete_line(1) # deletes it (so lines in next iteration will start at beginning)
+            title_text = open(FOLDER + 'titles/title' + title_num + '.txt', 'r')
+            print(title_text.read())
+            title_text.close()
 
 
-
-
-
-test = user_input()
+            # everything message related
+            print_msg = msg[:term_col-7] + '...  ' if (len(msg)+1 > term_col) else msg # shortens the print message if need be
+            sys.stdout.write(print_msg + char + '\r')
+            sys.stdout.flush()
+            time.sleep(0.15)
+    clear_string(len(print_msg))

@@ -27,6 +27,13 @@ for cmd in sys.argv:
     match cmd:
         case '--reset':
             login_start()
+        case '--refresh':
+            # loads from pickled 
+            gl.auth_codes = LOAD('auth.obj') 
+            gl.def_header = {  # sets the default header
+                        'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
+            }
+            refresh(force=True)
 
 
 load_var = LOAD('auth.obj') # loads the authorization info
@@ -48,15 +55,14 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 
 
-player = subprocess.Popen(['librespot ',
-                                '--name ', '\"fspot player\" ',
+player = subprocess.Popen([FOLDER+'librespot ',
+                                '--name ', '\'fspot player\' ',
                                 '--disable-audio-cache ',
                                 '--disable-credential-cache ',
                                 '--device-type homething ',
-                                '-u \"'+ gl.auth_codes['user_id'] +'\" ',
-                                '-p \"' + gl.auth_codes['password'] + '\"' ],
+                                '-u ', '\''+ gl.auth_codes['user_id'] +'\' ',
+                                '-p ',  '\'' + gl.auth_codes['password'] + '\'' ],
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-
 def quit_program():
     PUT('me/player/pause')
 
@@ -64,7 +70,7 @@ def quit_program():
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
-loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the loading msg
+loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
 change_player.join() # joins the thread to mainsd
 
 

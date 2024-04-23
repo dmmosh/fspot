@@ -77,14 +77,47 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 
 # a loading message, clears itself when finishes
 def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
+
+    term_col = os.get_terminal_size().columns # gets column size of curr iteratio
+    title_num = 1 # title print number (stored in the titles folder)
+    line_num = 3  # line amount to erase
+
+    # choose which title number to print (depending on column terminal size
+    if term_col < 42: # TITLE 1 (under 42)
+        title_num = 1 
+        line_num = 3
+    elif term_col < 52: # TITLE 2 (42 and over)
+        title_num = 2
+        line_num = 9
+    elif term_col < 123: # TITLE 3 (52 and over)
+        title_num = 3
+        line_num = 10
+    else: # TITLE 4 (123 and over)
+        title_num = 4
+        line_num = 25
+    title_text = open(FOLDER + 'titles/title' + str(title_num) + '.txt', 'r')
+    print(title_text.read())
+
+    title_text.close()
+    time.sleep(2)
+
+    while(line_num):
+        move_up()
+        clear_line()
+        line_num-=1
+
     print_msg = msg
     while(process.is_alive()):
+
+        term_col = os.get_terminal_size().columns
         for char in "/—\|":
-            time.sleep(0.15)
-            term_col = os.get_terminal_size().columns # gets column size
+            
+
+            # everything message related
             print_msg = msg[:term_col-7] + '...  ' if (len(msg)+1 > term_col) else msg # shortens the print message if need be
             sys.stdout.write(print_msg + char + '\r')
             sys.stdout.flush()
+            time.sleep(0.15)
     clear_string(len(print_msg))
 
     #print("\r") # carriage return
@@ -125,6 +158,9 @@ def move_up(n:int = 1)-> None:
     while(n):
         sys.stdout.write('\x1b[1A')
         n-=1
+
+
+
 
 # clears the string length from the printed lines (every char after newline)
 def clear_string(strlen:int)->None:
