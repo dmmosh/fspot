@@ -11,6 +11,7 @@ a lightweight spotify clients
  still in development, no running version YET
 
 manual compiling:
+TODO: compile on older glibc version in vm 
 (cd librespot && cargo build --release) && cp ./librespot/target/release/librespot ./fspot
 python -m PyInstaller --onefile src/fmain.py --name fspot
 
@@ -47,7 +48,7 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 
 
-player = subprocess.Popen(['librespot ',
+player = subprocess.Popen([FOLDER + 'librespot ',
                                 '--name \"fspot player\" ',
                                 '--disable-audio-cache ',
                                 '--disable-credential-cache ',
