@@ -193,12 +193,16 @@ class user_input():
             # USER LINES
             print('\n\t\t\t\t\t' + self.status['message'])
             move_up(2)
-            
+
             print('\n/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.2) # waits a second
             clear_line()
             move_up()
+            
+            print('\n\t\t\t\t\t' + self.status['message'])
+            move_up(2)
+
             print('\n/ ' + self.buffer, end='') # prints the initial line
             
             move_up()
