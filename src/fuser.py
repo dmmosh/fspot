@@ -15,6 +15,8 @@ class user_input():
                         }
 
 
+        self.status = {'message': '', 'sec': 0}  # a message to print the user 
+
          # THREADS
         # all threads should be daemons
         #self.keylog = Listener(on_press=self.on_press) # daemon on default
@@ -26,9 +28,12 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
+        self.STATUS()
+
         # redirect input from linux to python
         while(not self.current['quit']):
             pass
+
 
 
     # KEY LOGS USER INPUT 
@@ -75,6 +80,23 @@ class user_input():
             termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.oldterm)
             fcntl.fcntl(self.fd, fcntl.F_SETFL, self.oldflags)
         
+
+    # decreases the counter , helper function to status
+    def decrease(self):
+        while(self.status['sec']):
+            time.sleep(1)
+            self.status['sec']-=1
+    
+    # updates the status and runs it for the specified length of seconds
+    def STATUS(self, message:str = 'Hello', sec:int = 5):
+        # only print if it can match the length
+        if len(message) + 23 <= os.get_terminal_size().columns:
+            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
+
+
+        threading.Thread(target=self.decrease).start()
+        
+
 
     # options menu (to minimize nesting)
     # ONLY CALL WHEN ENTER KEY IS CALLED
@@ -169,7 +191,7 @@ class user_input():
 
 
             # USER LINES
-            print('\n/ ' + self.buffer, end='') # prints the initial line
+            print('\n/ ' + self.buffer + '\t\t' + self.status['message'], end='') # prints the initial line
 
             time.sleep(0.2) # waits a second
             clear_line()
