@@ -170,7 +170,7 @@ class user_input():
             # USER LINES
             print('\n/ ' + self.buffer, end='') # prints the initial line
 
-            #time.sleep(0.05) # waits a second
+            time.sleep(0.2) # waits a second
             clear_line()
             move_up()
             print('\n/ ' + self.buffer, end='') # prints the initial line
