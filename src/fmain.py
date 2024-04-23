@@ -15,7 +15,7 @@ manual compiling:
 python -m PyInstaller --onefile src/fmain.py --name fspot
 
 remove the pickled files:
-rm ./fspot/*
+rm ./fspot/*f
 
 '''
 
