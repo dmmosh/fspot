@@ -86,6 +86,7 @@ class user_input():
         while(self.status['sec']):
             time.sleep(1)
             self.status['sec']-=1
+        self.status = {'message': '', 'sec': 0}  # a message to print the user 
     
     # updates the status and runs it for the specified length of seconds
     def STATUS(self, message:str = 'Hello', sec:int = 5):
