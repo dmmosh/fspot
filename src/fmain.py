@@ -59,7 +59,6 @@ player = subprocess.Popen([FOLDER + 'librespot ',
 
 def quit_program():
     PUT('me/player/pause')
-    player.kill()
 
 #atexit.register(quit_program)
 
