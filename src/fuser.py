@@ -19,10 +19,10 @@ class user_input():
                             'long live vim',
                             'hi friend',
                             'pancakes or waffles?',
-                            'm',
                             'hi',
                             'hello',
                             'hey',
+                            'remember to stay HYDRATED',
                             'hoi',
                             'h',
                             'XD',
@@ -53,6 +53,8 @@ class user_input():
         self.main.start()
 
         self.STATUS(self.init_status[randint(0,23)])
+            
+
 
         # redirect input from linux to python
         while(not self.current['quit']):
