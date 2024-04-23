@@ -49,7 +49,7 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 
 player = subprocess.Popen([FOLDER + 'librespot ',
-                                '--name \"fspot player\" ',
+                                '--name ', '\"fspot player\" ',
                                 '--disable-audio-cache ',
                                 '--disable-credential-cache ',
                                 '--device-type homething ',
