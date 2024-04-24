@@ -52,7 +52,7 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        self.MESSAGE(self.init_status[randint(0,23)])
+        self.MESSAGE(self.init_status[randint(0,23)], blink=True)
             
 
 
