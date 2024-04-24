@@ -18,7 +18,7 @@ class user_input():
                         }
 
 
-        self.status = {'message': '', 'sec': 0, 'blink': False}  # a message to print the user 
+        self.status = {'message': '', 'sec': 0}  # a message to print the user 
 
          # THREADS
         # all threads should be daemons
@@ -112,31 +112,23 @@ class user_input():
         
 
     # decreases the counter , helper function to status
-    def decrease(self, msg_len:int):
-        self.temp = self.status['message']
+    def decrease(self):
         while(self.status['sec']):
-            if self.status['blink']:
-                for i in range(0,2):
-                    self.status['message'] = self.temp
-                    time.sleep(0.25)
-                    self.status['message'] = '[ ' + (' '*msg_len) + ' ]'
-                    time.sleep(0.25)
-            else:   
-                time.sleep(1)
+            time.sleep(1)
             self.status['sec']-=1
         self.STOP_MESSAGE()
     
 
     # updates the status and runs it for the specified length of seconds
-    def MESSAGE(self, message:str = 'Hello', sec:int = 5, blink:bool = False):
+    def MESSAGE(self, message:str = 'Hello', sec:int = 5):
         # only print if it can match the length
         if (len(message) + 27) <= gl.term_size:
-            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec, 'blink': blink} # sets the status
-            threading.Thread(target=lambda: self.decrease(len(message)), daemon=True).start()
+            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
+            threading.Thread(target=self.decrease, daemon=True).start()
 
     # stops message when some process finishes
     def STOP_MESSAGE(self):
-        self.status = {'message': '', 'sec': 0, 'blink': False}
+        self.status = {'message': '', 'sec': 0}
 
 
     # options menu (to minimize nesting)
@@ -171,7 +163,7 @@ class user_input():
             
             case 'quit': # quits the user input
                 # exits the class's constructor
-                self.MESSAGE('Quitting...', blink=True)
+                self.MESSAGE('Quitting...')
                 self.current['logging'] = False
                 self.current['quit'] = True 
 
