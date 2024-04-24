@@ -99,7 +99,7 @@ class user_input():
                         case '\x1b[B': # DOWN KEY
                             sys.stdout.write('\x1b[A\x1b[B')
                         case '\x1b[D', '\x1b[C': # LEFT KEY
-                            pass
+                            sys.stdout.write('\x1b[A\x1b[B')
                         case None:
                             pass
                         case _:
