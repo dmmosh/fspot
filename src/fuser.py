@@ -2,14 +2,14 @@ from fglobal import *
 from futils import *
 import fglobal as gl
 
+
+
 class user_input():
 
     # inits everything
     def __init__(self):
         self.buffer = '' # user input
-        self.init_status = ['hello vro', 'good morning', 'i love you vro..','hii!!! :3,','ready ?','hacked in the mainframe',
-                            'haaaaiiii XD','long live vim','hi friend','pancakes or waffles?','hi','hello','hey','remember to stay HYDRATED','hoi','h','XD',
-                            'vro..','get hacked bozooo','you should eat some PANCAKES','black metal?','owo', 'welcome', 'glory to arstotska!']
+        
 
         # current variables (focus, etc)
         self.current = { 'quit': False, # whether to quit or not from current, only change in threads
@@ -17,6 +17,7 @@ class user_input():
                             'window': 'main' # the current focus window
                         }
 
+        
 
         self.status = {'message': '', 'sec': 0}  # a message to print the user 
 
@@ -31,7 +32,7 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        self.MESSAGE(self.init_status[randint(0,23)]) # prints welcome message
+        self.MESSAGE(init_status[randint(0,23)]) # prints welcome message
             
 
 
