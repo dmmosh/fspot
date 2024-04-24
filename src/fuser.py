@@ -94,13 +94,10 @@ class user_input():
                                 PUT('me/player/pause')
                             else: 
                                 PUT('me/player/play')
-                        case '\x16': # CTRL V 
-                            try:
-                                self.buffer +=pyperclip.paste()
-                            except:
-                                pass
-                        case '\x1b[A':
+                        case '\x1b[A': # UP KEY 
                             sys.stdout.write('\x1b[B\x1b[A')
+                        case '\x1b[B': # DOWN KEY
+                            sys.stdout.write('\x1b[A\x1b[B')
                         case None:
                             pass
                         case _:
