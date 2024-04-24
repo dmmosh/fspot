@@ -30,10 +30,12 @@ threading.Thread(target=update_term, daemon=True).start()
 # commands in prompt
 for cmd in sys.argv:
     match cmd:
-        case '--reset':
+        case '--clear', '-c':
+            os.system('clear')
+        case '--reset', '-r':
             print('Force reset started...')
             login_start()
-        case '--refresh':
+        case '--refresh', '-rf':
             # loads from pickled 
             gl.auth_codes = LOAD('auth.obj') 
             gl.def_header = {  # sets the default header
