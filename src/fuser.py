@@ -176,30 +176,24 @@ class user_input():
 
     # pause helper function, comes up a lot
     def PAUSE(self):
-        process = self.MESSAGE('Pausing...')
+        self.MESSAGE('Pausing...')
         PUT('me/player/pause')
         self.STOP_MESSAGE()
-        if process is not None:
-            process.join()
         self.MESSAGE('Paused now!', 2)
     
 
     # play helper function, comes up a lot
     def PLAY(self):
-        process = self.MESSAGE('Playing...')
+        self.MESSAGE('Playing...')
         PUT('me/player/play')
         self.STOP_MESSAGE()
-        if process is not None:
-            process.join()
         self.MESSAGE('Playing now!', 2)
     
     # refreshes the token, automated and manual
     def REFRESH(self):
-        process = self.MESSAGE('Token refreshing...')
+        self.MESSAGE('Token refreshing...')
         refresh(force=True)
         self.STOP_MESSAGE()
-        if process is not None:
-            process.join()
         if GET('me').status_code == 200:
             self.MESSAGE('Token refreshed.', 2)
         else:
@@ -215,14 +209,11 @@ class user_input():
 
     # updates the status and runs it for the specified length of seconds
     def MESSAGE(self, message:str = 'Hello', sec:int = 5)-> threading.Thread:
+        self.STOP_MESSAGE()
         # only print if it can match the length
         if (len(message) + 27) <= gl.term_size:
             self.status = {'message': INVERT['on'] + '[ ' + message + ' ]' + INVERT['off'] , 'sec': sec} # sets the status
-            out =  threading.Thread(target=self.DECREASE, daemon=True) # returns thread (if needs to join later)
-            out.start()
-            return out
-        else:
-            return None
+            threading.Thread(target=self.DECREASE, daemon=True).start() # returns thread (if needs to join later)
 
     # stops message when some process finishes
     def STOP_MESSAGE(self):
