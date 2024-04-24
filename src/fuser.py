@@ -66,9 +66,13 @@ class user_input():
     def key_log(self):
         self.fd = sys.stdin.fileno()
 
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
-        tty.setraw(sys.stdin.fileno())
+        self.oldterm = termios.tcgetattr(self.fd)
+        self.newattr = termios.tcgetattr(self.fd)
+        self.newattr[3] = self.newattr[3] & ~termios.ICANON & ~termios.ECHO
+        termios.tcsetattr(self.fd, termios.TCSANOW, self.newattr)
+
+        self.oldflags = fcntl.fcntl(self.fd, fcntl.F_GETFL)
+        fcntl.fcntl(self.fd, fcntl.F_SETFL, self.oldflags | os.O_NONBLOCK)
 
         try:
             while (not self.current['quit']):
@@ -90,8 +94,6 @@ class user_input():
                                 PUT('me/player/pause')
                             else: 
                                 PUT('me/player/play')
-                        case '[1A', '[1D':
-                            self.buffer = "HELLO"
                         case None:
                             pass
                         case _:
@@ -101,7 +103,8 @@ class user_input():
                                 pass
                 except IOError: pass
         finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+            termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.oldterm)
+            fcntl.fcntl(self.fd, fcntl.F_SETFL, self.oldflags)
         
 
     # decreases the counter , helper function to status
