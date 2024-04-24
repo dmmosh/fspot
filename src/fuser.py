@@ -75,12 +75,12 @@ class user_input():
                                 self.MESSAGE('Pausing...')
                                 PUT('me/player/pause')
                                 self.STOP_MESSAGE()
-                                self.MESSAGE('Paused!', 1)
+                                self.MESSAGE('Paused!', 2)
                             else: 
                                 self.MESSAGE('Resuming...')
                                 PUT('me/player/play')
                                 self.STOP_MESSAGE()
-                                self.MESSAGE('Playing!', 1)
+                                self.MESSAGE('Playing!', 2)
 
                         case '\x1b[A': # UP KEY 
                             sys.stdout.write('\x1b[B\x1b[A')
