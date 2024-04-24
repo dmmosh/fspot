@@ -273,10 +273,9 @@ class user_input():
 
 
 
-            # USER LINES
-
-            if self.status['message'] != '' and len(self.status['message']) +23 <= gl.term_size:
-                print('\n' + ' '*23 + self.status['message'])
+            # USER LINES    
+            if self.status['message']:
+                print('\n' + self.status['message'].center(gl.term_size))
                 move_up(2)
 
             print('\n/ ' + self.buffer, end='') # prints the initial line
@@ -285,8 +284,8 @@ class user_input():
             clear_line()
             move_up()
             
-            if self.status['message'] != '' and len(self.status['message']) +23 <= gl.term_size:
-                print('\n' + ' '*23 + self.status['message'])
+            if self.status['message']:
+                print('\n' + self.status['message'].center(gl.term_size))
                 move_up(2)
 
             print('\n/ ' + self.buffer, end='') # prints the initial line
