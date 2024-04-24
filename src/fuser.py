@@ -228,7 +228,7 @@ class user_input():
     def main_input(self):
 
         global LINE_CTR # the TOTAL lines counter 
-        LINE_CTR = 4 
+        LINE_CTR = 5
 
         # MOVES THE TERMINAL DOWN
         print('\n'*4, end='') 
@@ -267,9 +267,10 @@ class user_input():
             # TUI LINES 
 
             print('')
-
+            print(song['name'].center(gl.term_size))
 
             print('PLAY STATUS:', str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(song['second']) if song['second'] <10 else song['second'] ), song['percent'])
+
 
 
             # USER LINES
