@@ -72,12 +72,12 @@ class user_input():
 
                         case ' ': # SPACE 
                             if GET('me/player').json()['is_playing']:
-                                self.MESSAGE('Pausing...')
+                                self.MESSAGE('Pausing...', blink=1)
                                 PUT('me/player/pause')
                                 self.STOP_MESSAGE()
                                 self.MESSAGE('Paused!', 2)
                             else: 
-                                self.MESSAGE('Resuming...')
+                                self.MESSAGE('Resuming...', blink=1)
                                 PUT('me/player/play')
                                 self.STOP_MESSAGE()
                                 self.MESSAGE('Playing!', 2)
