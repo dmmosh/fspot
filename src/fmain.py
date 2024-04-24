@@ -31,6 +31,7 @@ threading.Thread(target=update_term, daemon=True).start()
 for cmd in sys.argv:
     match cmd:
         case '--reset':
+            print('Force reset started...')
             login_start()
         case '--refresh':
             # loads from pickled 
@@ -38,7 +39,13 @@ for cmd in sys.argv:
             gl.def_header = {  # sets the default header
                         'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
             }
+            print('Refreshing token...')
             refresh(force=True)
+            me = GET('me') # testing
+            if me.status_code == 200:
+                print('Token refreshed.')
+            else:
+                ERROR('Could not refresh token.')
 
 
 load_var = LOAD('auth.obj') # loads the authorization info

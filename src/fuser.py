@@ -168,6 +168,7 @@ class user_input():
                 print(device_list)
 
             case 'refresh': # refresh
+                self.MESSAGE('Force token refresh')
                 refresh(force=True)
             
             case 'clear': # if the screen gets all messed up

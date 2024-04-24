@@ -173,7 +173,6 @@ def move_up(n:int = 1)-> None:
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):
     if (datetime.now().timestamp() > gl.auth_codes['expires_at']) or force:
-        print("Token expired. Refreshing.")
         req_headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic ' + base64.b64encode((CLIENT_ID + ':' + CLIENT_SECRET).encode()).decode()
@@ -187,7 +186,6 @@ def refresh(force:bool = False):
         response = requests.post(TOKEN_URL, headers=req_headers, data=req_body)
         new_token_info = response.json()
         if (response.status_code == 200):
-            print('Access token accessed.')
             gl.auth_codes['access_token'] = new_token_info['access_token']
             gl.auth_codes['expires_at'] = datetime.now().timestamp() + new_token_info['expires_in']
             gl.def_header = {  # the default header
