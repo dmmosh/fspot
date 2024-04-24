@@ -179,7 +179,8 @@ class user_input():
         process = self.MESSAGE('Pausing...')
         PUT('me/player/pause')
         self.STOP_MESSAGE()
-        process.join()
+        if process is not None:
+            process.join()
         self.MESSAGE('Paused now!', 2)
     
 
@@ -188,7 +189,8 @@ class user_input():
         process = self.MESSAGE('Playing...')
         PUT('me/player/play')
         self.STOP_MESSAGE()
-        process.join()
+        if process is not None:
+            process.join()
         self.MESSAGE('Playing now!', 2)
     
     # refreshes the token, automated and manual
@@ -196,7 +198,8 @@ class user_input():
         process = self.MESSAGE('Token refreshing...')
         refresh(force=True)
         self.STOP_MESSAGE()
-        process.join()
+        if process is not None:
+            process.join()
         if GET('me').status_code == 200:
             self.MESSAGE('Token refreshed.', 2)
         else:
@@ -215,7 +218,11 @@ class user_input():
         # only print if it can match the length
         if (len(message) + 27) <= gl.term_size:
             self.status = {'message': INVERT['on'] + '[ ' + message + ' ]' + INVERT['off'] , 'sec': sec} # sets the status
-            return threading.Thread(target=self.DECREASE, daemon=True).start() # returns thread (if needs to join later)
+            out =  threading.Thread(target=self.DECREASE, daemon=True) # returns thread (if needs to join later)
+            out.start()
+            return out
+        else:
+            return None
 
     # stops message when some process finishes
     def STOP_MESSAGE(self):
