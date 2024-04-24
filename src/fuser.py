@@ -7,30 +7,9 @@ class user_input():
     # inits everything
     def __init__(self):
         self.buffer = '' # user input
-        self.init_status = ['hello vro', 
-                            'good morning', 
-                            'i like waffles', 
-                            'dinnerbone', 
-                            'i love you vro..',
-                            'hii!!! :3,',
-                            'ready ?',
-                            'hacked in the mainframe',
-                            'haaaaiiii XD',
-                            'long live vim',
-                            'hi friend',
-                            'pancakes or waffles?',
-                            'hi',
-                            'hello',
-                            'hey',
-                            'remember to stay HYDRATED',
-                            'hoi',
-                            'h',
-                            'XD',
-                            'vro..',
-                            'get hacked bozooo',
-                            'you should eat some PANCAKES',
-                            'black metal?',
-                            'owo']
+        self.init_status = ['hello vro', 'good morning', 'i love you vro..','hii!!! :3,','ready ?','hacked in the mainframe',
+                            'haaaaiiii XD','long live vim','hi friend','pancakes or waffles?','hi','hello','hey','remember to stay HYDRATED','hoi','h','XD',
+                            'vro..','get hacked bozooo','you should eat some PANCAKES','black metal?','owo', 'welcome', 'glory to arstotska!']
 
         # current variables (focus, etc)
         self.current = { 'quit': False, # whether to quit or not from current, only change in threads
@@ -52,7 +31,7 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        self.MESSAGE(self.init_status[randint(0,23)], blink=True)
+        self.MESSAGE(self.init_status[randint(0,23)]) # prints welcome message
             
 
 
@@ -92,10 +71,12 @@ class user_input():
                             self.options(self.command) # calls options function
 
                         case ' ': # SPACE 
+                            self.MESSAGE('Pausing...')
                             if GET('me/player').json()['is_playing']:
                                 PUT('me/player/pause')
                             else: 
                                 PUT('me/player/play')
+                            self.STOP_MESSAGE()
 
                         case '\x1b[A': # UP KEY 
                             sys.stdout.write('\x1b[B\x1b[A')
@@ -149,7 +130,9 @@ class user_input():
             self.status = {'message': '[ ' + message + ' ]' , 'sec': sec, 'blink': blink} # sets the status
             threading.Thread(target=lambda: self.decrease(len(message)), daemon=True).start()
 
-        
+    # stops message when some process finishes
+    def STOP_MESSAGE(self):
+        self.status['sec'] = 0
 
 
     # options menu (to minimize nesting)
