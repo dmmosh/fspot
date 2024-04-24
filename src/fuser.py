@@ -88,6 +88,7 @@ class user_input():
                         case '\n': # NEWLINE CHARACTER
                             self.command = self.buffer
                             self.buffer = ''
+                            sys.stdout.flush()
                             self.options(self.command) # calls options function
                         case ' ': # SPACE 
                             if GET('me/player').json()['is_playing']:
