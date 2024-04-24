@@ -96,11 +96,12 @@ class user_input():
                                 PUT('me/player/play')
                         case '\x16': # CTRL V 
                             try:
-                                sys.stdout.write('\x1b[s')
-                                #self.buffer +=pyperclip.paste()
+                                self.buffer +=pyperclip.paste()
                             except:
                                 pass
-                        case None, '\x1b[A', '\x1b[B', '\x1b[C', '\x1b[D':
+                        case '\x1b[A':
+                            sys.stdout.write('\x1b[B')
+                        case None:
                             pass
                         case _:
                             try: # NORMAL CHARACTER
