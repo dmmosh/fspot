@@ -52,7 +52,7 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        self.STATUS(self.init_status[randint(0,23)])
+        self.MESSAGE(self.init_status[randint(0,23)])
             
 
 
@@ -60,6 +60,12 @@ class user_input():
         while(not self.current['quit']):
             pass
 
+    # updates the status and runs it for the specified length of seconds
+    def MESSAGE(self, message:str = 'Hello', sec:int = 5):
+        # only print if it can match the length
+        if (len(message) + 27) <= gl.term_size:
+            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
+            threading.Thread(target=self.decrease).start()
 
 
     # KEY LOGS USER INPUT 
@@ -85,27 +91,40 @@ class user_input():
                     match c:
                         case '\x7f': # BACKSPACE
                             self.buffer = self.buffer[:-1]
+
                         case '\n': # NEWLINE CHARACTER
                             self.command = self.buffer
                             self.buffer = ''
                             sys.stdout.flush()
                             self.options(self.command) # calls options function
+
                         case ' ': # SPACE 
                             if GET('me/player').json()['is_playing']:
                                 PUT('me/player/pause')
                             else: 
                                 PUT('me/player/play')
+
                         case '\x1b[A': # UP KEY 
                             sys.stdout.write('\x1b[B\x1b[A')
+
                         case '\x1b[B': # DOWN KEY
                             sys.stdout.write('\x1b[A\x1b[B')
+
+                        case '\x1b[D':
+                            self.MESSAGE('left', 1)
+
+                        case '\x1b[C':
+                            self.MESSAGE('right', 1)
+
                         case None:
                             pass
+
                         case _:
                             try: # NORMAL CHARACTER
                                 self.buffer += c  
                             except:
                                 pass
+
                 except IOError: pass
         finally:
             termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.oldterm)
@@ -119,12 +138,6 @@ class user_input():
             self.status['sec']-=1
         self.status = {'message': '', 'sec': 0}  # a message to print the user 
     
-    # updates the status and runs it for the specified length of seconds
-    def STATUS(self, message:str = 'Hello', sec:int = 5):
-        # only print if it can match the length
-        if (len(message) + 27) <= gl.term_size:
-            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
-            threading.Thread(target=self.decrease).start()
 
 
         
@@ -161,7 +174,7 @@ class user_input():
             
             case 'quit': # quits the user input
                 # exits the class's constructor
-                self.STATUS('Quitting...')
+                self.MESSAGE('Quitting...')
                 self.current['logging'] = False
                 self.current['quit'] = True 
 
