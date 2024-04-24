@@ -127,7 +127,7 @@ class user_input():
 
     # options menu (to minimize nesting)
     # ONLY CALL WHEN ENTER KEY IS CALLED
-    def options(self, command:str = 'quit'):
+    def options(self, command:str):
         # NON-TERMINAL SPECIFIC OPTIONS
 
         match command:
@@ -156,6 +156,7 @@ class user_input():
             
             case 'quit': # quits the user input
                 # exits the class's constructor
+                self.STATUS('Quitting...')
                 self.current['logging'] = False
                 self.current['quit'] = True 
 
