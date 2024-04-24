@@ -101,7 +101,7 @@ class user_input():
                         case '\x1b[D': # LEFT KEY
                             self.buffer = "TEST"
                             sys.stdout.write('\x1b[D')
-                        case '\x1b[K': # RIGHT KEY
+                        case '\x1b[C': # RIGHT KEY
                             self.buffer = "TEST"
                             sys.stdout.write('\x1b[1C')
                         case None:
