@@ -59,7 +59,27 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
     login_start() # starts login
 
 
+def end():
+    PUT('me/player/pause')
 
+    title = {'id': 1,   # the title slide properties
+             'line_num': 3,
+             'col_num': 10,
+             'len': 11}
+    # choose which title number to print (depending on column terminal size
+    if gl.term_size < 42: # TITLE 1 (under 42)
+        title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
+    elif gl.term_size < 52: # TITLE 2 (42 and over)
+        title = {'id': 2, 'line_num': 9, 'col_num': 42, 'len': 344}
+    else: # TITLE 3 (52 and over)
+        title = {'id': 3, 'line_num': 10, 'col_num': 52, 'len': 477}
+
+    title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
+    print(title_text.read())
+    print("\tsee ya... vro")
+    title_text.close()
+
+atexit.register(end)
 
 program = threading.Thread(target=lambda: os.system(FOLDER+'librespot ' +
                     '--name \'fspot player\' ' +
@@ -79,26 +99,6 @@ change_player.join() # joins the thread to mainsd
 
 
 user_input()
-
-
-PUT('me/player/pause')
-
-title = {'id': 1,   # the title slide properties
-         'line_num': 3,
-         'col_num': 10,
-         'len': 11}
-# choose which title number to print (depending on column terminal size
-if gl.term_size < 42: # TITLE 1 (under 42)
-    title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
-elif gl.term_size < 52: # TITLE 2 (42 and over)
-    title = {'id': 2, 'line_num': 9, 'col_num': 42, 'len': 344}
-else: # TITLE 3 (52 and over)
-    title = {'id': 3, 'line_num': 10, 'col_num': 52, 'len': 477}
-
-title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
-print(title_text.read())
-print("\tsee ya... vro")
-title_text.close()
 
 # runs after quit command
 #browser.terminate()
