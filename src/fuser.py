@@ -251,7 +251,7 @@ class user_input():
 
                 if loc['progress_ms']:
                     progress = loc['progress_ms'] // 1000
-                    song_percent = loc['progress_ms'] / loc['item']['duration_ms'] * 100
+                    song_percent = loc['progress_ms'] // loc['item']['duration_ms'] * 100
 
                 minute = progress // 60
                 second = progress % 60
