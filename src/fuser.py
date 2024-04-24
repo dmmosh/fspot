@@ -112,9 +112,11 @@ class user_input():
 
                         case '\x1b[D':
                             self.MESSAGE('left', 1)
+                            sys.stdout.write('\x1b[D')
 
                         case '\x1b[C':
                             self.MESSAGE('right', 1)
+                            sys.stdout.write('\x1b[D')
 
                         case None:
                             pass
