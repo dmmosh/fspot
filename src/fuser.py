@@ -74,10 +74,11 @@ class user_input():
                             if GET('me/player').json()['is_playing']:
                                 self.MESSAGE('Pausing...')
                                 PUT('me/player/pause')
+                                self.MESSAGE('Paused!', 1)
                             else: 
                                 self.MESSAGE('Resuming...')
                                 PUT('me/player/play')
-                            self.STOP_MESSAGE()
+                                self.MESSAGE('Playing!', 1)
 
                         case '\x1b[A': # UP KEY 
                             sys.stdout.write('\x1b[B\x1b[A')
@@ -121,7 +122,7 @@ class user_input():
             else:   
                 time.sleep(1)
             self.status['sec']-=1
-        self.status = {'message': '', 'sec': 0, 'blink': False}  # a message to print the user 
+        self.STOP_MESSAGE()
     
 
     # updates the status and runs it for the specified length of seconds
