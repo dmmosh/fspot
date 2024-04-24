@@ -239,7 +239,8 @@ class user_input():
         progress = 0
         minute = 0
         second = 0
-        progress = 0 # song progress bar
+        progress = 0 # 
+        song_percent = 0
         while(self.current['logging']): # update
             if(len(self.buffer) > 15):
                 self.buffer = self.buffer[:16]
@@ -247,14 +248,18 @@ class user_input():
             loc = GET('me/player') # PLAYBACK COMMAND
             if (loc.status_code == 200):
                 loc = loc.json()
-                progress = (loc['progress_ms'] if loc['progress_ms'] else 0) // 1000
+
+                if loc['progress_ms']:
+                    progress = loc['progress_ms'] // 1000
+                    song_percent = loc['progress_ms'] // loc['item']['duration_ms']
+
                 minute = progress // 60
                 second = progress % 60
 
             # TUI LINES 
 
             print('')
-            print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ), loc['item']['duration_ms'] / loc['progress_ms'])
+            print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ), song_percent)
 
 
             # USER LINES
