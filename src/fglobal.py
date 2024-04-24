@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from flask import Flask, redirect, request, jsonify, session
 from getpass import getpass
 from random import randint
+import paperclip
 import termios
 import fcntl
 import keyboard as kb
@@ -14,7 +15,6 @@ import sys
 import threading
 from multiprocessing import Process
 import subprocess
-import tty
 import math
 import signal 
 import webbrowser
