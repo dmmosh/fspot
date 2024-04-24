@@ -100,8 +100,7 @@ class user_input():
                                 #self.buffer +=pyperclip.paste()
                             except:
                                 pass
-                        case '\x1b[A':
-                            sys.stdout.write('\x1b[B')
+                            #sys.stdout.write('\x1b[B')
                         case None:
                             pass
                         case _:
