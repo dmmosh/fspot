@@ -132,10 +132,11 @@ class user_input():
         self.temp = self.status['message']
         while(self.status['sec']):
             if self.status['blink']:
-                self.status['message'] = '[ ' + (' '*msg_len) + ' ]'
-                time.sleep(0.5)
-                self.status['message'] = self.temp
-                time.sleep(0.5)
+                for i in range(0,2):
+                    self.status['message'] = '[ ' + (' '*msg_len) + ' ]'
+                    time.sleep(0.25)
+                    self.status['message'] = self.temp
+                    time.sleep(0.25)
             else:   
                 time.sleep(1)
             self.status['sec']-=1
