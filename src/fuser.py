@@ -94,6 +94,8 @@ class user_input():
                                 PUT('me/player/pause')
                             else: 
                                 PUT('me/player/play')
+                        case '[1A', '[1D':
+                            self.buffer = "HELLO"
                         case None:
                             pass
                         case _:
