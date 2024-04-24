@@ -133,13 +133,13 @@ class user_input():
         while(self.status['sec']):
             if self.status['blink']:
                 for i in range(0,2):
-                    self.status['message'] = '[ ' + ' '*msg_len + ' ]'
+                    self.status['message'] = '[ ' + (' '*msg_len) + ' ]'
                     time.sleep(0.5)
                     self.status['message'] = self.temp
             else:   
                 time.sleep(1)
             self.status['sec']-=1
-        self.status = {'message': '', 'sec': 0}  # a message to print the user 
+        self.status = {'message': '', 'sec': 0, 'blink': False}  # a message to print the user 
     
 
     # updates the status and runs it for the specified length of seconds
