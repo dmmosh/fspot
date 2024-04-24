@@ -282,7 +282,7 @@ class user_input():
             # TUI LINES 
 
             print('')
-            print('title')
+            print(song['title'])
 
             print('PLAY STATUS:', str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(song['second']) if song['second'] <10 else song['second'] ), song['percent'])
 
