@@ -242,7 +242,7 @@ class user_input():
                         'second': 0,
                         'progress': 0,
                         'percent': 0,
-                        'artist': 'No one',
+                        'artists': 'No one',
                         'name': 'Nothing duh'}
 
         while(self.current['logging']): # update
