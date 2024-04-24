@@ -99,9 +99,11 @@ class user_input():
                         case '\x1b[B': # DOWN KEY
                             sys.stdout.write('\x1b[A\x1b[B')
                         case '\x1b[D': # LEFT KEY
-                            sys.stdout.write('\x1b[D')
+                            if self.buffer == '':
+                                sys.stdout.write('\x1b[D')
                         case '\x1b[C': # RIGHT KEY
-                            sys.stdout.write('\x1b[1C')
+                            if self.buffer == '':
+                                sys.stdout.write('\x1b[1C')
                         case None:
                             pass
                         case _:
