@@ -208,11 +208,11 @@ class user_input():
     
 
     # updates the status and runs it for the specified length of seconds
-    def MESSAGE(self, message:str = 'Hello', sec:int = 5):
+    def MESSAGE(self, message:str = 'Hello', sec:int = 5)-> threading.Thread:
         # only print if it can match the length
         if (len(message) + 27) <= gl.term_size:
             self.status = {'message': INVERT['on'] + '[ ' + message + ' ]' + INVERT['off'] , 'sec': sec} # sets the status
-            threading.Thread(target=self.DECREASE, daemon=True).start()
+            return threading.Thread(target=self.DECREASE, daemon=True).start()
 
     # stops message when some process finishes
     def STOP_MESSAGE(self):
