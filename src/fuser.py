@@ -65,13 +65,7 @@ class user_input():
                 print(device_list)
 
             case 'refresh': # refresh
-                self.MESSAGE('Token refreshing...')
-                refresh(force=True)
-                self.STOP_MESSAGE()
-                if GET('me').status_code == 200:
-                    self.MESSAGE('Token refreshed.')
-                else:
-                    self.MESSAGE('Error in refreshing token,,')
+                self.REFRESH()
             
             case 'clear': # if the screen gets all messed up
                 os.system('clear')
@@ -193,6 +187,16 @@ class user_input():
         PUT('me/player/play')
         self.STOP_MESSAGE()
         self.MESSAGE('Playing now!', 2)
+    
+    # refreshes the token, automated and manual
+    def REFRESH(self):
+        self.MESSAGE('Token refreshing...')
+        refresh(force=True)
+        self.STOP_MESSAGE()
+        if GET('me').status_code == 200:
+            self.MESSAGE('Token refreshed.')
+        else:
+            self.MESSAGE('Error in refreshing token,,')
 
     # decreases the counter , helper function to status
     def DECREASE(self):
