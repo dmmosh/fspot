@@ -70,14 +70,6 @@ program = threading.Thread(target=lambda: os.system(FOLDER+'librespot ' +
                     '-p \'' + gl.auth_codes['password'] + '\' &> /dev/null '
                     ), daemon=True)
 
-
-
-def close_player():
-    os.system('google-chrome-stable')
-
-atexit.register(close_player)
-
-
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
 loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
