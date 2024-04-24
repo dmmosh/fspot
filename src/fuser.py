@@ -263,7 +263,7 @@ class user_input():
 
                     song['percent'] = loc['progress_ms'] / loc['item']['duration_ms']
                     song['name'] = loc['item']['name']
-                    print(loc['item']['artists'])
+                    print([ artist['name'] for artist in loc['item']['artists']])
 
             # TUI LINES 
 
