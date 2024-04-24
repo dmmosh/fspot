@@ -58,7 +58,7 @@ class user_input():
 
         # redirect input from linux to python
         while(not self.current['quit']):
-            sys.stdin.readlines()
+            pass
 
 
 
