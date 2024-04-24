@@ -52,7 +52,7 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        self.MESSAGE(self.init_status[randint(0,23)], blink=True)
+        self.MESSAGE(self.init_status[randint(0,23)])
             
 
 
@@ -185,7 +185,7 @@ class user_input():
             
             case 'quit': # quits the user input
                 # exits the class's constructor
-                self.MESSAGE('Quitting...')
+                self.MESSAGE('Quitting...', blink=True)
                 self.current['logging'] = False
                 self.current['quit'] = True 
 
