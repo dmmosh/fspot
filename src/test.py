@@ -1,4 +1,3 @@
+from colorist import Color
 
-
-
-print("\033[31;1;4mHello\033[0m")
+print(f"hello there{Color.DEFAULT}friend{Color.OFF} hiii")
