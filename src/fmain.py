@@ -22,7 +22,7 @@ rm ./fspot/*f
 def update_term():
     while(1):
         gl.term_size = os.get_terminal_size().columns
-        time.sleep(0.05)
+        time.sleep(0.005)
 
 # ALWAYS UPDATES THE TERMINAL SIZE
 threading.Thread(target=update_term, daemon=True).start()
