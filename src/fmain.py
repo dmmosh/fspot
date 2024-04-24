@@ -72,6 +72,10 @@ program = threading.Thread(target=lambda: os.system('nohup ' + FOLDER+'librespot
 
 
 
+def close_player():
+    threading.Thread(target=lambda: os.system('nohup ' + FOLDER + 'librespot'))
+
+atexit.register(close_player)
 
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
