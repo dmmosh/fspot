@@ -61,7 +61,7 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 
 
-program = threading.Thread(target=lambda: os.system('nohup ' + FOLDER+'librespot ' +
+program = threading.Thread(target=lambda: os.system(FOLDER+'librespot ' +
                     '--name \'fspot player\' ' +
                     '--disable-audio-cache ' +
                     '--disable-credential-cache ' +
