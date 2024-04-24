@@ -121,7 +121,6 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
             sys.stdout.flush()
             time.sleep(0.15)
 
-    move_up()
     clear_line()
     while(title['line_num']): # clear the title screen
         move_up()

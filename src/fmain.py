@@ -61,7 +61,7 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 
 
-program = threading.Thread(target=lambda: os.system(FOLDER+'nohup librespot ' +
+program = threading.Thread(target=lambda: os.system('nohup ' + FOLDER+'librespot ' +
                     '--name \'fspot player\' ' +
                     '--disable-audio-cache ' +
                     '--disable-credential-cache ' +
@@ -69,6 +69,7 @@ program = threading.Thread(target=lambda: os.system(FOLDER+'nohup librespot ' +
                     '-u \''+ gl.auth_codes['user_id'] +'\' ' +
                     '-p \'' + gl.auth_codes['password'] + '\' &> /dev/null '
                     ), daemon=True)
+
 
 program.start()
 def quit_program():
@@ -96,7 +97,6 @@ def quit_program():
     print("\tsee ya... vro")
 
     title_text.close()
-    program.join()
 
 
 atexit.register(quit_program)
