@@ -14,6 +14,7 @@ import sys
 import threading
 from multiprocessing import Process
 import subprocess
+import tty
 import math
 import signal 
 import webbrowser
