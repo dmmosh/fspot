@@ -95,7 +95,7 @@ class user_input():
                             else: 
                                 PUT('me/player/play')
                         case None, '\x1b[A', '\x1b[B':
-                            self.buffer = "jlidsj"
+                            self.buffer = "FDSNJKDFHJK"
                         case _:
                             try: # NORMAL CHARACTER
                                 self.buffer += c  
