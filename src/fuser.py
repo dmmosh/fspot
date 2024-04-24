@@ -94,7 +94,7 @@ class user_input():
                                 PUT('me/player/pause')
                             else: 
                                 PUT('me/player/play')
-                        case None:
+                        case None, '\x1b[A', '\x1b[B':
                             pass
                         case _:
                             try: # NORMAL CHARACTER
