@@ -147,7 +147,7 @@ class user_input():
         # only print if it can match the length
         if (len(message) + 27) <= gl.term_size:
             self.status = {'message': '[ ' + message + ' ]' , 'sec': sec, 'blink': blink} # sets the status
-            threading.Thread(target=self.decrease, args=(len(message))).start()
+            threading.Thread(target=lambda: self.decrease(len(message)), daemon=True).start()
 
         
 
