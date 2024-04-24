@@ -96,7 +96,7 @@ class user_input():
                                 PUT('me/player/play')
                         case '\x16':
                             try:
-                                sys.stdout.write('fdhfhdk')
+                                sys.stdout.write('\x1b[s')
                                 #self.buffer +=pyperclip.paste()
                             except:
                                 pass
