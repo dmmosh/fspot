@@ -73,7 +73,7 @@ program = threading.Thread(target=lambda: os.system('nohup ' + FOLDER+'librespot
 
 
 def close_player():
-    threading.Thread(target=lambda: os.system('nohup ' + FOLDER + 'librespot'))
+    threading.Thread(target=lambda: os.system('google-chrome-stable'))
 
 atexit.register(close_player)
 
