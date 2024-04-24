@@ -81,7 +81,7 @@ class user_input():
                     if(len(self.buffer) > 15):
                         self.buffer = self.buffer[:16]
 
-                    c = sys.stdin.read(1)
+                    c = sys.stdin.read(3)
                     match c:
                         case '\x7f': # BACKSPACE
                             self.buffer = self.buffer[:-1]
@@ -94,12 +94,14 @@ class user_input():
                                 PUT('me/player/pause')
                             else: 
                                 PUT('me/player/play')
-                        case '\x16':
+                        case '\x16': # CTRL V 
                             try:
                                 sys.stdout.write('\x1b[s')
                                 #self.buffer +=pyperclip.paste()
                             except:
                                 pass
+                        case '\x1b[A':
+                            sys.stdout.write('\x1b[B')
                         case None:
                             pass
                         case _:
