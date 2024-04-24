@@ -83,7 +83,7 @@ def end():
 
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
     print(title_text.read())
-    print("\tsee ya... vro")
+    print("\t[ see ya... vro ]")
     title_text.close()
 
 atexit.register(end)

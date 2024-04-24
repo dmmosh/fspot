@@ -30,19 +30,18 @@ GLOBAL VARIABLES AND IMPORTS
 '''
 
 # CONSTANTS (read-only)
-
 # init status, random one
-init_status = ['hello vro', 'good morning', 'i love you vro..','hii!!! :3,','ready ?','hacked in the mainframe',
+INIT_STATUS = ['hello vro', 'good morning', 'i love you vro..','hii!!! :3,','ready ?','hacked in the mainframe',
                             'haaaaiiii XD','long live vim','hi friend','pancakes or waffles?','hi','hello','hey','remember to stay HYDRATED','hoi','h','XD',
                             'vro..','get hacked bozooo','you should eat some PANCAKES','black metal?','owo', 'welcome', 'glory to arstotska!']
 
+INVERT = {'on': '\033[;7;1m', 'off': '\033[0m'}
 
 
 
+# IMPORTANT GLOBAL VARIABLES
 
 term_size = 0 # the terminal size (changes throughout the program)
-
-
 
 # auth codes, important info
 auth_codes = {'access_token': '', 
