@@ -12,7 +12,7 @@ fcntl.fcntl(fd, fcntl.F_SETFL, oldflags | os.O_NONBLOCK)
 try:
     while 1:
         try:
-            c = sys.stdin.read(1)
+            c = sys.stdin.read(3)
             if c:
                 print("Got character", repr(c))
         except IOError: pass
