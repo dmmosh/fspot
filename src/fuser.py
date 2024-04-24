@@ -211,7 +211,7 @@ class user_input():
     def MESSAGE(self, message:str = 'Hello', sec:int = 5)-> threading.Thread:
         self.STOP_MESSAGE()
         # only print if it can match the length
-        if (len(message) + 27) <= gl.term_size:
+        if len(message)+4 <= gl.term_size:
             self.status = {'message': INVERT['on'] + '[ ' + message + ' ]' + INVERT['off'] , 'sec': sec} # sets the status
             threading.Thread(target=self.DECREASE, daemon=True).start() # returns thread (if needs to join later)
 
