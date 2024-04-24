@@ -60,12 +60,6 @@ class user_input():
         while(not self.current['quit']):
             pass
 
-    # updates the status and runs it for the specified length of seconds
-    def MESSAGE(self, message:str = 'Hello', sec:int = 5):
-        # only print if it can match the length
-        if (len(message) + 27) <= gl.term_size:
-            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
-            threading.Thread(target=self.decrease).start()
 
 
     # KEY LOGS USER INPUT 
@@ -134,13 +128,26 @@ class user_input():
         
 
     # decreases the counter , helper function to status
-    def decrease(self):
+    def decrease(self, msg_len:str, blink:bool = False):
+        self.temp = self.status['message']
         while(self.status['sec']):
-            time.sleep(1)
+            if blink:
+                for i in range(0,2):
+                    self.status['message'] = '[ ' + ' '*msg_len + ' ]'
+                    time.sleep(0.5)
+                    self.status['message'] = self.temp
+            else:   
+                time.sleep(1)
             self.status['sec']-=1
         self.status = {'message': '', 'sec': 0}  # a message to print the user 
     
 
+    # updates the status and runs it for the specified length of seconds
+    def MESSAGE(self, message:str = 'Hello', sec:int = 5, blink:bool = False):
+        # only print if it can match the length
+        if (len(message) + 27) <= gl.term_size:
+            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
+            threading.Thread(target=self.decrease, args=(len(message), blink)).start()
 
         
 
