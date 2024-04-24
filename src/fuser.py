@@ -71,10 +71,11 @@ class user_input():
                             self.options(self.command) # calls options function
 
                         case ' ': # SPACE 
-                            self.MESSAGE('Pausing...')
                             if GET('me/player').json()['is_playing']:
+                                self.MESSAGE('Pausing...')
                                 PUT('me/player/pause')
                             else: 
+                                self.MESSAGE('Resuming...')
                                 PUT('me/player/play')
                             self.STOP_MESSAGE()
 
