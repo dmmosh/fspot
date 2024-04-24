@@ -218,7 +218,7 @@ class user_input():
             # TUI LINES 
 
             print('')
-            print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ), gl.term_size)
+            print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ), self.buffer)
 
 
             # USER LINES
