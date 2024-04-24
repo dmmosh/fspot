@@ -74,10 +74,12 @@ class user_input():
                             if GET('me/player').json()['is_playing']:
                                 self.MESSAGE('Pausing...')
                                 PUT('me/player/pause')
+                                self.STOP_MESSAGE()
                                 self.MESSAGE('Paused!', 1)
                             else: 
                                 self.MESSAGE('Resuming...')
                                 PUT('me/player/play')
+                                self.STOP_MESSAGE()
                                 self.MESSAGE('Playing!', 1)
 
                         case '\x1b[A': # UP KEY 
