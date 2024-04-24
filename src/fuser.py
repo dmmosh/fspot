@@ -236,11 +236,14 @@ class user_input():
             move_up()                
             clear_line()
             
-        progress = 0
-        minute = 0
-        second = 0
-        progress = 0 # 
-        song_percent = 0
+        
+        song = {'progress': 0,
+                        'minute': 0,
+                        'second': 0,
+                        'progress': 0,
+                        'percent': 0,
+                        'name': 'Nothing duh'}
+
         while(self.current['logging']): # update
             if(len(self.buffer) > 15):
                 self.buffer = self.buffer[:16]
@@ -249,17 +252,24 @@ class user_input():
             if (loc.status_code == 200):
                 loc = loc.json()
 
-                if loc['progress_ms']:
-                    progress = loc['progress_ms'] // 1000
-                    song_percent = loc['progress_ms'] / loc['item']['duration_ms']
+                if loc['progress_ms']: # if theres a song playing, set properties
+                    
 
-                minute = progress // 60
-                second = progress % 60
+                    song['progress'] = loc['progress_ms'] // 1000
+
+                    song['minute'] = song['progress'] // 60
+                    song['second'] = song['progress'] % 60
+
+                    song['percent'] = loc['progress_ms'] / loc['item']['duration_ms']
+
+                    song['name'] = loc['item']['name']
 
             # TUI LINES 
 
             print('')
-            print('PLAY STATUS:', str('0' + str(minute) if minute <10 else minute ) + ':' + str('0' + str(second) if second <10 else second ), song_percent)
+
+
+            print('PLAY STATUS:', str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(sonng['second']) if sonng['second'] <10 else sonng['second'] ), song['percent'])
 
 
             # USER LINES
