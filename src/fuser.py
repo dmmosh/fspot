@@ -78,8 +78,7 @@ class user_input():
             while (not self.current['quit']):
                 
                 try:
-                    if(len(self.buffer) > 15):
-                        self.buffer = self.buffer[:16]
+                    
 
                     c = sys.stdin.read(3)
                     match c:
@@ -235,7 +234,8 @@ class user_input():
         second = 0
         progress = 0 # song progress bar
         while(self.current['logging']): # update
-
+            if(len(self.buffer) > 15):
+                self.buffer = self.buffer[:16]
             
             loc = GET('me/player') # PLAYBACK COMMAND
             if (loc.status_code == 200):
