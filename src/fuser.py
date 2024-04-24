@@ -100,7 +100,7 @@ class user_input():
                             except:
                                 pass
                         case '\x1b[A':
-                            sys.stdout.write('\x1b[B')
+                            sys.stdout.write('\x1b[B\x1b[A')
                         case None:
                             pass
                         case _:
