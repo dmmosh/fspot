@@ -194,9 +194,9 @@ class user_input():
         refresh(force=True)
         self.STOP_MESSAGE()
         if GET('me').status_code == 200:
-            self.MESSAGE('Token refreshed.')
+            self.MESSAGE('Token refreshed.', 2)
         else:
-            self.MESSAGE('Error in refreshing token,,')
+            self.MESSAGE('Error in refreshing token,,', 2)
 
     # decreases the counter , helper function to status
     def DECREASE(self):
