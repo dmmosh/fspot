@@ -1,2 +1,2 @@
 from colorist import Color
-print(f"hello there \033[;7;1m friend hiii")
+print(f"\e[;41;7;1m\e[K hello there friend hiii")
