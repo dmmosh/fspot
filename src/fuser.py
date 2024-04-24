@@ -36,101 +36,12 @@ class user_input():
 
 
         # redirect input from linux to python
+        # keeps repeating for most of the program
         while(not self.current['quit']):
             pass
 
 
-
     # KEY LOGS USER INPUT 
-    def key_log(self):
-        self.fd = sys.stdin.fileno()
-
-        self.oldterm = termios.tcgetattr(self.fd)
-        self.newattr = termios.tcgetattr(self.fd)
-        self.newattr[3] = self.newattr[3] & ~termios.ICANON & ~termios.ECHO
-        termios.tcsetattr(self.fd, termios.TCSANOW, self.newattr)
-
-        self.oldflags = fcntl.fcntl(self.fd, fcntl.F_GETFL)
-        fcntl.fcntl(self.fd, fcntl.F_SETFL, self.oldflags | os.O_NONBLOCK)
-
-        try:
-            while (not self.current['quit']):
-                
-                try:
-                    
-
-                    c = sys.stdin.read(3)
-                    match c:
-                        case '\x7f': # BACKSPACE
-                            self.buffer = self.buffer[:-1]
-
-                        case '\n': # NEWLINE CHARACTER
-                            self.command = self.buffer
-                            self.buffer = ''
-                            sys.stdout.flush()
-                            self.options(self.command) # calls options function
-
-                        case ' ': # SPACE 
-                            if GET('me/player').json()['is_playing']:
-                                self.MESSAGE('Pausing...')
-                                PUT('me/player/pause')
-                                self.STOP_MESSAGE()
-                                self.MESSAGE('Paused!', 2)
-                            else: 
-                                self.MESSAGE('Resuming...')
-                                PUT('me/player/play')
-                                self.STOP_MESSAGE()
-                                self.MESSAGE('Playing!', 2)
-
-                        case '\x1b[A': # UP KEY 
-                            sys.stdout.write('\x1b[B\x1b[A')
-
-                        case '\x1b[B': # DOWN KEY
-                            sys.stdout.write('\x1b[A\x1b[B')
-
-                        case '\x1b[D':
-                            self.MESSAGE('left', 1)
-                            sys.stdout.write('\x1b[D')
-
-                        case '\x1b[C':
-                            self.MESSAGE('right', 1)
-                            sys.stdout.write('\x1b[D')
-
-                        case None:
-                            pass
-
-                        case _:
-                            try: # NORMAL CHARACTER
-                                self.buffer += c  
-                            except:
-                                pass
-
-                except IOError: pass
-        finally:
-            termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.oldterm)
-            fcntl.fcntl(self.fd, fcntl.F_SETFL, self.oldflags)
-        
-
-    # decreases the counter , helper function to status
-    def decrease(self):
-        while(self.status['sec']):
-            time.sleep(1)
-            self.status['sec']-=1
-        self.STOP_MESSAGE()
-    
-
-    # updates the status and runs it for the specified length of seconds
-    def MESSAGE(self, message:str = 'Hello', sec:int = 5):
-        # only print if it can match the length
-        if (len(message) + 27) <= gl.term_size:
-            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
-            threading.Thread(target=self.decrease, daemon=True).start()
-
-    # stops message when some process finishes
-    def STOP_MESSAGE(self):
-        self.status = {'message': '', 'sec': 0}
-
-
     # options menu (to minimize nesting)
     # ONLY CALL WHEN ENTER KEY IS CALLED
     def options(self, command:str):
@@ -144,18 +55,23 @@ class user_input():
                 PUT('me/player/pause')
 
             case 'play':  # start/pause
-                if GET('me/player').json()['is_playing']:
-                    PUT('me/player/pause')
+                if GET('me/player').json()['is_playing']: # if playing
+                    self.PAUSE()
                 else: 
-                    PUT('me/player/play')
+                    self.PLAY()
             
             case 'print': # print devices
                 device_list = GET('me/player/devices').json()
                 print(device_list)
 
             case 'refresh': # refresh
-                self.MESSAGE('Force token refresh')
+                self.MESSAGE('Token refreshing...')
                 refresh(force=True)
+                self.STOP_MESSAGE()
+                if GET('me').status_code == 200:
+                    self.MESSAGE('Token refreshed.')
+                else:
+                    self.MESSAGE('Error in refreshing token,,')
             
             case 'clear': # if the screen gets all messed up
                 os.system('clear')
@@ -195,6 +111,112 @@ class user_input():
 
 
 
+    # HELPER FUNCTIONS
+
+    # important key log
+    def key_log(self):
+        self.fd = sys.stdin.fileno()
+
+        self.oldterm = termios.tcgetattr(self.fd)
+        self.newattr = termios.tcgetattr(self.fd)
+        self.newattr[3] = self.newattr[3] & ~termios.ICANON & ~termios.ECHO
+        termios.tcsetattr(self.fd, termios.TCSANOW, self.newattr)
+
+        self.oldflags = fcntl.fcntl(self.fd, fcntl.F_GETFL)
+        fcntl.fcntl(self.fd, fcntl.F_SETFL, self.oldflags | os.O_NONBLOCK)
+
+        try:
+            while (not self.current['quit']):
+                
+                try:
+                    
+
+                    c = sys.stdin.read(3) # reads 3 chars at a time
+                    match c:
+                        case '\x7f': # BACKSPACE
+                            self.buffer = self.buffer[:-1]
+
+                        case '\n': # NEWLINE CHARACTER
+                            self.command = self.buffer
+                            self.buffer = ''
+                            sys.stdout.flush()
+                            self.options(self.command) # calls options function
+
+                        case ' ': # SPACE 
+                            if GET('me/player').json()['is_playing']: # if playing right now
+                                self.PAUSE()
+                            else: 
+                                self.PLAY() # if not
+
+                        case '\x1b[A': # UP KEY , blocks it
+                            sys.stdout.write('\x1b[B\x1b[A')
+
+                        case '\x1b[B': # DOWN KEY, blocks it
+                            sys.stdout.write('\x1b[A\x1b[B')
+
+                        case '\x1b[D':
+                            self.MESSAGE('left', 1)
+                            sys.stdout.write('\x1b[D')
+
+                        case '\x1b[C':
+                            self.MESSAGE('right', 1)
+                            sys.stdout.write('\x1b[D')
+
+                        case None:
+                            pass
+
+                        case _:
+                            try: # NORMAL CHARACTER
+                                self.buffer += c  
+                            except:
+                                pass
+
+                except IOError: pass
+        finally:
+            termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.oldterm)
+            fcntl.fcntl(self.fd, fcntl.F_SETFL, self.oldflags)
+        
+
+    # HELPER FUNCTIONS
+
+    # pause helper function, comes up a lot
+    def PAUSE(self):
+        self.MESSAGE('Pausing...')
+        PUT('me/player/pause')
+        self.STOP_MESSAGE()
+        self.MESSAGE('Paused now!', 2)
+    
+
+    # play helper function, comes up a lot
+    def PLAY(self):
+        self.MESSAGE('Playing...')
+        PUT('me/player/play')
+        self.STOP_MESSAGE()
+        self.MESSAGE('Playing now!', 2)
+
+    # decreases the counter , helper function to status
+    def DECREASE(self):
+        while(self.status['sec']):
+            time.sleep(1)
+            self.status['sec']-=1
+        self.STOP_MESSAGE()
+    
+
+    # updates the status and runs it for the specified length of seconds
+    def MESSAGE(self, message:str = 'Hello', sec:int = 5):
+        # only print if it can match the length
+        if (len(message) + 27) <= gl.term_size:
+            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
+            threading.Thread(target=self.DECREASE, daemon=True).start()
+
+    # stops message when some process finishes
+    def STOP_MESSAGE(self):
+        self.status = {'message': '', 'sec': 0}
+
+
+
+
+    # WINDOWS
 
     # the main input window
     def main_input(self):
