@@ -243,7 +243,8 @@ class user_input():
                         'progress': 0,
                         'percent': 0,
                         'artists': 'No one',
-                        'name': 'Nothing duh'}
+                        'name': 'Nothing duh',
+                        'title': 'No one : Nothing duh'}
 
         while(self.current['logging']): # update
             if(len(self.buffer) > 15):
@@ -273,13 +274,15 @@ class user_input():
                     if len(song['artists']) > gl.term_size//2: # if artists title is too long, cut it
                         song['artists'] = song['artists'][:gl.term_size//2 -3] # cuts it
                         song['artists'] += '...' # adds  3 dots
+                    
+                    song['title'] = (song['artists'] + ' : ' + song['name']).center(gl.term_size)
 
                     
 
             # TUI LINES 
 
             print('')
-            print((song['artists'] + ' : ' + song['name']).center(gl.term_size))
+            print('title')
 
             print('PLAY STATUS:', str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(song['second']) if song['second'] <10 else song['second'] ), song['percent'])
 
