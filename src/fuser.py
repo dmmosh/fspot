@@ -242,6 +242,7 @@ class user_input():
                         'second': 0,
                         'progress': 0,
                         'percent': 0,
+                        'artist': 'No one',
                         'name': 'Nothing duh'}
 
         while(self.current['logging']): # update
@@ -261,13 +262,13 @@ class user_input():
                     song['second'] = song['progress'] % 60
 
                     song['percent'] = loc['progress_ms'] / loc['item']['duration_ms']
-
                     song['name'] = loc['item']['name']
+                    song['artists'] =  ' - '.join(list(loc['item']['artists']))
 
             # TUI LINES 
 
             print('')
-            print(song['name'].center(gl.term_size))
+            print((song['artists'] + ' : ' + song['name']).center(gl.term_size))
 
             print('PLAY STATUS:', str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(song['second']) if song['second'] <10 else song['second'] ), song['percent'])
 
