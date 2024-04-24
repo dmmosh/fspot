@@ -39,7 +39,7 @@ class user_input():
                         }
 
 
-        self.status = {'message': '', 'sec': 0}  # a message to print the user 
+        self.status = {'message': '', 'sec': 0, 'blink': False}  # a message to print the user 
 
          # THREADS
         # all threads should be daemons
@@ -128,10 +128,10 @@ class user_input():
         
 
     # decreases the counter , helper function to status
-    def decrease(self, msg_len:str, blink:bool = False):
+    def decrease(self, msg_len:int):
         self.temp = self.status['message']
         while(self.status['sec']):
-            if blink:
+            if self.status['blink']:
                 for i in range(0,2):
                     self.status['message'] = '[ ' + ' '*msg_len + ' ]'
                     time.sleep(0.5)
@@ -146,8 +146,8 @@ class user_input():
     def MESSAGE(self, message:str = 'Hello', sec:int = 5, blink:bool = False):
         # only print if it can match the length
         if (len(message) + 27) <= gl.term_size:
-            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
-            threading.Thread(target=self.decrease, args=(len(message), blink)).start()
+            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec, 'blink': blink} # sets the status
+            threading.Thread(target=self.decrease, args=(len(message))).start()
 
         
 
