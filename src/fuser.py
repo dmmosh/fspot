@@ -132,7 +132,7 @@ class user_input():
 
     # stops message when some process finishes
     def STOP_MESSAGE(self):
-        self.status['sec'] = 0
+        self.status = {'message': '', 'sec': 0, 'blink': False}
 
 
     # options menu (to minimize nesting)
