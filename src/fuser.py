@@ -58,7 +58,7 @@ class user_input():
 
         # redirect input from linux to python
         while(not self.current['quit']):
-            pass
+            sys.stdin.read(15)
 
 
 
@@ -94,8 +94,8 @@ class user_input():
                                 PUT('me/player/pause')
                             else: 
                                 PUT('me/player/play')
-                        case None, '\x1b[A', '\x1b[B':
-                            self.buffer = "FDSNJKDFHJK"
+                        case None:
+                            pass
                         case _:
                             try: # NORMAL CHARACTER
                                 self.buffer += c  
