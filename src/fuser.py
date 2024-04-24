@@ -211,7 +211,7 @@ class user_input():
     def MESSAGE(self, message:str = 'Hello', sec:int = 5):
         # only print if it can match the length
         if (len(message) + 27) <= gl.term_size:
-            self.status = {'message': '[ ' + message + ' ]' , 'sec': sec} # sets the status
+            self.status = {'message': INVERT['on'] + '[ ' + message + ' ]' + INVERT['off'] , 'sec': sec} # sets the status
             threading.Thread(target=self.DECREASE, daemon=True).start()
 
     # stops message when some process finishes
