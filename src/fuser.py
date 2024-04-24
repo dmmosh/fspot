@@ -99,11 +99,9 @@ class user_input():
                         case '\x1b[B': # DOWN KEY
                             sys.stdout.write('\x1b[A\x1b[B')
                         case '\x1b[D': # LEFT KEY
-                            self.buffer = "TEST"
-                            sys.stdout.write('\x1b[D')
+                            sys.stdout.write('\x1b[A\x1b[B\x1b[D')
                         case '\x1b[C': # RIGHT KEY
-                            self.buffer = "TEST"
-                            sys.stdout.write('\x1b[1C')
+                            sys.stdout.write('\x1b[A\x1b[B\x1b[1C')
                         case None:
                             pass
                         case _:
