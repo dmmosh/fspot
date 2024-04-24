@@ -96,7 +96,8 @@ class user_input():
                                 PUT('me/player/play')
                         case '\x16':
                             try:
-                                self.buffer +=pyperclip.paste()
+                                sys.stdout.write('\x1b[10D')
+                                #self.buffer +=pyperclip.paste()
                             except:
                                 pass
                         case None:
