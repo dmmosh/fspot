@@ -293,7 +293,7 @@ class user_input():
                 print('\n' + self.status['message'].center(gl.term_size))
                 move_up(2)
 
-            print('\n/ ' + self.buffer, end='') # prints the initial line
+            print('\n', '/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.2) # waits a second
             clear_line()
