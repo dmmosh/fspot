@@ -110,14 +110,14 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
                 title_text = open(FOLDER + 'titles/title1.txt', 'r')
                 
-                print('\x1b[39;49;1m' + title_text.read() + '\x1b[K\x1b[0m')
+                [ print( ('\033[1m' + line + '\033[0m').center(gl.term_size), end='') for line in title_text.readlines()]
                 title_text.close()
                 title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
 
 
             # everything message related
             print_msg = msg[:gl.term_size-7] + '...  ' if (len(msg)+1 > gl.term_size) else msg # shortens the print message if need be
-            print((INVERT['on'] + print_msg + char + INVERT['off'] + '\r').center(gl.term_size), end='')
+            print(INVERT['on'] + print_msg + char + INVERT['off'] + '\r', end='')
             time.sleep(0.15)
 
     clear_line()
