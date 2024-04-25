@@ -179,11 +179,11 @@ def clear():
     
     #print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
     while(lines):
-        clear_line()
         move_up()
-        #print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
+        print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
         lines -=1
-    #os.system('clear') # tidies everything up
+    time.sleep(1)
+    os.system('clear') # tidies everything up
 
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):
