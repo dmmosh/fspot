@@ -292,7 +292,7 @@ class user_input():
 
             # USER LINES    
             if self.status['message']:
-                print('\n'+ INVERT['line_on'] + self.status['message'].center(gl.term_size) + INVERT['line_off'])
+                print('\n' + self.status['message'].center(gl.term_size))
                 move_up(2)
 
             print('\n'+ INVERT['line_on'] + '/ ' + self.buffer + INVERT['line_off'], end='') # prints the initial line
@@ -302,7 +302,7 @@ class user_input():
             move_up()
             
             if self.status['message']:
-                print('\n'+ INVERT['line_on'] + self.status['message'].center(gl.term_size) + INVERT['line_off'])
+                print('\n' + self.status['message'].center(gl.term_size))
                 move_up(2)
 
             print('\n'+ INVERT['line_on'] + '/ ' + self.buffer + INVERT['line_off'], end='') # prints the initial line
