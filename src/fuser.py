@@ -292,21 +292,21 @@ class user_input():
 
             # USER LINES    
             if self.status['message']:
-                print('\n' + self.status['message'].center(gl.term_size))
+                print('\n' + INVERT['line_on'] + self.status['message'].center(gl.term_size) + INVERT['line_off'])
                 move_up(2)
 
-            print('\n'+ INVERT['line_on'] + '/ ' + self.buffer + INVERT['line_off'], end='') # prints the initial line
+            print('\n/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.2) # waits a second
             clear_line()
             move_up()
             
             if self.status['message']:
-                print('\n' + self.status['message'].center(gl.term_size))
+                print('\n' + INVERT['line_on'] + self.status['message'].center(gl.term_size) + INVERT['line_off'])
                 move_up(2)
 
-            print('\n'+ INVERT['line_on'] + '/ ' + self.buffer + INVERT['line_off'], end='') # prints the initial line
-            
+            print('\n/ ' + self.buffer, end='') # prints the initial line            
+
             move_up()
             for i in range(0,LINE_CTR-2): # amount of lines to clear
                 move_up()
