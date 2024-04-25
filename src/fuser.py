@@ -285,7 +285,7 @@ class user_input():
             print(song['title'])
 
             print('PLAY STATUS:', str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(song['second']) if song['second'] <10 else song['second'] ), song['percent'])
-
+            
 
 
             # USER LINES    
@@ -293,7 +293,7 @@ class user_input():
                 print('\n' + self.status['message'].center(gl.term_size))
                 move_up(2)
 
-            print('\n', '/ ' + self.buffer, end='') # prints the initial line
+            print('\n/ ' + self.buffer, end='') # prints the initial line
 
             time.sleep(0.2) # waits a second
             clear_line()
