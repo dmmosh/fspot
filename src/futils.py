@@ -80,21 +80,20 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
     title = {'id': 1,   # the title slide properties
              'line_num': 3,
-             'col_num': 10,
-             'len': 11}
+             'col_num': 10}
 
     # choose which title number to print (depending on column terminal size
     if gl.term_size < 42: # TITLE 1 (under 42)
-        title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
+        title = {'id': 1, 'line_num': 3, 'col_num': 10}
 
     elif gl.term_size < 52: # TITLE 2 (42 and over)
-        title = {'id': 2, 'line_num': 9, 'col_num': 42, 'len': 344}
+        title = {'id': 2, 'line_num': 9, 'col_num': 42}
 
     elif gl.term_size < 123: # TITLE 3 (52 and over)
-        title = {'id': 3, 'line_num': 10, 'col_num': 52, 'len': 477}
+        title = {'id': 3, 'line_num': 10, 'col_num': 52}
 
     else: # TITLE 4 (123 and over)
-        title = {'id': 4, 'line_num': 25, 'col_num': 123, 'len': 2609}
+        title = {'id': 4, 'line_num': 25, 'col_num': 123}
 
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
     [ print( ('\033[1m' + line + '\033[0m').center(gl.term_size), end='') for line in title_text.readlines()]
@@ -112,7 +111,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
                 
                 [ print( ('\033[1m' + line + '\033[0m').center(gl.term_size), end='') for line in title_text.readlines()]
                 title_text.close()
-                title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
+                title = {'id': 1, 'line_num': 3, 'col_num': 10}
 
 
             # everything message related
