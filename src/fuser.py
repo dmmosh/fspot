@@ -265,15 +265,17 @@ class user_input():
                     song['percent'] = loc['progress_ms'] / loc['item']['duration_ms']
                     song['name'] = loc['item']['name']
 
-                    if len(song['name']) > gl.term_size//2: # if song is too long, cut it
-                        song['name'] = song['name'][:gl.term_size//2 -3] # cuts it
-                        song['name'] += '...' # adds  3 dots
-
-
                     song['artists'] = ' - '.join([ artist['name'] for artist in loc['item']['artists']])
                     if len(song['artists']) > gl.term_size//2: # if artists title is too long, cut it
                         song['artists'] = song['artists'][:gl.term_size//2 -3] # cuts it
                         song['artists'] += '...' # adds  3 dots
+                    
+                    # checks if the length is fine                      -3 from soon to be colon separator
+                    if len(song['name']) > gl.term_size - song['artists'] - 3: # if song is too long, cut it
+                        song['name'] = song['name'][:gl.term_size - song['artists'] - 6] # cuts it
+                        song['name'] += '...' # adds  3 dots
+
+
                     
                     song['title'] = (song['artists'] + ' : ' + song['name']).center(gl.term_size)
 
