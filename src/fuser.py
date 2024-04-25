@@ -254,7 +254,7 @@ class user_input():
 
         while(self.current['logging']): # update
             while(self.current['clear']):
-                pass
+                print(TEXT['line_on'] + ' ' + TEXT['line_off'])
 
             if(len(self.buffer) > 15):
                 self.buffer = self.buffer[:16]
