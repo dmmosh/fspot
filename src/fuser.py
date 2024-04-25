@@ -253,7 +253,8 @@ class user_input():
         while(self.current['logging']): # update
             if (self.current['clear']):
                 lines = 10
-                print('\x1b[E')
+                clear_line()
+                print('\x1b[5E')
                 for i in range(0,lines):
                     move_up()
                     clear_line()
