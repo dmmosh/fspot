@@ -271,8 +271,8 @@ class user_input():
                         song['artists'] += '...' # adds  3 dots
                     
                     # checks if the length is fine                      -3 from soon to be colon separator
-                    if len(song['name']) > gl.term_size - song['artists'] - 3: # if song is too long, cut it
-                        song['name'] = song['name'][:gl.term_size - song['artists'] - 6] # cuts it
+                    if len(song['name']) > gl.term_size - len(song['artists']) - 3: # if song is too long, cut it
+                        song['name'] = song['name'][:gl.term_size - len(song['artists']) - 6] # cuts it
                         song['name'] += '...' # adds  3 dots
 
 
