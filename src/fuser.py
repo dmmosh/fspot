@@ -32,7 +32,7 @@ class user_input():
         self.keylog.start()
         self.main.start()
 
-        self.MESSAGE(INIT_STATUS[randint(0,23)], 30) # prints welcome message
+        self.MESSAGE(INIT_STATUS[randint(0,23)]) # prints welcome message
             
 
 
