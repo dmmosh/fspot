@@ -90,7 +90,7 @@ def end():
     print('\n')
     move_up()
 
-    print(("\t" + INVERT['on'] + "[ see ya... vro ]" + INVERT['off']).center(gl.term_size))
+    print(("\t" + INVERT['on'] + "[ see ya... vro ]" + INVERT['off']))
 
 atexit.register(end)
 
