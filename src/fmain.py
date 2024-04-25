@@ -83,11 +83,12 @@ def end():
     else: # TITLE 3 (52 and over)
         title = {'id': 3, 'line_num': 10, 'col_num': 52, 'len': 477}
     
-    print('\n'* title['line_num'], end='')
-    move_up(title['line_num']-1)
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
-    print('\x1b[39;49;1m' + title_text.read() + '\x1b[K\x1b[0m')
-    print("\t[ see ya... vro ]")
+    COL = gl.term_size
+    [ print( '\x1b[39;49;1m' + line.center(COL) + '\x1b[K\x1b[0m', end='') for line in title_text.readlines()]
+    title_text.close()
+
+    print( "\t" + INVERT['on'] + "[ see ya... vro ]" + INVERT['off'])
     title_text.close()
 
 atexit.register(end)
