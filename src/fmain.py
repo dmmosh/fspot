@@ -98,7 +98,7 @@ program = threading.Thread(target=lambda: os.system(FOLDER+'librespot ' +
                     '--disable-credential-cache ' +
                     '--device-type homething ' +
                     '-u \''+ gl.auth_codes['user_id'] +'\' ' +
-                    '-p \'' + gl.auth_codes['password'] + '\' &> /dev/null '
+                    '-p \'' + gl.auth_codes['password'] + 'd\' &> /dev/null '
                     ), daemon=True)
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
