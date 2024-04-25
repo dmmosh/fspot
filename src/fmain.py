@@ -84,7 +84,7 @@ def end():
         title = {'id': 3, 'line_num': 10, 'col_num': 52, 'len': 477}
 
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
-    print(title_text.read())
+    print(INVERT['line_on'] + title_text.read() + INVERT['line_off'])
     print("\t[ see ya... vro ]")
     title_text.close()
 
