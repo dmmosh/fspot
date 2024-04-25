@@ -180,9 +180,8 @@ def clear():
     print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
     while(lines):
         move_up()
-        clear_line()
         print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
-        time.sleep(0.02)
+        time.sleep(0.5)
         clear_line()
         lines -=1
     os.system('clear') # tidies everything up
