@@ -254,10 +254,12 @@ class user_input():
             if (self.current['clear']):
                 lines = 10
                 clear_line()
-                print('\x1b[5E')
+                print('\x1b[10E')
                 for i in range(0,lines):
                     move_up()
+                    print(TEXT['line_on'] + ' ' + TEXT['line_off'] )
                     clear_line()
+                    
                     time.sleep(0.01)
                 
                 self.current['clear'] = False
