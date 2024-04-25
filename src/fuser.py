@@ -69,8 +69,7 @@ class user_input():
                 self.REFRESH()
             
             case 'clear': # if the screen gets all messed up
-                os.system('clear')
-            
+                clear()
             
             case 'quit': # quits the user input
                 # exits the class's constructor
@@ -205,6 +204,9 @@ class user_input():
             time.sleep(1)
             self.status['sec']-=1
         self.STOP_MESSAGE()
+
+
+
     
 
     # updates the status and runs it for the specified length of seconds
@@ -212,7 +214,7 @@ class user_input():
         self.STOP_MESSAGE()
         # only print if it can match the length
         if len(message)+4 <= gl.term_size:
-            self.status = {'message':'[ ' + message + ' ]', 'sec': sec} # sets the status
+            self.status = {'message': TEXT['invert_on'] + '[ ' + message + ' ]' + TEXT['invert_off'], 'sec': sec} # sets the status
             threading.Thread(target=self.DECREASE, daemon=True).start() # returns thread (if needs to join later)
 
     # stops message when some process finishes
@@ -247,6 +249,7 @@ class user_input():
                         'title': 'No one : Nothing duh'}
 
         while(self.current['logging']): # update
+
             if(len(self.buffer) > 15):
                 self.buffer = self.buffer[:16]
             
@@ -266,12 +269,12 @@ class user_input():
                     song['name'] = loc['item']['name']
 
                     song['artists'] = ' - '.join([ artist['name'] for artist in loc['item']['artists']])
-                    if len(song['artists']) > gl.term_size//2: # if artists title is too long, cut it
+                    if len(song['artists']) > gl.term_size//2 -10: # if artists title is too long, cut it
                         song['artists'] = song['artists'][:gl.term_size//2 -3] # cuts it
                         song['artists'] += '...' # adds  3 dots
                     
-                    # checks if the length is fine                      -3 from soon to be colon separator
-                    if len(song['name']) > gl.term_size - len(song['artists']) - 3: # if song is too long, cut it
+                    # checks if the length is fine                      -3 from soon to be colon separator and 10 for padding
+                    if len(song['name']) > gl.term_size - len(song['artists']) - 13: # if song is too long, cut it
                         song['name'] = song['name'][:gl.term_size - len(song['artists']) - 6] # cuts it
                         song['name'] += '...' # adds  3 dots
 
@@ -282,28 +285,40 @@ class user_input():
                     
 
             # TUI LINES 
-
             print('')
-            print(song['title'].center(gl.term_size))
+            print(CENTER(song['title']))
+            
 
-            print('PLAY STATUS:', str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(song['second']) if song['second'] <10 else song['second'] ), song['percent'])
-            
-    
-            
-            print('\n' + INVERT['line_on'] +  self.status['message'].center(gl.term_size) + INVERT['line_off'])
-            move_up(2)
+            bar = '-'* (gl.term_size-20 )
+            to_print = int(len(bar)*song['percent'])
+
+            bar = '<'+ bar[:to_print] + ' '*(len(bar)-to_print) + '>'
+
+
+            print( TEXT['bold_on'] + CENTER(bar) + TEXT['bold_off'])
+
+
+            move_up()
+            print(str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(song['second']) if song['second'] <10 else song['second'] ))
+
+
+            # the progress bar, 7 spaces of padding on both sides
+
+
+
 
             # USER LINES    
-            print('\n' + INVERT['on'] + '// ' + self.buffer + INVERT['off'] , end='') # prints the initial line
-
-            time.sleep(0.2) # waits a second
-            clear_line()
-            move_up()
-            
-            print('\n' + INVERT['line_on'] +  self.status['message'].center(gl.term_size) + INVERT['line_off'])
+            print('\n' + CENTER(self.status['message']))
             move_up(2)
+            print('\n' + TEXT['invert_on'] + '// ' + self.buffer + TEXT['invert_off'] , end='') # prints the initial line
+            time.sleep(0.2) # waits a second
+            clear_line() # makes sure the user experience is nice
+            move_up() # moves up
 
-            print('\n' + INVERT['on'] + '// ' + self.buffer + INVERT['off'] , end='') # prints the initial line
+            print('\n' + CENTER(self.status['message']))
+            move_up(2) # moves up again
+
+            print('\n' + TEXT['invert_on'] + '// ' + self.buffer + TEXT['invert_off'] , end='') # prints the initial line
 
             move_up()
             for i in range(0,LINE_CTR-2): # amount of lines to clear

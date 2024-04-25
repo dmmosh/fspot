@@ -35,8 +35,10 @@ INIT_STATUS = ['hello vro', 'good morning', 'i love you vro..','hii!!! :3,','rea
                             'haaaaiiii XD','long live vim','hi friend','pancakes or waffles?','hi','hello','hey','remember to stay HYDRATED','hoi','h','XD',
                             'vro..','get hacked bozooo','you should eat some PANCAKES','black metal?','owo', 'welcome', 'glory to arstotska!']
 
-INVERT = {'on': '\033[;7;1m', 
-          'off': '\033[0m',
+TEXT = {'invert_on': '\033[;7;1m', 
+          'invert_off': '\033[0m',
+          'bold_on': '\033[1m',
+          'bold_off': '\033[0m',
           'def_on': '\033[39;49m',
           'def_off': '\033[0m',
           'line_on': '\x1b[41;37;1m\033[;7;1m',

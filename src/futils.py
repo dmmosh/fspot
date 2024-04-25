@@ -75,12 +75,16 @@ def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = Non
 
 # HELPER FUNCTIONS
 
+# centers the text, normal center doesnt work because it fills the right side with padding too
+def CENTER(input:str)-> str:
+    return (' '* ((gl.term_size-len(input))//2))+ input
+
 # a loading message, clears itself when finishes
 def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
-
     title = {'id': 1,   # the title slide properties
              'line_num': 3,
-             'col_num': 10}
+             'col_num': 10,
+             }
 
     # choose which title number to print (depending on column terminal size
     if gl.term_size < 42: # TITLE 1 (under 42)
@@ -93,14 +97,14 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
         title = {'id': 3, 'line_num': 10, 'col_num': 52}
 
     else: # TITLE 4 (123 and over)
-        title = {'id': 4, 'line_num': 25, 'col_num': 123}
+        title = {'id': 4, 'line_num': 23, 'col_num': 123}
 
+    
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
-    [ print( ('\033[1m' + line + '\033[0m').center(gl.term_size), end='') for line in title_text.readlines()]
+    print(TEXT['bold_on'] + title_text.read() + TEXT['bold_off'])
+
     title_text.close()
 
-    print('\n')
-    move_up()
 
     print_msg = msg
     while(process.is_alive()):
@@ -109,14 +113,15 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
                 title_text = open(FOLDER + 'titles/title1.txt', 'r')
                 
-                [ print( ('\033[1m' + line + '\033[0m').center(gl.term_size), end='') for line in title_text.readlines()]
+                print(title_text.read())
                 title_text.close()
-                title = {'id': 1, 'line_num': 3, 'col_num': 10}
+                title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
 
 
             # everything message related
             print_msg = msg[:gl.term_size-7] + '...  ' if (len(msg)+1 > gl.term_size) else msg # shortens the print message if need be
-            print(INVERT['on'] + print_msg + char + INVERT['off'] + '\r', end='')
+            sys.stdout.write( TEXT['invert_on'] + print_msg + char + '\r' + TEXT['invert_off'] )
+            sys.stdout.flush()
             time.sleep(0.15)
 
     clear_line()
@@ -124,6 +129,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
         move_up()
         clear_line()
         title['line_num']-=1
+    
     
 
     #print("\r") # carriage return
@@ -166,6 +172,16 @@ def move_up(n:int = 1)-> None:
         n-=1
 
 
+# cool clear function
+def clear():
+    lines = os.get_terminal_size().lines
+    
+    print( TEXT['line_on'] + ' '*gl.term_size + TEXT['line_off'] ,end='')
+    while(lines):
+        move_up()
+        clear_line()
+        #time.sleep(0.25)
+        lines -=1
 
 
 # REFRESH THE ACCESS TOKEN
