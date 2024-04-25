@@ -88,6 +88,7 @@ def end():
     title_text.close()
 
     print('')
+    print('')
     move_up()
 
     print( INVERT['on'] + "[ see ya... vro ]" + INVERT['off'])
