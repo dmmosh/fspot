@@ -85,7 +85,7 @@ def end():
     
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
     COL = gl.term_size
-    [ print( '\x1b[39;49;1m' + line.center(COL) + '\x1b[K\x1b[0m', end='') for line in title_text.readlines()]
+    [ print( '\033[1m' + line.center(COL) + '\033[0m', end='') for line in title_text.readlines()]
     title_text.close()
 
     print( "\t" + INVERT['on'] + "[ see ya... vro ]" + INVERT['off'])
