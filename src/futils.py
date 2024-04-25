@@ -179,7 +179,7 @@ def clear():
     
     #print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
     while(lines):
-        
+        move_up()
         print('\x1b[1E' + TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
         lines -=1
     time.sleep(1)
