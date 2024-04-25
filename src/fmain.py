@@ -70,6 +70,8 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 def end():
     PUT('me/player/pause')
+    move_up()
+    clear_line()
 
     title = {'id': 1,   # the title slide properties
              'line_num': 3,
