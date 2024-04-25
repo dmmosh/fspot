@@ -212,7 +212,7 @@ class user_input():
         self.STOP_MESSAGE()
         # only print if it can match the length
         if len(message)+4 <= gl.term_size:
-            self.status = {'message': INVERT['def_on'] + '[ ' + message + ' ]' + INVERT['def_off'], 'sec': sec} # sets the status
+            self.status = {'message':'[ ' + message + ' ]', 'sec': sec} # sets the status
             threading.Thread(target=self.DECREASE, daemon=True).start() # returns thread (if needs to join later)
 
     # stops message when some process finishes
@@ -291,7 +291,7 @@ class user_input():
 
 
             # USER LINES    
-            print('\n' + INVERT['line_on'] + self.status['message'].center(gl.term_size) + INVERT['line_off'])
+            print('\n' + INVERT['line_on'] + INVERT['line_off'] +  self.status['message'].center(gl.term_size) +INVERT['line_on'] + INVERT['line_off'])
             move_up(2)
 
             print('\n' + INVERT['on'] + '/ ' + self.buffer + INVERT['off'] , end='') # prints the initial line
@@ -300,8 +300,7 @@ class user_input():
             clear_line()
             move_up()
             
-            print('\n' + INVERT['line_on'] + self.status['message'].center(gl.term_size) + INVERT['line_off'])
-            move_up(2)
+            print('\n' + INVERT['line_on'] + INVERT['line_off'] +  self.status['message'].center(gl.term_size) +INVERT['line_on'] + INVERT['line_off'])            move_up(2)
 
             print('\n' + INVERT['on'] + '/ ' + self.buffer + INVERT['off'] , end='') # prints the initial line
 
