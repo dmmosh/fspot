@@ -174,7 +174,7 @@ def move_up(n:int = 1)-> None:
 
 # cool clear function
 def clear():
-    lines = os.get_terminal_size().lines
+    lines = 10
     print('\x1b[E')
     for i in range(0,lines):
         move_up()
