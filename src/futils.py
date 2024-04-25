@@ -175,16 +175,10 @@ def move_up(n:int = 1)-> None:
 # cool clear function
 def clear():
     lines = os.get_terminal_size().lines
-    print('\x1b[100E', end='')
-    time.sleep(1)
-    #print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
-    while(lines):
+    print('\x1b[100E')
+    for i in range(0,lines):
         move_up()
-        print('\x1b[1F' + TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
-        time.sleep(0.22)
-        lines -=1
-    time.sleep(1)
-    os.system('clear') # tidies everything up
+        time.sleep(0.25)
 
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):
