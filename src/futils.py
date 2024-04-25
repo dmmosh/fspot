@@ -175,7 +175,7 @@ def move_up(n:int = 1)-> None:
 # cool clear function
 def clear():
     lines = os.get_terminal_size().lines
-    print('\x1b[100F', end='')
+    print('\x1b[100E', end='')
     time.sleep(1)
     #print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
     while(lines):
