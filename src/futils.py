@@ -98,7 +98,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
     
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
-    print(title_text.read())
+    print('\x1b[39;49;1m' + title_text.read() + '\x1b[K\x1b[0m')
 
     title_text.close()
 
