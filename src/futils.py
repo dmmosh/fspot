@@ -102,8 +102,8 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     for line in title_text:
         print(('\x1b[39;49;1m' + line + '\x1b[K\x1b[0m').center(gl.term_size), end='')
     
-    print('\n\n\n')
     clear_line()
+    move_up()
 
     print_msg = msg
     while(process.is_alive()):
