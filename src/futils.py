@@ -176,11 +176,12 @@ def move_up(n:int = 1)-> None:
 def clear():
     lines = os.get_terminal_size().lines
     
-    print( TEXT['line_on'] + ' '*gl.term_size + TEXT['line_off'] ,end='')
+    print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
     while(lines):
         move_up()
         clear_line()
-        #time.sleep(0.25)
+        print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
+        time.sleep(0.25)
         lines -=1
 
 
