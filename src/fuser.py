@@ -289,12 +289,12 @@ class user_input():
             print('PLAY STATUS:', str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(song['second']) if song['second'] <10 else song['second'] ), song['percent'])
             
     
-            # MESSAGE LINES
+            # MESSAGE
             print('\n' + INVERT['line_on'] + INVERT['line_off'] +  self.status['message'].center(gl.term_size) +INVERT['line_on'] + INVERT['line_off'])
             move_up(2)
 
             # USER LINES    
-            print('\n' + INVERT['on'] + '/ ' + self.buffer + '   ' + INVERT['off'] , end='') # prints the initial line
+            print('\n' + INVERT['on'] + '/ ' + self.buffer + INVERT['off'] , end='') # prints the initial line
 
             time.sleep(0.2) # waits a second
             clear_line()
@@ -303,7 +303,7 @@ class user_input():
             print('\n' + INVERT['line_on'] + INVERT['line_off'] +  self.status['message'].center(gl.term_size) +INVERT['line_on'] + INVERT['line_off'])            
             move_up(2)
 
-            print('\n' + INVERT['on'] + '/ ' + self.buffer + '   ' + INVERT['off'] , end='') # prints the initial line
+            print('\n' + INVERT['on'] + '/ ' + self.buffer + INVERT['off'] , end='') # prints the initial line
 
             move_up()
             for i in range(0,LINE_CTR-2): # amount of lines to clear
