@@ -91,7 +91,7 @@ def end():
     print('')
     move_up()
 
-    print( INVERT['on'] + "[ see ya... vro ]" + INVERT['off'])
+    print("\t" + INVERT['on'] + "[ see ya... vro ]" + INVERT['off'])
 
 atexit.register(end)
 
