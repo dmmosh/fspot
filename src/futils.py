@@ -182,7 +182,7 @@ def clear():
         move_up()
         clear_line()
         print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
-        time.sleep(0.005)
+        time.sleep(0.02)
         clear_line()
         lines -=1
     os.system('clear') # tidies everything up
