@@ -257,7 +257,7 @@ class user_input():
                 print('\x1b[10E')
                 for i in range(0,lines):
                     move_up()
-                    print(TEXT['line_on'] + ' ' + TEXT['line_off'] )
+                    print(TEXT['line_on'] + ' ' + TEXT['line_off'], end='')
                     clear_line()
                     
                     time.sleep(0.01)
