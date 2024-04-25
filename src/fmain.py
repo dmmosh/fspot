@@ -83,7 +83,7 @@ def end():
     else: # TITLE 3 (52 and over)
         title = {'id': 3, 'line_num': 10, 'col_num': 52, 'len': 477}
     
-    clear_line()
+    print('\n'* title['line_num'], end='')
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
     print('\x1b[39;49;1m' + title_text.read() + '\x1b[K\x1b[0m')
     print("\t[ see ya... vro ]")
