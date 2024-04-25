@@ -71,6 +71,9 @@ class user_input():
             
             case 'clear': # if the screen gets all messed up
                 self.current['clear'] = True
+                clear()
+                self.current['clear'] = False
+
             
             case 'quit': # quits the user input
                 # exits the class's constructor
@@ -250,11 +253,8 @@ class user_input():
                         'title': 'No one : Nothing duh'}
 
         while(self.current['logging']): # update
-
-            if self.current['clear']:
-                clearing = threading.Thread(target=clear)
-                clearing.start()
-                clearing.join()
+            while(self.current['clear']):
+                pass
 
             if(len(self.buffer) > 15):
                 self.buffer = self.buffer[:16]
