@@ -178,6 +178,7 @@ def clear():
     print('\x1b[100E')
     for i in range(0,lines):
         move_up()
+        clear_line()
         time.sleep(0.25)
 
 # REFRESH THE ACCESS TOKEN
