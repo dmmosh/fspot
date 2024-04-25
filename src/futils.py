@@ -101,7 +101,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
         lines = [line.rstrip('\n') for line in f]
 
     for line in lines:
-        print(('\x1b[39;49;1m' + line.strip('\n') + '\x1b[K\x1b[0m'))
+        print(('\x1b[39;49;1m' + line + '\x1b[K\x1b[0m'))
     
 
     print_msg = msg
