@@ -84,8 +84,7 @@ def end():
         title = {'id': 3, 'line_num': 10, 'col_num': 52, 'len': 477}
     
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
-    COL = gl.term_size
-    [ print( '\033[1m' + line.center(COL) + '\033[0m', end='') for line in title_text.readlines()]
+    [ print( '\033[1m' + line + '\033[0m', end='') for line in title_text.readlines()]
     title_text.close()
 
     print( "\t" + INVERT['on'] + "[ see ya... vro ]" + INVERT['off'])
