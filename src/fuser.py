@@ -252,7 +252,9 @@ class user_input():
         while(self.current['logging']): # update
 
             if self.current['clear']:
-                clear()
+                clearing = threading.Thread(target=clear)
+                clearing.start()
+                clearing.join()
 
             if(len(self.buffer) > 15):
                 self.buffer = self.buffer[:16]
