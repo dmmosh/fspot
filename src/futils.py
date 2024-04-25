@@ -98,7 +98,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
     
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
-    print('\x1b[39;49;1m' + title_text.read() + '\x1b[K\x1b[0m')
+    print(('\x1b[39;49;1m' + title_text.read() + '\x1b[K\x1b[0m').center(gl.term_size))
 
     title_text.close()
 
@@ -110,7 +110,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
                 title_text = open(FOLDER + 'titles/title1.txt', 'r')
                 
-                print(title_text.read())
+                print('\x1b[39;49;1m' + title_text.read() + '\x1b[K\x1b[0m')
                 title_text.close()
                 title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
 
