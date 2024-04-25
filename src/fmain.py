@@ -70,8 +70,7 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 def end():
     PUT('me/player/pause')
-    move_up()
-    clear_line()
+    
 
     title = {'id': 1,   # the title slide properties
              'line_num': 3,
@@ -84,6 +83,11 @@ def end():
     else: # TITLE 3 (52 and over)
         title = {'id': 3, 'line_num': 10, 'col_num': 52}
     
+    for i in range(0, title['line_num']):
+        print(' '*gl.term_size)
+    
+    move_up(title['line_num'])
+
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
     [ print( '\033[1m' + line + '\033[0m', end='') for line in title_text.readlines()]
     title_text.close()
