@@ -99,9 +99,8 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r').readlines()
 
-    cols = gl.term_size
     for line in title_text:
-        print(('\x1b[39;49;1m' + line + '\x1b[K\x1b[0m').center(cols), end='')
+        print(('\x1b[39;49;1m' + line + '\x1b[K\x1b[0m').center(gl.term_size), end='')
     print('\n', end='')
 
     print_msg = msg
