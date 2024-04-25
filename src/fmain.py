@@ -87,7 +87,9 @@ def end():
     [ print( '\033[1m' + line + '\033[0m', end='') for line in title_text.readlines()]
     title_text.close()
 
-    title_text.close()
+    print('')
+    move_up()
+
     print( INVERT['on'] + "[ see ya... vro ]" + INVERT['off'])
 
 atexit.register(end)
