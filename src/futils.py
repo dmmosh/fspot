@@ -184,7 +184,7 @@ def clear():
         #print( TEXT['line_on'] + ' '+  TEXT['line_off'] ,end='')
         #time.sleep(0.5)
         lines -=1
-    os.system('clear') # tidies everything up
+    #os.system('clear') # tidies everything up
 
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):
