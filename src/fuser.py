@@ -277,14 +277,14 @@ class user_input():
 
 
                     
-                    song['title'] = (song['artists'] + ' : ' + song['name']).center(gl.term_size)
+                    song['title'] = song['artists'] + ' : ' + song['name']
 
                     
 
             # TUI LINES 
 
             print('')
-            print(song['title'])
+            print(song['title'].center(gl.term_size))
 
             print('PLAY STATUS:', str('0' + str(song['minute']) if song['minute'] <10 else song['minute'] ) + ':' + str('0' + str(song['second']) if song['second'] <10 else song['second'] ), song['percent'])
             
@@ -305,7 +305,7 @@ class user_input():
                 print('\n'+ INVERT['line_on'] + self.status['message'].center(gl.term_size) + INVERT['line_off'])
                 move_up(2)
 
-            print('\n/ ' + self.buffer, end='') # prints the initial line
+            print('\n'+ INVERT['line_on'] + '/ ' + self.buffer + INVERT['line_off'], end='') # prints the initial line
             
             move_up()
             for i in range(0,LINE_CTR-2): # amount of lines to clear
