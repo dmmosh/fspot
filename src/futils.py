@@ -97,11 +97,11 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
         title = {'id': 4, 'line_num': 25, 'col_num': 123, 'len': 2609}
 
     title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r')
-
-    COL = gl.term_size
-    [ print( '\x1b[39;49;1m' + line.center(COL) + '\x1b[K\x1b[0m', end='') for line in title_text.readlines()]
-    
+    [ print( ('\033[1m' + line + '\033[0m').center(gl.term_size), end='') for line in title_text.readlines()]
     title_text.close()
+
+    print('\n')
+    move_up()
 
     print_msg = msg
     while(process.is_alive()):
