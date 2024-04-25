@@ -117,7 +117,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
             # everything message related
             print_msg = msg[:gl.term_size-7] + '...  ' if (len(msg)+1 > gl.term_size) else msg # shortens the print message if need be
-            print((INVERT['on'] + print_msg + char + INVERT['off'] + '\r'), end='')
+            print((INVERT['on'] + print_msg + char + INVERT['off'] + '\r').center(gl.term_size), end='')
             time.sleep(0.15)
 
     clear_line()
