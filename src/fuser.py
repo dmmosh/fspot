@@ -14,6 +14,7 @@ class user_input():
         # current variables (focus, etc)
         self.current = { 'quit': False, # whether to quit or not from current, only change in threads
                           'logging': True, # whether to take input or not, ends threads
+                          'clear': False,
                             'window': 'main' # the current focus window
                         }
 
@@ -69,7 +70,7 @@ class user_input():
                 self.REFRESH()
             
             case 'clear': # if the screen gets all messed up
-                clear()
+                self.current['clear'] = True
             
             case 'quit': # quits the user input
                 # exits the class's constructor
@@ -249,6 +250,9 @@ class user_input():
                         'title': 'No one : Nothing duh'}
 
         while(self.current['logging']): # update
+
+            if self.current['clear']:
+                clear()
 
             if(len(self.buffer) > 15):
                 self.buffer = self.buffer[:16]
