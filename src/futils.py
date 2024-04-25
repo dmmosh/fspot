@@ -96,10 +96,11 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     else: # TITLE 4 (123 and over)
         title = {'id': 4, 'line_num': 25, 'col_num': 123, 'len': 2609}
 
-    
-    title_text = open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r').readlines()
+    lines = []
+    with open(FOLDER + 'titles/title' + str(title['id']) + '.txt', 'r') as f:
+        lines = [line.rstrip('\n') for line in f]
 
-    for line in title_text:
+    for line in lines:
         print(('\x1b[39;49;1m' + line.strip('\n') + '\x1b[K\x1b[0m').center(gl.term_size))
     
 
