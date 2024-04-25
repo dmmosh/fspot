@@ -37,6 +37,8 @@ INIT_STATUS = ['hello vro', 'good morning', 'i love you vro..','hii!!! :3,','rea
 
 INVERT = {'on': '\033[;7;1m', 
           'off': '\033[0m',
+          'def_on': '\033[39;49m',
+          'def_off': '\033[0m',
           'line_on': '\x1b[41;37;1m\033[;7;1m',
           'line_off': '\x1b[K\x1b[0m'}
 
