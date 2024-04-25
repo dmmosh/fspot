@@ -172,14 +172,6 @@ def move_up(n:int = 1)-> None:
         n-=1
 
 
-# cool clear function
-def clear():
-    lines = 10
-    print('\x1b[E')
-    for i in range(0,lines):
-        move_up()
-        clear_line()
-        time.sleep(0.25)
 
 # REFRESH THE ACCESS TOKEN
 def refresh(force:bool = False):

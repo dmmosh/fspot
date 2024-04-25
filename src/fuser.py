@@ -71,8 +71,6 @@ class user_input():
             
             case 'clear': # if the screen gets all messed up
                 self.current['clear'] = True
-                clear()
-                self.current['clear'] = False
 
             
             case 'quit': # quits the user input
@@ -253,9 +251,15 @@ class user_input():
                         'title': 'No one : Nothing duh'}
 
         while(self.current['logging']): # update
-            while(self.current['clear']):
-                print(TEXT['line_on'] + ' ' + TEXT['line_off'])
-                time.sleep(0.25)
+            if (self.current['clear']):
+                lines = 10
+                print('\x1b[E')
+                for i in range(0,lines):
+                    move_up()
+                    clear_line()
+                    time.sleep(0.01)
+                
+                self.current['clear'] = False
 
             if(len(self.buffer) > 15):
                 self.buffer = self.buffer[:16]
