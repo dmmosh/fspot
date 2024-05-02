@@ -12,12 +12,14 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 */
 
 int main(int argc, char* argv[]){
-    //if (argc !=5) ERROR("Not enough arguments. I see what you did there.");
+
+    if (strcmp(argv[2], "--debug") && strcmp(argv[2], "-d")){ // if NOT in debug mode
+
+        if (argc !=5) ERROR("Not enough arguments. I see what you did there.");
+        move::clear();
+        move::up_clear(std::stoi(argv[4])); // clears the loading message
+    }
     
-
-    //move::clear();
-    //move::up_clear(std::stoi(argv[4])); // clears the loading message
-
 
     main_player player;
 

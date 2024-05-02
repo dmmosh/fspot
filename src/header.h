@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <termios.h>
 #include <cstdlib>
+#include <cstring>
 
 
 
