@@ -18,7 +18,7 @@ void sleep(const double& sec){
 }
 
 void main_input(std::string& input){
-    move_obj move; //dfj
+    std::unique_ptr<move_obj> move = std::make_unique<move_obj>();
     std::cout << N*4;
     while(1 && input.find("quit") == std::string::npos){
         keylog(input);
@@ -26,11 +26,11 @@ void main_input(std::string& input){
 
         std::cout<< "\n// " << input; 
         sleep(0.2);
-        move.clear();
+        move->clear();
         std::cout<< "// " << input; 
 
-        move.up();
-        move.clear(2);
+        move->up();
+        move->clear(2);
 
     }  
 }
