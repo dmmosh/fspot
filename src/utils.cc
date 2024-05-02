@@ -1,14 +1,14 @@
 #include "header.h"
 
 
-void move::line()                           { std::cout << "\x1b[2K\r"; }
-void move::line(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
+void move_line()                           { std::cout << "\x1b[2K\r"; }
+void move_line(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
 
-void move::up()        { std::cout << "\x1b[1A"; };
-void move::up(int amt) { while(amt) { move::up(); amt--; } };
+void move_up()        { std::cout << "\x1b[1A"; };
+void move_up(int amt) { while(amt) { move_up(); amt--; } };
 
-void move::clear()        { move::up(); move::clear(); }
-void move::clear(int amt) { while(amt) { move::clear(); amt--; } }
+void move_clear()        { move_up(); move_clear(); }
+void move_clear(int amt) { while(amt) { move_clear(); amt--; } }
 
 
 void sleep(const double& sec){    
@@ -24,11 +24,11 @@ void main_input(){
 
         std::cout<< "\n// " << input; 
         sleep(0.2);
-        move::clear();
+        move_clear();
         std::cout<< "// " << input; 
 
-        move::up();
-        move::clear(2);
+        move_up();
+        move_clear(2);
     }  
 }
 

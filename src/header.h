@@ -14,17 +14,13 @@
 // SMALL FUNCTIONS HERE
 #define N '\n'
 
-namespace move{
-    void line();
-    void line(const std::string& newline);
+void move_line();
+void move_line(const std::string& newline);
+void move_up();
+void move_up(int amt);
+void move_clear();
+void move_clear(int amt);
 
-    void up();
-    void up(int amt);
-
-    void clear();
-    void clear(int amt);
-
-};
 
 
 void sleep(const double& sec);
