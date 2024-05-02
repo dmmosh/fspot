@@ -7,11 +7,18 @@ namespace move{
         void clear()                           { std::cout << "\x1b[2K\r"; };
         void clear(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
         
-        void up()        { std::cout << "\x1b[1A"; };
-        void up(int amt) { while(amt) { std::cout << "\x1b[1A"; amt--; } };
+        void up()              { printf("\x1b[1A"); };
+        void up(const int amt) { printf("\x1b[%iA", amt); };
 
         void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
         void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
+
+        void left()              { printf("\x1b[1D"); };
+        void left(const int amt) { printf("\x1b[%iD", amt); };
+
+        void right()              { printf("\x1b[1C"); };
+        void right(const int amt) { printf("\x1b[%iC", amt); };
+
 
 }
 
@@ -28,9 +35,11 @@ void main_input(){
 
         std::cout << input << N << N;
 
+        move::right(3+ input.length());
         std::cout<< "\n// " << input; 
         sleep(0.2);
         move::clear();
+        move::right(3+ input.length());
         std::cout<< "// " << input; 
         move::up();
 

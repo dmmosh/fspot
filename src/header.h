@@ -19,16 +19,16 @@ namespace move{
     void clear(const std::string& newline);
 
     void up();
-    void up(int amt);
+    void up(const int amt);
 
     void up_clear();
     void up_clear(int amt);
 
     void left();
-    void left(int amt);
+    void left(const int amt);
 
     void right();
-    void right(int amt);
+    void right(const int amt);
 };
 
 
