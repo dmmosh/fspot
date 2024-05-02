@@ -125,12 +125,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
             time.sleep(0.15)
 
     clear_line()
-    while(title['line_num']): # clear the title screen
-        move_up()
-        clear_line()
-        title['line_num']-=1
-    
-    
+    return title['line_num']
 
     #print("\r") # carriage return
     

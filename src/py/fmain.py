@@ -83,22 +83,22 @@ program = subprocess.Popen([FOLDER + 'librespot/librespot',
                     '&>', '/dev/null'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+atexit.register(lambda:move_up())
 atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGTERM))
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
 #print(GET('me/player/devices').json())
-loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
+erase_num = loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
 change_player.join() # joins the thread to mainsd
 
 
-move_up()
-
 # OPENS THE C++ PLAYER USING AUTH CODES
-player = subprocess.Popen([FOLDER + 'fplayer',
-                           auth_codes['access_token'],
-                           auth_codes['refresh_token'],
-                           str(auth_codes['expires_at'])])
+player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
+                           gl.auth_codes['access_token'], # access token
+                           gl.auth_codes['refresh_token'], # refresh token
+                           str(gl.auth_codes['expires_at']), # when it expires
+                           str(erase_num)]) # number of lines to erase
 
 player.wait()
 
