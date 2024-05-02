@@ -14,7 +14,6 @@
 // SMALL FUNCTIONS HERE
 #define NEW '\n'
 #define ENTER 10
-#define ERROR(x) std::cout << "ERROR\n  " << x; exit(0)
 
 #define BOLD_ON "\033[1m"
 #define BOLD_OFF "\033[0m"
@@ -25,6 +24,7 @@
 #define LINE_ON "\x1b[41;37;1m\033[;7;1m"
 #define LINE_OFF "\x1b[K\x1b[0m"
 
+#define ERROR(x) std::cout << LINE_ON << "FATAL ERROR:\n\t" << x << LINE_OFF; exit(0)
 
 
 namespace move{
