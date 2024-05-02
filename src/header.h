@@ -112,6 +112,7 @@ void keylog(T* parent){
         switch(buf){
             case ENTER:
                 parent->commands();
+                parent->input = "";
             break;  
             default:
                 parent->input.push_back(buf);
