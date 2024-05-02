@@ -1,39 +1,40 @@
 #include "header.h"
 
 
-void move_line()                           { std::cout << "\x1b[2K\r"; }
-void move_line(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
+// MOVE FUNCTIONS 
 
-void move_up()        { std::cout << "\x1b[1A"; };
-void move_up(int amt) { while(amt) { move_up(); amt--; } };
+void move::line()                           { std::cout << "\x1b[2K\r"; };
+void move::line(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
 
-void move_clear()        { move_up(); move_clear(); }
-void move_clear(int amt) { while(amt) { move_clear(); amt--; } }
+void move::up()        { std::cout << "\x1b[1A"; };
+void move::up(int amt) { while(amt) { move::up(); amt--; } };
 
+void move::clear()        { move::up(); move::clear(); }
+void move::clear(int amt) { while(amt) { move::clear(); amt--; } }
 
 void sleep(const double& sec){    
     std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
 }
 
-
-void main_input(){
-    std::string input = "fsdlkjl";
-    
-    while(1){
+void main_input(std::string& input){
+    std::cout << N*4;
+    while(1 && input.find("quit") == std::string::npos){
+        keylog(input);
         std::cout << input << N << N;
 
         std::cout<< "\n// " << input; 
         sleep(0.2);
-        move_clear();
+        move::clear();
         std::cout<< "// " << input; 
 
-        move_up();
-        move_clear(2);
+        move::up();
+        move::clear(2);
+
     }  
 }
 
 // keylogging function
-char keylog() {
+void keylog(std::string& into) {
         char buf = 0;
         struct termios old = {0};
         if (tcgetattr(0, &old) < 0)
@@ -51,6 +52,7 @@ char keylog() {
         if (tcsetattr(0, TCSADRAIN, &old) < 0)
                 perror ("tcsetattr ~ICANON");
 
-        return buf;
+        if (buf){
+            into.push_back(buf);
+        }
 }
-
