@@ -15,16 +15,21 @@
 #define N '\n'
 
 namespace move{
-        void line()                           { std::cout << "\x1b[2K\r"; };
-        void line(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
-        
-        void up()        { std::cout << "\x1b[1A"; };
-        void up(int amt) { while(amt) { up(); amt--; } };
-        
-        void clear()        { up(); clear(); }
-        void clear(int amt) { while(amt) { clear(); amt--; } }
+    void line();
+    void line(const std::string& newline);
 
-}
+    void up();
+    void up(int amt);
+
+    void clear();
+    void clear(int amt);
+
+    void left();
+    void left(int amt);
+
+    void right();
+    void right(int amt);
+};
 
 
 
