@@ -48,6 +48,7 @@ void players::commands(){
 
 // input and type initializer
 players::players(std::string input, bool type): input(input), type(type){
+    
     return;
 };
 
@@ -94,7 +95,7 @@ void players::keylog(){
 main_player::main_player(): players("", true){
 
 
-    std::jthread log_thread(keylog); //keylogging enabled
+    std::jthread log_thread(&keylog); //keylogging enabled
     
     move::down(3);
     move::up(3);

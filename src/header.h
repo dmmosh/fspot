@@ -79,7 +79,6 @@ class main_player: public players{
     public:
     main_player();
 
-
 };
 
 // HELPER FUNCTIONS
