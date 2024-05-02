@@ -29,10 +29,13 @@ namespace move{
 
 // PLAYERS DEFAULTS
 
+// PLAYER COMMANDS
 void players::commands(){
-    if (input == "quit"){
+    if (input == "quit"){ //quit
         type = false;
+    } else { // if any other command
         exit(0);
+        input = "";
     }
 
     return;
