@@ -56,8 +56,6 @@ namespace move{
 
 
 
-void sleep(const double& sec);
-void main_input();
 
 
 // PLAYER BASE CLASS
@@ -84,6 +82,12 @@ class main_player: public players{
 
 };
 
+
 // HELPER FUNCTIONS
+
+template <typename T>
+void sleep(const T& sec){    
+    std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
+}
 
 

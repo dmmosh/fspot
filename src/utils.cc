@@ -28,9 +28,8 @@ namespace move{
 
 // HELPER FUNCTIONS
 
-void sleep(const double& sec){    
-    std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
-}
+
+
 
 
 // PLAYERS DEFAULTS
@@ -41,6 +40,7 @@ void players::commands(){
         type = false;
  } else if (input == "clear"){
         input = "dsjsjvdkdfklv";
+        sleep(2);
     }
     return;
 };
