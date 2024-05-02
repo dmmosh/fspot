@@ -30,8 +30,8 @@ namespace move{
 // PLAYERS DEFAULTS
 
 void players::commands(){
-    if (this->input == "quit"){
-        this->type = false;
+    if (input == "quit"){
+        type = false;
         exit(0);
     }
 
