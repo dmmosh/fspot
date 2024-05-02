@@ -35,11 +35,10 @@ void main_input(){
     std::string input;
 
     std::jthread log_thread(keylog, std::ref(input));
-    log_thread.detach(); //daemon
 
     move::down(3);
     move::up(3);
-    while(input.find("quit") == std::string::npos){
+    while(input != "quit"){
 
 
         std::cout << input << N << N;
@@ -55,10 +54,11 @@ void main_input(){
         move::up_clear(2);
 
     }  
+    log_thread.join();
 }
 
 void keylog(std::string& into){
-        while(1){
+        while(into != "quit"){
         char get = getch();
         switch(get){
             case ENTER:
