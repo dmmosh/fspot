@@ -13,7 +13,7 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 int main(int argc, char* argv[]){
 
-    if (strcmp(argv[2], "--debug") && strcmp(argv[2], "-d")){ // if NOT in debug mode
+    if (strcmp(argv[1], "--debug") && strcmp(argv[1], "-d")){ // if NOT in debug mode
 
         if (argc !=5) ERROR("Not enough arguments. I see what you did there.");
         move::clear();
