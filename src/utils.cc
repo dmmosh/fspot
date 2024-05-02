@@ -115,7 +115,7 @@ main_player::main_player(): players() {
     
     move::down(3);
     move::up(3);
-    while(type){
+    while(type){ //keeps updating
 
         
         std::cout << input << NEW << NEW;
