@@ -93,6 +93,8 @@ change_player.join() # joins the thread to mainsd
 
 
 move_up()
+
+# OPENS THE C++ PLAYER USING AUTH CODES
 player = subprocess.Popen([FOLDER + 'fplayer',
                            auth_codes['access_token'],
                            auth_codes['refresh_token'],
