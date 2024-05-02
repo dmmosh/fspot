@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['src/fstart.py'],
+    ['src/fmain.py'],
     pathex=[],
     binaries=[],
     datas=[],
