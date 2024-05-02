@@ -21,6 +21,9 @@ namespace move{
     void up();
     void up(const int amt);
 
+    void down();
+    void down(const int amt);
+
     void up_clear();
     void up_clear(int amt);
 

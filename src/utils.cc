@@ -10,6 +10,9 @@ namespace move{
         void up()              { printf("\x1b[1A"); };
         void up(const int amt) { printf("\x1b[%iA", amt); };
 
+        void down()              { printf("\x1b[1B"); };
+        void down(const int amt) { printf("\x1b[%iB", amt); };
+
         void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
         void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
 
@@ -28,6 +31,8 @@ void sleep(const double& sec){
 
 void main_input(){
     std::string input = "";
+    move::down(3);
+    move::up(3);
     while(1 && input.find("quit") == std::string::npos){
 
         char get = getch();
