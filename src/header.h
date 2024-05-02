@@ -14,10 +14,7 @@
 // SMALL FUNCTIONS HERE
 #define N '\n'
 
-
-class move_obj{
-    public:
-    move_obj();
+namespace move{
     void line();
     void line(const std::string& newline);
 
@@ -32,9 +29,7 @@ class move_obj{
 
     void right();
     void right(int amt);
-
 };
-
 
 
 void sleep(const double& sec);

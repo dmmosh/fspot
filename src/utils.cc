@@ -1,24 +1,21 @@
 #include "header.h"
 
 
-// MOVE FUNCTIONS 
-move_obj::move_obj() {};
 
-void move_obj::line()                           { std::cout << "\x1b[2K\r"; }
-void move_obj::line(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
+void move::line()                           { std::cout << "\x1b[2K\r"; }
+void move::line(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
 
-void move_obj::up()        { std::cout << "\x1b[1A"; };
-void move_obj::up(int amt) { while(amt) { this->up(); amt--; } };
+void move::up()        { std::cout << "\x1b[1A"; };
+void move::up(int amt) { while(amt) { move::up(); amt--; } };
 
-void move_obj::clear()        { this->up(); this->clear(); }
-void move_obj::clear(int amt) { while(amt) { this->clear(); amt--; } }
+void move::clear()        { move::up(); move::clear(); }
+void move::clear(int amt) { while(amt) { move::clear(); amt--; } }
 
 void sleep(const double& sec){    
     std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
 }
 
 void main_input(std::string& input){
-    std::unique_ptr<move_obj> move = std::make_unique<move_obj>();
     std::cout << N*4;
     while(1 && input.find("quit") == std::string::npos){
         keylog(input);
@@ -26,12 +23,11 @@ void main_input(std::string& input){
 
         std::cout<< "\n// " << input; 
         sleep(0.2);
-        move->clear();
+        move::clear();
         std::cout<< "// " << input; 
 
-        move->up();
-        move->clear(2);
-
+        move::up();
+        move::clear(2);
     }  
 }
 
