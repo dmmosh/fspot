@@ -45,11 +45,11 @@ void main_input(){
         std::cout << input << N << N;
 
         std::cout<< "// " << input; 
-        move::right(3+input.length());
+        //move::right(3+input.length());
         sleep(0.02);
         move::clear();
         std::cout<< "// " << input; 
-        move::right(3+input.length());
+        //move::right(3+input.length());
         move::beginning();
 
         move::up_clear(2);
