@@ -27,20 +27,32 @@ namespace move{
 
 }
 
+// PLAYERS DEFAULTS
+
+void players::commands(){
+    if (this->input == "quit"){
+        this->type = false;
+        exit(0);
+    }
+
+    return;
+};
+
+players::players(std::string input, bool type): input(input), type(type){
+    return;
+};
 
 // MAIN PLAYER CLASS
 
-main_player::main_player(){
-    this->type = true;
-    this->input = "";
+main_player::main_player(): players("", true){
 
     std::jthread log_thread(keylog<main_player>, this);
     
     move::down(3);
     move::up(3);
-    while(input != "quit"){
+    while(type){
 
-
+        
         std::cout << input << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF ; 
@@ -58,14 +70,6 @@ main_player::main_player(){
     move::down(3);
 }
 
-void main_player::commands(){
-    if (this->input == "quit"){
-        this->type = false;
-        exit(0);
-    }
-    
-    return;
-};
 
 
 void sleep(const double& sec){    

@@ -65,6 +65,10 @@ class players{
     public:
     std::string input;
     bool type;
+
+    players(std::string input, bool type);
+    ~players();
+
     void commands();
 
 };
