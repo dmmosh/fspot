@@ -1,8 +1,7 @@
 #include "header.h"
 
 
-// MOVE FUNCTIONS 
-
+// MOVE NAMESPACE
 namespace move{
         void clear()                           { std::cout << "\x1b[2K\r"; };
         void clear(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
@@ -27,9 +26,16 @@ namespace move{
 
 }
 
+// HELPER FUNCTIONS
+
+void sleep(const double& sec){    
+    std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
+}
+
+
 // PLAYERS DEFAULTS
 
-// PLAYER COMMANDS
+// default commands
 void players::commands(){
     if (input == "quit"){ //quit
         type = false;
@@ -39,15 +45,56 @@ void players::commands(){
     return;
 };
 
+
+// input and type initializer
 players::players(std::string input, bool type): input(input), type(type){
     return;
 };
 
+// CHARACTER INPUT  and keylog
+// any subclass
+void players::keylog(){
+        while(type){
+
+        char buf = 0;
+        struct termios old = {0};
+        if (tcgetattr(0, &old) < 0)
+                perror("tcsetattr()");
+        old.c_lflag &= ~ICANON;
+        old.c_lflag &= ~ECHO;
+        old.c_cc[VMIN] = 1;
+        old.c_cc[VTIME] = 0;
+        if (tcsetattr(0, TCSANOW, &old) < 0)
+                perror("tcsetattr ICANON");
+        if (read(0, &buf, 1) < 0)
+                perror ("read()");
+        old.c_lflag |= ICANON;
+        old.c_lflag |= ECHO;
+        if (tcsetattr(0, TCSADRAIN, &old) < 0)
+                perror ("tcsetattr ~ICANON");
+        
+
+        if (!buf) return;
+
+        switch(buf){
+            case ENTER:
+                commands();
+                input = "";
+            break;  
+            default:
+                input.push_back(buf);
+        }
+    }
+}
+
+
 // MAIN PLAYER CLASS
 
+// main player constructor
 main_player::main_player(): players("", true){
 
-    std::jthread log_thread(keylog<main_player>, this);
+
+    std::jthread log_thread(keylog); //keylogging enabled
     
     move::down(3);
     move::up(3);
@@ -73,6 +120,3 @@ main_player::main_player(): players("", true){
 
 
 
-void sleep(const double& sec){    
-    std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
-}

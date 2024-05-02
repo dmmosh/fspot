@@ -65,9 +65,10 @@ class players{
     public:
     std::string input;
     bool type;
-
+    
     players(std::string input, bool type);
 
+    void keylog();
     void commands();
 
 };
@@ -83,39 +84,4 @@ class main_player: public players{
 
 // HELPER FUNCTIONS
 
-// CHARACTER INPUT  and keylog
 
-template <class T> 
-void keylog(T* parent){
-        while(parent->type){
-
-        char buf = 0;
-        struct termios old = {0};
-        if (tcgetattr(0, &old) < 0)
-                perror("tcsetattr()");
-        old.c_lflag &= ~ICANON;
-        old.c_lflag &= ~ECHO;
-        old.c_cc[VMIN] = 1;
-        old.c_cc[VTIME] = 0;
-        if (tcsetattr(0, TCSANOW, &old) < 0)
-                perror("tcsetattr ICANON");
-        if (read(0, &buf, 1) < 0)
-                perror ("read()");
-        old.c_lflag |= ICANON;
-        old.c_lflag |= ECHO;
-        if (tcsetattr(0, TCSADRAIN, &old) < 0)
-                perror ("tcsetattr ~ICANON");
-        
-
-        if (!buf) return;
-
-        switch(buf){
-            case ENTER:
-                parent->commands();
-                parent->input = "";
-            break;  
-            default:
-                parent->input.push_back(buf);
-        }
-    }
-}
