@@ -45,7 +45,7 @@ void main_input(){
 
         std::cout<< "// " << input; 
         move::right(3+input.length());
-
+        sleep(0.02);
         move::clear();
         move::beginning();
         std::cout<< "// " << input; 
