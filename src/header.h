@@ -38,5 +38,5 @@ void main_input();
 // HELPER FUNCTIONS
 
 // CHARACTER INPUT 
-void keylog();
+char keylog();
 
