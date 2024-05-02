@@ -113,9 +113,9 @@ void players::keylog(){
 // main player constructor
 main_player::main_player(): 
 players("", true), 
-log_thread(std::make_unique<std::jthread>(&main_player::keylog, this))
+log_thread(nullptr)
 {
-
+    log_thread = std::make_unique<std::jthread>(&main_player::keylog, this);
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
