@@ -4,14 +4,14 @@
 // MOVE FUNCTIONS 
 
 namespace move{
-        void line()                           { std::cout << "\x1b[2K\r"; };
-        void line(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
+        void clear()                           { std::cout << "\x1b[2K\r"; };
+        void clear(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
         
         void up()        { std::cout << "\x1b[1A"; };
         void up(int amt) { while(amt) { std::cout << "\x1b[1A"; amt--; } };
 
-        void clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
-        void clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
+        void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
+        void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
 
 }
 
@@ -32,8 +32,8 @@ void main_input(){
         sleep(0.2);
         move::clear();
         std::cout<< "// " << input; 
-
-        move::clear(2);
+        
+        move::up_clear(2);
 
     }  
 }

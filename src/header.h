@@ -15,14 +15,14 @@
 #define N '\n'
 
 namespace move{
-    void line();
-    void line(const std::string& newline);
+    void clear();
+    void clear(const std::string& newline);
 
     void up();
     void up(int amt);
 
-    void clear();
-    void clear(int amt);
+    void up_clear();
+    void up_clear(int amt);
 
     void left();
     void left(int amt);
