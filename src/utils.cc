@@ -15,10 +15,11 @@ void sleep(const double& sec){
     std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
 }
 
-void main_input(std::string& input){
+void main_input(){
+    std::string input = "";
     std::cout << N*4;
     while(1 && input.find("quit") == std::string::npos){
-        keylog(input);
+        input.push_back(keylog());
         std::cout << input << N << N;
 
         std::cout<< "\n// " << input; 
@@ -32,7 +33,7 @@ void main_input(std::string& input){
 }
 
 // keylogging function
-void keylog(std::string& into) {
+char keylog() {
         char buf = 0;
         struct termios old = {0};
         if (tcgetattr(0, &old) < 0)
@@ -50,8 +51,6 @@ void keylog(std::string& into) {
         if (tcsetattr(0, TCSADRAIN, &old) < 0)
                 perror ("tcsetattr ~ICANON");
 
-        if (buf){
-            into.push_back(buf);
-        }
+        return buf;
 }
 

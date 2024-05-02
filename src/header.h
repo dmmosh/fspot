@@ -33,10 +33,10 @@ namespace move{
 
 
 void sleep(const double& sec);
-void main_input(std::string& input);
+void main_input();
 
 // HELPER FUNCTIONS
 
 // CHARACTER INPUT 
-void keylog(std::string& into);
+void keylog();
 
