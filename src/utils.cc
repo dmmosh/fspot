@@ -56,15 +56,15 @@ void main_player::commands(){
 
 
 // input and type initializer
-players::players(std::string input, bool type): 
-input(input), 
-type(type),
+players::players(): 
+input(""), 
+type(true),
 log_thread(std::make_unique<std::jthread>(&players::keylog, this))
 {};
 
 
 players::~players(){
-    log_thread->join();
+    if (log_thread) log_thread->join();
 }
 
 // CHARACTER INPUT  and keylog
@@ -109,9 +109,7 @@ void players::keylog(){
 // MAIN PLAYER CLASS
 
 // main player constructor
-main_player::main_player(): 
-players("", true)
-{
+main_player::main_player(): players() {
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
