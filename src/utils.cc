@@ -43,11 +43,11 @@ void main_input(){
 
         std::cout << input << N << N;
 
-        std::cout<< "// " << input; 
+        std::cout<< INVERT_ON << "// " << input << INVERT_OFF ; 
         //move::right(3+input.length());
         sleep(0.02);
         move::clear();
-        std::cout<< "// " << input; 
+        std::cout<< INVERT_ON << "// " << input << INVERT_OFF; 
         //move::right(3+input.length());
         //move::beginning();
 
