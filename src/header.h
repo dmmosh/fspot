@@ -15,6 +15,10 @@
 #define NEW '\n'
 #define ENTER 10
 
+#define AUTH_URL "https://accounts.spotify.com/authorize" 
+#define TOKEN_URL "https://accounts.spotify.com/api/token" 
+#define BASE_URL "https://api.spotify.com/v1/" 
+
 #define BOLD_ON "\033[1m"
 #define BOLD_OFF "\033[0m"
 #define INVERT_ON "\033[;7;1m"
@@ -56,9 +60,61 @@ void sleep(const double& sec);
 void main_input();
 
 
+// PLAYER BASE CLASS
+class players{
+    public:
+    std::string input;
+    bool type;
+    void commands();
+
+};
+
+
+// MAIN PLAYER SUBCLASS
+class main_player: public players{
+    private:
+    void commands();
+    public:
+    main_player();
+    ~main_player();
+
+
+};
 
 // HELPER FUNCTIONS
 
 // CHARACTER INPUT  and keylog
-void keylog(std::string& into);
-char getch();
+
+template <class T> 
+void keylog(T* parent){
+        while(parent->type){
+
+        char buf = 0;
+        struct termios old = {0};
+        if (tcgetattr(0, &old) < 0)
+                perror("tcsetattr()");
+        old.c_lflag &= ~ICANON;
+        old.c_lflag &= ~ECHO;
+        old.c_cc[VMIN] = 1;
+        old.c_cc[VTIME] = 0;
+        if (tcsetattr(0, TCSANOW, &old) < 0)
+                perror("tcsetattr ICANON");
+        if (read(0, &buf, 1) < 0)
+                perror ("read()");
+        old.c_lflag |= ICANON;
+        old.c_lflag |= ECHO;
+        if (tcsetattr(0, TCSADRAIN, &old) < 0)
+                perror ("tcsetattr ~ICANON");
+        
+
+        if (!buf) return;
+
+        switch(buf){
+            case ENTER:
+                parent->commands();
+            break;  
+            default:
+                parent->input.push_back(buf);
+        }
+    }
+}

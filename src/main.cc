@@ -15,9 +15,9 @@ int main(int argc, char* argv[]){
     move::clear();
     move::up_clear(std::stoi(argv[4])); // clears the loading message
 
-    std::jthread main_thread(main_input);
 
-    main_thread.join();
+    main_player player;
+    
 
     // PRINTS THE ARGUMENTS
     /*
