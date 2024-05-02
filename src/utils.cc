@@ -33,9 +33,6 @@ namespace move{
 void players::commands(){
     if (input == "quit"){ //quit
         type = false;
-    } else { // if any other command
-        exit(0);
-        input = "";
     }
 
     return;
