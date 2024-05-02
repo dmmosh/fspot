@@ -33,7 +33,6 @@ void main_input(){
         move::clear();
         move::up();
         std::cout<< "\n// " << input; 
-        move::up();
 
         move::up_clear(2);
 
