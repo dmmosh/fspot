@@ -42,6 +42,18 @@ void players::commands(){
     return;
 };
 
+void main_player::commands(){
+    if (input == "quit"){ //quit
+        type = false;
+    } else if (input == "clear"){
+        input = "dsjsjvdkdfklv";
+        sleep(2);
+    }
+
+    return;
+};
+
+
 
 // input and type initializer
 players::players(std::string input, bool type): 
@@ -126,15 +138,5 @@ main_player::main_player(): players("", true){
 }
 
 
-void main_player::commands(){
-    if (input == "quit"){ //quit
-        type = false;
-    } else if (input == "clear"){
-        input = "dsjsjvdkdfklv";
-        sleep(2);
-    }
-
-    return;
-};
 
 
