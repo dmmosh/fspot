@@ -47,10 +47,18 @@ void players::commands(){
 
 
 // input and type initializer
-players::players(std::string input, bool type): input(input), type(type){
+players::players(std::string input, bool type): 
+input(input), 
+type(type),
+log_thread(std::make_unique<std::jthread>(&players::keylog, this))
+{
     
     return;
 };
+players::~players(){
+    
+    log_thread->join();
+}
 
 // CHARACTER INPUT  and keylog
 // any subclass
@@ -97,7 +105,7 @@ void players::keylog(){
 main_player::main_player(): players("", true){
 
 
-    std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
+    //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
     move::down(3);
     move::up(3);
@@ -117,7 +125,6 @@ main_player::main_player(): players("", true){
         move::up_clear(2);
 
     }  
-    log_thread.join();
     move::down(3);
 }
 

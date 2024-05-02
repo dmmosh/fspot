@@ -63,11 +63,13 @@ void main_input();
 // PLAYER BASE CLASS
 class players{
     public:
+    std::unique_ptr<std::jthread> log_thread;
     std::string input;
     bool type;
     
-    players(std::string input, bool type);
 
+    players(std::string input, bool type);
+    ~players();
     void keylog();
     void commands();
 
