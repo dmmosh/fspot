@@ -33,7 +33,6 @@ void sleep(const double& sec){
 
 void main_input(){
     std::string input;
-    std::cout << "\x1b[?25h";
 
     std::jthread log_thread(keylog, std::ref(input));
     log_thread.detach(); //daemon
