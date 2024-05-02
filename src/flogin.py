@@ -4,30 +4,24 @@ import fglobal as gl
 import logging
 import click
 
-
-'''
-PYTHON LOGIN CODE 
-ONLY INVOKED WHEN LOGGING IN / REFRESHING TOKEN
-
-'''
-
 app = Flask(__name__)
 app.secret_key = gl.SECRET_KEY
 exiting = False # to exit the program
 
+def login_start():
+    browser_run = Process(target=app.run)
 
-browser_run = Process(target=app.run)
+    browser_run.start()
+    webbrowser.open('http://127.0.0.1:5000')
+    browser_run.join()
+    browser_run.terminate()
+    # loads from pickled 
 
-browser_run.start()
-webbrowser.open('http://127.0.0.1:5000')
-browser_run.join()
-browser_run.terminate()
-# loads from pickled 
-
-gl.auth_codes = LOAD('auth.obj') 
-gl.def_header = {  # sets the default header
-        'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
-}
+    gl.auth_codes = LOAD('auth.obj') 
+    gl.def_header = {  # sets the default header
+            'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
+    }
+    get_password()
 
 
     
