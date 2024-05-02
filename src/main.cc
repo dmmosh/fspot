@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
         std::cout << argv[i] << NEW;
     }
     */
-    std::cin.get();
+    //std::cin.get();
     
     return 0;
 }
