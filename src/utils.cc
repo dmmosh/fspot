@@ -64,7 +64,7 @@ log_thread(nullptr)
 {};
 
 
-// gets rid of
+// gets rid
 players::~players(){
     if (log_thread) log_thread->join();
 }
@@ -112,7 +112,8 @@ void players::keylog(){
 
 // main player constructor
 main_player::main_player(): 
-players("", true)
+players("", true),
+log_thread(std::make_unique<std::jthread>(&main_player::commands, this))
 {
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled

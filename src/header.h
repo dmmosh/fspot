@@ -77,6 +77,7 @@ class players{
 // MAIN PLAYER SUBCLASS
 class main_player: public players{
     public:
+    std::unique_ptr<std::jthread> log_thread;
     main_player();
     void commands();
 
