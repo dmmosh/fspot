@@ -35,7 +35,7 @@ void main_input(){
     std::string input;
     std::jthread log_thread(keylog, std::ref(input));
     log_thread.detach(); //daemon
-    
+
     move::down(3);
     move::up(3);
     while(input.find("quit") == std::string::npos){
@@ -45,7 +45,6 @@ void main_input(){
 
         std::cout<< "// " << input; 
         move::right(3+input.length());
-        sleep(0.2);
 
         move::clear();
         move::beginning();
