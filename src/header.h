@@ -72,12 +72,11 @@ class players{
 
 // MAIN PLAYER SUBCLASS
 class main_player: public players{
-    private:
-    void commands();
     public:
     main_player();
     ~main_player();
 
+    void commands();
 
 };
 
