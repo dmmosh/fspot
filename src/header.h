@@ -24,6 +24,7 @@
 #define LINE_ON "\x1b[41;37;1m\033[;7;1m"
 #define LINE_OFF "\x1b[K\x1b[0m"
 
+// fatal error message
 #define ERROR(x) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << x << LINE_OFF; exit(0)
 
 
