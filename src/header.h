@@ -45,5 +45,6 @@ void main_input();
 
 // HELPER FUNCTIONS
 
-// CHARACTER INPUT 
+// CHARACTER INPUT  and keylog
+void keylog(std::string& into);
 char getch();

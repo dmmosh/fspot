@@ -32,17 +32,14 @@ void sleep(const double& sec){
 }
 
 void main_input(){
-    std::string input = "";
+    std::string input;
+    std::jthread log_thread(keylog, std::ref(input));
+    log_thread.detach(); //daemon
+    
     move::down(3);
     move::up(3);
     while(input.find("quit") == std::string::npos){
 
-        char get = getch();
-        if ((int)get == ENTER ){
-                input = "";
-                continue;
-        }
-        if (get) input.push_back(get);
 
         std::cout << input << N << N;
 
@@ -59,6 +56,19 @@ void main_input(){
         move::up_clear(2);
 
     }  
+}
+
+void keylog(std::string& into){
+        while(1){
+        char get = getch();
+        switch(get){
+            case ENTER:
+                    into = "";
+            break;  
+            default:
+                into.push_back(get);
+        }
+        }
 }
 
 char getch() {
