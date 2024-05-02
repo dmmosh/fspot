@@ -38,6 +38,9 @@ namespace move{
 void players::commands(){
     if (input == "quit"){ //quit
         type = false;
+    } else if (input == "clear"){
+        input = "dsjsjvdkdfklv";
+        sleep(2);
     }
     return;
 };
