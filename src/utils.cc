@@ -55,6 +55,7 @@ void main_input(){
 
     }  
     log_thread.join();
+    move::down(3);
 }
 
 void keylog(std::string& into){
