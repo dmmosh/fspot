@@ -30,9 +30,10 @@ void main_input(){
 
         std::cout<< "\n// " << input; 
         sleep(0.2);
+        move::up();
         move::clear();
         std::cout<< "// " << input; 
-        
+
         move::up_clear(2);
 
     }  
