@@ -66,7 +66,7 @@ class players{
     std::unique_ptr<std::jthread> log_thread;
     
 
-    players(std::string input, bool type);
+    players();
     ~players();
     void keylog();
     void commands();
