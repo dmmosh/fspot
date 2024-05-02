@@ -11,21 +11,17 @@ exiting = False # to exit the program
 
 browser_run = Process(target=app.run)
 
-def login_start():
-    global browser_run
-    browser_run.start()
-    webbrowser.open('http://127.0.0.1:5000')
+browser_run.start()
+webbrowser.open('http://127.0.0.1:5000')
+browser_run.join()
+browser_run.terminate()
+# loads from pickled 
 
-    browser_run.join()
-    browser_run.terminate()
+gl.auth_codes = LOAD('auth.obj') 
+gl.def_header = {  # sets the default header
+        'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
+}
 
-    # loads from pickled 
-    gl.auth_codes = LOAD('auth.obj') 
-    gl.def_header = {  # sets the default header
-            'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
-    }
-
-    get_password() # gets the user's password
 
     
 # GETS USER'S PASSWORD 
@@ -158,7 +154,6 @@ def teardown(exception):
     global browser_run
     if exiting:
         return os._exit(0)
-
 
 
     

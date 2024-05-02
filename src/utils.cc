@@ -41,7 +41,7 @@ void main_input(){
     while(input != "quit"){
 
 
-        std::cout << input << N << N;
+        std::cout << input << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF ; 
         //move::right(3+input.length());

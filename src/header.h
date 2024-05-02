@@ -12,7 +12,7 @@
 
 // MACROS
 // SMALL FUNCTIONS HERE
-#define N '\n'
+#define NEW '\n'
 #define ENTER 10
 #define BOLD_ON "\033[1m"
 #define BOLD_OFF "\033[0m"
