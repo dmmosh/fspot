@@ -59,21 +59,21 @@ void main_player::commands(){
 players::players(std::string input, bool type): 
 input(input), 
 type(type),
-log_thread(std::make_unique<std::jthread>(&players::keylog, this))
-{
-    return;
-};
+log_thread(nullptr)
+
+{};
 
 
+// gets rid of threads
 players::~players(){
-    log_thread->join();
+    if (log_thread) log_thread->join();
 }
 
 // CHARACTER INPUT  and keylog
 // any subclass
 void players::keylog(){
         while(type){
-    
+        
         
         char buf = 0;
         struct termios old = {0};
@@ -97,7 +97,7 @@ void players::keylog(){
 
         switch(buf){
             case ENTER:
-                this->commands();
+                commands();
                 input = "";
             break;  
             default:
@@ -112,7 +112,8 @@ void players::keylog(){
 
 // main player constructor
 main_player::main_player(): 
-players("", true)
+players("", true),
+log_thread(std::make_unique<std::jthread>(&main_player::keylog, this))
 {
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
