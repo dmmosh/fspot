@@ -41,7 +41,6 @@ void main_input(){
         move::clear();
         std::cout<< "// " << input; 
         //move::right(3+ input.length());
-        move::up();
 
         move::up_clear(2);
 
