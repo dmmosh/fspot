@@ -24,6 +24,8 @@ namespace move{
     void down();
     void down(const int amt);
 
+    void beginning();
+
     void up_clear();
     void up_clear(int amt);
 

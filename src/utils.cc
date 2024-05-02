@@ -13,6 +13,8 @@ namespace move{
         void down()              { printf("\x1b[1B"); };
         void down(const int amt) { printf("\x1b[%iB", amt); };
 
+        void beginning() { printf("\r"); };
+
         void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
         void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
 
@@ -34,6 +36,7 @@ void main_input(){
     move::down(3);
     move::up(3);
     while(1 && input.find("quit") == std::string::npos){
+        move::beginning();
 
         char get = getch();
         if (get) input.push_back(get);
@@ -41,11 +44,11 @@ void main_input(){
         std::cout << input << N << N;
 
         std::cout<< "// " << input; 
-        //move::right(3+ input.length());
+        move::right(3+ input.length());
         sleep(0.2);
         move::clear();
         std::cout<< "// " << input; 
-        //move::right(3+ input.length());
+        move::right(3+ input.length());
 
         move::up_clear(2);
 
