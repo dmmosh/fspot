@@ -38,10 +38,8 @@ namespace move{
 void players::commands(){
     if (input == "quit"){ //quit
         type = false;
-    } else if (input == "clear"){
-        input = "dsjsjvdkdfklv";
-        sleep(2);
     }
+    
     return;
 };
 
@@ -52,7 +50,6 @@ void main_player::commands(){
         input = "dsjsjvdkdfklv";
         sleep(2);
     }
-
     return;
 };
 
@@ -62,7 +59,7 @@ void main_player::commands(){
 players::players(std::string input, bool type): 
 input(input), 
 type(type),
-log_thread(std::make_unique<std::jthread>(&players::keylog, this))
+log_thread(nullptr)
 {
     return;
 };
@@ -114,7 +111,10 @@ void players::keylog(){
 // MAIN PLAYER CLASS
 
 // main player constructor
-main_player::main_player(): players("", true){
+main_player::main_player(): 
+players("", true), 
+log_thread(std::make_unique<std::jthread>(&main_player::keylog, this))
+{
 
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
