@@ -56,7 +56,8 @@ players::players(std::string input, bool type): input(input), type(type){
 // any subclass
 void players::keylog(){
         while(type){
-
+    
+        
         char buf = 0;
         struct termios old = {0};
         if (tcgetattr(0, &old) < 0)
@@ -83,7 +84,8 @@ void players::keylog(){
                 input = "";
             break;  
             default:
-                input.push_back(buf);
+                if (input.length() <15)
+                    input.push_back(buf);
         }
     }
 }
