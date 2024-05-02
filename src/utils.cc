@@ -32,7 +32,7 @@ void main_input(){
         sleep(0.2);
         move::up();
         move::clear();
-        std::cout<< "// " << input; 
+        std::cout<< "\n// " << input; 
 
         move::up_clear(2);
 
