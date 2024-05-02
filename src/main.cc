@@ -9,15 +9,22 @@ git-all && clang++ -std=c++20 src/main.cc src/utils.cc -o fspot/fplayer && ./fsp
 */
 
 int main(int argc, char* argv[]){
+    if (argc !=5) ERROR("Not enough arguments");
+
+
     move::clear();
     move::up_clear(std::stoi(argv[4])); // clears the loading message
 
     std::jthread main_thread(main_input);
 
     main_thread.join();
+
+    // PRINTS THE ARGUMENTS
+    /*
     for(int i =0; i<argc; i++){
         std::cout << argv[i] << NEW;
     }
+    */
     std::cin.get();
     
     return 0;
