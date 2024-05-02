@@ -122,7 +122,7 @@ main_player::main_player(): players() {
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF ; 
         //move::right(3+input.length());
-        sleep(0.02);
+        sleep(0.01);
         move::clear();
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
         //move::right(3+input.length());
