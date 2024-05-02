@@ -38,6 +38,10 @@ void main_input(){
     while(input.find("quit") == std::string::npos){
 
         char get = getch();
+        if ((int)get == ENTER ){
+                input = "";
+                continue;
+        }
         if (get) input.push_back(get);
 
         std::cout << input << N << N;

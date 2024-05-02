@@ -13,6 +13,8 @@
 // MACROS
 // SMALL FUNCTIONS HERE
 #define N '\n'
+#define ENTER 10
+
 
 namespace move{
     void clear();
