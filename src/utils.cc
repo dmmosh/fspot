@@ -48,7 +48,6 @@ void main_input(){
         move::right(3+input.length());
         sleep(0.02);
         move::clear();
-        move::beginning();
         std::cout<< "// " << input; 
         move::right(3+input.length());
         move::beginning();
