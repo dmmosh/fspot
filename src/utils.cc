@@ -16,7 +16,8 @@ void sleep(const double& sec){
     std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
 }
 
-void main_input(std::string& input){
+void main_input(){
+    std::string input = "";
     while(1 && input.find("quit") == std::string::npos){
 
         char get = getch();
