@@ -24,11 +24,6 @@ namespace move{
     void clear();
     void clear(int amt);
 
-    void left();
-    void left(int amt);
-
-    void right();
-    void right(int amt);
 };
 
 
@@ -36,4 +31,7 @@ void sleep(const double& sec);
 void main_input();
 
 // HELPER FUNCTIONS
+
+// CHARACTER INPUT 
+char keylog();
 
