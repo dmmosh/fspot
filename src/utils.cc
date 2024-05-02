@@ -17,17 +17,7 @@ void sleep(const double& sec){
 
 void main_input(){
     std::string input = "fsdlkjl";
-    
-    while(1){
-        std::cout << input << N << N;
-
-        std::cout<< "\n// " << input; 
-        move::clear();
-        std::cout<< "// " << input; 
-
-        move::up();
-        move::clear(2);
-    }  
+    move::up();
 }
 
 // keylogging function
