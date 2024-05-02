@@ -17,16 +17,18 @@ void sleep(const double& sec){
 }
 
 void main_input(std::string& input){
-    std::cout << N*4;
+    std::cout << N << N << N << N;
     while(1 && input.find("quit") == std::string::npos){
 
-        //char get = getch();
-        //if (get) input.push_back(get);
+        char get = getch();
+        if (get) input.push_back(get);
 
         std::cout << input << N << N;
 
         std::cout<< "\n// " << input; 
         sleep(0.2);
+        move::clear();
+        std::cout<< "// " << input; 
 
         move::up();
         move::clear(2);
