@@ -26,12 +26,12 @@ int main(int argc, char* argv[]){
 
 
     // PRINTS THE ARGUMENTS
-    /*
+
     for(int i =0; i<argc; i++){
         std::cout << argv[i] << NEW;
     }
-    */
-    //std::cin.get();
+    
+    std::cin.get();
     
     return 0;
 }
