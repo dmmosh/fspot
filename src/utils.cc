@@ -28,9 +28,8 @@ namespace move{
 
 // HELPER FUNCTIONS
 
-void sleep(const double& sec){    
-    std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
-}
+
+
 
 
 // PLAYERS DEFAULTS
@@ -39,24 +38,41 @@ void sleep(const double& sec){
 void players::commands(){
     if (input == "quit"){ //quit
         type = false;
-        exit(1);
     }
-
-    return;
-};
-
-
-// input and type initializer
-players::players(std::string input, bool type): input(input), type(type){
     
     return;
 };
+
+void main_player::commands(){
+    if (input == "quit"){ //quit
+        type = false;
+    } else if (input == "clear"){
+        input = "dsjsjvdkdfklv";
+        sleep(2);
+    }
+    return;
+};
+
+
+
+// input and type initializer
+players::players(std::string input, bool type): 
+input(input), 
+type(type),
+log_thread(std::make_unique<std::jthread>(&players::keylog, this))
+{};
+
+
+players::~players(){
+    log_thread->join();
+}
 
 // CHARACTER INPUT  and keylog
 // any subclass
 void players::keylog(){
         while(type){
-
+    
+        
         char buf = 0;
         struct termios old = {0};
         if (tcgetattr(0, &old) < 0)
@@ -79,11 +95,12 @@ void players::keylog(){
 
         switch(buf){
             case ENTER:
-                commands();
+                this->commands();
                 input = "";
             break;  
             default:
-                input.push_back(buf);
+                if (input.length() <15)
+                    input.push_back(buf);
         }
     }
 }
@@ -92,10 +109,11 @@ void players::keylog(){
 // MAIN PLAYER CLASS
 
 // main player constructor
-main_player::main_player(): players("", true){
+main_player::main_player(): 
+players("", true)
+{
 
-
-    std::jthread log_thread(keylog, this); //keylogging enabled
+    //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
     move::down(3);
     move::up(3);
@@ -115,6 +133,5 @@ main_player::main_player(): players("", true){
         move::up_clear(2);
 
     }  
-    log_thread.join();
     move::down(3);
 }
