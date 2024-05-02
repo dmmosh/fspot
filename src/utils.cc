@@ -51,7 +51,7 @@ input(input),
 type(type),
 log_thread(std::make_unique<std::jthread>(&players::keylog, this))
 {
-    
+
     return;
 };
 players::~players(){
@@ -127,5 +127,15 @@ main_player::main_player(): players("", true){
     move::down(3);
 }
 
+
+void main_player::commands(){
+    if (input == "quit"){ //quit
+        type = false;
+    } else if (input == "clear"){
+        system("clear");
+    }
+
+    return;
+};
 
 
