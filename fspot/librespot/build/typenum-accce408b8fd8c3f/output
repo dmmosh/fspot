@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/home/wetsock/coding/fspot/librespot/target/release/build/typenum-accce408b8fd8c3f/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/home/wetsock/coding/fspot/librespot/target/release/build/typenum-accce408b8fd8c3f/out/op.rs

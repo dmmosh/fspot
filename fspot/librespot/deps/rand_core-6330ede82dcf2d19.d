@@ -1,0 +1,12 @@
+/home/wetsock/coding/fspot/librespot/target/release/deps/librand_core-6330ede82dcf2d19.rmeta: /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/lib.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/block.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/error.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/impls.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/le.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/os.rs
+
+/home/wetsock/coding/fspot/librespot/target/release/deps/librand_core-6330ede82dcf2d19.rlib: /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/lib.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/block.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/error.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/impls.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/le.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/os.rs
+
+/home/wetsock/coding/fspot/librespot/target/release/deps/rand_core-6330ede82dcf2d19.d: /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/lib.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/block.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/error.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/impls.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/le.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/os.rs
+
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/lib.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/block.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/error.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/impls.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/le.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/rand_core-0.6.3/src/os.rs:

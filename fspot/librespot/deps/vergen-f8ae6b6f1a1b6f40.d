@@ -1,0 +1,11 @@
+/home/wetsock/coding/fspot/librespot/target/release/deps/libvergen-f8ae6b6f1a1b6f40.rmeta: /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/lib.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/constants.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/mod.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/codegen.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/envvar.rs
+
+/home/wetsock/coding/fspot/librespot/target/release/deps/libvergen-f8ae6b6f1a1b6f40.rlib: /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/lib.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/constants.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/mod.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/codegen.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/envvar.rs
+
+/home/wetsock/coding/fspot/librespot/target/release/deps/vergen-f8ae6b6f1a1b6f40.d: /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/lib.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/constants.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/mod.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/codegen.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/envvar.rs
+
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/lib.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/constants.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/mod.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/codegen.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/vergen-3.2.0/src/output/envvar.rs:

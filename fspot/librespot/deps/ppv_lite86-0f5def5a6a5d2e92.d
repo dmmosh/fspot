@@ -1,0 +1,11 @@
+/home/wetsock/coding/fspot/librespot/target/release/deps/libppv_lite86-0f5def5a6a5d2e92.rmeta: /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/lib.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/soft.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/types.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/x86_64/mod.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/x86_64/sse2.rs
+
+/home/wetsock/coding/fspot/librespot/target/release/deps/libppv_lite86-0f5def5a6a5d2e92.rlib: /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/lib.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/soft.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/types.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/x86_64/mod.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/x86_64/sse2.rs
+
+/home/wetsock/coding/fspot/librespot/target/release/deps/ppv_lite86-0f5def5a6a5d2e92.d: /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/lib.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/soft.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/types.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/x86_64/mod.rs /home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/x86_64/sse2.rs
+
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/lib.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/soft.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/types.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/x86_64/mod.rs:
+/home/wetsock/.cargo/registry/src/index.crates.io-6f17d22bba15001f/ppv-lite86-0.2.16/src/x86_64/sse2.rs:

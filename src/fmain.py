@@ -96,15 +96,14 @@ def end():
 
 atexit.register(end)
 
-program = threading.Thread(target=lambda: os.system(FOLDER + 'librespot ' +
+program = threading.Thread(target=lambda: os.system(FOLDER + 'librespot/librespot ' +
                     '--name \'fspot player\' ' +
                     '--disable-audio-cache ' +
                     '--disable-credential-cache ' +
-                    '--device-type homething ' +
                     '-u \''+ gl.auth_codes['user_id'] +'\' ' +
                     '-p \'' + gl.auth_codes['password'] + '\' &> /dev/null '
                     ), daemon=True)
-print(gl.auth_codes['user_id'], gl.auth_codes['password'])
+program.start()
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
@@ -114,8 +113,7 @@ change_player.join() # joins the thread to mainsd
 
 
 
-
-user_input()
+print("\n\nCONNECTED")
 
 # runs after quit command
 #browser.terminate()
