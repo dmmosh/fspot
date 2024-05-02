@@ -27,11 +27,8 @@ void main_input(){
 
         std::cout<< "\n// " << input; 
         sleep(0.2);
-        move::clear();
         std::cout<< "// " << input; 
 
-        move::up();
-        move::clear(2);
 
     }  
 }
