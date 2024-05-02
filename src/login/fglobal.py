@@ -28,9 +28,21 @@ GLOBAL VARIABLES AND IMPORTS
 # CONSTANTS (read-only)
 # init status, random one
 
+
+TEXT = {'invert_on': '\033[;7;1m', 
+          'invert_off': '\033[0m',
+          'bold_on': '\033[1m',
+          'bold_off': '\033[0m',
+          'def_on': '\033[39;49m',
+          'def_off': '\033[0m',
+          'line_on': '\x1b[41;37;1m\033[;7;1m',
+          'line_off': '\x1b[K\x1b[0m'}
+
 # IMPORTANT GLOBAL VARIABLES
 
 term_size = 0 # the terminal size (changes throughout the program)
+
+
 
 # auth codes, important info
 auth_codes = {'access_token': '', 
