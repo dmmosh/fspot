@@ -27,28 +27,6 @@ def update_term():
 # ALWAYS UPDATES THE TERMINAL SIZE
 threading.Thread(target=update_term, daemon=True).start()
 
-# commands in prompt
-for cmd in sys.argv:
-    match cmd:
-        case '--clear', '-c':
-            os.system('clear')
-        case '--reset', '-r':
-            print('Force reset started...')
-            login_start()
-        case '--refresh', '-rf':
-            # loads from pickled 
-            gl.auth_codes = LOAD('auth.obj') 
-            gl.def_header = {  # sets the default header
-                        'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
-            }
-            print('Refreshing token...')
-            refresh(force=True)
-            me = GET('me') # testing
-            if me.status_code == 200:
-                print('Token refreshed.')
-            else:
-                ERROR('Could not refresh token.')
-
 
 load_var = LOAD('auth.obj') # loads the authorization info
 if load_var is None: # if there isnt any, open sign in screen
@@ -61,7 +39,7 @@ gl.def_header = {  # sets the default header
             'Authorization': f'Bearer {gl.auth_codes["access_token"]}' 
 }
 
-refresh() # refreshes the token
+refresh(force=True) # refreshes the token
 me = GET('me') # testing
 
 if me.status_code != 200: # if token is still invalid, rerun the login page
@@ -94,27 +72,25 @@ def end():
 
     print("\t" + TEXT['invert_on'] + "[ see ya... vro ]" + TEXT['invert_off'])
 
-atexit.register(end)
+#atexit.register(end)
 
-program = threading.Thread(target=lambda: os.system(FOLDER + 'librespot/librespot ' +
-                    '--name \'fspot player\' ' +
-                    '--disable-audio-cache ' +
-                    '--disable-credential-cache ' +
-                    '-u \''+ gl.auth_codes['user_id'] +'\' ' +
-                    '-p \'' + gl.auth_codes['password'] + '\' &> /dev/null '
-                    ), daemon=True)
-program.start()
-
+program = subprocess.Popen([FOLDER + 'librespot/librespot',
+                    '--name', 'fspot player',
+                    '--disable-audio-cache',
+                    '--disable-credential-cache',
+                    '-u', gl.auth_codes['user_id'],
+                    '-p',  gl.auth_codes['password'] , 
+                    '&>', '/dev/null'],
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
-print(GET('me/player/devices').json())
+#print(GET('me/player/devices').json())
 loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
 change_player.join() # joins the thread to mainsd
 
 
-
-print("\n\nCONNECTED")
-
+move_up()
+os.killpg(os.getpgid(program.pid), signal.SIGTERM)
 # runs after quit command
 #browser.terminate()
 #print(data.json())
