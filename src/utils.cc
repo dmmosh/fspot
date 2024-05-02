@@ -59,7 +59,7 @@ void main_player::commands(){
 players::players(std::string input, bool type): 
 input(input), 
 type(type),
-log_thread(nullptr)
+log_thread(std::make_unique<std::jthread>(&players::commands, this))
 
 {};
 
@@ -112,8 +112,7 @@ void players::keylog(){
 
 // main player constructor
 main_player::main_player(): 
-players("", true),
-log_thread(std::make_unique<std::jthread>(&main_player::commands, this))
+players("", true)
 {
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
