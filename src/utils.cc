@@ -87,7 +87,7 @@ void players::keylog(){
 
         switch(buf){
             case ENTER:
-                commands();
+                this->commands();
                 input = "";
             break;  
             default:
