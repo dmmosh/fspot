@@ -17,9 +17,8 @@ void sleep(const double& sec){
 
 void main_input(){
     std::string input = "";
-    std::cout << N*4;
+
     while(1 && input.find("quit") == std::string::npos){
-        input.push_back(keylog());
         std::cout << input << N << N;
 
         std::cout<< "\n// " << input; 
