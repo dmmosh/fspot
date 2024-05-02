@@ -35,7 +35,7 @@ void main_input(){
     std::string input = "";
     move::down(3);
     move::up(3);
-    while(1 && input.find("quit") == std::string::npos){
+    while(input.find("quit") == std::string::npos){
 
         char get = getch();
         if (get) input.push_back(get);
@@ -43,9 +43,14 @@ void main_input(){
         std::cout << input << N << N;
 
         std::cout<< "// " << input; 
+        move::right(3+input.length());
         sleep(0.2);
+
         move::clear();
+        move::beginning();
         std::cout<< "// " << input; 
+        move::right(3+input.length());
+        move::beginning();
 
         move::up_clear(2);
 
