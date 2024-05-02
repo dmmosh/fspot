@@ -43,23 +43,12 @@ void players::commands(){
     return;
 };
 
-void main_player::commands(){
-    if (input == "quit"){ //quit
-        type = false;
-    } else if (input == "clear"){
-        input = "dsjsjvdkdfklv";
-        sleep(2);
-    }
-    return;
-};
-
-
 
 // input and type initializer
-players::players(std::string input, bool type): 
-input(input), 
-type(type),
-log_thread(std::make_unique<std::jthread>(&players::commands, this))
+players::players(): 
+log_thread(std::make_unique<std::jthread>(&players::commands, this)),
+input(""), 
+type(true)
 
 {};
 
@@ -111,9 +100,7 @@ void players::keylog(){
 // MAIN PLAYER CLASS
 
 // main player constructor
-main_player::main_player(): 
-players("", true)
-{
+main_player::main_player(): players() {
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     

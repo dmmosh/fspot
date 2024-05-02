@@ -66,7 +66,7 @@ class players{
     bool type;
     
 
-    players(std::string input, bool type);
+    players();
     ~players();
     void keylog();
     void commands();
