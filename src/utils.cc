@@ -39,8 +39,9 @@ void sleep(const double& sec){
 void players::commands(){
     if (input == "quit"){ //quit
         type = false;
+ } else if (input == "clear"){
+        input = "dsjsjvdkdfklv";
     }
-
     return;
 };
 
