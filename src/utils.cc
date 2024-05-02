@@ -9,7 +9,7 @@ namespace move{
         
         void up()        { std::cout << "\x1b[1A"; };
         void up(int amt) { while(amt) { std::cout << "\x1b[1A"; amt--; } };
-        
+
         void clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
         void clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
 
@@ -33,7 +33,6 @@ void main_input(){
         move::clear();
         std::cout<< "// " << input; 
 
-        move::up();
         move::clear(2);
 
     }  
