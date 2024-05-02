@@ -96,10 +96,9 @@ move_up()
 player = subprocess.Popen([FOLDER + 'fplayer',
                            auth_codes['access_token'],
                            auth_codes['refresh_token'],
-                           str(auth_codes['expires_at'])],
-                           stdout=subprocess.PIPE, 
-                           stderr=subprocess.PIPE,
-                           stdin=subprocess.PIPE)
+                           str(auth_codes['expires_at'])])
+
+player.wait()
 
 # runs after quit command
 #browser.terminate()

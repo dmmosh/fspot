@@ -13,15 +13,11 @@ int main(int argc, char* argv[]){
     for(int i =0; i<argc; i++){
         std::cout << argv[i] << NEW;
     }
-    for (size_t i = 0; i < 20; i++)
-    {
-        std::cout << NEW;
-    }
     
     
 
-    //std::jthread main_thread(main_input);
+    std::jthread main_thread(main_input);
 
-    //main_thread.join();
+    main_thread.join();
     return 0;
 }
