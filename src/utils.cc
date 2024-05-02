@@ -19,7 +19,7 @@ void sleep(const double& sec){
 void main_input(std::string& input){
     std::cout << N*4;
     while(1 && input.find("quit") == std::string::npos){
-        keylog(input);
+        input.push_back(getch());
         std::cout << input << N << N;
 
         std::cout<< "\n// " << input; 
@@ -33,8 +33,7 @@ void main_input(std::string& input){
     }  
 }
 
-// keylogging function
-void keylog(std::string& into) {
+char getch() {
         char buf = 0;
         struct termios old = {0};
         if (tcgetattr(0, &old) < 0)
@@ -51,8 +50,5 @@ void keylog(std::string& into) {
         old.c_lflag |= ECHO;
         if (tcsetattr(0, TCSADRAIN, &old) < 0)
                 perror ("tcsetattr ~ICANON");
-
-        if (buf){
-            into.push_back(buf);
-        }
+        return (buf);
 }

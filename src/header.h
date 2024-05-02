@@ -39,4 +39,4 @@ void main_input(std::string& input);
 // HELPER FUNCTIONS
 
 // CHARACTER INPUT 
-void keylog(std::string& into);
+char getch();
