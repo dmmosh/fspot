@@ -67,7 +67,7 @@ void keylog(std::string& into){
             default:
                 into.push_back(get);
         }
-        }
+    }
 }
 
 char getch() {
