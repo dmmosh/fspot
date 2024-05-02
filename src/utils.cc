@@ -39,7 +39,6 @@ void sleep(const double& sec){
 void players::commands(){
     if (input == "quit"){ //quit
         type = false;
-        exit(1);
     }
 
     return;
@@ -56,7 +55,7 @@ log_thread(std::make_unique<std::jthread>(&players::keylog, this))
     return;
 };
 players::~players(){
-    
+
     log_thread->join();
 }
 
