@@ -87,7 +87,7 @@ void players::keylog(){
 
         switch(buf){
             case ENTER:
-                this->commands();
+                commands();
                 input = "";
             break;  
             default:
@@ -132,7 +132,7 @@ void main_player::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "clear"){
-        system("clear");
+        input = "dsjsjvdkdfklv";
     }
 
     return;
