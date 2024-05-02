@@ -37,6 +37,3 @@ void main_input();
 
 // HELPER FUNCTIONS
 
-// CHARACTER INPUT 
-char keylog();
-
