@@ -18,18 +18,7 @@ void sleep(const double& sec){
 void main_input(){
     std::string input;
     
-    while(1){
-        input.push_back(keylog());
-        std::cout << input << N << N;
-
-        std::cout<< "\n// " << input; 
-        sleep(0.2);
-        move::clear();
-        std::cout<< "// " << input; 
-
-        move::up();
-        move::clear(2);
-    }  
+    
 }
 
 // keylogging function
