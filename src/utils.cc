@@ -95,7 +95,7 @@ void players::keylog(){
 main_player::main_player(): players("", true){
 
 
-    std::jthread log_thread(keylog, this); //keylogging enabled
+    std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
     move::down(3);
     move::up(3);
