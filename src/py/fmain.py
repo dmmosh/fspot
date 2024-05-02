@@ -93,11 +93,13 @@ change_player.join() # joins the thread to mainsd
 
 
 move_up()
-os.system(FOLDER + 'fplayer ' +
-                auth_codes['access_token'] + ' ' + 
-                auth_codes['refresh_token'] + ' ' + 
-                auth_codes['expires_at']
-                )
+player = subprocess.Popen([FOLDER + 'fplayer',
+                           auth_codes['access_token'],
+                           auth_codes['refresh_token'],
+                           str(auth_codes['expires_at'])],
+                           stdout=subprocess.PIPE, 
+                           stderr=subprocess.PIPE,
+                           stdin=subprocess.PIPE)
 
 # runs after quit command
 #browser.terminate()
