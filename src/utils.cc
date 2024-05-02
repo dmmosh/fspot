@@ -28,8 +28,9 @@ namespace move{
 
 // HELPER FUNCTIONS
 
-
-
+void sleep(const double& sec){    
+    std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
+}
 
 
 // PLAYERS DEFAULTS
@@ -38,32 +39,24 @@ namespace move{
 void players::commands(){
     if (input == "quit"){ //quit
         type = false;
+        exit(1);
     }
-    
+
     return;
 };
 
 
 // input and type initializer
-players::players(): 
-log_thread(std::make_unique<std::jthread>(&players::commands, this)),
-input(""), 
-type(true)
-
-{};
-
-
-// gets rid
-players::~players(){
-    if (log_thread) log_thread->join();
-}
+players::players(std::string input, bool type): input(input), type(type){
+    
+    return;
+};
 
 // CHARACTER INPUT  and keylog
 // any subclass
 void players::keylog(){
         while(type){
-        
-        
+
         char buf = 0;
         struct termios old = {0};
         if (tcgetattr(0, &old) < 0)
@@ -90,8 +83,7 @@ void players::keylog(){
                 input = "";
             break;  
             default:
-                if (input.length() <15)
-                    input.push_back(buf);
+                input.push_back(buf);
         }
     }
 }
@@ -100,9 +92,10 @@ void players::keylog(){
 // MAIN PLAYER CLASS
 
 // main player constructor
-main_player::main_player(): players() {
+main_player::main_player(): players("", true){
 
-    //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
+
+    std::jthread log_thread(keylog, this); //keylogging enabled
     
     move::down(3);
     move::up(3);
@@ -122,9 +115,6 @@ main_player::main_player(): players() {
         move::up_clear(2);
 
     }  
+    log_thread.join();
     move::down(3);
 }
-
-
-
-
