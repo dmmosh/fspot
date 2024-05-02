@@ -56,18 +56,18 @@ namespace move{
 
 
 
+void sleep(const double& sec);
+void main_input();
 
 
 // PLAYER BASE CLASS
 class players{
     public:
-    std::unique_ptr<std::jthread> log_thread;
     std::string input;
     bool type;
     
+    players(std::string input, bool type);
 
-    players();
-    ~players();
     void keylog();
     void commands();
 
@@ -78,16 +78,7 @@ class players{
 class main_player: public players{
     public:
     main_player();
-    void commands();
 
 };
 
-
 // HELPER FUNCTIONS
-
-template <typename T>
-void sleep(const T& sec){    
-    std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
-}
-
-
