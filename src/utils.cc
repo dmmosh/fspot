@@ -58,6 +58,8 @@ void main_input(){
     move::down(3);
 }
 
+
+
 void keylog(std::string& into){
         while(into != "quit"){
         char get = getch();

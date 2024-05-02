@@ -14,6 +14,8 @@
 // SMALL FUNCTIONS HERE
 #define NEW '\n'
 #define ENTER 10
+#define ERROR(x) std::cout << "ERROR\n  " << x; exit(0)
+
 #define BOLD_ON "\033[1m"
 #define BOLD_OFF "\033[0m"
 #define INVERT_ON "\033[;7;1m"
@@ -22,6 +24,7 @@
 #define DEFAULT_OFF "\033[0m"
 #define LINE_ON "\x1b[41;37;1m\033[;7;1m"
 #define LINE_OFF "\x1b[K\x1b[0m"
+
 
 
 namespace move{
@@ -50,6 +53,8 @@ namespace move{
 
 void sleep(const double& sec);
 void main_input();
+
+
 
 // HELPER FUNCTIONS
 
