@@ -59,13 +59,13 @@ void main_player::commands(){
 players::players(std::string input, bool type): 
 input(input), 
 type(type),
-log_thread(std::make_unique<std::jthread>(&main_player::keylog, this))
+log_thread(std::make_unique<std::jthread>(&players::keylog, this))
 {
-
     return;
 };
-players::~players(){
 
+
+players::~players(){
     log_thread->join();
 }
 
@@ -97,7 +97,7 @@ void players::keylog(){
 
         switch(buf){
             case ENTER:
-                commands();
+                this->commands();
                 input = "";
             break;  
             default:
