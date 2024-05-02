@@ -35,12 +35,12 @@ void main_input(){
 
         std::cout << input << N << N;
 
-        move::right(3+ input.length());
         std::cout<< "\n// " << input; 
+        move::right(3+ input.length());
         sleep(0.2);
         move::clear();
-        move::right(3+ input.length());
         std::cout<< "// " << input; 
+        move::right(3+ input.length());
         move::up();
 
         move::up_clear(2);
