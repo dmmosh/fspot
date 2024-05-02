@@ -8,10 +8,10 @@ namespace move{
         void line(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
         
         void up()        { std::cout << "\x1b[1A"; };
-        void up(int amt) { while(amt) { up(); amt--; } };
+        void up(int amt) { while(amt) { std::cout << "\x1b[1A"; amt--; } };
         
-        void clear()        { up(); clear(); };
-        void clear(int amt) { while(amt) { clear(); amt--; } };
+        void clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
+        void clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
 
 }
 
