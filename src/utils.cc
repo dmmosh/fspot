@@ -53,12 +53,9 @@ void players::commands(){
 
 
 // input and type initializer
-players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
+players::players(): 
 input(""), 
 type(true),
-ACCESS_TOKEN(ACCESS_TOKEN),
-REFRESH_TOKEN(REFRESH_TOKEN),
-REFRESH_AT(REFRESH_AT),
 log_thread(std::make_unique<std::jthread>(&players::keylog, this))
 {};
 
@@ -109,8 +106,8 @@ void players::keylog(){
 // MAIN PLAYER CLASS
 
 // main player constructor
-main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
-players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT) {
+main_player::main_player(): 
+players() {
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
