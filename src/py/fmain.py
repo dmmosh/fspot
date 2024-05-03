@@ -72,8 +72,8 @@ def end():
 
     print("\t" + TEXT['invert_on'] + "[ see ya... vro ]" + TEXT['invert_off'])
 
-
-program = subprocess.Popen([FOLDER + 'librespot/librespot',
+# fspot/librespot --name 'fspot player' --disable-audio-cache --disable-credential-cache -u '' -p ''
+program = subprocess.Popen([FOLDER + 'librespot',
                     '--name', 'fspot player',
                     '--disable-audio-cache',
                     '--disable-credential-cache',
@@ -94,17 +94,17 @@ change_player.join() # joins the thread to mainsd
 
 
 # OPENS THE C++ PLAYER USING AUTH CODES
-print(gl.auth_codes)
-print('')
-print('')
-print('')
+#print(gl.auth_codes)
+#print('')
+#print('')
+#print('')
+
 
 player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
                            str(erase_num),
                            gl.auth_codes['access_token'],
                            gl.auth_codes['refresh_token'],
                            str(int(gl.auth_codes['expires_at']))])
-
 
 player.wait()
 
