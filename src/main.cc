@@ -5,7 +5,7 @@ FSPOT C++ CONVERSION
 
 COMPILE MANUALLY:
 python -m PyInstaller src/py/fmain.py --onefile --name fstart && cp dist/fstart fspot/
-git-all && clang++ -std=c++20 src/main.cc src/utils.cc -o fspot/fplayer && ./fspot/fplayer
+git-all && clang++ -lcpr -std=c++20 src/main.cc src/utils.cc -o fspot/fplayer && ./fspot/fplayer
 
 
 DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
@@ -28,13 +28,11 @@ int main(int argc, char* argv[]){
 
     main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
 
-    /*
     for(int i =0; i<argc; i++){
         std::cout << argv[i] << NEW;
     }
     
     std::cin.get();
-    */
 
     // PRINTS THE ARGUMENTS
 
