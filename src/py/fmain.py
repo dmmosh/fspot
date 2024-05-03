@@ -98,9 +98,13 @@ player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
                            gl.auth_codes['access_token'], # access token
                            gl.auth_codes['refresh_token'], # refresh token
                            str(gl.auth_codes['expires_at']), # when it expires
-                           str(erase_num)]) # number of lines to erase
+                           str(erase_num)],
+                           stdout=subprocess.PIPE, 
+                           stderr=subprocess.PIPE,
+                           stdin=subprocess.PIPE) # number of lines to erase
 
 player.wait()
+time.sleep(2)
 
 # runs after quit command
 #browser.terminate()

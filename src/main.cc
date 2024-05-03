@@ -16,7 +16,7 @@ int main(int argc, char* argv[]){
 
     if (strcmp(argv[argc-1], "--debug") && strcmp(argv[argc-1], "-d")){ // if NOT in debug mode
 
-        if (argc !=5) ERROR("Not enough arguments. I see what you did there.");
+        if (argc <5) ERROR("Not enough arguments. I see what you did there.");
         move::clear();
         move::up_clear(std::stoi(argv[4])); // clears the loading message
     }
