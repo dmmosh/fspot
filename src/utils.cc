@@ -105,6 +105,7 @@ void players::keylog(){
                 } else {
                     (void)PUT(INTO("me/player/play"));
                 };
+                sleep(5);
             break;
             case BACKSPACE:
                 input.resize(input.size() - 1);
