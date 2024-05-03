@@ -82,8 +82,7 @@ program = subprocess.Popen([FOLDER + 'librespot/librespot',
                     '&>', '/dev/null'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-atexit.register(lambda:move_up())
-atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGTERM))
+atexit.register(lambda:os.killpg(os.getpgid(program.pid), 0))
 atexit.register(end)
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
@@ -95,7 +94,10 @@ change_player.join() # joins the thread to mainsd
 
 # OPENS THE C++ PLAYER USING AUTH CODES
 player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
-                           str(erase_num)])
+                           str(erase_num),
+                           gl.auth_codes['access_token'],
+                           gl.auth_codes['refresh_token'],
+                           str(gl.auth_codes['expires_at'])])
 
 
 player.wait()

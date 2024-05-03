@@ -79,6 +79,8 @@ class players{
 class main_player: public players{
     public:
     main_player();
+    ~main_player();
+
     void commands();
 
 };
