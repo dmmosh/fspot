@@ -13,16 +13,19 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 int main(int argc, char* argv[]){
 
+    if (argc !=5) 
+        ERROR("Can't do that. I see what you did there.");
+    
+
+
+
+    move::clear();
+    move::up_clear(std::stoi(argv[1])); // clears the loading message
+
     // need  codes to be mutable
     std::string ACCESS_TOKEN = argv[2];
     std::string REFRESH_TOKEN = argv[3];
-    int expires_at = std::stoi(argv[4]);
-
-
-    if (argc > 1){
-    move::clear();
-    move::up_clear(std::stoi(argv[1])); // clears the loading message
-    }
+    int EXPIRES_AT = std::stoi(argv[4]);
 
     main_player player;
 
