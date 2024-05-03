@@ -32,10 +32,6 @@
 #define ERROR(x) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << x << LINE_OFF; exit(0)
 
 
-// GLOBAL VARIABLES
-std::string ACCESS_TOKEN;
-std::string REFRESH_TOKEN;
-int EXPIRES_AT;
 
 namespace move{
     void clear();
