@@ -17,7 +17,7 @@ int main(int argc, char* argv[]){
     move::clear();
     move::up_clear(std::stoi(argv[1])); // clears the loading message
     }
-
+    
     main_player player;
 
     /*
