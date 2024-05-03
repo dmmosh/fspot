@@ -72,7 +72,6 @@ def end():
 
     print("\t" + TEXT['invert_on'] + "[ see ya... vro ]" + TEXT['invert_off'])
 
-#atexit.register(end)
 
 program = subprocess.Popen([FOLDER + 'librespot/librespot',
                     '--name', 'fspot player',
@@ -85,6 +84,7 @@ program = subprocess.Popen([FOLDER + 'librespot/librespot',
 
 atexit.register(lambda:move_up())
 atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGTERM))
+atexit.register(end)
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
