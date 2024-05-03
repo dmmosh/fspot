@@ -15,9 +15,9 @@
 #define NEW '\n'
 #define ENTER 10
 
-#define AUTH_URL "https://accounts.spotify.com/authorize" 
-#define TOKEN_URL "https://accounts.spotify.com/api/token" 
-#define BASE_URL "https://api.spotify.com/v1/" 
+#define AUTH_URL std::string("https://accounts.spotify.com/authorize") 
+#define TOKEN_URL std::string("https://accounts.spotify.com/api/token" )
+#define BASE_URL std::string("https://api.spotify.com/v1/" )
 
 #define BOLD_ON "\033[1m"
 #define BOLD_OFF "\033[0m"
@@ -31,6 +31,11 @@
 // fatal error message
 #define ERROR(x) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << x << LINE_OFF; exit(0)
 
+
+// GLOBAL VARIABLES
+extern std::string ACCESS_TOKEN;
+extern std::string REFRESH_TOKEN;
+extern int EXPIRES_AT;
 
 namespace move{
     void clear();

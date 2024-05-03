@@ -39,10 +39,10 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){
-        cpr::Response r2 = cpr::Get(cpr::Url{"https://api.github.com/repos/whoshuu/cpr/contributors"},
-                      cpr::Authentication{"user", "pass", cpr::AuthMode::BASIC},
-                      cpr::Parameters{{"anon", "true"}, {"key", "value"}});
-        cpr::Response r = cpr::Get(cpr::Url)
+        cpr::Response r = cpr::Get(cpr::Url{BASE_URL + "me/player"},
+                                    cpr::Header{{"Authorization", "Beader " + ACCESS_TOKEN}});
+        std::cout << r.status_code;
+        sleep(2);
     }
     
     return;
