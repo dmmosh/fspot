@@ -40,6 +40,8 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){
+        //cpr::Response r = cpr::Put(cpr::Url{BASE_URL + "me/player/play"},
+        //                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}});
         PUT("me/player/play");
     }
     
@@ -64,35 +66,6 @@ players::~players(){
     if (log_thread) log_thread->join();
 }
 
-
-
-cpr::Response players::GET(const std::string& into, ...) {
-    va_list args;
-    return cpr::Get(cpr::Url{BASE_URL + into},
-                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            args);
-};
-
-cpr::Response players::POST(const std::string& into, ...) {
-    va_list args;
-    return cpr::Post(cpr::Url{BASE_URL + into},
-                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            args);
-};
-
-cpr::Response players::PUT(const std::string& into, ...) {
-    va_list args;
-    return cpr::Put(cpr::Url{BASE_URL + into},
-                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            args);
-};
-
-cpr::Response players::DELETE(const std::string& into, ...) {
-    va_list args;
-    return cpr::Delete(cpr::Url{BASE_URL + into},
-                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            args);
-};
 
 
 // CHARACTER INPUT  and keylog
