@@ -21,17 +21,17 @@ int main(int argc, char* argv[]){
         move::up_clear(std::stoi(argv[4])); // clears the loading message
     }
     
+    for(int i =0; i<argc; i++){
+        std::cout << argv[i] << NEW;
+    }
+    
+    std::cin.get();
 
     main_player player;
 
 
     // PRINTS THE ARGUMENTS
 
-    for(int i =0; i<argc; i++){
-        std::cout << argv[i] << NEW;
-    }
-    
-    std::cin.get();
     
     return 0;
 }
