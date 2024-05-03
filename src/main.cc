@@ -27,7 +27,8 @@ int main(int argc, char* argv[]){
     
     std::cin.get();
 
-    main_player player;
+    main_player player();
+    
 
 
     // PRINTS THE ARGUMENTS
