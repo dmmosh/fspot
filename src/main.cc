@@ -15,8 +15,6 @@ int main(int argc, char* argv[]){
 
     if (argc !=5) 
         ERROR("Can't do that. I see what you did there.");
-    
-
 
 
     move::clear();

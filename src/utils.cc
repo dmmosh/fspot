@@ -40,9 +40,9 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){
-        cpr::Response r = cpr::Get(cpr::Url{BASE_URL + "me/player"},
-                                    cpr::Header{{"Authorization", "Beader " + ACCESS_TOKEN}});
-        std::cout << r.status_code;
+        //cpr::Response r = cpr::Get(cpr::Url{BASE_URL + "me/player"},
+        //                            cpr::Header{{"Authorization", "Beader " + ACCESS_TOKEN}});
+        //std::cout << r.status_code;
         sleep(2);
     }
     
