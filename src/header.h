@@ -73,6 +73,11 @@ class players{
     void keylog();
     void commands();
 
+    cpr::Response GET(const std::string& into, ...);
+    cpr::Response POST(const std::string& into, ...);
+    cpr::Response PUT(const std::string& into, ...);
+    cpr::Response DELETE(const std::string& into, ...);
+
 };
 
 
