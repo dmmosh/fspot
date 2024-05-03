@@ -20,7 +20,8 @@ int main(int argc, char* argv[]){
     move::clear();
     move::up_clear(std::stoi(argv[1])); // clears the loading message
 
-    // need  codes to be mutable
+    // THESE CHANGE
+    // are mutable 
     std::string ACCESS_TOKEN = argv[2];
     std::string REFRESH_TOKEN = argv[3];
     int EXPIRES_AT = std::stoi(argv[4]);
