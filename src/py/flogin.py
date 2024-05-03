@@ -57,6 +57,8 @@ def get_password():
     }
 
     clear_line()
+    move_up()
+    clear_line()
 
 
 

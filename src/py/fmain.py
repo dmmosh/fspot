@@ -78,7 +78,7 @@ program = subprocess.Popen([FOLDER + 'librespot/librespot',
                     '--disable-audio-cache',
                     '--disable-credential-cache',
                     '-u', gl.auth_codes['user_id'],
-                    '-p',  gl.auth_codes['password'] , 
+                    '-p',  gl.auth_codes['password'], 
                     '&>', '/dev/null'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -92,8 +92,12 @@ erase_num = loading_msg(change_player, msg="Connecting to the World Wide Web... 
 change_player.join() # joins the thread to mainsd
 
 
+
 # OPENS THE C++ PLAYER USING AUTH CODES
 print(gl.auth_codes)
+print('')
+print('')
+print('')
 
 player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
                            str(erase_num),
