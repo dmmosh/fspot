@@ -38,20 +38,16 @@ namespace move{
 void players::commands(){
     if (input == "quit"){ //quit
         type = false;
+    } else if (input == "play"){
+        cpr::Response r2 = cpr::Get(cpr::Url{"https://api.github.com/repos/whoshuu/cpr/contributors"},
+                      cpr::Authentication{"user", "pass", cpr::AuthMode::BASIC},
+                      cpr::Parameters{{"anon", "true"}, {"key", "value"}});
+        cpr::Response r = cpr::Get(cpr::Url)
     }
     
     return;
 };
 
-void main_player::commands(){
-    if (input == "quit"){ //quit
-        type = false;
-    } else if (input == "clear"){
-        input = "dsjsjvdkdfklv";
-        sleep(2);
-    }
-    return;
-};
 
 
 

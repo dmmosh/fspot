@@ -8,8 +8,7 @@
 #include <termios.h>
 #include <cstdlib>
 #include <cstring>
-
-
+#include <cpr/cpr.h>
 
 // MACROS
 // SMALL FUNCTIONS HERE
