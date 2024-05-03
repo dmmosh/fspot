@@ -12,7 +12,7 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 */
 
 int main(int argc, char* argv[]){
-
+    std::cout << argc << NEW;
     for(int i =0; i<argc; i++){
         std::cout << argv[i] << NEW;
     }
