@@ -79,28 +79,28 @@ class players{
     cpr::Response GET(const std::string& into, const args&... rest) {
         return cpr::Get(cpr::Url{BASE_URL + into},
                             cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            Output(rest...));
+                            GET(rest...));
     }
 
     template<typename ... args>
     cpr::Response POST(const std::string& into, const args&... rest) {
         return cpr::Post(cpr::Url{BASE_URL + into},
                             cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            Output(rest...));
+                            POST(rest...));
     }
 
     template<typename ... args>
     cpr::Response PUT(const std::string& into, const args&... rest) {
         return cpr::Put(cpr::Url{BASE_URL + into},
                             cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            Output(rest...));
+                            PUT(rest...));
     }
 
     template<typename ... args>
     cpr::Response DELETE(const std::string& into, const args&... rest) {
         return cpr::Delete(cpr::Url{BASE_URL + into},
                             cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            Output(rest...));
+                            DELETE(rest...));
     }
 
 };
