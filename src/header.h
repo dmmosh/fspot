@@ -31,7 +31,9 @@
 // fatal error message
 #define ERROR(x) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << x << LINE_OFF; exit(0)
 
-
+extern std::string ACCESS_TOKEN;
+extern std::string REFRESH_TOKEN;
+extern int EXPIRES_AT; 
 
 namespace move{
     void clear();
@@ -65,11 +67,9 @@ class players{
     std::string input;
     bool type;
     std::unique_ptr<std::jthread> log_thread;
-    std::string ACCESS_TOKEN, REFRESH_TOKEN;
-    int REFRESH_AT;
     
 
-    players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
+    players();
     ~players();
     void keylog();
     void commands();
@@ -80,7 +80,7 @@ class players{
 // MAIN PLAYER SUBCLASS
 class main_player: public players{
     public:
-    main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
+    main_player();
     ~main_player();
 
     void commands();
