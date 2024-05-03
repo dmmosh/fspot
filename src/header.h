@@ -1,6 +1,7 @@
 #include <vector>
 #include <memory>
 #include <chrono>
+#include <cstdio>
 #include <string>
 #include <iostream>
 #include <thread>
@@ -40,8 +41,8 @@ using json = nlohmann::json;
 #define LINE_OFF "\x1b[K\x1b[0m"
 
 // fatal error message
-#define ERROR(x) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << x << LINE_OFF; exit(0)
-
+#define ERROR(msg) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << msg << LINE_OFF; exit(0)
+#define SLEEP(sec) std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));
 
 namespace move{
     void clear();
@@ -99,9 +100,3 @@ class main_player: public players{
 };
 
 
-// HELPER FUNCTIONS
-
-template <typename T>
-void sleep(const T& sec){    
-    std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));    
-}

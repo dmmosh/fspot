@@ -138,7 +138,7 @@ players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT) {
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF ; 
         //move::right(3+input.length());
-        sleep(0.01);
+        SLEEP(0.01);
         move::clear();
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
         //move::right(3+input.length());
