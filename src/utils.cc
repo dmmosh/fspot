@@ -131,5 +131,9 @@ main_player::main_player(): players() {
         move::up_clear(2);
 
     }  
-    move::down(3);
+}
+
+main_player::~main_player(){
+    move::clear();
+    move::up_clear(2);
 }
