@@ -13,11 +13,17 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 int main(int argc, char* argv[]){
 
+    // need  codes to be mutable
+    std::string ACCESS_TOKEN = argv[2];
+    std::string REFRESH_TOKEN = argv[3];
+    int expires_at = std::stoi(argv[4]);
+
+
     if (argc > 1){
     move::clear();
     move::up_clear(std::stoi(argv[1])); // clears the loading message
     }
-    
+
     main_player player;
 
     /*

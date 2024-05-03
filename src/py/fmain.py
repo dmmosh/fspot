@@ -97,7 +97,7 @@ player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
                            str(erase_num),
                            gl.auth_codes['access_token'],
                            gl.auth_codes['refresh_token'],
-                           str(gl.auth_codes['expires_at'])])
+                           str(int(gl.auth_codes['expires_at']))])
 
 
 player.wait()
