@@ -1,9 +1,6 @@
 #include "header.h"
 
-// GLOBAL VARIABLES
-extern std::string ACCESS_TOKEN;
-extern std::string REFRESH_TOKEN;
-extern int EXPIRES_AT;
+
 
 // MOVE NAMESPACE
 namespace move{
