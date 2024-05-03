@@ -13,6 +13,12 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 int main(int argc, char* argv[]){
 
+    for(int i =0; i<argc; i++){
+        std::cout << argv[i] << NEW;
+    }
+    
+    std::cin.get();
+
     if (argc !=5) 
         ERROR("Can't do that. I see what you did there.");
 
@@ -27,12 +33,6 @@ int main(int argc, char* argv[]){
     int EXPIRES_AT = std::stoi(argv[4]);
 
     main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
-
-    for(int i =0; i<argc; i++){
-        std::cout << argv[i] << NEW;
-    }
-    
-    std::cin.get();
 
     // PRINTS THE ARGUMENTS
 
