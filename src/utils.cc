@@ -100,11 +100,13 @@ void players::keylog(){
             break;  
             case SPACE:
                 r = GET(INTO("me/player"));
-                if (r["is_playing"]){
-                    (void)PUT(INTO("me/player/pause"));
-                } else {
-                    (void)PUT(INTO("me/player/play"));
-                };
+                std::cout << r << NEW;
+                //
+                //if (r["is_playing"]){
+                //    (void)PUT(INTO("me/player/pause"));
+                //} else {
+                //    (void)PUT(INTO("me/player/play"));
+                //};
                 sleep(5);
             break;
             case BACKSPACE:
