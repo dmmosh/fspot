@@ -1,13 +1,13 @@
-```
-** ________ ________  ________  ________  _________   **
-**|\  _____\\   ____\|\   __  \|\   __  \|\___   ___\ **
-**\ \  \__/\ \  \___|\ \  \|\  \ \  \|\  \|___ \  \_| **
-** \ \   __\\ \_____  \ \   ____\ \  \\\  \   \ \  \  **
-**  \ \  \_| \|____|\  \ \  \___|\ \  \\\  \   \ \  \ **
-**   \ \__\    ____\_\  \ \__\    \ \_______\   \ \__\**
-**    \|__|   |\_________\|__|     \|_______|    \|__|**
-**            \|_________|                            **
-```
+<pre>
+** ________ ________  ________  ________  _________   **  
+**|\  _____\\   ____\|\   __  \|\   __  \|\___   ___\ **  
+**\ \  \__/\ \  \___|\ \  \|\  \ \  \|\  \|___ \  \_| **  
+** \ \   __\\ \_____  \ \   ____\ \  \\\  \   \ \  \  **  
+**  \ \  \_| \|____|\  \ \  \___|\ \  \\\  \   \ \  \ **  
+**   \ \__\    ____\_\  \ \__\    \ \_______\   \ \__\**  
+**    \|__|   |\_________\|__|     \|_______|    \|__|**  
+**            \|_________|                            **  
+</pre>
 
 A full-feature mini Spotify TUI client. Functions as both a controller (powered by the [Spotify Web API](https://developer.spotify.com/documentation/web-api)) and a player (by embedded [librespot](https://github.com/librespot-org/librespot)), with encrypted serialization and whatnot. In order words, a full Spotify player. Made because of the memory hog that is the default Spotify client and the frustration brought on by other 3rd party Spotify clients. 
 
