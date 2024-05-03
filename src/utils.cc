@@ -92,7 +92,7 @@ void players::keylog(){
 
         switch(buf){
             case ENTER:
-                this->commands();
+                commands();
                 input = "";
             break;  
             default:
@@ -106,8 +106,7 @@ void players::keylog(){
 // MAIN PLAYER CLASS
 
 // main player constructor
-main_player::main_player(): 
-players() {
+main_player::main_player(): players() {
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
