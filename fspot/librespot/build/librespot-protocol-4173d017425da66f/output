@@ -1,1 +1,0 @@
-cargo:rustc-env=PROTO_MOD_RS=/home/wetsock/coding/fspot/librespot/target/release/build/librespot-protocol-4173d017425da66f/out/mod.rs
