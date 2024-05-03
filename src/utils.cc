@@ -40,9 +40,7 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){
-        //cpr::Response r = cpr::Put(cpr::Url{BASE_URL + "me/player/play"},
-        //                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}});
-        PUT("me/player/play");
+        cpr::Response r = cpr::Put(INTO("me/player/play"));
     }
     
     return;

@@ -15,6 +15,8 @@
 #define NEW '\n'
 #define ENTER 10
 
+#define INTO(x) cpr::Url{BASE_URL + x}, cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}}
+
 #define AUTH_URL std::string("https://accounts.spotify.com/authorize") 
 #define TOKEN_URL std::string("https://accounts.spotify.com/api/token" )
 #define BASE_URL std::string("https://api.spotify.com/v1/" )
@@ -73,35 +75,6 @@ class players{
     void keylog();
     void commands();
 
-    cpr::Response GET(const std::string& into, ...);
-
-    template<typename ... args>
-    cpr::Response GET(const std::string& into, const args&... rest) {
-        return cpr::Get(cpr::Url{BASE_URL + into},
-                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            GET(rest...));
-    }
-
-    template<typename ... args>
-    cpr::Response POST(const std::string& into, const args&... rest) {
-        return cpr::Post(cpr::Url{BASE_URL + into},
-                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            POST(rest...));
-    }
-
-    template<typename ... args>
-    cpr::Response PUT(const std::string& into, const args&... rest) {
-        return cpr::Put(cpr::Url{BASE_URL + into},
-                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            PUT(rest...));
-    }
-
-    template<typename ... args>
-    cpr::Response DELETE(const std::string& into, const args&... rest) {
-        return cpr::Delete(cpr::Url{BASE_URL + into},
-                            cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}},
-                            DELETE(rest...));
-    }
 
 };
 
