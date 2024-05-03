@@ -40,10 +40,8 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){
-        cpr::Response r = cpr::Get(cpr::Url{BASE_URL + "me/player"},
-                                    cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}});
-        std::cout << r.status_code;
-        sleep(2);
+        cpr::Response r = cpr::Put(cpr::Url{BASE_URL + "me/player/play"},
+                                    cpr::Header{{"Authorization", "Bearer " + std::string("BQC0pzTd5lO7S7-_P5gnL88cmoIMg-FcJ87m3pCGCoTJia84O5iPW1eGgI3LMEbvcK0kv7ujcmHiFNre7om25DKV-lbw_lLCeRPays_3sWYVV7fZ6Nn9piC78PFulOIOJnLkfGiz4rWDz8Gi5ZsH6kZYkxiMfjb_dO4yOXbOBUUd2V8h2e-wlY5Ds2PEmfYfEIvteKWo7gYXeHwF2WJNZpAs0MrOpquwwSII4rzEQhDhbAKQwkIfvbnR9waeaHFmceGt4hKcHg")}});
     }
     
     return;
