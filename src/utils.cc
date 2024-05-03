@@ -41,7 +41,7 @@ void players::commands(){
         type = false;
     } else if (input == "play"){
         cpr::Response r = cpr::Get(cpr::Url{BASE_URL + "me/player"},
-                                    cpr::Header{{"Authorization", "Beader " + ACCESS_TOKEN}});
+                                    cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}});
         std::cout << r.status_code;
         sleep(2);
     }
@@ -95,7 +95,7 @@ void players::keylog(){
 
         switch(buf){
             case ENTER:
-                this->commands();
+                commands();
                 input = "";
             break;  
             default:

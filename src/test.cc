@@ -1,13 +1,8 @@
 #include <cpr/cpr.h>
+#include <iostream>
 
 int main(int argc, char** argv) {
-    cpr::Response r = cpr::Get(cpr::Url{"https://api.github.com/repos/whoshuu/cpr/contributors"},
-                      cpr::Authentication{"user", "pass", cpr::AuthMode::BASIC},
-                      cpr::Parameters{{"anon", "true"}, {"key", "value"}});
-    cpr::Response r = cpr::Get(cpr::Url{"https://api.github.com/repos/whoshuu/cpr/contributors"},
-                                cpr::Header)
-    r.status_code;                  // 200
-    r.header["content-type"];       // application/json; charset=utf-8
-    r.text;                         // JSON text string
-    return 0;
+    cpr::Response r = cpr::Get(cpr::Url{std::string("https://api.spotify.com/v1/" ) + "me/player"},
+                                    cpr::Header{{"Authorization", "Bearer " + std::string("BQBEZBwkmIqeogf0rFOJ9wswDW3vMw7Sb_xrVnXxQ74mzfKqO6ViAmEthtxVFgtf99wL7MEbh4ic_VvfIlV0G4k0ZO_EOKHxuYfEKXZYtu6bnLq_O5EVoKhTrlMj3oISS_b3EhkybLgQdu3fwyXUy8tFeE0L852aCDhIlAQQstyHrDEAyKMbM")}});
+    std::cout << r.status_code;
 }
