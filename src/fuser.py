@@ -50,10 +50,10 @@ class user_input():
 
         match command:
             case 'start': # start
-                PUT('me/player/play')
+                self.PLAY()
 
             case 'pause':  # pause
-                PUT('me/player/pause')
+                self.PAUSE()
 
             case 'play':  # start/pause
                 if GET('me/player').json()['is_playing']: # if playing
@@ -70,7 +70,7 @@ class user_input():
             
             case 'clear': # if the screen gets all messed up
                 os.system('clear')
-            
+        
             case 'quit': # quits the user input
                 # exits the class's constructor
                 self.MESSAGE('Quitting...')

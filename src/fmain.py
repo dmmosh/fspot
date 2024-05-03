@@ -94,16 +94,20 @@ def end():
 
     print("\t" + TEXT['invert_on'] + "[ see ya... vro ]" + TEXT['invert_off'])
 
-atexit.register(end)
 
-program = threading.Thread(target=lambda: os.system(FOLDER+'librespot ' +
-                    '--name \'fspot player\' ' +
-                    '--disable-audio-cache ' +
-                    '--disable-credential-cache ' +
-                    '--device-type homething ' +
-                    '-u \''+ gl.auth_codes['user_id'] +'\' ' +
-                    '-p \'' + gl.auth_codes['password'] + '\' &> /dev/null '
-                    ), daemon=True)
+
+# fspot/librespot --name 'fspot player' --disable-audio-cache --disable-credential-cache -u '' -p ''
+program = subprocess.Popen([FOLDER + 'librespot',
+                    '--name', 'fspot player',
+                    '--disable-audio-cache',
+                    '--disable-credential-cache',
+                    '-u', gl.auth_codes['user_id'],
+                    '-p',  gl.auth_codes['password'], 
+                    '&>', '/dev/null'],
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
+atexit.register(end)
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
