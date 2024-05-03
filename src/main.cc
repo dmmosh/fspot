@@ -13,14 +13,11 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 int main(int argc, char* argv[]){
 
-
-    if ( argc>1 && strcmp(argv[argc-1], "--debug") && strcmp(argv[argc-1], "-d")){ // if NOT in debug mode
-
-        //if (argc <5) ERROR("Not enough arguments. I see what you did there.");
-        move::clear();
-        move::up_clear(std::stoi(argv[1])); // clears the loading message
+    if (argc > 1){
+    move::clear();
+    move::up_clear(std::stoi(argv[1])); // clears the loading message
     }
-
+    
     std::shared_ptr<main_player> player = std::make_shared<main_player>();
 
     /*
