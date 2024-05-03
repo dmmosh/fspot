@@ -9,13 +9,23 @@
 #include <cstdlib>
 #include <cstring>
 #include <cpr/cpr.h>
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 // MACROS
-// SMALL FUNCTIONS HERE
+
+// special characters
 #define NEW '\n'
 #define ENTER 10
+#define SPACE 32
+#define BACKSPACE 8
 
 #define INTO(x) cpr::Url{BASE_URL + x}, cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}}
+
+#define GET(params) json::parse(cpr::Get(params).text)  // returns get request output in json format
+#define POST(params) json::parse(cpr::Post(params).text)  // returns get request output in json format
+#define PUT(params) json::parse(cpr::Put(params).text)  // returns get request output in json format
+#define DELETE(params) json::parse(cpr::Delete(params).text)  // returns get request output in json format
 
 #define AUTH_URL std::string("https://accounts.spotify.com/authorize") 
 #define TOKEN_URL std::string("https://accounts.spotify.com/api/token" )

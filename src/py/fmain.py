@@ -82,7 +82,7 @@ program = subprocess.Popen([FOLDER + 'librespot',
                     '&>', '/dev/null'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-atexit.register(lambda:os.killpg(os.getpgid(program.pid), 0))
+atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
 atexit.register(end)
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
