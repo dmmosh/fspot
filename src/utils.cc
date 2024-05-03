@@ -1,8 +1,6 @@
 #include "header.h"
 
-extern std::string ACCESS_TOKEN;
-extern std::string REFRESH_TOKEN;
-extern int EXPIRES_AT;
+
 
 // MOVE NAMESPACE
 namespace move{
@@ -55,9 +53,12 @@ void players::commands(){
 
 
 // input and type initializer
-players::players(): 
+players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
 input(""), 
 type(true),
+ACCESS_TOKEN(ACCESS_TOKEN),
+REFRESH_TOKEN(REFRESH_TOKEN),
+REFRESH_AT(REFRESH_AT),
 log_thread(std::make_unique<std::jthread>(&players::keylog, this))
 {};
 
@@ -94,7 +95,7 @@ void players::keylog(){
 
         switch(buf){
             case ENTER:
-                commands();
+                this->commands();
                 input = "";
             break;  
             default:
@@ -108,7 +109,8 @@ void players::keylog(){
 // MAIN PLAYER CLASS
 
 // main player constructor
-main_player::main_player(): players() {
+main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
+players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT) {
 
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
