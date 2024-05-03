@@ -93,6 +93,7 @@ change_player.join() # joins the thread to mainsd
 
 
 # OPENS THE C++ PLAYER USING AUTH CODES
+
 player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
                            str(erase_num),
                            gl.auth_codes['access_token'],
