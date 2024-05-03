@@ -25,7 +25,7 @@ int main(int argc, char* argv[]){
     std::string REFRESH_TOKEN = argv[3];
     int EXPIRES_AT = std::stoi(argv[4]);
 
-    main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
+    main_player player;
 
     /*
     for(int i =0; i<argc; i++){
