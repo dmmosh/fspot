@@ -33,9 +33,9 @@
 
 
 // GLOBAL VARIABLES
-inline std::string ACCESS_TOKEN = "";
-inline std::string REFRESH_TOKEN = "";
-inline int EXPIRES_AT = -1;
+extern std::string ACCESS_TOKEN;
+extern std::string REFRESH_TOKEN;
+extern int EXPIRES_AT;
 
 namespace move{
     void clear();
