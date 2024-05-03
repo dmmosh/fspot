@@ -69,9 +69,11 @@ class players{
     std::string input;
     bool type;
     std::unique_ptr<std::jthread> log_thread;
+    std::string ACCESS_TOKEN, REFRESH_TOKEN;
+    int REFRESH_AT;
     
 
-    players();
+    players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
     ~players();
     void keylog();
     void commands();
@@ -82,7 +84,7 @@ class players{
 // MAIN PLAYER SUBCLASS
 class main_player: public players{
     public:
-    main_player();
+    main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
     ~main_player();
 
     void commands();
