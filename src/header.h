@@ -18,7 +18,7 @@ using json = nlohmann::json;
 #define NEW '\n'
 #define ENTER 10
 #define SPACE 32
-#define BACKSPACE 8
+#define BACKSPACE 127
 
 #define INTO(x) cpr::Url{BASE_URL + x}, cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}}
 #define GET(params) json::parse(cpr::Get(params).text)  // returns get request output in json format
