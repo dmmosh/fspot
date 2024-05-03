@@ -27,8 +27,8 @@ int main(int argc, char* argv[]){
     
     std::cin.get();
 
-    main_player player();
-    
+    std::shared_ptr<main_player> player = std::make_shared<main_player>();
+
 
 
     // PRINTS THE ARGUMENTS
