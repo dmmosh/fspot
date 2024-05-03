@@ -24,13 +24,9 @@ g++ -lcpr -std=c++20 src/main.cc src/utils.cc -o fspot/fplayer
 
 ## Pretty Pictures: ##
 ![Fspot loading screen.](https://github.com/dmmosh/fspot/assets/119987092/e7191b32-1496-45af-9720-adc85f5f599f)
-
 ![Main window.](https://github.com/dmmosh/fspot/assets/119987092/27e1c5d4-17e7-431b-8d30-c6ebeeada5dd)
-
 ![More main window,](https://github.com/dmmosh/fspot/assets/119987092/8a493b20-33dc-4407-a29b-11a8cde568e8)
-
 ![Closing screen.](https://github.com/dmmosh/fspot/assets/119987092/364c7c9f-76b1-4670-82c6-06733a138ed3)
-
 ![Fspot player in the Spotify client.](https://github.com/dmmosh/fspot/assets/119987092/9ccd06f9-b39d-4321-b1c2-ab1ec3b94851)
 
 
