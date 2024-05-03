@@ -40,7 +40,7 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){
-        cpr::Response r = cpr::Put(INTO("me/player/play"));
+        (void)PUT(INTO("me/player/play"));
     }
     
     return;
@@ -92,11 +92,23 @@ void players::keylog(){
 
         if (!buf) return;
 
+        json r;
         switch(buf){
             case ENTER:
                 commands();
                 input = "";
             break;  
+            case SPACE:
+                r = GET(INTO("me/player"));
+                if (r["is_playing"]){
+                    (void)PUT(INTO("me/player/pause"));
+                } else {
+                    (void)PUT(INTO("me/player/play"));
+                };
+            break;
+            case BACKSPACE:
+                input.resize(input.size() - 1);
+            break;
             default:
                 if (input.length() <15)
                     input.push_back(buf);
