@@ -17,8 +17,8 @@ int main(int argc, char* argv[]){
     move::clear();
     move::up_clear(std::stoi(argv[1])); // clears the loading message
     }
-    
-    std::shared_ptr<main_player> player = std::make_shared<main_player>();
+
+    main_player player;
 
     /*
     for(int i =0; i<argc; i++){
