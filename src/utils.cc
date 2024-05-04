@@ -27,8 +27,16 @@ namespace move{
 
 }
 
-// HELPER FUNCTIONS
+void players::MESSAGE(){
+    std::jthread test(&players::message_log, this);
+    test.detach();
+}
 
+void players::message_log(){
+    message = " TESTING";
+    SLEEP(3);
+    message = "";
+}
 
 
 
@@ -43,14 +51,17 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){ // plays track
-        MESSAGE("Playing...");
+        MESSAGE();
         (void)cpr::Put(INTO("me/player/play"));
     } else if (input == "pause"){ // pauses track
         (void)cpr::Put(INTO("me/player/pause"));
     } else if (input == "pp") { //plays / pauses track
-        r = GET_JSON(INTO("me/player"));
-        bool playing = r["is_playing"];
-
+        bool playing = false;
+        try{
+            r = GET_JSON(INTO("me/player"));
+            playing = r["is_playing"];
+        }
+        catch(...) {}
         if (playing){
             cpr::Put(INTO("me/player/pause"));
         } else {
@@ -60,23 +71,6 @@ void players::commands(){
     return;
 };
 
-// MESSAGES
-void players::MESSAGE(const std::string to_say, const double time){
-    message = std::string(INVERT_ON) + "[ " +  to_say + " ]" + INVERT_OFF;
-    std::jthread hello(message_fun, std::ref(message), std::ref(time));
-    hello.detach();
-};
-void players::MESSAGE(const std::string to_say) {
-    MESSAGE(to_say, 5.0);
-};
-
-
-void message_fun(std::string& message, const double& time){
-    std::string temp = message; //makes a temp string
-    SLEEP(time); // waits the time
-    if (message == temp) message = ""; // checks if the string changed in that time, if didnt then clear
-    return;
-};
 
 
 // input and type initializer
@@ -131,10 +125,10 @@ void players::keylog(){
                 input = "";
             break;  
             case SPACE:
-                r = GET_JSON(INTO("me/player"));
 
                 try{
-                playing = r["is_playing"];
+                    r = GET_JSON(INTO("me/player"));
+                    playing = r["is_playing"];
                 }
                 catch(...) {};
 
