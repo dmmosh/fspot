@@ -45,10 +45,11 @@ using json = nlohmann::json;
 #define LINE_ON "\x1b[41;37;1m\033[;7;1m"
 #define LINE_OFF "\x1b[K\x1b[0m"
 
+
 // fatal error message
 #define ERROR(msg) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << msg << LINE_OFF; exit(0)
 #define SLEEP(sec) std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));
-
+#define MESSAGE_OFF message = "" // turns the message off
 
 namespace move{
     void clear();
