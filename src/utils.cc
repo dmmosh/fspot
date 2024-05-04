@@ -203,7 +203,7 @@ players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4) {
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
         //move::right(3+input.length());
-        SLEEP(0.01);
+        SLEEP(0.03);
         move::clear();
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
         //move::right(3+input.length());
