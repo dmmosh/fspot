@@ -63,7 +63,8 @@ void players::commands(){
 // MESSAGES
 void players::MESSAGE(const std::string to_say, const double time){
     message = std::string(INVERT_ON) + "[ " +  to_say + " ]" + INVERT_OFF;
-    std::jthread(message_fun, std::ref(message), std::ref(time));
+    std::jthread hello(message_fun, std::ref(message), std::ref(time));
+    hello.detach();
 };
 void players::MESSAGE(const std::string to_say) {
     MESSAGE(to_say, 5.0);
