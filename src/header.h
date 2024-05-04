@@ -92,8 +92,9 @@ class players{
     void keylog();
     void commands();
 
-    void MESSAGE();
-    void message_log();
+    void MESSAGE(const std::string msg, const double time);
+    void MESSAGE(const std::string msg);
+    void message_log(const std::string msg, const double time);
 
     // MESSAGE 
 

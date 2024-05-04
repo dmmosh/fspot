@@ -27,15 +27,20 @@ namespace move{
 
 }
 
-void players::MESSAGE(){
-    std::jthread test(&players::message_log, this);
+void players::MESSAGE(const std::string msg, const double time){
+    std::jthread test(&players::message_log, this, msg, time);
     test.detach();
 }
 
-void players::message_log(){
-    message = " TESTING";
-    SLEEP(3);
-    message = "";
+void players::MESSAGE(const std::string msg){
+    MESSAGE(msg, 5.0);
+};
+
+void players::message_log(const std::string msg, const double time){
+    message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF );
+    std::string temp = message;
+    SLEEP(time);
+    if (temp == message) message = "";
 }
 
 
@@ -51,7 +56,7 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){ // plays track
-        MESSAGE();
+        MESSAGE("Playing...");
         (void)cpr::Put(INTO("me/player/play"));
     } else if (input == "pause"){ // pauses track
         (void)cpr::Put(INTO("me/player/pause"));
