@@ -101,11 +101,11 @@ void players::commands(){
 
 
 // input and type initializer
-players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
+players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT, const int row_size): 
 input(""), 
 message(""),
 type(true),
-row_size(0),
+row_size(row_size),
 ACCESS_TOKEN(ACCESS_TOKEN),
 REFRESH_TOKEN(REFRESH_TOKEN),
 REFRESH_AT(REFRESH_AT),
@@ -186,15 +186,19 @@ void players::keylog(){
 
 // main player constructor
 main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
-players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT) {
-    row_size = 3; // the row size
+players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4) {
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
-    move::down(3);
-    move::up(3);
-    while(type){ //keeps updating
+    move::down(row_size);
+    move::up(row_size);
 
-        
+    int time = 0;
+    while(type){ //keeps updating
+        json status = GET_JSON(INTO("me/player"));
+        auto progress =  status["progress_ms"];
+        if(progress) time = progress;
+
+        std::cout << time << NEW;
         std::cout << input << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
@@ -205,7 +209,7 @@ players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT) {
         //move::right(3+input.length());
         //move::beginning();
 
-        move::up_clear(2);
+        move::up_clear(row_size-1);
 
     }  
     move::down();
@@ -213,7 +217,7 @@ players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT) {
 
 main_player::~main_player(){
     move::clear();
-    move::up_clear(2);
+    move::up_clear(row_size);
 }
 
 // HELPER FUNCTIONS
