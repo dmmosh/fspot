@@ -90,7 +90,7 @@ class players{
     int REFRESH_AT;
     
 
-    players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
+    players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT, const int row_size);
     ~players();
     void keylog();
     void commands();
