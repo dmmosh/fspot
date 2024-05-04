@@ -39,7 +39,7 @@ namespace move{
 void players::commands(){
 
     // guranteed all commands will contain different first and last chars
-
+    json r; // temp response variable
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){ // plays track
@@ -47,12 +47,9 @@ void players::commands(){
     } else if (input == "pause"){ // pauses track
         (void)cpr::Put(INTO("me/player/pause"));
     } else if (input == "pp") { //plays / pauses track
-        bool playing = false;
-        try {
-        playing = GET_JSON(INTO("me/player"))["is_playing"];
-        }
-        catch (...) {};
-        
+        r = GET_JSON(INTO("me/player"));
+        bool playing = r["is_playing"];
+
         if (playing){
             cpr::Put(INTO("me/player/pause"));
         } else {
@@ -108,6 +105,7 @@ void players::keylog(){
 
         if (!buf) return;
 
+        json r;
         bool playing = false;
         switch(buf){
             case ENTER:
@@ -115,10 +113,8 @@ void players::keylog(){
                 input = "";
             break;  
             case SPACE:
-                try {
-                playing = GET_JSON(INTO("me/player"))["is_playing"];
-                }
-                catch (...) {};
+                r = GET_JSON(INTO("me/player"));
+                playing = r["is_playing"];
 
                 if (playing){
                     cpr::Put(INTO("me/player/pause"));
