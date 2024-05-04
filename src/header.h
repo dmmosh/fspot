@@ -23,6 +23,12 @@ using json = nlohmann::json;
 
 #define INTO(x) cpr::Url{BASE_URL + x}, cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}}
 
+
+#define GET_JSON(params) json::parse(cpr::Get(params).text)  // returns get request output in json format
+#define POST_JSON(params) json::parse(cpr::Post(params).text)  // returns get request output in json format
+#define PUT_JSON(params) json::parse(cpr::Put(params).text)  // returns get request output in json format
+#define DELETE_JSON(params) json::parse(cpr::Delete(params).text)  // returns get request output in json format
+
 #define AUTH_URL std::string("https://accounts.spotify.com/authorize") 
 #define TOKEN_URL std::string("https://accounts.spotify.com/api/token" )
 #define BASE_URL std::string("https://api.spotify.com/v1/" )
@@ -83,11 +89,6 @@ class players{
 
 
 };
-
-#define GET_JSON(params) json::parse(cpr::Get(params).text)  // returns get request output in json format
-#define POST_JSON(params) json::parse(cpr::Post(params).text)  // returns get request output in json format
-#define PUT_JSON(params) json::parse(cpr::Put(params).text)  // returns get request output in json format
-#define DELETE_JSON(params) json::parse(cpr::Delete(params).text)  // returns get request output in json format
 
 // MAIN PLAYER SUBCLASS
 class main_player: public players{

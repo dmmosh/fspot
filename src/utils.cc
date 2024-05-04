@@ -41,6 +41,8 @@ void players::commands(){
         type = false;
     } else if (input == "play"){
         (void)cpr::Put(INTO("me/player/play"));
+    } else if (input == "pause"){
+        (void)cpr::Put(INTO("me/player/pause"));
     }
     
     return;
@@ -99,7 +101,7 @@ void players::keylog(){
                 input = "";
             break;  
             case SPACE:
-                r = GET(INTO("me/player"));
+                r = GET_JSON(INTO("me/player"));
                 std::cout << r["is_playing"] << NEW;
                 //std::cout << r[0] << r.back() << NEW;
                 
