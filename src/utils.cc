@@ -78,7 +78,7 @@ void players::commands(){
         bool playing = false;
         try{
             r = GET_JSON(INTO("me/player"));
-            playing = r["is_playing"];
+            playing = (bool)r["is_playing"];
         }
         catch(...) {};
 
@@ -155,7 +155,7 @@ void players::keylog(){
             case SPACE:
                 try{
                     r = GET_JSON(INTO("me/player"));
-                    playing = r["is_playing"];
+                    playing = (bool)r["is_playing"];
                 }
                 catch(...) {};
 
@@ -195,7 +195,8 @@ players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4) {
     int time = 0;
     while(type){ //keeps updating
         json status = GET_JSON(INTO("me/player"));
-        time = (int)status["progress_ms"];
+        time = (int)status["progress_ms"] /1000;
+        
 
         std::cout << time << NEW;
         std::cout << input << NEW << NEW;
