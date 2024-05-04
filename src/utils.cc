@@ -128,7 +128,11 @@ void players::keylog(){
             break;  
             case SPACE:
                 r = GET_JSON(INTO("me/player"));
+
+                try{
                 playing = r["is_playing"];
+                }
+                catch(...) {};
 
                 if (playing){
                     cpr::Put(INTO("me/player/pause"));
@@ -162,11 +166,11 @@ players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT) {
         
         std::cout << input << NEW << NEW;
 
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF ; 
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
         //move::right(3+input.length());
         SLEEP(0.01);
         move::clear();
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
         //move::right(3+input.length());
         //move::beginning();
 
