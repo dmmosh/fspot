@@ -95,9 +95,9 @@ class players{
 
 
     // MESSAGE 
-    void MESSAGE(const char* to_say, const double time);
-    void MESSAGE(const char* to_say);
-    void message_fun(const char* to_say, const double time);
+    void MESSAGE(const std::string to_say, const double time);
+    void MESSAGE(const std::string to_say);
+    void message_fun(const std::string to_say, std::string& msg, const double time);
 
 };
 
