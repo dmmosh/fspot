@@ -176,7 +176,7 @@ void players::keylog(){
             break;
             default:
                 if (input.length() <15)
-                    input.push_back(buf);
+                    input.push_back(tolower(buf));
         }
     }
 }
