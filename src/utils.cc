@@ -114,9 +114,7 @@ log_thread(std::make_unique<std::jthread>(&players::keylog, this))
 {};
 
 
-players::~players(){
-    if (log_thread) log_thread->join();
-}
+players::~players(){}
 
 
 
@@ -194,6 +192,7 @@ artist("No one duh"),
 name("No song")
  {
     song_thread->detach();
+    log_thread->detach();
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
     move::down(row_size);
@@ -223,8 +222,6 @@ name("No song")
 }
 
 main_player::~main_player(){
-    if (log_thread) log_thread->join();
-    if (song_thread) song_thread->join();
 
     move::clear();
     move::up_clear(row_size);
