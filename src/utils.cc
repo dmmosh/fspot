@@ -202,7 +202,7 @@ name("No song")
         int min = progress / 60;
         int sec = progress % 60;
 
-        std::cout << min << ':' << sec << NEW;
+        printf("%2i:%2i\n", min, sec);
         std::cout << input << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
