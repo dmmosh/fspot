@@ -40,7 +40,7 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){
-        (void)PUT(INTO("me/player/play"));
+        (void)cpr::Put(INTO("me/player/play"));
     }
     
     return;
