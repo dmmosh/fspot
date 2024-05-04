@@ -102,8 +102,9 @@ void players::keylog(){
             break;  
             case SPACE:
                 r = GET_JSON(INTO("me/player"));
-                std::cout << (std::string)(r["is_playing"]) << NEW;
-                sleep(1);
+                if (r["is_playing"]){
+                    std::cout << "AFDSHKFDSHKJFSFDKHFDFSDFDHFKJHFDJK" << NEW;
+                }
                 //std::cout << r[0] << r.back() << NEW;
                 
                 //
