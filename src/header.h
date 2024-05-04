@@ -97,7 +97,7 @@ class players{
     // MESSAGE 
     void MESSAGE(const char* to_say, const double time);
     void MESSAGE(const char* to_say);
-
+    void message_fun(const char* to_say, const double time);
 
 };
 
