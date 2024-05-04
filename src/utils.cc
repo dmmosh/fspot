@@ -68,11 +68,18 @@ void players::commands(){
             r = GET_JSON(INTO("me/player"));
             playing = r["is_playing"];
         }
-        catch(...) {}
+        catch(...) {};
+
         if (playing){
+            MESSAGE("Pausing...");
             cpr::Put(INTO("me/player/pause"));
+            MESSAGE_OFF;
+            MESSAGE("Paused!", 1);
         } else {
-            cpr::Put(INTO("me/player/play"));
+            MESSAGE("Playing...");
+            (void)cpr::Put(INTO("me/player/play"));
+            MESSAGE_OFF;
+            MESSAGE("Playing now!", 1);
         };
     }
     return;
@@ -132,7 +139,6 @@ void players::keylog(){
                 input = "";
             break;  
             case SPACE:
-
                 try{
                     r = GET_JSON(INTO("me/player"));
                     playing = r["is_playing"];
@@ -140,9 +146,15 @@ void players::keylog(){
                 catch(...) {};
 
                 if (playing){
+                    MESSAGE("Pausing...");
                     cpr::Put(INTO("me/player/pause"));
+                    MESSAGE_OFF;
+                    MESSAGE("Paused!", 1);
                 } else {
-                    cpr::Put(INTO("me/player/play"));
+                    MESSAGE("Playing...");
+                    (void)cpr::Put(INTO("me/player/play"));
+                    MESSAGE_OFF;
+                    MESSAGE("Playing now!", 1);
                 };
             break;
             case BACKSPACE:
