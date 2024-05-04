@@ -97,7 +97,6 @@ class players{
     // MESSAGE 
     void MESSAGE(const std::string to_say, const double time);
     void MESSAGE(const std::string to_say);
-    void message_fun(std::string& message, const double& time);
 
 };
 
@@ -111,6 +110,7 @@ class main_player: public players{
 
 };
 
+void message_fun(std::string& message, const double& time);
 
 // HELPER FUNCTIONS
 
