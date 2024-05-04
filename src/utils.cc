@@ -36,6 +36,10 @@ void players::MESSAGE(const std::string msg){
     MESSAGE(msg, 5.0);
 };
 
+void players::MESSAGE(){
+    MESSAGE("Loading...", 5.0);
+}
+
 void players::message_log(const std::string msg, const double time){
     message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF );
     std::string temp = message;

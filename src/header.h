@@ -95,6 +95,7 @@ class players{
 
     void MESSAGE(const std::string msg, const double time);
     void MESSAGE(const std::string msg);
+    void MESSAGE();
     void message_log(const std::string msg, const double time);
 
     // MESSAGE 
