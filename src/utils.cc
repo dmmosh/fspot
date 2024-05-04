@@ -193,15 +193,17 @@ progress(0), duration(100),
 artist("No one duh"),
 name("No song")
  {
+    song_thread->detach();
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
     move::down(row_size);
     move::up(row_size);
 
     while(type){ //keeps updating
-        
+        int min = progress / 60;
+        int sec = progress % 60;
 
-        std::cout << progress << NEW;
+        std::cout << min << ':' << sec << NEW;
         std::cout << input << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
@@ -216,6 +218,8 @@ name("No song")
 
     }  
     move::down();
+    if (song_thread) song_thread->join();
+
 }
 
 main_player::~main_player(){
@@ -232,7 +236,7 @@ void main_player::song_update() {
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
             json data = json::parse(r.text);
-            progress = (int)data["progress_ms"];
+            progress = (int)data["progress_ms"] /1000; //progress in seconds
             
             auto item = data["item"];
             duration = item["duration_ms"];
