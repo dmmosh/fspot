@@ -233,8 +233,8 @@ void main_player::song_update() {
         if(r.status_code == 200){
             json data = json::parse(r.text);
             progress = (int)data["progress_ms"]; //progress in seconds
-            progress += (progress%10 < 5) ? 0 : 10;
-            progress /=1000;
+            progress += (progress%10 < 5) ? 0 : 10;//rounds up/down
+            progress /=1000; 
             
             auto item = data["item"];
             duration = item["duration_ms"];
