@@ -43,6 +43,7 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){ // plays track
+        MESSAGE("Playing...");
         (void)cpr::Put(INTO("me/player/play"));
     } else if (input == "pause"){ // pauses track
         (void)cpr::Put(INTO("me/player/pause"));
@@ -59,12 +60,22 @@ void players::commands(){
     return;
 };
 
-
+// MESSAGES
+void players::message_fun(const char* to_say, const double time){
+    message = std::string(INVERT_ON) + "[ " +  to_say + " ]" + INVERT_OFF; // assigns the message
+    std::string temp = message; //makes a temp string
+    SLEEP(time); // waits the time
+    if (message == temp) message = ""; // checks if the string changed in that time, if didnt then clear
+};
+void players::message_fun(const char* to_say) {
+    message_fun(to_say, 5.0); //calls function
+};
 
 
 // input and type initializer
 players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
 input(""), 
+message(""),
 type(true),
 ACCESS_TOKEN(ACCESS_TOKEN),
 REFRESH_TOKEN(REFRESH_TOKEN),

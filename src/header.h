@@ -47,6 +47,8 @@ using json = nlohmann::json;
 // fatal error message
 #define ERROR(msg) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << msg << LINE_OFF; exit(0)
 #define SLEEP(sec) std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));
+#define MESSAGE(x) std::jthread message(&players::message_fun, this, x) // creates message variable
+
 
 namespace move{
     void clear();
@@ -78,6 +80,7 @@ namespace move{
 class players{
     public:
     std::string input;
+    std::string message;
     bool type;
     std::unique_ptr<std::jthread> log_thread;
     std::string ACCESS_TOKEN, REFRESH_TOKEN;
@@ -88,6 +91,12 @@ class players{
     ~players();
     void keylog();
     void commands();
+
+
+
+    // MESSAGE 
+    void message_fun(const char* to_say, const double time);
+    void message_fun(const char* to_say);
 
 
 };
