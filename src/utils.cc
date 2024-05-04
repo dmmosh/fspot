@@ -37,14 +37,22 @@ namespace move{
 
 // default commands
 void players::commands(){
+
+    // guranteed all commands will contain different first and last chars
+
     if (input == "quit"){ //quit
         type = false;
-    } else if (input == "play"){
+    } else if (input == "play"){ // plays track
         (void)cpr::Put(INTO("me/player/play"));
-    } else if (input == "pause"){
+    } else if (input == "pause"){ // pauses track
         (void)cpr::Put(INTO("me/player/pause"));
+    } else if (input == "pp") { //plays / pauses track
+        if (GET_JSON(INTO("me/player"))["is_playing"]){
+                    cpr::Put(INTO("me/player/pause"));
+        } else {
+            cpr::Put(INTO("me/player/play"));
+        };
     }
-    
     return;
 };
 
@@ -100,7 +108,7 @@ void players::keylog(){
                 input = "";
             break;  
             case SPACE:
-                
+
                 if (GET_JSON(INTO("me/player"))["is_playing"]){
                     cpr::Put(INTO("me/player/pause"));
                 } else {
@@ -151,3 +159,6 @@ main_player::~main_player(){
     move::clear();
     move::up_clear(2);
 }
+
+// HELPER FUNCTIONS
+
