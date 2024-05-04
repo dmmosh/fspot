@@ -94,13 +94,14 @@ void players::keylog(){
 
         if (!buf) return;
 
+        bool playing = false;
         switch(buf){
             case ENTER:
                 commands();
                 input = "";
             break;  
             case SPACE:
-                bool playing = GET_JSON(INTO("me/player"))["is_playing"];
+                playing = GET_JSON(INTO("me/player"))["is_playing"];
                 if (playing){
                     std::cout << "AFDSHKFDSHKJFSFDKHFDFSDFDHFKJHFDJK" << NEW;
                 }
