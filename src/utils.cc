@@ -54,14 +54,21 @@ void players::commands(){
     // guranteed all commands will contain different first and last chars
     json r; // temp response variable
     if (input == "quit"){ //quit
+        MESSAGE("Quitting...");
         type = false;
+
     } else if (input == "play"){ // plays track
         MESSAGE("Playing...");
         (void)cpr::Put(INTO("me/player/play"));
         MESSAGE_OFF;
         MESSAGE("Playing now!", 1);
+
     } else if (input == "pause"){ // pauses track
+        MESSAGE("Pausing...");
         (void)cpr::Put(INTO("me/player/pause"));
+        MESSAGE_OFF;
+        MESSAGE("Paused!", 1);
+
     } else if (input == "pp") { //plays / pauses track
         bool playing = false;
         try{
@@ -72,7 +79,7 @@ void players::commands(){
 
         if (playing){
             MESSAGE("Pausing...");
-            cpr::Put(INTO("me/player/pause"));
+            (void)cpr::Put(INTO("me/player/pause"));
             MESSAGE_OFF;
             MESSAGE("Paused!", 1);
         } else {
@@ -81,6 +88,7 @@ void players::commands(){
             MESSAGE_OFF;
             MESSAGE("Playing now!", 1);
         };
+
     }
     return;
 };
@@ -147,7 +155,7 @@ void players::keylog(){
 
                 if (playing){
                     MESSAGE("Pausing...");
-                    cpr::Put(INTO("me/player/pause"));
+                    (void)cpr::Put(INTO("me/player/pause"));
                     MESSAGE_OFF;
                     MESSAGE("Paused!", 1);
                 } else {
