@@ -59,6 +59,7 @@ void players::commands(){
         MESSAGE("Playing...");
         (void)cpr::Put(INTO("me/player/play"));
         MESSAGE_OFF;
+        MESSAGE("Playing now!", 1);
     } else if (input == "pause"){ // pauses track
         (void)cpr::Put(INTO("me/player/pause"));
     } else if (input == "pp") { //plays / pauses track
