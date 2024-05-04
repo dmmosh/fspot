@@ -195,8 +195,7 @@ players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4) {
     int time = 0;
     while(type){ //keeps updating
         json status = GET_JSON(INTO("me/player"));
-        auto progress =  status["progress_ms"];
-        if(progress) time = progress;
+        time = (int)status["progress_ms"];
 
         std::cout << time << NEW;
         std::cout << input << NEW << NEW;
