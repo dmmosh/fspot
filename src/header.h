@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cpr/cpr.h>
+#include <bits/stdc++.h> 
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
