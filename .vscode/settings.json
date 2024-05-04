@@ -89,6 +89,16 @@
         "*.def": "cpp",
         "csignal": "cpp",
         "strstream": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "csetjmp": "cpp",
+        "barrier": "cpp",
+        "coroutine": "cpp",
+        "cuchar": "cpp",
+        "expected": "cpp",
+        "latch": "cpp",
+        "scoped_allocator": "cpp",
+        "spanstream": "cpp",
+        "stacktrace": "cpp",
+        "syncstream": "cpp"
     }
 }

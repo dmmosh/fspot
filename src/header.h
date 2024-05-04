@@ -107,10 +107,15 @@ class players{
 // MAIN PLAYER SUBCLASS
 class main_player: public players{
     public:
+    int progress, duration;
+    std::string artist;
+    std::string name;
+    std::unique_ptr<std::jthread> song_thread;
     main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
     ~main_player();
 
     void commands();
+    void song_update(); //updates song info EVERY SECOND
 
 };
 

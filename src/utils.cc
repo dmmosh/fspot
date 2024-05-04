@@ -186,19 +186,21 @@ void players::keylog(){
 
 // main player constructor
 main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
-players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4) {
+players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
+song_thread(std::make_unique<std::jthread>(&main_player::song_update, this)),
+progress(0), duration(100),
+artist("No one duh"),
+name("No song")
+ {
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
     move::down(row_size);
     move::up(row_size);
 
-    int time = 0;
     while(type){ //keeps updating
-        json status = GET_JSON(INTO("me/player"));
-        time = (int)status["progress_ms"] /1000;
         
 
-        std::cout << time << NEW;
+        std::cout << progress << NEW;
         std::cout << input << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
@@ -216,9 +218,35 @@ players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4) {
 }
 
 main_player::~main_player(){
+    if (log_thread) log_thread->join();
+    if (song_thread) song_thread->join();
+
     move::clear();
     move::up_clear(row_size);
+
 }
+
+void main_player::song_update() {
+    while(type){    
+        cpr::Response r = cpr::Get("me/player");
+        if(r.status_code == 200){
+            json data = json::parse(r.text);
+            progress = (int)data["progress_ms"];
+            
+            auto item = data["item"];
+            duration = item["duration_ms"];
+            name = item["name"];
+
+        } else {
+            progress = 0;
+            duration = 100;
+            artist = "Mr. No connection";
+            name = "NO CONNECTION";
+        }
+
+        SLEEP(1);
+    }
+};
 
 // HELPER FUNCTIONS
 
