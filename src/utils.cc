@@ -60,6 +60,7 @@ void players::commands(){
     if (input == "quit"){ //quit
         MESSAGE("Quitting...");
         type = false;
+        if (log_thread) log_thread->request_stop();
     } else if (input == "hello"){
         MESSAGE("Hello vro...", 2.0);
     } else if (input == "play"){ // plays track
