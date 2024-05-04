@@ -82,6 +82,7 @@ class players{
     public:
     std::string input;
     std::string message;
+    int row_size;
     bool type;
     std::unique_ptr<std::jthread> log_thread;
     std::string ACCESS_TOKEN, REFRESH_TOKEN;

@@ -41,10 +41,10 @@ void players::MESSAGE(){
 }
 
 void players::message_log(const std::string msg, const double time){
-    message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF );
-    std::string temp = message;
-    SLEEP(time);
-    if (temp == message) message = "";
+    message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF ); //assigns new message
+    std::string temp = message; // temp string
+    SLEEP(time); // waits the time
+    if (temp == message) MESSAGE_OFF; // turn message off only if theres no new message to replace it
 }
 
 
@@ -60,7 +60,8 @@ void players::commands(){
     if (input == "quit"){ //quit
         MESSAGE("Quitting...");
         type = false;
-
+    } else if (input == "hello"){
+        MESSAGE("Hello vro...", 2.0);
     } else if (input == "play"){ // plays track
         MESSAGE("Playing...");
         (void)cpr::Put(INTO("me/player/play"));
@@ -104,6 +105,7 @@ players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REF
 input(""), 
 message(""),
 type(true),
+row_size(0),
 ACCESS_TOKEN(ACCESS_TOKEN),
 REFRESH_TOKEN(REFRESH_TOKEN),
 REFRESH_AT(REFRESH_AT),
@@ -185,7 +187,7 @@ void players::keylog(){
 // main player constructor
 main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
 players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT) {
-
+    row_size = 3; // the row size
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
     move::down(3);
