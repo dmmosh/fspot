@@ -47,8 +47,14 @@ void players::commands(){
     } else if (input == "pause"){ // pauses track
         (void)cpr::Put(INTO("me/player/pause"));
     } else if (input == "pp") { //plays / pauses track
-        if (GET_JSON(INTO("me/player"))["is_playing"]){
-                    cpr::Put(INTO("me/player/pause"));
+        bool playing = false;
+        try {
+        playing = GET_JSON(INTO("me/player"))["is_playing"];
+        }
+        catch (...) {};
+        
+        if (playing){
+            cpr::Put(INTO("me/player/pause"));
         } else {
             cpr::Put(INTO("me/player/play"));
         };
@@ -102,14 +108,19 @@ void players::keylog(){
 
         if (!buf) return;
 
+        bool playing = false;
         switch(buf){
             case ENTER:
                 commands();
                 input = "";
             break;  
             case SPACE:
+                try {
+                playing = GET_JSON(INTO("me/player"))["is_playing"];
+                }
+                catch (...) {};
 
-                if (GET_JSON(INTO("me/player"))["is_playing"]){
+                if (playing){
                     cpr::Put(INTO("me/player/pause"));
                 } else {
                     cpr::Put(INTO("me/player/play"));
