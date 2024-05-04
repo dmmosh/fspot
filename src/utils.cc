@@ -94,25 +94,18 @@ void players::keylog(){
 
         if (!buf) return;
 
-        bool playing = false;
         switch(buf){
             case ENTER:
                 commands();
                 input = "";
             break;  
             case SPACE:
-                playing = GET_JSON(INTO("me/player"))["is_playing"];
-                if (playing){
-                    std::cout << "AFDSHKFDSHKJFSFDKHFDFSDFDHFKJHFDJK" << NEW;
-                }
-                //std::cout << r[0] << r.back() << NEW;
                 
-                //
-                //if (r.at("is_playing")){
-                //    (void)PUT(INTO("me/player/pause"));
-                //} else {
-                //    (void)PUT(INTO("me/player/play"));
-                //};
+                if (GET_JSON(INTO("me/player"))["is_playing"]){
+                    cpr::Put(INTO("me/player/pause"));
+                } else {
+                    cpr::Put(INTO("me/player/play"));
+                };
             break;
             case BACKSPACE:
                 if (input.size()) input.resize(input.size() - 1);
