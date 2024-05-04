@@ -17,6 +17,7 @@ using json = nlohmann::json;
 
 // special characters
 #define NEW '\n'
+#define TAB '\t'
 #define ENTER 10
 #define SPACE 32
 #define BACKSPACE 127
