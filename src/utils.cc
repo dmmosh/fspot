@@ -217,7 +217,6 @@ name("No song")
 
     }  
     move::down();
-    if (song_thread) song_thread->join();
 
 }
 
