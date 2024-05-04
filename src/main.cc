@@ -8,6 +8,11 @@ python -m PyInstaller src/py/fmain.py --onefile --name fstart && cp dist/fstart 
 git-all && clang++ -lcpr -std=c++20 src/main.cc src/utils.cc -o fspot/fplayer 
 
 
+NOTES:
+librespot is compiled with alsa backend
+every response json variable must be stored in some temp variable
+
+
 DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 */
 
