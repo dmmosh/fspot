@@ -232,12 +232,11 @@ void main_player::song_update() {
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
             json data = json::parse(r.text);
-            progress = (int)data["progress_ms"] /1000; //progress in seconds
+            progress = (int)round((double)data["progress_ms"] /1000); //progress in seconds
             
             auto item = data["item"];
             duration = item["duration_ms"];
             name = item["name"];
-
         } else {
             progress = 0;
             duration = 100;
