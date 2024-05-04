@@ -108,7 +108,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
     print_msg = msg
     while(process.is_alive()):
-        for char in "/—\|":
+        for char in "/—\\|":
             if gl.term_size < title['col_num']:
 
                 title_text = open(FOLDER + 'titles/title1.txt', 'r')
