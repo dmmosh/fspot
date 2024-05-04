@@ -61,19 +61,20 @@ void players::commands(){
 };
 
 // MESSAGES
-void players::MESSAGE(const std::string& to_say, const double time){
+void players::MESSAGE(const std::string to_say, const double time){
     message = std::string(INVERT_ON) + "[ " +  to_say + " ]" + INVERT_OFF;
-    std::jthread(&players::message, this, time);
+    std::jthread(&players::message, this, std::ref(message), std::ref(time));
 };
-void players::MESSAGE(const std::string& to_say) {
+void players::MESSAGE(const std::string to_say) {
     MESSAGE(to_say, 5.0);
 };
 
 
-void players::message_fun(double time){
+void players::message_fun(std::string& message, const double& time){
     std::string temp = message; //makes a temp string
     SLEEP(time); // waits the time
     if (message == temp) message = ""; // checks if the string changed in that time, if didnt then clear
+    return;
 };
 
 
