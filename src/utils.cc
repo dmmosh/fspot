@@ -202,7 +202,7 @@ name("No song")
         int min = progress / 60;
         int sec = progress % 60;
 
-        printf("%2i:%2i\n", min, sec);
+        printf("%2$i:%2$i\n", min, sec);
         std::cout << input << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
@@ -223,7 +223,7 @@ name("No song")
 main_player::~main_player(){
 
     move::clear();
-    move::up_clear(row_size);
+    move::up_clear(row_size-2);
 
 }
 
