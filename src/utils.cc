@@ -40,7 +40,7 @@ void players::commands(){
     if (input == "quit"){ //quit
         type = false;
     } else if (input == "play"){
-        (void)cpr::Put(INTO("me/player/play"));
+        (void)PUT(INTO("me/player/play"));
     }
     
     return;
@@ -99,8 +99,8 @@ void players::keylog(){
                 input = "";
             break;  
             case SPACE:
-                r = cpr::Get(INTO("me/player")).text;
-                std::cout << r << NEW;
+                r = GET(INTO("me/player"));
+                std::cout << r["is_playing"] << NEW;
                 //std::cout << r[0] << r.back() << NEW;
                 
                 //
@@ -111,7 +111,7 @@ void players::keylog(){
                 //};
             break;
             case BACKSPACE:
-                input.resize(input.size() - 1);
+                if (input.size()) input.resize(input.size() - 1);
             break;
             default:
                 if (input.length() <15)
