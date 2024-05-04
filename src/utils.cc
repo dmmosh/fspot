@@ -99,16 +99,16 @@ void players::keylog(){
                 input = "";
             break;  
             case SPACE:
-                r = GET(INTO("me/player"));
-                //std::cout << r << NEW;
+                r = cpr::Get(INTO("me/player")).text;
+                std::cout << r << NEW;
                 //std::cout << r[0] << r.back() << NEW;
                 
-                
-                if (r.at("is_playing")){
-                    (void)PUT(INTO("me/player/pause"));
-                } else {
-                    (void)PUT(INTO("me/player/play"));
-                };
+                //
+                //if (r.at("is_playing")){
+                //    (void)PUT(INTO("me/player/pause"));
+                //} else {
+                //    (void)PUT(INTO("me/player/play"));
+                //};
             break;
             case BACKSPACE:
                 input.resize(input.size() - 1);
