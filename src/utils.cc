@@ -228,7 +228,7 @@ main_player::~main_player(){
 
 void main_player::song_update() {
     while(type){    
-        cpr::Response r = cpr::Get("me/player");
+        cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
             json data = json::parse(r.text);
             progress = (int)data["progress_ms"];
