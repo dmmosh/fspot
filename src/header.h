@@ -92,11 +92,10 @@ class players{
     void keylog();
     void commands();
 
-
+    void MESSAGE();
+    void message_log();
 
     // MESSAGE 
-    void MESSAGE(const std::string to_say, const double time);
-    void MESSAGE(const std::string to_say);
 
 };
 
@@ -109,8 +108,6 @@ class main_player: public players{
     void commands();
 
 };
-
-void message_fun(std::string& message, const double& time);
 
 // HELPER FUNCTIONS
 
