@@ -43,12 +43,12 @@ name("No song")
         std::cout << CENTER(name) << NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
-        std::cout << message << '\r';
+        std::cout << CENTER(message) << '\r';
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
         //move::right(3+input.length());
         SLEEP(0.03);
         move::clear();
-        std::cout << message << '\r';
+        std::cout << CENTER(message) << '\r';
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
         //move::right(3+input.length());
         //move::beginning();
@@ -246,6 +246,8 @@ void players::commands(){
 };
 
 std::string players::CENTER(const std::string& input){
+    if (input.empty()) return std::string("");
+
     int padding = (col_size-input.size())/2;
     return std::string((padding) ? padding : 1, ' ') + input ;
 };
