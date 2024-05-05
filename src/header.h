@@ -62,16 +62,21 @@ using json = nlohmann::json;
 // PLAYER BASE CLASS
 class players{
     public:
-    std::string input;
-    std::string message;
-    int row_size;
+
+    // VARIABLES
+
+    // always updating
+    std::string input, message;
     int col_size;
+    
+    // sometimes updating
     bool type;
-    std::unique_ptr<std::jthread> log_thread;
-    std::unique_ptr<std::jthread> col_thread;
     std::string ACCESS_TOKEN, REFRESH_TOKEN;
     long REFRESH_AT; // posix timestamp of when to refresh (seconds since 1970)
     
+    // never updating
+    int row_size;
+    std::unique_ptr<std::jthread> log_thread, col_thread;
 
     players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT, const int row_size);
     ~players();
@@ -93,16 +98,22 @@ class players{
 // MAIN PLAYER SUBCLASS
 class main_player: public players{
     public:
-    int progress, duration;
-    std::string artist;
+    // VARIABLES
+
+    // always updating
+    int progress, duration, artist_print;
     std::string name;
-    std::unique_ptr<std::jthread> song_thread;
+    json artists;
+
+    // never updating
+    std::unique_ptr<std::jthread> song_thread, artist_thread;
+
     main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
     ~main_player();
 
     void commands();
     void song_update(); //updates song info EVERY SECOND
-
+    void artist_update();
 };
 
 // HELPER FUNCTIONS
