@@ -113,6 +113,7 @@ void players::commands(){
     return;
 };
 
+void players::keylog(){
 
 
 // input and type initializer
@@ -132,14 +133,12 @@ col_thread(std::make_unique<std::jthread>(&players::col_update, this))
     
 };
 
-
 players::~players(){};
 
 
 
 // CHARACTER INPUT  and keylog
 // any subclass
-void players::keylog(){
         while(type){
     
         
@@ -199,6 +198,9 @@ void players::keylog(){
     }
 }
 
+consteval std::string players::PADDING(const std::string& input){
+    return std::string(col_size/2, ' ') + input;
+};
 
 // MAIN PLAYER CLASS
 
@@ -219,7 +221,7 @@ name("No song")
     move::up(row_size);
 
     while(type){ //keeps updating
-
+        
         // prints minutes / seconds  of progress (in sec)
         printf("%02i:%02i\n", progress / 60, progress % 60);
         std::cout << col_size << NEW << NEW;
