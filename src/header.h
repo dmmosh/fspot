@@ -36,6 +36,8 @@ using json = nlohmann::json;
 #define AUTH_URL std::string("https://accounts.spotify.com/authorize") 
 #define TOKEN_URL std::string("https://accounts.spotify.com/api/token" )
 #define BASE_URL std::string("https://api.spotify.com/v1/" )
+#define CLIENT_ID std::string("bbdff8f6b6524edc90d968c3f971b5da")
+#define CLIENT_SECRET std::string(getenv("FSPOT_CLIENT_SECRET"))
 
 #define BOLD_ON "\033[1m"
 #define BOLD_OFF "\033[0m"
@@ -51,28 +53,6 @@ using json = nlohmann::json;
 #define ERROR(msg) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << msg << LINE_OFF; exit(0)
 #define SLEEP(sec) std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));
 #define MESSAGE_OFF message = "" // turns the message off
-
-namespace move{
-    void clear();
-    void clear(const std::string& newline);
-
-    void up();
-    void up(const int amt);
-
-    void down();
-    void down(const int amt);
-
-    void beginning();
-
-    void up_clear();
-    void up_clear(int amt);
-
-    void left();
-    void left(const int amt);
-
-    void right();
-    void right(const int amt);
-};
 
 
 
@@ -94,6 +74,7 @@ class players{
     ~players();
     void keylog();
     void commands();
+    void refresh();
 
     void MESSAGE(const std::string msg, const double time);
     void MESSAGE(const std::string msg);
@@ -120,6 +101,34 @@ class main_player: public players{
 };
 
 // HELPER FUNCTIONS
+
+namespace move{
+    void clear();
+    void clear(const std::string& newline);
+
+    void up();
+    void up(const int amt);
+
+    void down();
+    void down(const int amt);
+
+    void beginning();
+
+    void up_clear();
+    void up_clear(int amt);
+
+    void left();
+    void left(const int amt);
+
+    void right();
+    void right(const int amt);
+};
+
+namespace base64{
+    static std::string encode(const std::string &in);
+    static std::string decode(const std::string &in);
+
+};
 
 
 

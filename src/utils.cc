@@ -1,32 +1,5 @@
 #include "header.h"
 
-
-
-// MOVE NAMESPACE
-namespace move{
-        void clear()                           { std::cout << "\x1b[2K\r"; };
-        void clear(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
-        
-        void up()              { printf("\x1b[1A"); };
-        void up(const int amt) { printf("\x1b[%iA", amt); };
-
-        void down()              { printf("\x1b[1B"); };
-        void down(const int amt) { printf("\x1b[%iB", amt); };
-
-        void beginning() { printf("\r"); };
-
-        void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
-        void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
-
-        void left()              { printf("\x1b[1D"); };
-        void left(const int amt) { printf("\x1b[%iD", amt); };
-
-        void right()              { printf("\x1b[1C"); };
-        void right(const int amt) { printf("\x1b[%iC", amt); };
-
-
-}
-
 void players::MESSAGE(const std::string msg, const double time){
     std::jthread test(&players::message_log, this, msg, time);
     test.detach();
@@ -47,6 +20,18 @@ void players::message_log(const std::string msg, const double time){
     if (temp == message) MESSAGE_OFF; // turn message off only if theres no new message to replace it
 }
 
+void players::refresh(){
+    cpr::Response r = cpr::Post(cpr::Url{TOKEN_URL},
+                                cpr::Header{
+                                {"Content-Type", "application/x-www-form-urlencoded"},
+                                {"Authorization", "Basic " + base64::encode(CLIENT_ID + ':' + CLIENT_SECRET)}
+                                }, 
+                                cpr::Parameters{
+                                {"grant_type", "refresh_token"},
+                                {"refresh_token", REFRESH_TOKEN}
+                                });
+    if (r.status_code == 200) MESSAGE("Refresh token!");
+}
 
 
 
@@ -61,6 +46,8 @@ void players::commands(){
         MESSAGE("Quitting...");
         type = false;
         if (log_thread) log_thread->request_stop();
+    } else if (input == "refresh") {
+        refresh();
     } else if (input == "hello"){
         MESSAGE("Hello vro...", 2.0);
     } else if (input == "play"){ // plays track
@@ -227,6 +214,7 @@ main_player::~main_player(){
 
 }
 
+
 void main_player::song_update() {
     while(type){    
         cpr::Response r = cpr::Get(INTO("me/player"));
@@ -252,3 +240,67 @@ void main_player::song_update() {
 
 // HELPER FUNCTIONS
 
+namespace move{
+    void clear()                           { std::cout << "\x1b[2K\r"; };
+    void clear(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
+    
+    void up()              { printf("\x1b[1A"); };
+    void up(const int amt) { printf("\x1b[%iA", amt); };
+
+    void down()              { printf("\x1b[1B"); };
+    void down(const int amt) { printf("\x1b[%iB", amt); };
+
+    void beginning() { printf("\r"); };
+
+    void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
+    void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
+
+    void left()              { printf("\x1b[1D"); };
+    void left(const int amt) { printf("\x1b[%iD", amt); };
+
+    void right()              { printf("\x1b[1C"); };
+    void right(const int amt) { printf("\x1b[%iC", amt); };
+
+
+}
+namespace base64{
+
+    static std::string encode(const std::string &in) {
+
+        std::string out;
+
+        int val = 0, valb = -6;
+        for (unsigned char c : in) {
+            val = (val << 8) + c;
+            valb += 8;
+            while (valb >= 0) {
+                out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[(val>>valb)&0x3F]);
+                valb -= 6;
+            }
+        }
+        if (valb>-6) out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[((val<<8)>>(valb+8))&0x3F]);
+        while (out.size()%4) out.push_back('=');
+        return out;
+    }
+
+    static std::string decode(const std::string &in) {
+
+        std::string out;
+
+        std::vector<int> T(256,-1);
+        for (int i=0; i<64; i++) T["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[i]] = i;
+
+        int val=0, valb=-8;
+        for (unsigned char c : in) {
+            if (T[c] == -1) break;
+            val = (val << 6) + T[c];
+            valb += 6;
+            if (valb >= 0) {
+                out.push_back(char((val>>valb)&0xFF));
+                valb -= 8;
+            }
+        }
+        return out;
+    }
+
+}
