@@ -50,6 +50,7 @@ using json = nlohmann::json;
 
 
 // fatal error message
+#define POSIX_TIME (long)std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count()
 #define ERROR(msg) std::cout << LINE_ON << "FATAL ERROR:" << LINE_OFF << NEW <<  LINE_ON << "   " << msg << LINE_OFF; exit(0)
 #define SLEEP(sec) std::this_thread::sleep_for(std::chrono::milliseconds((int)(sec*1000)));
 #define MESSAGE_OFF message = "" // turns the message off
@@ -67,7 +68,7 @@ class players{
     bool type;
     std::unique_ptr<std::jthread> log_thread;
     std::string ACCESS_TOKEN, REFRESH_TOKEN;
-    int REFRESH_AT;
+    long REFRESH_AT; // posix timestamp of when to refresh (seconds since 1970)
     
 
     players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT, const int row_size);
