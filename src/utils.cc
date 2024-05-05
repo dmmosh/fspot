@@ -21,45 +21,6 @@ col_thread(std::make_unique<std::jthread>(&players::col_update, this))
     
 };
 
-// main player constructor
-main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
-players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
-song_thread(std::make_unique<std::jthread>(&main_player::song_update, this)),
-progress(0), duration(100),
-artist("No one duh"),
-name("No song")
- {
-    song_thread->detach();
-    
-    std::jthread(&players::refresh, this).detach(); // refreshes the token
-    //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
-    
-    move::down(row_size);
-    move::up(row_size);
-
-    while(type){ //keeps updating
-
-        // prints minutes / seconds  of progress (in sec)
-        std::cout << CENTER(name) << NEW;
-        printf("%02i:%02i\n\n", progress / 60, progress % 60);
-
-
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << "   " << message; 
-        //move::right(3+input.length());
-        SLEEP(0.03);
-        move::clear();
-
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << "   " << message; 
-        //move::right(3+input.length());
-        //move::beginning();
-
-        move::up_clear(row_size-1);
-
-    }  
-    move::down();
-
-}
-
 // CLASS DESTRUCTORS
 players::~players(){};
 
@@ -69,7 +30,6 @@ main_player::~main_player(){
     move::up_clear(row_size-2);
 
 }
-
 
 void players::MESSAGE(const std::string msg, const double time){
     std::jthread(&players::message_log, this, msg, time).detach();
@@ -245,12 +205,55 @@ void players::commands(){
     return;
 };
 
-std::string players::CENTER(const std::string& input){
-    if (input.empty()) return std::string("");
 
-    int padding = (col_size-input.size())/2;
-    return std::string((padding > 0) ? padding : 1, ' ') + input ;
-};
+// MAIN PLAYER CLASS
+
+
+// main player constructor
+main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
+players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
+song_thread(std::make_unique<std::jthread>(&main_player::song_update, this)), //updates every second
+artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this)), //updates every second
+progress(0), //progress is 0
+duration(100), //duration is 100 to avoid division errors
+artist_print(0), //prints no one duh
+artists(json::array({"no one duh"})), //default json array
+name("No song")
+ {
+    song_thread->detach();
+    artist_thread->detach();
+    
+    std::jthread(&players::refresh, this).detach(); // refreshes the token
+    //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
+    
+    move::down(row_size);
+    move::up(row_size);
+
+    while(type){ //keeps updating
+
+        // prints minutes / seconds  of progress (in sec)
+        std::cout << CENTER(name) << NEW;
+        printf("%02i:%02i\n\n", progress / 60, progress % 60);
+
+        std::cout << CENTER(message) << '\r';
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
+        //move::right(3+input.length());
+        SLEEP(0.03);
+        move::clear();
+
+        std::cout << CENTER(message) << '\r';
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
+        //move::right(3+input.length());
+        //move::beginning();
+
+        move::up_clear(row_size-1);
+
+    }  
+    move::down();
+
+}
+
+
 
 void main_player::song_update() {
     while(type){    
@@ -265,16 +268,25 @@ void main_player::song_update() {
             duration = item["duration_ms"];
             duration /= 1000;
             name = item["name"];
+            artists = item["artists"]; //artists array
         } else {
             progress = 0;
             duration = 100;
-            artist = "Mr. No connection";
+            artists = {"Mr. No connection"};
             name = "NO CONNECTION";
-        }
-
+        }   
+        
         SLEEP(1);
     }
 };
+
+void main_player::artist_update() {
+    while(1){
+        if (artists.size()) artist_print = (artist_print+1) % artists.size();
+        SLEEP(2);
+    }
+};
+
 
 // HELPER FUNCTIONS
 
