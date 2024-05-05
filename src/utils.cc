@@ -23,6 +23,7 @@ void players::message_log(const std::string msg, const double time){
 
 // refreshes the token 
 void players::refresh(){
+    // refresh post request response
     cpr::Response r = cpr::Post(cpr::Url{TOKEN_URL},
                                 cpr::Header{
                                 {"Content-Type", "application/x-www-form-urlencoded"},
@@ -32,14 +33,15 @@ void players::refresh(){
                                 {"grant_type", "refresh_token"},
                                 {"refresh_token", REFRESH_TOKEN}
                                 });
+
+    //if successful
     if (r.status_code == 200) { // if token was refreshed successfully
         //std::cout << r.text << NEW << NEW << NEW << NEW;
-        MESSAGE("Refresh token!"); // message
+        MESSAGE("Refresh token!", 2); // message
         json new_token = json::parse(r.text); // new token
         ACCESS_TOKEN = new_token["access_token"];
         REFRESH_AT = new_token["expires_in"];
         REFRESH_AT += POSIX_TIME;
-        MESSAGE(std::to_string(REFRESH_AT));
     } else {
         MESSAGE("Token refresh failed");
     }
@@ -59,8 +61,8 @@ void players::commands(){
         type = false;
         if (log_thread) log_thread->request_stop();
     } else if (input == "refresh") {
-        refresh();
-    } else if (input == "hello"){
+        std::jthread(&players::refresh, this).detach();
+    } else if (input == "hello") {
         MESSAGE("Hello vro...", 2.0);
     } else if (input == "play"){ // plays track
         MESSAGE("Playing...");
