@@ -47,6 +47,14 @@ void players::refresh(){
     }
 }
 
+void players::col_update(){
+    struct winsize w;
+    while(1){
+        ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+        col_size = w.ws_col;
+        SLEEP(0.01);
+    }
+}
 
 
 // PLAYERS DEFAULTS
@@ -116,11 +124,16 @@ row_size(row_size),
 ACCESS_TOKEN(ACCESS_TOKEN),
 REFRESH_TOKEN(REFRESH_TOKEN),
 REFRESH_AT(REFRESH_AT),
-log_thread(std::make_unique<std::jthread>(&players::keylog, this))
-{};
+log_thread(std::make_unique<std::jthread>(&players::keylog, this)),
+col_thread(std::make_unique<std::jthread>(&players::col_update, this))
+{
+    log_thread->detach();
+    col_thread->detach();
+    
+};
 
 
-players::~players(){}
+players::~players(){};
 
 
 
@@ -198,7 +211,7 @@ artist("No one duh"),
 name("No song")
  {
     song_thread->detach();
-    log_thread->detach();
+    
     std::jthread(&players::refresh, this).detach(); // refreshes the token
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
@@ -209,7 +222,7 @@ name("No song")
 
         // prints minutes / seconds  of progress (in sec)
         printf("%02i:%02i\n", progress / 60, progress % 60);
-        std::cout << input << NEW << NEW;
+        std::cout << col_size << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
         //move::right(3+input.length());
@@ -240,9 +253,7 @@ void main_player::song_update() {
         if(r.status_code == 200){
             json data = json::parse(r.text);
             progress = (int)data["progress_ms"]; //progress in seconds
-            progress /=100; 
-            progress += (progress%10 < 5) ? 0 : 10;//rounds up/down
-            progress /= 10;
+            progress /=1000; 
 
             
             auto item = data["item"];
