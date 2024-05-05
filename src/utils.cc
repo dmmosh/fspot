@@ -43,13 +43,13 @@ name("No song")
         std::cout << CENTER(name) << NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
-        std::cout << CENTER(message) << '\r';
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
+
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << "   " << message; 
         //move::right(3+input.length());
         SLEEP(0.03);
         move::clear();
-        std::cout << CENTER(message) << '\r';
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
+
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << "   " << message; 
         //move::right(3+input.length());
         //move::beginning();
 
@@ -249,7 +249,7 @@ std::string players::CENTER(const std::string& input){
     if (input.empty()) return std::string("");
 
     int padding = (col_size-input.size())/2;
-    return std::string((padding>0) ? padding : 1, ' ') + input ;
+    return std::string((padding > 0) ? padding : 1, ' ') + input ;
 };
 
 void main_player::song_update() {
