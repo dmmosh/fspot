@@ -249,7 +249,7 @@ std::string players::CENTER(const std::string& input){
     if (input.empty()) return std::string("");
 
     int padding = (col_size-input.size())/2;
-    return std::string((padding) ? padding : 1, ' ') + input ;
+    return std::string((padding>0) ? padding : 1, ' ') + input ;
 };
 
 void main_player::song_update() {
