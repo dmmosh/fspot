@@ -206,10 +206,9 @@ name("No song")
     move::up(row_size);
 
     while(type){ //keeps updating
-        int min = progress / 60;
-        int sec = progress % 60;
 
-        printf("%02i:%02i\n", min, sec);
+        // prints minutes / seconds  of progress (in sec)
+        printf("%02i:%02i\n", progress / 60, progress % 60);
         std::cout << input << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
@@ -241,11 +240,14 @@ void main_player::song_update() {
         if(r.status_code == 200){
             json data = json::parse(r.text);
             progress = (int)data["progress_ms"]; //progress in seconds
+            progress /=100; 
             progress += (progress%10 < 5) ? 0 : 10;//rounds up/down
-            progress /=1000; 
+            progress /= 10;
+
             
             auto item = data["item"];
             duration = item["duration_ms"];
+            duration /= 1000;
             name = item["name"];
         } else {
             progress = 0;
