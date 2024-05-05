@@ -22,7 +22,7 @@ col_thread(std::make_unique<std::jthread>(&players::col_update, this))
 
 // main player constructor
 main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
-players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
+players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 3),
 song_thread(std::make_unique<std::jthread>(&main_player::song_update, this)),
 progress(0), duration(100),
 artist("No one duh"),
@@ -39,8 +39,8 @@ name("No song")
     while(type){ //keeps updating
 
         // prints minutes / seconds  of progress (in sec)
+        std::cout << CENTER(name) << NEW;
         printf("%02i:%02i\n", progress / 60, progress % 60);
-        std::cout << col_size << NEW << NEW;
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
         //move::right(3+input.length());
@@ -242,12 +242,9 @@ void players::commands(){
     return;
 };
 
-
-consteval std::string players::PADDING(const std::string& input){
-    return std::string(col_size/2, ' ') + input;
+std::string players::CENTER(const std::string& input){
+    return std::string((col_size-input.size())/2, ' ') + input;
 };
-
-
 
 void main_player::song_update() {
     while(type){    

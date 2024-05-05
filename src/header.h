@@ -59,7 +59,6 @@ using json = nlohmann::json;
 
 
 
-
 // PLAYER BASE CLASS
 class players{
     public:
@@ -81,7 +80,7 @@ class players{
     void refresh();
     void col_update();
 
-    consteval std::string PADDING(const std::string& input);
+    std::string CENTER(const std::string& input);
     void MESSAGE(const std::string msg, const double time);
     void MESSAGE(const std::string msg);
     void MESSAGE();
