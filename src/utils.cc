@@ -31,14 +31,14 @@ void players::refresh(){
                                 {"refresh_token", REFRESH_TOKEN}
                                 });
     if (r.status_code == 200) { // if token was refreshed successfully
-        std::cout << r.text << NEW;
+        std::cout << r.text << NEW << NEW << NEW << NEW;
         MESSAGE("Refresh token!"); // message
-        //json new_token = json::parse(r.text); // new token
-        //ACCESS_TOKEN = new_token["access_token"];
-        //REFRESH_TOKEN = new_token["refresh_token"];
-        //REFRESH_AT = new_token["expires_in"];
-        //REFRESH_AT += POSIX_TIME;
-        //MESSAGE(std::to_string(REFRESH_AT));
+        json new_token = json::parse(r.text); // new token
+        ACCESS_TOKEN = new_token["access_token"];
+        REFRESH_TOKEN = new_token["refresh_token"];
+        REFRESH_AT = new_token["expires_in"];
+        REFRESH_AT += POSIX_TIME;
+        MESSAGE(std::to_string(REFRESH_AT));
     } else {
         MESSAGE("Token refresh failed");
     }
