@@ -1,8 +1,7 @@
 #include "header.h"
 
 void players::MESSAGE(const std::string msg, const double time){
-    std::jthread test(&players::message_log, this, msg, time);
-    test.detach();
+    std::jthread(&players::message_log, this, msg, time).detach();
 }
 
 void players::MESSAGE(const std::string msg){
@@ -61,8 +60,13 @@ void players::commands(){
         MESSAGE("Quitting...");
         type = false;
         if (log_thread) log_thread->request_stop();
+
     } else if (input == "refresh") {
         std::jthread(&players::refresh, this).detach();
+
+    } else if (input == "clear"){
+        system("clear");
+
     } else if (input == "hello") {
         MESSAGE("Hello vro...", 2.0);
     } else if (input == "play"){ // plays track
