@@ -24,6 +24,7 @@ void players::message_log(const std::string msg, const double time){
 // refreshes the token 
 void players::refresh(){
     // refresh post request response
+    MESSAGE("Refreshing...");
     cpr::Response r = cpr::Post(cpr::Url{TOKEN_URL},
                                 cpr::Header{
                                 {"Content-Type", "application/x-www-form-urlencoded"},
@@ -37,7 +38,7 @@ void players::refresh(){
     //if successful
     if (r.status_code == 200) { // if token was refreshed successfully
         //std::cout << r.text << NEW << NEW << NEW << NEW;
-        MESSAGE("Refresh token!", 2); // message
+        MESSAGE("Token refreshed!", 1.0); // message
         json new_token = json::parse(r.text); // new token
         ACCESS_TOKEN = new_token["access_token"];
         REFRESH_AT = new_token["expires_in"];
