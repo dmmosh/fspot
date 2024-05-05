@@ -43,11 +43,13 @@ name("No song")
         std::cout << CENTER(name) << NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
+        std::cout << CENTER(message) << '\r';
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
         //move::right(3+input.length());
         SLEEP(0.03);
         move::clear();
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
+        std::cout << CENTER(message) << '\r';
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
         //move::right(3+input.length());
         //move::beginning();
 
