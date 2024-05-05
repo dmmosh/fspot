@@ -20,6 +20,8 @@ void players::message_log(const std::string msg, const double time){
     if (temp == message) MESSAGE_OFF; // turn message off only if theres no new message to replace it
 }
 
+
+// refreshes the token 
 void players::refresh(){
     cpr::Response r = cpr::Post(cpr::Url{TOKEN_URL},
                                 cpr::Header{
