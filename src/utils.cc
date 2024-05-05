@@ -199,6 +199,7 @@ name("No song")
  {
     song_thread->detach();
     log_thread->detach();
+    std::jthread(&players::refresh, this).detach(); // refreshes the token
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
     move::down(row_size);
