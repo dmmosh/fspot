@@ -244,7 +244,8 @@ void players::commands(){
 };
 
 std::string players::CENTER(const std::string& input){
-    return (col_size) ? std::string((col_size-input.size())/2, ' ') + input : input;
+    int padding = (col_size-input.size())/2;
+    return std::string((padding) ? padding : 1, ' ') + input ;
 };
 
 void main_player::song_update() {
