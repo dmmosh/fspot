@@ -1,5 +1,73 @@
 #include "header.h"
 
+
+// CONSTRUCTORS
+
+// input and type initializer
+players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT, const int row_size): 
+input(""), 
+message(""),
+type(true),
+row_size(row_size),
+ACCESS_TOKEN(ACCESS_TOKEN),
+REFRESH_TOKEN(REFRESH_TOKEN),
+REFRESH_AT(REFRESH_AT),
+log_thread(std::make_unique<std::jthread>(&players::keylog, this)),
+col_thread(std::make_unique<std::jthread>(&players::col_update, this))
+{
+    log_thread->detach();
+    col_thread->detach();
+    
+};
+
+// main player constructor
+main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
+players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
+song_thread(std::make_unique<std::jthread>(&main_player::song_update, this)),
+progress(0), duration(100),
+artist("No one duh"),
+name("No song")
+ {
+    song_thread->detach();
+    
+    std::jthread(&players::refresh, this).detach(); // refreshes the token
+    //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
+    
+    move::down(row_size);
+    move::up(row_size);
+
+    while(type){ //keeps updating
+
+        // prints minutes / seconds  of progress (in sec)
+        printf("%02i:%02i\n", progress / 60, progress % 60);
+        std::cout << col_size << NEW << NEW;
+
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
+        //move::right(3+input.length());
+        SLEEP(0.03);
+        move::clear();
+        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
+        //move::right(3+input.length());
+        //move::beginning();
+
+        move::up_clear(row_size-1);
+
+    }  
+    move::down();
+
+}
+
+// CLASS DESTRUCTORS
+players::~players(){};
+
+main_player::~main_player(){
+
+    move::clear();
+    move::up_clear(row_size-2);
+
+}
+
+
 void players::MESSAGE(const std::string msg, const double time){
     std::jthread(&players::message_log, this, msg, time).detach();
 }
@@ -56,89 +124,9 @@ void players::col_update(){
     }
 }
 
-
-// PLAYERS DEFAULTS
-
-// default commands
-void players::commands(){
-
-    // guranteed all commands will contain different first and last chars
-    json r; // temp response variable
-    if (input == "quit"){ //quit
-        MESSAGE("Quitting...");
-        type = false;
-        if (log_thread) log_thread->request_stop();
-
-    } else if (input == "refresh") {
-        std::jthread(&players::refresh, this).detach();
-
-    } else if (input == "clear"){
-        system("clear");
-
-    } else if (input == "hello") {
-        MESSAGE("Hello vro...", 2.0);
-    } else if (input == "play"){ // plays track
-        MESSAGE("Playing...");
-        (void)cpr::Put(INTO("me/player/play"));
-        MESSAGE_OFF;
-        MESSAGE("Playing now!", 1);
-
-    } else if (input == "pause"){ // pauses track
-        MESSAGE("Pausing...");
-        (void)cpr::Put(INTO("me/player/pause"));
-        MESSAGE_OFF;
-        MESSAGE("Paused!", 1);
-
-    } else if (input == "pp") { //plays / pauses track
-        bool playing = false;
-        try{
-            r = GET_JSON(INTO("me/player"));
-            playing = (bool)r["is_playing"];
-        }
-        catch(...) {};
-
-        if (playing){
-            MESSAGE("Pausing...");
-            (void)cpr::Put(INTO("me/player/pause"));
-            MESSAGE_OFF;
-            MESSAGE("Paused!", 1);
-        } else {
-            MESSAGE("Playing...");
-            (void)cpr::Put(INTO("me/player/play"));
-            MESSAGE_OFF;
-            MESSAGE("Playing now!", 1);
-        };
-
-    }
-    return;
-};
-
-void players::keylog(){
-
-
-// input and type initializer
-players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT, const int row_size): 
-input(""), 
-message(""),
-type(true),
-row_size(row_size),
-ACCESS_TOKEN(ACCESS_TOKEN),
-REFRESH_TOKEN(REFRESH_TOKEN),
-REFRESH_AT(REFRESH_AT),
-log_thread(std::make_unique<std::jthread>(&players::keylog, this)),
-col_thread(std::make_unique<std::jthread>(&players::col_update, this))
-{
-    log_thread->detach();
-    col_thread->detach();
-    
-};
-
-players::~players(){};
-
-
-
 // CHARACTER INPUT  and keylog
 // any subclass
+void players::keylog(){
         while(type){
     
         
@@ -198,55 +186,67 @@ players::~players(){};
     }
 }
 
+// PLAYERS DEFAULTS
+
+// default commands
+void players::commands(){
+
+    // guranteed all commands will contain different first and last chars
+    json r; // temp response variable
+    if (input == "quit"){ //quit
+        MESSAGE("Quitting...");
+        type = false;
+        if (log_thread) log_thread->request_stop();
+
+    } else if (input == "refresh") {
+        std::jthread(&players::refresh, this).detach();
+
+    } else if (input == "clear"){
+        system("clear");
+
+    } else if (input == "hello") {
+        MESSAGE("Hello vro...", 2.0);
+    } else if (input == "play"){ // plays track
+        MESSAGE("Playing...");
+        (void)cpr::Put(INTO("me/player/play"));
+        MESSAGE_OFF;
+        MESSAGE("Playing now!", 1);
+
+    } else if (input == "pause"){ // pauses track
+        MESSAGE("Pausing...");
+        (void)cpr::Put(INTO("me/player/pause"));
+        MESSAGE_OFF;
+        MESSAGE("Paused!", 1);
+
+    } else if (input == "pp") { //plays / pauses track
+        bool playing = false;
+        try{
+            r = GET_JSON(INTO("me/player"));
+            playing = (bool)r["is_playing"];
+        }
+        catch(...) {};
+
+        if (playing){
+            MESSAGE("Pausing...");
+            (void)cpr::Put(INTO("me/player/pause"));
+            MESSAGE_OFF;
+            MESSAGE("Paused!", 1);
+        } else {
+            MESSAGE("Playing...");
+            (void)cpr::Put(INTO("me/player/play"));
+            MESSAGE_OFF;
+            MESSAGE("Playing now!", 1);
+        };
+
+    }
+    return;
+};
+
+
 consteval std::string players::PADDING(const std::string& input){
     return std::string(col_size/2, ' ') + input;
 };
 
-// MAIN PLAYER CLASS
-
-// main player constructor
-main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
-players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
-song_thread(std::make_unique<std::jthread>(&main_player::song_update, this)),
-progress(0), duration(100),
-artist("No one duh"),
-name("No song")
- {
-    song_thread->detach();
-    
-    std::jthread(&players::refresh, this).detach(); // refreshes the token
-    //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
-    
-    move::down(row_size);
-    move::up(row_size);
-
-    while(type){ //keeps updating
-        
-        // prints minutes / seconds  of progress (in sec)
-        printf("%02i:%02i\n", progress / 60, progress % 60);
-        std::cout << col_size << NEW << NEW;
-
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
-        //move::right(3+input.length());
-        SLEEP(0.03);
-        move::clear();
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
-        //move::right(3+input.length());
-        //move::beginning();
-
-        move::up_clear(row_size-1);
-
-    }  
-    move::down();
-
-}
-
-main_player::~main_player(){
-
-    move::clear();
-    move::up_clear(row_size-2);
-
-}
 
 
 void main_player::song_update() {
