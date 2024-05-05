@@ -40,7 +40,7 @@ name("No song")
     while(type){ //keeps updating
 
         // prints minutes / seconds  of progress (in sec)
-        std::cout << name << NEW;
+        std::cout << CENTER(name) << NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout<< INVERT_ON << " // " << input << INVERT_OFF << TAB << message; 
