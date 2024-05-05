@@ -11,7 +11,9 @@
 #include <cstring>
 #include <cpr/cpr.h>
 #include <bits/stdc++.h> 
+#include <sys/ioctl.h>
 #include <nlohmann/json.hpp>
+
 using json = nlohmann::json;
 
 // MACROS
@@ -64,8 +66,10 @@ class players{
     std::string input;
     std::string message;
     int row_size;
+    int col_size;
     bool type;
     std::unique_ptr<std::jthread> log_thread;
+    std::unique_ptr<std::jthread> col_thread;
     std::string ACCESS_TOKEN, REFRESH_TOKEN;
     long REFRESH_AT; // posix timestamp of when to refresh (seconds since 1970)
     
@@ -75,6 +79,7 @@ class players{
     void keylog();
     void commands();
     void refresh();
+    void col_update();
 
     void MESSAGE(const std::string msg, const double time);
     void MESSAGE(const std::string msg);
