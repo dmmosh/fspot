@@ -81,6 +81,7 @@ class players{
     void refresh();
     void col_update();
 
+    consteval std::string PADDING(const std::string& input);
     void MESSAGE(const std::string msg, const double time);
     void MESSAGE(const std::string msg);
     void MESSAGE();
