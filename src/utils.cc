@@ -8,6 +8,7 @@ players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REF
 input(""), 
 message(""),
 type(true),
+col_size(0),
 row_size(row_size),
 ACCESS_TOKEN(ACCESS_TOKEN),
 REFRESH_TOKEN(REFRESH_TOKEN),
