@@ -147,17 +147,25 @@ void players::keylog(){
             case BACKSPACE:
                 if (input.size()) input.resize(input.size() - 1);
             break;
-            case '>': //forward 10 seconds
+            case '.': //forward 10 seconds
                 MESSAGE("+10 sec");
                 (void)cpr::Put(INTO("me/player/seek"),
                                     cpr::Parameters{{"position_ms", std::to_string((progress+10)*1000)}});
                 MESSAGE_OFF;
             break;
-            case '<':
+            case ',':
                 MESSAGE("-10 sec");
                 (void)cpr::Put(INTO("me/player/seek"),
                                     cpr::Parameters{{"position_ms", std::to_string((progress-10)*1000)}});
                 MESSAGE_OFF;
+            break;
+            case '>':
+                MESSAGE("Next track");
+                (void)cpr::Post(INTO("me/player/next"));
+            break;
+            case '<':
+                MESSAGE("Previous track");
+                (void)cpr::Post(INTO("me/player/previous"));
             break;
             default:
                 if (input.length() <15)
@@ -305,6 +313,8 @@ void main_player::song_update() {
 
             // IF THERES BEEN A SONG SWITCH
             if(tmp_dur != duration && tmp_name != name){
+                MESSAGE("New track", 1.2);
+
                 if (tmp_dur >= 3600) {
                     type = false;    
                     ERROR("Song's too long. FSpot can't play songs longer than 1 hour.");
