@@ -243,7 +243,8 @@ name("No song")
     while(type){ //keeps updating
 
         // prints minutes / seconds  of progress (in sec)
-        std::cout << CENTER(name + " : [" + std::to_string(artist_print+1) + "] ") << NEW;
+        std::string print = artists[artist_print].get<std::string>();
+        std::cout << CENTER(name + " : [" + std::to_string(artist_print+1) + "] " + print) << NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout << CENTER(message) << '\r';
