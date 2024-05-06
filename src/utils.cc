@@ -283,7 +283,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
     
     move::down(row_size);
     move::up(row_size);
-
+    
     while(type){ //keeps updating
 
         // prints minutes / seconds  of progress (in sec)
@@ -291,7 +291,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         
         std::string bar = "<" + std::string(col_size-((col_size > 20 ? 20 : 8) ), ' ') + ">";
 
-        int dash_num = (int)(bar.size()*percent);
+        static int dash_num = (int)(bar.size()*percent);
         if(dash_num) bar.insert(1, std::string(dash_num, '-'));
 
 
