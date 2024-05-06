@@ -268,8 +268,7 @@ name("connecting ? maybe")
         //move::right(3+input.length());
         //move::beginning();
 
-        move::up_clear(row_size-2);
-        move::up_clear(title, col_size);
+        move::up_clear(row_size-1);
 
     }  
     move::down();
