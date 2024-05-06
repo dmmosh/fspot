@@ -149,10 +149,9 @@ void players::keylog(){
             break;
             case '.': //forward 10 seconds
                 static int ctr = 1;
-                std::jthread ctr_check([]() {
+                std::jthread([]() {
                     ctr++;
-                });
-                ctr_check.detach();
+                }).detach();
 
 
                 MESSAGE("+10 sec");
