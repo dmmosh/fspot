@@ -159,7 +159,7 @@ void players::keylog(){
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
 
-                });
+                }).join();
 
             break;
             case ',':
@@ -170,7 +170,7 @@ void players::keylog(){
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
                 
-                });
+                }).join();
             break;
             case '>':
                 MESSAGE("Nexting...");
