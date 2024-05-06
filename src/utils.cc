@@ -205,6 +205,17 @@ void players::commands(){
     return;
 };
 
+std::string players::CENTER(const std::string& input){
+    if (input.empty()) return std::string("");
+
+    int padding = (col_size-input.size())/2;
+    return std::string((padding > 0) ? padding : 1, ' ') + input ;
+};
+
+
+
+
+
 
 // MAIN PLAYER CLASS
 
