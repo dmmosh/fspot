@@ -289,15 +289,15 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
         
-        std::string bar = std::string(col_size-((col_size > 22 ? 20 : 8) ), ' ');
+        std::string bar = "<" + std::string(col_size-((col_size > 20 ? 20 : 8) ), ' ') + ">";
 
         int progress = (int)(bar.size()*percent);
-        if(progress) bar.insert(0, std::string(progress, '-'));
+        if(progress) bar.insert(1, std::string(progress, '-'));
 
 
         std::cout << CENTER(title) <<  NEW;
 
-        std::cout << BOLD_ON << CENTER("<" + bar + ">") << BOLD_OFF << '\r';
+        std::cout << BOLD_ON << CENTER(bar) << BOLD_OFF << '\r';
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout<< INVERT_ON << " // " << input << TAB << message <<  INVERT_OFF; 
