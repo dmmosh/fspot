@@ -228,7 +228,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
 progress(0), //progress is 0
 duration(100), //duration is 100 to avoid division errors
 artist_print(0), //prints no one duh
-artists(json::array({std::string("no one duh")})), //default json array
+artists({"no one duh"}), //default json array
 name("No song")
  {
     song_thread->detach();
@@ -243,7 +243,7 @@ name("No song")
     while(type){ //keeps updating
 
         // prints minutes / seconds  of progress (in sec)
-        std::cout << CENTER(name + " : [" + std::to_string(artist_print+1) + "] ") << artists <<  NEW;
+        std::cout << CENTER(name + " : [" + std::to_string(artist_print+1) + "] ") << artists[artist_print] <<  NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout << CENTER(message) << '\r';
@@ -270,20 +270,30 @@ void main_player::song_update() {
     while(type){    
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
-            json data = json::parse(r.text);
+            static json data = json::parse(r.text);
             progress = (int)data["progress_ms"]; //progress in seconds
             progress /=1000; 
 
             
-            auto item = data["item"];
+            static auto item = data["item"];
+
+            static int tmp_dur = duration;
             duration = item["duration_ms"];
             duration /= 1000;
+
+            static std::string tmp_name = name;
             name = item["name"];
-            artists = item["artists"]; //artists array
+
+            // IF THERES BEEN A SONG SWITCH
+            if(tmp_dur != duration && tmp_name != name){
+                for (const auto& artist: item["artists"]){
+                    artists.push_back(artist["name"].get<std::string>());
+                }
+            }
         } else {
             progress = 0;
             duration = 100;
-            artists = json::array({std::string("no one duh")});
+            artists = {"mr. lost connection"};
             name = "NO CONNECTION";
         }   
         
