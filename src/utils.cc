@@ -146,6 +146,7 @@ void players::keylog(){
                         MESSAGE("Playing now!", 1);
                     };
                 }).detach();
+                SLEEP(0.5);
             break;
             case BACKSPACE:
                 std::jthread([this]() {
