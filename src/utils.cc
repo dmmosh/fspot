@@ -277,11 +277,11 @@ void main_player::song_update() {
             
             static auto item = data["item"];
 
-            static int tmp_dur = duration;
+            int tmp_dur = duration;
             duration = item["duration_ms"];
             duration /= 1000;
-
-            static std::string tmp_name = name;
+        
+            std::string tmp_name = name;
             name = item["name"];
 
             // IF THERES BEEN A SONG SWITCH
