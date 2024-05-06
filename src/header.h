@@ -103,7 +103,7 @@ class main_player: public players{
     // always updating
     int progress, duration, artist_print;
     std::string name;
-    json artists;
+    std::vector<std::string> artists;
 
     // never updating
     std::unique_ptr<std::jthread> song_thread, artist_thread;
