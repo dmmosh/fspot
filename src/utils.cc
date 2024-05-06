@@ -293,7 +293,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
 
         std::string bar = std::string(abs(col_size-20), ' ');
         int dash_num = bar.size()*percent;
-        if (dash_num) bar.insert(0, std::string(dash_num, '-'));
+        if (dash_num) bar = std::string(dash_num, '-') + std::string(abs(col_size-20)-dash_num, ' ');
 
         std::cout << CENTER(title) <<  NEW;
 
