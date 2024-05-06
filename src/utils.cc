@@ -148,9 +148,8 @@ void players::keylog(){
                 if (input.size()) input.resize(input.size() - 1);
             break;
             case '>':
-                cpr::Response r = cpr::Put(INTO("me/player/seek"),
-                                    cpr::Body{{"position_ms", std::to_string(1000)}});
-                std::cout << r.text;
+                std::cout << cpr::Put(INTO("me/player/seek"),
+                                    cpr::Body{{"position_ms", std::to_string(1000)}}).text;
             break;
             case '<':
 
