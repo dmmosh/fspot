@@ -257,14 +257,12 @@ name("connecting ? maybe")
         std::cout << CENTER(title) <<  NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
-        std::cout << CENTER(message) << '\r';
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
+        std::cout<< INVERT_ON << " // " << input << TAB << message <<  INVERT_OFF; 
         //move::right(3+input.length());
         SLEEP(0.03);
         move::clear();
 
-        std::cout << CENTER(message) << '\r';
-        std::cout<< INVERT_ON << " // " << input << INVERT_OFF; 
+        std::cout<< INVERT_ON << " // " << input << TAB << message << INVERT_OFF; 
         //move::right(3+input.length());
         //move::beginning();
 
