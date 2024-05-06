@@ -142,7 +142,8 @@ void players::keylog(){
             case BACKSPACE:
                 if (input.size()) input.resize(input.size() - 1);
             break;
-            default:
+            case '!'...']':
+            case 'a'...'z':
                 if (input.length() <15)
                     input.push_back(tolower(buf));
         }
