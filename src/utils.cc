@@ -339,7 +339,11 @@ namespace move{
     void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
     void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
     void up_clear(const std::string& word_above, const int col_size) {
-        up_clear(word_above.size()/col_size + 1);
+        if(word_above.size() < col_size) {
+            up_clear();
+        } else {
+            up_clear((int)ceil(((double)word_above.size()/col_size)));
+        }
     };
 
     void left()              { printf("\x1b[1D"); };
