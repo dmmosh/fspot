@@ -132,6 +132,7 @@ namespace move{
 
     void up_clear();
     void up_clear(int amt);
+    void up_clear(const std::string& word_above, const int col_size);
 
     void left();
     void left(const int amt);

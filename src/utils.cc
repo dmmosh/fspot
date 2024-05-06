@@ -210,6 +210,7 @@ std::string players::CENTER(const std::string& input){
         return std::string(""); 
 
     } else if (input.size() >= col_size) {
+        move::up_clear(input, col_size);
         return "  " + input.substr(0,col_size-7) + "...  ";
     };
 
@@ -334,6 +335,9 @@ namespace move{
 
     void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
     void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
+    void up_clear(const std::string& word_above, const int col_size) {
+        up_clear(word_above.size()/col_size + 1);
+    };
 
     void left()              { printf("\x1b[1D"); };
     void left(const int amt) { printf("\x1b[%iD", amt); };
