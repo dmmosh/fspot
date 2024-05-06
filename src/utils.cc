@@ -139,13 +139,13 @@ void players::keylog(){
                 if (playing){
                     MESSAGE("Playing...");
                     std::jthread([this]() {
-                        (void)cpr::Put(INTO("me/player/play"));
+                        (void)cpr::Put(INTO("me/player/pause"));
                         MESSAGE("Playing now!", 1);
                     }).detach();
                 } else {
                     MESSAGE("Pausing...");
                     std::jthread([this]() {
-                        (void)cpr::Put(INTO("me/player/pause"));
+                        (void)cpr::Put(INTO("me/player/play"));
                         MESSAGE("Paused!", 1);
                     }).detach();
                 };
@@ -254,13 +254,13 @@ void players::commands(){
         if (playing){
             MESSAGE("Playing...");
             std::jthread([this]() {
-                (void)cpr::Put(INTO("me/player/play"));
+                (void)cpr::Put(INTO("me/player/pause"));
                 MESSAGE("Playing now!", 1);
             }).detach();
         } else {
             MESSAGE("Pausing...");
             std::jthread([this]() {
-                (void)cpr::Put(INTO("me/player/pause"));
+                (void)cpr::Put(INTO("me/player/play"));
                 MESSAGE("Paused!", 1);
             }).detach();
         };
