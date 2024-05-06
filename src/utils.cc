@@ -153,16 +153,19 @@ void players::keylog(){
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string((progress+10)*1000)}});
                     MESSAGE_OFF;
-                
+
                 }).detach();
 
 
             break;
             case ',':
-                MESSAGE("-10 sec");
-                (void)cpr::Put(INTO("me/player/seek"),
-                                    cpr::Parameters{{"position_ms", std::to_string((progress-10)*1000)}});
-                MESSAGE_OFF;
+                std::jthread([this]() {
+                    MESSAGE("+10 sec");
+                    (void)cpr::Put(INTO("me/player/seek"),
+                                        cpr::Parameters{{"position_ms", std::to_string((progress-10)*1000)}});
+                    MESSAGE_OFF;
+                
+                }).detach();
             break;
             case '>':
                 MESSAGE("Nexting...");
@@ -279,9 +282,11 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
         
         std::string bar = std::string(col_size-20, ' ');
+        try{
         int num_dash = (int)(bar.size()*(((double)progress)/duration));
         if (num_dash > 0) bar.replace(0, num_dash+1, std::string(num_dash+1, '-'));
-        
+        } catch (...) {};
+
         std::cout << CENTER(title) <<  NEW;
 
         std::cout << CENTER("<" + bar + ">") << '\r';
