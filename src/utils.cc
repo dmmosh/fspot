@@ -167,7 +167,7 @@ void players::keylog(){
 
                     }).detach();
                 }
-                SLEEP(0.5);
+                SLEEP(0.5); //need a little break
             break;
             case ',':
                 MESSAGE("-10 sec", 0.5);
@@ -178,19 +178,21 @@ void players::keylog(){
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
                 
                 }).detach();
-                SLEEP(0.5);
+                SLEEP(0.5); // TOO POWERFUL
             break;
             case '>':
                 MESSAGE("Nexting...");
                 std::jthread([this]() {
                     (void)cpr::Post(INTO("me/player/next"));
                 }).detach();
+                SLEEP(0.5); //need a cooldown
             break;
             case '<':
                 MESSAGE("Previousing...");
                 std::jthread([this]() {
                     (void)cpr::Post(INTO("me/player/previous"));
                 }).detach();
+                SLEEP(0.5); //need a cooldown
             break;
             default:
                 if (input.length() <15)
