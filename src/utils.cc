@@ -209,7 +209,7 @@ std::string players::CENTER(const std::string& input){
     if (input.empty()) {
         return std::string(""); 
 
-    } else if (input.size() > col_size) {
+    } else if (input.size() >= col_size) {
         return input;
     };
 
