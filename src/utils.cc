@@ -270,12 +270,12 @@ void main_player::song_update() {
     while(type){    
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
-            static json data = json::parse(r.text);
+            json data = json::parse(r.text);
             progress = (int)data["progress_ms"]; //progress in seconds
             progress /=1000; 
 
             
-            static auto item = data["item"];
+            auto item = data["item"];
 
 
             int tmp_dur = item["duration_ms"];
