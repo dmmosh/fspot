@@ -167,6 +167,7 @@ void players::keylog(){
 
                     }).detach();
                 }
+                SLEEP(0.5);
             break;
             case ',':
                 MESSAGE("-10 sec", 0.5);
@@ -177,6 +178,7 @@ void players::keylog(){
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
                 
                 }).detach();
+                SLEEP(0.5);
             break;
             case '>':
                 MESSAGE("Nexting...");
