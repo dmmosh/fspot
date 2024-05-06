@@ -228,7 +228,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
 progress(0), //progress is 0
 duration(100), //duration is 100 to avoid division errors
 artist_print(0), //prints no one duh
-artists(json::array({"no one duh"})), //default json array
+artists(json::array({std::string("no one duh")})), //default json array
 name("No song")
  {
     song_thread->detach();
@@ -283,7 +283,7 @@ void main_player::song_update() {
         } else {
             progress = 0;
             duration = 100;
-            artists = {"Mr. No connection"};
+            artists = json::array({std::string("no one duh")});
             name = "NO CONNECTION";
         }   
         
