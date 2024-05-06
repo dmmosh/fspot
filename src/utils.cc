@@ -210,7 +210,7 @@ std::string players::CENTER(std::string input){
     if (input.empty()) {
         input = std::string("");
 
-    } else if (input.size() >= col_size) {
+    } else if (input.size()+6 >= col_size) {
         input = std::string("  " + input.substr(0,col_size-7) + "...  ");
         //move::up_clear(input, col_size);
     } else {
