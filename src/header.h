@@ -70,6 +70,7 @@ class players{
     int col_size;
 
     int progress, duration, artist_print;
+    double percent;
     std::string name;
     std::vector<std::string> artists;
     

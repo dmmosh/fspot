@@ -10,6 +10,7 @@ message(""),
 type(true),
 progress(0), //progress is 0
 duration(100), //duration is 100 to avoid division errors
+percent(0.0),
 artist_print(0), //prints no one duh
 artists({"no one yet"}), //default json array
 name("connecting ? maybe"),
@@ -153,19 +154,18 @@ void players::keylog(){
             break;
             case '.': //forward 10 seconds
                 MESSAGE("+10 sec",0.5);
+                progress +=10;
                 std::jthread([this]() {
-                    progress +=10;
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
 
                 }).detach();
 
-
             break;
             case ',':
                 MESSAGE("-10 sec", 0.5);
+                progress -=10;
                 std::jthread([this]() {
-                    progress -=10;
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
                 
@@ -289,15 +289,14 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
         
-        std::string bar = std::string(col_size-20, ' ');
-        try{
-        int num_dash = (int)(bar.size()*(((double)progress)/duration));
-        if (num_dash > 0) bar.replace(0, num_dash+1, std::string(num_dash+1, '-'));
-        } catch (...) {};
+        std::string bar = std::string(col_size-((col_size > 20 ? 20 : 8) ), ' ');
+
+        if(percent) bar.insert(0, std::string((int)(bar.size()*percent), '-'));
+
 
         std::cout << CENTER(title) <<  NEW;
 
-        std::cout << CENTER("<" + bar + ">") << '\r';
+        std::cout << BOLD_ON << CENTER("<" + bar + ">") << BOLD_OFF << '\r';
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout<< INVERT_ON << " // " << input << TAB << message <<  INVERT_OFF; 
@@ -323,14 +322,21 @@ void main_player::song_update() {
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
             json data = json::parse(r.text);
+            
+
             progress = (int)data["progress_ms"]; //progress in seconds
+            percent = (double)progress;
+
             progress /=1000; 
 
             
             auto item = data["item"];
 
 
-            int tmp_dur = item["duration_ms"];
+            int tmp_dur = (int)item["duration_ms"];
+
+            percent /= tmp_dur;
+
             tmp_dur /= 1000;
             std::string tmp_name = item["name"];
 
