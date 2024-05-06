@@ -212,7 +212,6 @@ std::string players::CENTER(std::string input){
 
     } else if (input.size()+6 >= col_size) {
         input = std::string("  " + input.substr(0,col_size-7) + "...  ");
-        move::up_clear(input, col_size);
     } else {
         int padding = (col_size-input.size())/2;
         input.insert(0, std::string((padding > 0) ? padding : 1, ' '));
@@ -269,7 +268,8 @@ name("connecting ? maybe")
         //move::right(3+input.length());
         //move::beginning();
 
-        move::up_clear(row_size-1);
+        move::up_clear(row_size-2);
+        move::up_clear(title, col_size);
 
     }  
     move::down();
@@ -342,7 +342,7 @@ namespace move{
         if(word_above.size() < col_size) {
             up_clear();
         } else {
-            up_clear((int)ceil(((double)word_above.size()/col_size)));
+            up_clear((int)ceil((double)word_above.size()/(double)col_size));
         }
     };
 
