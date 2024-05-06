@@ -147,9 +147,9 @@ void players::keylog(){
             case BACKSPACE:
                 if (input.size()) input.resize(input.size() - 1);
             break;
-            case '>':
-                std::cout << cpr::Put(INTO("me/player/seek"),
-                                    cpr::Parameters{{"position_ms", std::to_string(1000)}}).text << NEW << NEW << NEW;
+            case '>': //forward 10 seconds
+                (void)cpr::Put(INTO("me/player/seek"),
+                                    cpr::Parameters{{"position_ms", std::to_string(progress + 10000)}});
             break;
             case '<':
 
