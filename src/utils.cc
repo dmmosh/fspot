@@ -154,13 +154,19 @@ void players::keylog(){
             break;
             case '.': //forward 10 seconds
                 MESSAGE("+10 sec",0.5);
-                progress +=10;
-                std::jthread([this]() {
-                    (void)cpr::Put(INTO("me/player/seek"),
-                                        cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
+                if (progress+10 >  duration) {
+                    MESSAGE("Nexting...");
+                    std::jthread([this]() {
+                        (void)cpr::Post(INTO("me/player/next"));
+                    }).detach();
+                } else {   
+                    progress +=10;
+                    std::jthread([this]() {
+                        (void)cpr::Put(INTO("me/player/seek"),
+                                            cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
 
-                }).detach();
-
+                    }).detach();
+                }
             break;
             case ',':
                 MESSAGE("-10 sec", 0.5);
