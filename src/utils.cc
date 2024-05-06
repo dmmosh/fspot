@@ -294,7 +294,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         //if(percent) bar.insert(0, std::string((int)(bar.size()*percent), '-'));
 
 
-        std::cout << CENTER(title) <<  NEW;
+        std::cout << CENTER(title) << percent <<  NEW;
 
         std::cout << BOLD_ON << CENTER("<" + bar + ">") << BOLD_OFF << '\r';
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
