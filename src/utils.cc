@@ -119,33 +119,37 @@ void players::keylog(){
 
         if (!buf) return;
 
+        
+        bool playing = false;
+        json r;
         switch(buf){
             case ENTER:
                 commands();
                 input = "";
             break;  
             case SPACE:
-                std::jthread([this]() {
-                    json r;
-                    bool playing = false;
-                    try{
-                        json r = GET_JSON(INTO("me/player"));
+                try{
+                    std::jthread([this, &playing, &r]() {
+                        r = GET_JSON(INTO("me/player"));
                         playing = (bool)r["is_playing"];
-                    }
-                    catch(...) {};
+                    }).detach();
+                }
+                catch(...) {};
 
-                    if (playing){
-                        MESSAGE("Pausing...");
-                        (void)cpr::Put(INTO("me/player/pause"));
-                        MESSAGE_OFF;
-                        MESSAGE("Paused!", 1);
-                    } else {
-                        MESSAGE("Playing...");
+                if (playing){
+                    MESSAGE("Playing...");
+                    std::jthread([this]() {
                         (void)cpr::Put(INTO("me/player/play"));
-                        MESSAGE_OFF;
                         MESSAGE("Playing now!", 1);
-                    };
-                }).detach();
+                    }).detach();
+                } else {
+                    MESSAGE("Pausing...");
+                    std::jthread([this]() {
+                        (void)cpr::Put(INTO("me/player/pause"));
+                        MESSAGE("Paused!", 1);
+                    }).detach();
+                };
+
                 SLEEP(0.5);
             break;
             case BACKSPACE:
@@ -223,35 +227,42 @@ void players::commands(){
     } else if (input == "hello") {
         MESSAGE("Hello vro...", 2.0);
     } else if (input == "play"){ // plays track
+
         MESSAGE("Playing...");
-        (void)cpr::Put(INTO("me/player/play"));
-        MESSAGE_OFF;
-        MESSAGE("Playing now!", 1);
+        std::jthread([this]() {
+            (void)cpr::Put(INTO("me/player/play"));
+            MESSAGE("Playing now!", 1);
+        }).detach();
 
     } else if (input == "pause"){ // pauses track
         MESSAGE("Pausing...");
-        (void)cpr::Put(INTO("me/player/pause"));
-        MESSAGE_OFF;
-        MESSAGE("Paused!", 1);
+        std::jthread([this]() {
+            (void)cpr::Put(INTO("me/player/pause"));
+            MESSAGE("Paused!", 1);
+        }).detach();
 
     } else if (input == "pp") { //plays / pauses track
         bool playing = false;
         try{
-            r = GET_JSON(INTO("me/player"));
-            playing = (bool)r["is_playing"];
+            std::jthread([this, &playing, &r]() {
+                r = GET_JSON(INTO("me/player"));
+                playing = (bool)r["is_playing"];
+            }).detach();
         }
         catch(...) {};
 
         if (playing){
-            MESSAGE("Pausing...");
-            (void)cpr::Put(INTO("me/player/pause"));
-            MESSAGE_OFF;
-            MESSAGE("Paused!", 1);
-        } else {
             MESSAGE("Playing...");
-            (void)cpr::Put(INTO("me/player/play"));
-            MESSAGE_OFF;
-            MESSAGE("Playing now!", 1);
+            std::jthread([this]() {
+                (void)cpr::Put(INTO("me/player/play"));
+                MESSAGE("Playing now!", 1);
+            }).detach();
+        } else {
+            MESSAGE("Pausing...");
+            std::jthread([this]() {
+                (void)cpr::Put(INTO("me/player/pause"));
+                MESSAGE("Paused!", 1);
+            }).detach();
         };
 
     }
