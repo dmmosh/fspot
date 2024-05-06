@@ -118,62 +118,68 @@ void players::keylog(){
 
         if (!buf) return;
 
-        json r;
-        bool playing = false;
         switch(buf){
             case ENTER:
                 commands();
                 input = "";
             break;  
             case SPACE:
-                try{
-                    r = GET_JSON(INTO("me/player"));
-                    playing = (bool)r["is_playing"];
-                }
-                catch(...) {};
+                std::jthread([this]() {
+                    json r;
+                    bool playing = false;
+                    try{
+                        json r = GET_JSON(INTO("me/player"));
+                        playing = (bool)r["is_playing"];
+                    }
+                    catch(...) {};
 
-                if (playing){
-                    MESSAGE("Pausing...");
-                    (void)cpr::Put(INTO("me/player/pause"));
-                    MESSAGE_OFF;
-                    MESSAGE("Paused!", 1);
-                } else {
-                    MESSAGE("Playing...");
-                    (void)cpr::Put(INTO("me/player/play"));
-                    MESSAGE_OFF;
-                    MESSAGE("Playing now!", 1);
-                };
+                    if (playing){
+                        MESSAGE("Pausing...");
+                        (void)cpr::Put(INTO("me/player/pause"));
+                        MESSAGE_OFF;
+                        MESSAGE("Paused!", 1);
+                    } else {
+                        MESSAGE("Playing...");
+                        (void)cpr::Put(INTO("me/player/play"));
+                        MESSAGE_OFF;
+                        MESSAGE("Playing now!", 1);
+                    };
+                }).detach();
             break;
             case BACKSPACE:
-                if (input.size()) input.resize(input.size() - 1);
+                std::jthread([this]() {
+                    if (input.size()) input.resize(input.size() - 1);
+                }).detach();
             break;
             case '.': //forward 10 seconds
+                MESSAGE("+10 sec",0.5);
                 std::jthread([this]() {
-                    MESSAGE("+10 sec");
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string((progress+10)*1000)}});
-                    MESSAGE_OFF;
 
                 }).detach();
 
 
             break;
             case ',':
+                MESSAGE("-10 sec", 0.5);
                 std::jthread([this]() {
-                    MESSAGE("+10 sec");
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string((progress-10)*1000)}});
-                    MESSAGE_OFF;
                 
                 }).detach();
             break;
             case '>':
                 MESSAGE("Nexting...");
-                (void)cpr::Post(INTO("me/player/next"));
+                std::jthread([this]() {
+                    (void)cpr::Post(INTO("me/player/next"));
+                }).detach();
             break;
             case '<':
                 MESSAGE("Previousing...");
-                (void)cpr::Post(INTO("me/player/previous"));
+                std::jthread([this]() {
+                    (void)cpr::Post(INTO("me/player/previous"));
+                }).detach();
             break;
             default:
                 if (input.length() <15)
