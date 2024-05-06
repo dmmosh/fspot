@@ -210,8 +210,8 @@ std::string players::CENTER(std::string input){
     if (input.empty()) {
         input = std::string("");
 
-    } else if (input.size()+6 >= col_size) {
-        input = std::string("  " + input.substr(0,col_size-7) + "...  ");
+    } else if (input.size()+4 >= col_size) {
+        input = CENTER(input.substr(0,col_size-8) + "...");
     } else {
         int padding = (col_size-input.size())/2;
         input.insert(0, std::string((padding > 0) ? padding : 1, ' '));
