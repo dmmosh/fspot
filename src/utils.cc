@@ -8,6 +8,11 @@ players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REF
 input(""), 
 message(""),
 type(true),
+progress(0), //progress is 0
+duration(100), //duration is 100 to avoid division errors
+artist_print(0), //prints no one duh
+artists({"no one yet"}), //default json array
+name("connecting ? maybe"),
 col_size(0),
 row_size(row_size),
 ACCESS_TOKEN(ACCESS_TOKEN),
@@ -142,8 +147,14 @@ void players::keylog(){
             case BACKSPACE:
                 if (input.size()) input.resize(input.size() - 1);
             break;
-            case '!'...']':
-            case 'a'...'z':
+            case '>':
+                (void)cpr::Put(INTO("me/player/seek"),
+                                    cpr::Body{{"position_ms", progress+10000}});
+            break;
+            case '<':
+
+            break;
+            default:
                 if (input.length() <15)
                     input.push_back(tolower(buf));
         }
@@ -233,12 +244,7 @@ std::string players::CENTER(std::string input){
 main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
 players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
 song_thread(std::make_unique<std::jthread>(&main_player::song_update, this)), //updates every second
-artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this)), //updates every second
-progress(0), //progress is 0
-duration(100), //duration is 100 to avoid division errors
-artist_print(0), //prints no one duh
-artists({"no one yet"}), //default json array
-name("connecting ? maybe")
+artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this)) //updates every second
  {
     song_thread->detach();
     artist_thread->detach();
