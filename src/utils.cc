@@ -228,8 +228,8 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
 progress(0), //progress is 0
 duration(100), //duration is 100 to avoid division errors
 artist_print(0), //prints no one duh
-artists({"no one duh"}), //default json array
-name("No song")
+artists({"no one yet"}), //default json array
+name("connecting ? maybe")
  {
     song_thread->detach();
     artist_thread->detach();
@@ -244,7 +244,7 @@ name("No song")
 
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
-        if (title.size()+2 > col_size){ // cut off if smaller than terminal ( 1 line padding)
+        if (title.size()+4 > col_size){ // cut off if smaller than terminal ( 1 line padding)
             title = title.substr(0, title.size()-3) + "...";
         }
 
