@@ -165,6 +165,7 @@ void players::keylog(){
             case ',':
                 MESSAGE("-10 sec", 0.5);
                 progress -=10;
+                if (progress < 0) progress = 0;
                 std::jthread([this]() {
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
@@ -283,7 +284,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
     
     move::down(row_size);
     move::up(row_size);
-    
+
     while(type){ //keeps updating
 
         // prints minutes / seconds  of progress (in sec)
