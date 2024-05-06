@@ -149,7 +149,7 @@ void players::keylog(){
             break;
             case '>':
                 std::cout << cpr::Put(INTO("me/player/seek"),
-                                    cpr::Body{"{\"position_ms\": " + std::to_string(1000) + "}"}).text << NEW << NEW << NEW;
+                                    cpr::Parameters{{"position_ms", std::to_string(1000)}}).text << NEW << NEW << NEW;
             break;
             case '<':
 
