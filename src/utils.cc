@@ -297,7 +297,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
 
         std::cout << CENTER(title) <<  NEW;
 
-        std::cout << BOLD_ON << '<' <<  CENTER(bar) << '>' << BOLD_OFF << '\r';
+        std::cout << BOLD_ON  <<  CENTER("<" + bar + ">")  << BOLD_OFF << '\r';
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout<< INVERT_ON << " // " << input << TAB << message <<  INVERT_OFF; 
