@@ -275,7 +275,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         
         std::string bar = std::string(col_size-20, ' ');
         int num_dash = (int)(bar.size()*((double)progress)/duration);
-        if (num_dash > 0) bar.replace(0, num_dash+1, std::string(num_dash, '-'));
+        if (num_dash > 0) bar.replace(0, num_dash+1, "--");
         
         std::cout << CENTER(title) <<  NEW;
 
