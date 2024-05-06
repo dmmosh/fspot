@@ -154,8 +154,9 @@ void players::keylog(){
             case '.': //forward 10 seconds
                 MESSAGE("+10 sec",0.5);
                 std::jthread([this]() {
+                    progress +=10;
                     (void)cpr::Put(INTO("me/player/seek"),
-                                        cpr::Parameters{{"position_ms", std::to_string((progress+10)*1000)}});
+                                        cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
 
                 }).detach();
 
@@ -164,8 +165,9 @@ void players::keylog(){
             case ',':
                 MESSAGE("-10 sec", 0.5);
                 std::jthread([this]() {
+                    progress +=10;
                     (void)cpr::Put(INTO("me/player/seek"),
-                                        cpr::Parameters{{"position_ms", std::to_string((progress-10)*1000)}});
+                                        cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
                 
                 }).detach();
             break;
