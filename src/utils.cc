@@ -212,7 +212,7 @@ std::string players::CENTER(std::string input){
 
     } else if (input.size()+6 >= col_size) {
         input = std::string("  " + input.substr(0,col_size-7) + "...  ");
-        //move::up_clear(input, col_size);
+        move::up_clear(input, col_size);
     } else {
         int padding = (col_size-input.size())/2;
         input.insert(0, std::string((padding > 0) ? padding : 1, ' '));
