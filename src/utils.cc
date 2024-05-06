@@ -159,7 +159,7 @@ void players::keylog(){
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
 
-                }).join();
+                }).detach();
 
             break;
             case ',':
@@ -170,19 +170,19 @@ void players::keylog(){
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
                 
-                }).join();
+                }).detach();
             break;
             case '>':
                 MESSAGE("Nexting...");
                 std::jthread([this]() {
                     (void)cpr::Post(INTO("me/player/next"));
-                });
+                }).detach();
             break;
             case '<':
                 MESSAGE("Previousing...");
                 std::jthread([this]() {
                     (void)cpr::Post(INTO("me/player/previous"));
-                });
+                }).detach();
             break;
             default:
                 if (input.length() <15)
@@ -290,15 +290,14 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
         
-        std::string bar = "<" + std::string(col_size-((col_size > 20 ? 20 : 8) ), ' ') + ">";
 
-        static int dash_num = (int)(bar.size()*percent);
-        if(dash_num) bar.insert(1, std::string(dash_num, '-'));
-
+        std::string bar = std::string(abs(col_size-20), ' ');
+        int dash_num = bar.size()*percent;
+        if (dash_num) bar.insert(0, std::string(dash_num, '-'));
 
         std::cout << CENTER(title) <<  NEW;
 
-        std::cout << BOLD_ON << CENTER(bar) << BOLD_OFF << '\r';
+        std::cout << BOLD_ON << '<' <<  CENTER(bar) << '>' << BOLD_OFF << '\r';
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout<< INVERT_ON << " // " << input << TAB << message <<  INVERT_OFF; 
