@@ -160,11 +160,11 @@ void players::keylog(){
                 MESSAGE_OFF;
             break;
             case '>':
-                MESSAGE("Next track");
+                MESSAGE("Nexting...");
                 (void)cpr::Post(INTO("me/player/next"));
             break;
             case '<':
-                MESSAGE("Previous track");
+                MESSAGE("Previousing...");
                 (void)cpr::Post(INTO("me/player/previous"));
             break;
             default:
