@@ -159,7 +159,7 @@ void players::keylog(){
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
 
-                }).detach();
+                });
 
             break;
             case ',':
@@ -170,19 +170,19 @@ void players::keylog(){
                     (void)cpr::Put(INTO("me/player/seek"),
                                         cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
                 
-                }).detach();
+                });
             break;
             case '>':
                 MESSAGE("Nexting...");
                 std::jthread([this]() {
                     (void)cpr::Post(INTO("me/player/next"));
-                }).detach();
+                });
             break;
             case '<':
                 MESSAGE("Previousing...");
                 std::jthread([this]() {
                     (void)cpr::Post(INTO("me/player/previous"));
-                }).detach();
+                });
             break;
             default:
                 if (input.length() <15)
