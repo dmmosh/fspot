@@ -296,7 +296,7 @@ void main_player::song_update() {
             if(tmp_dur != duration && tmp_name != name){
                 if (tmp_dur >= 3600) {
                     type = false;    
-                    ERROR("Song's too long. FSpot can't play songs longer than 1 hour.")
+                    ERROR("Song's too long. FSpot can't play songs longer than 1 hour.");
                 };
 
                 if (POSIX_TIME + (tmp_dur-progress) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
