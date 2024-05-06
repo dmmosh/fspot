@@ -276,8 +276,9 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         double percent = (double)progress/duration; 
         std::string bar = std::string((int)(col_size-20*percent), '-') + std::string((int)(col_size-20*(1-percent)), '-');
 
-        std::cout << CENTER("<" + bar + ">") << '\r';
         std::cout << CENTER(title) <<  NEW;
+        
+        std::cout << CENTER("<" + bar + ">") << '\r';
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout<< INVERT_ON << " // " << input << TAB << message <<  INVERT_OFF; 
