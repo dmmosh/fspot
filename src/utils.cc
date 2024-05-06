@@ -291,8 +291,8 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         
         std::string bar = "<" + std::string(col_size-((col_size > 20 ? 20 : 8) ), ' ') + ">";
 
-        int progress = (int)(bar.size()*percent);
-        if(progress) bar.insert(1, std::string(progress, '-'));
+        int dash_num = (int)(bar.size()*percent);
+        if(dash_num) bar.insert(1, std::string(dash_num, '-'));
 
 
         std::cout << CENTER(title) <<  NEW;
