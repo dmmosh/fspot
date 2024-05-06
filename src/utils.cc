@@ -206,7 +206,12 @@ void players::commands(){
 };
 
 std::string players::CENTER(const std::string& input){
-    if (input.empty()) return std::string("");
+    if (input.empty()) {
+        return std::string(""); 
+
+    } else if (input.size() > col_size) {
+        return input;
+    };
 
     int padding = (col_size-input.size())/2;
     return std::string((padding > 0) ? padding : 1, ' ') + input ;
