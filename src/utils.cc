@@ -273,7 +273,10 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
         
+        double percent = (double)progress/duration; 
+        std::string bar = std::string((int)(col_size-20*percent), '-') + std::string((int)(col_size-20*(1-percent)), '-');
 
+        std::cout << CENTER("<" + bar + ">") << '\r';
         std::cout << CENTER(title) <<  NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
@@ -313,7 +316,7 @@ void main_player::song_update() {
 
             // IF THERES BEEN A SONG SWITCH
             if(tmp_dur != duration && tmp_name != name){
-                MESSAGE("New track", 1.2);
+                MESSAGE("New track!", 1.0);
 
                 if (tmp_dur >= 3600) {
                     type = false;    
