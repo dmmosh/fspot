@@ -68,6 +68,10 @@ class players{
     // always updating
     std::string input, message;
     int col_size;
+
+    int progress, duration, artist_print;
+    std::string name;
+    std::vector<std::string> artists;
     
     // sometimes updating
     bool type;
@@ -100,17 +104,12 @@ class main_player: public players{
     public:
     // VARIABLES
 
-    // always updating
-    int progress, duration, artist_print;
-    std::string name;
-    std::vector<std::string> artists;
-
     // never updating
     std::unique_ptr<std::jthread> song_thread, artist_thread;
 
     main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
     ~main_player();
-
+    
     void commands();
     void song_update(); //updates song info EVERY SECOND
     void artist_update();
