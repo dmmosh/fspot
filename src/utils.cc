@@ -148,15 +148,10 @@ void players::keylog(){
                 if (input.size()) input.resize(input.size() - 1);
             break;
             case '.': //forward 10 seconds
-                static int ctr =0;
                 MESSAGE("+10 sec");
-                ctr++;
-                SLEEP(1);
-
                 (void)cpr::Put(INTO("me/player/seek"),
-                                    cpr::Parameters{{"position_ms", std::to_string((progress+10*ctr)*1000)}});
+                                    cpr::Parameters{{"position_ms", std::to_string((progress+10)*1000)}});
                 MESSAGE_OFF;
-                ctr = 0;
             break;
             case ',':
                 MESSAGE("-10 sec");
