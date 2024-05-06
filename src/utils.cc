@@ -294,7 +294,7 @@ void main_player::song_update() {
         } else {
             progress = 0;
             duration = 100;
-            artists = {"mr. lost connection"};
+            artists = {"mr. nuh uh"};
             name = "NO CONNECTION";
         }   
         
