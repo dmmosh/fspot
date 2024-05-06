@@ -277,15 +277,15 @@ void main_player::song_update() {
             
             static auto item = data["item"];
 
-            int tmp_dur = duration;
-            duration = item["duration_ms"];
-            duration /= 1000;
 
-            std::string tmp_name = name;
-            name = item["name"];
+            int tmp_dur = item["duration_ms"];
+            tmp_dur /= 1000;
+            std::string tmp_name = item["name"];
 
             // IF THERES BEEN A SONG SWITCH
             if(tmp_dur != duration && tmp_name != name){
+                duration = tmp_dur;
+                name = tmp_name;
                 artists = {};
                 for (const auto& artist: item["artists"]){
                     artists.push_back(artist["name"].get<std::string>());
