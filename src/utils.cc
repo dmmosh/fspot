@@ -205,17 +205,20 @@ void players::commands(){
     return;
 };
 
-std::string players::CENTER(const std::string& input){
+// NOTE: changes the input variable if needs concat
+std::string players::CENTER(std::string input){
     if (input.empty()) {
-        return std::string(""); 
+        input = std::string("");
 
     } else if (input.size() >= col_size) {
-        move::up_clear(input, col_size);
-        return "  " + input.substr(0,col_size-7) + "...  ";
+        input = std::string("  " + input.substr(0,col_size-7) + "...  ");
+        //move::up_clear(input, col_size);
+    } else {
+        int padding = (col_size-input.size())/2;
+        input.insert(0, std::string((padding > 0) ? padding : 1, ' '));
     };
 
-    int padding = (col_size-input.size())/2;
-    return std::string((padding > 0) ? padding : 1, ' ') + input ;
+    return input;
 };
 
 

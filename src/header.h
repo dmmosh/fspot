@@ -85,7 +85,7 @@ class players{
     void refresh();
     void col_update();
 
-    std::string CENTER(const std::string& input);
+    std::string CENTER(std::string input);
     void MESSAGE(const std::string msg, const double time);
     void MESSAGE(const std::string msg);
     void MESSAGE();
