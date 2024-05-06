@@ -243,7 +243,12 @@ name("No song")
     while(type){ //keeps updating
 
         // prints minutes / seconds  of progress (in sec)
-        std::cout << CENTER(name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print]) <<  NEW;
+        std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
+        if (title.size()+2 > col_size){ // cut off if smaller than terminal ( 1 line padding)
+            title = title.substr(0, title.size()-3) + "...";
+        }
+
+        std::cout << CENTER(title) <<  NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout << CENTER(message) << '\r';
