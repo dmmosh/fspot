@@ -149,7 +149,7 @@ void players::keylog(){
             break;
             case '>':
                 (void)cpr::Put(INTO("me/player/seek"),
-                                    cpr::Body{{"position_ms", progress+10000}});
+                                    cpr::Body{{"position_ms", std::to_string(progress+10000)}});
             break;
             case '<':
 
