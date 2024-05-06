@@ -273,7 +273,9 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
         
-        std::string bar = std::string(col_size-20, '-');
+        std::string bar = std::string(col_size-20, ' ');
+        int num_dash = (int)(bar.size()*((double)progress)/duration);
+        bar.replace(0, num_dash+1, std::string(num_dash, '-'));
         
         std::cout << CENTER(title) <<  NEW;
 
