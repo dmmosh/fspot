@@ -210,7 +210,7 @@ std::string players::CENTER(const std::string& input){
         return std::string(""); 
 
     } else if (input.size() >= col_size) {
-        return "  " + input.substr(0,input.size()-3) + "...  ";
+        return "  " + input.substr(0,input.size()-7) + "...  ";
     };
 
     int padding = (col_size-input.size())/2;
@@ -248,10 +248,9 @@ name("connecting ? maybe")
     while(type){ //keeps updating
 
         // prints minutes / seconds  of progress (in sec)
-        std::string title = (name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print]).substr(0, col_size);
         
 
-        std::cout << CENTER(title) <<  NEW;
+        std::cout << CENTER(name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print]) <<  NEW;
         printf("%02i:%02i\n\n", progress / 60, progress % 60);
 
         std::cout << CENTER(message) << '\r';
