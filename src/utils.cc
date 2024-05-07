@@ -207,9 +207,9 @@ void players::fast_forward(){
 
     SLEEP(1);
     if (ff_sec_prev == ff_sec){ // when user releases 
-        MESSAGE( "+" + std::to_string(max) + " sec..."); 
+        MESSAGE( "+" + std::to_string(ff_sec) + " sec..."); 
 
-        if (progress+max >  duration) { //if progress exceeds duration
+        if (progress+ff_sec >  duration) { //if progress exceeds duration
             MESSAGE("Nexting...");
             std::jthread([this]() {
                 (void)cpr::Post(INTO("me/player/next"));
@@ -218,7 +218,6 @@ void players::fast_forward(){
             std::jthread([this]() {
                 (void)cpr::Put(INTO("me/player/seek"),
                                     cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
-                
                 MESSAGE_OFF;
             }).detach();
         }
