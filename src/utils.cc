@@ -306,8 +306,8 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         if (col_size > 10) {
             int bar_size = (col_size-20 > 0) ? col_size-20 : col_size-10;
 
-            std::string bar = ((int)(bar_size*percent) > 0) ? std::string((int)(bar_size*percent), '-') : "" + 
-                              ((int)(1.0-(bar_size*percent)) > 0) ? std::string((int)(1.0-(bar_size*percent)), ' ') : "" ;
+            std::string bar = (((int)(bar_size*percent) > 0) ? std::string((int)(bar_size*percent), '-') : "") + 
+                              (((int)(1.0-(bar_size*percent)) > 0) ? std::string((int)(1.0-(bar_size*percent)), ' ') : "") ;
             std::cout << BOLD_ON << CENTER("<" + bar + ">")  << BOLD_OFF << '\r';
         }
 
