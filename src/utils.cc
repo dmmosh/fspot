@@ -194,16 +194,8 @@ void players::fast_forward(int& ff_sec_prev, int& ff_sec, int& x, int& max){
         } else {   // if it doesnt, actually go forward
             MESSAGE( "+" + std::to_string(max) + " sec...");
 
-            if (is_playing){
-                (void)cpr::Put(INTO("me/player/pause"));
-                (void)cpr::Put(INTO("me/player/seek"),
-                            cpr::Parameters{{"position_ms", std::to_string((progress + max)*1000)}});
-                (void)cpr::Put(INTO("me/player/play"));
-            } else {
-                (void)cpr::Put(INTO("me/player/seek"),
-                            cpr::Parameters{{"position_ms", std::to_string((progress + max)*1000)}});
-            }
-
+            (void)cpr::Put(INTO("me/player/seek"),
+                        cpr::Parameters{{"position_ms", std::to_string((progress + max)*1000)}});
         }
 
         MESSAGE_OFF;
