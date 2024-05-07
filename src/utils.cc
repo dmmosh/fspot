@@ -191,11 +191,12 @@ void players::keylog(){
 // PLAYERS DEFAULTS
 
 void players::fast_forward(){
-    static long ff_sec_prev = 0;
-    static long ff_sec = 1;
-    static long x = 0; // x for quadratic growth
-    static long max = 1; // max amount (amount to add in seconds)
+    static int ff_sec_prev = 0;
+    static int ff_sec = 1;
+    static int x = 0; // x for quadratic growth
+    static int max = 1; // max amount (amount to add in seconds)
 
+    MESSAGE( "+" + std::to_string(ff_sec) + " sec", 1); 
 
     x++;
     ff_sec= (int)((double)x*x/50);
@@ -203,11 +204,9 @@ void players::fast_forward(){
 
     if (ff_sec > max) max = ff_sec;
 
-    MESSAGE( "+" + std::to_string(ff_sec) + " sec", 1); 
 
     SLEEP(1);
     if (ff_sec_prev == ff_sec){ // when user releases 
-        MESSAGE_OFF;
         MESSAGE( "+" + std::to_string(max) + " sec..."); 
 
         if (progress+max >  duration) { //if progress exceeds duration
@@ -217,7 +216,7 @@ void players::fast_forward(){
             }).detach();
         } else {   // if it doesnt
             std::jthread([this]() {
-
+                
                 (void)cpr::Put(INTO("me/player/seek"),
                                     cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
                 
@@ -227,7 +226,7 @@ void players::fast_forward(){
         ff_sec_prev = 0;
         ff_sec = 1;
         x = 0;
-        max = 0;
+        max = 1;
     }   
 
     ff_sec_prev = ff_sec; //sets previous ctr
