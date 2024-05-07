@@ -209,7 +209,21 @@ void players::keylog(){
 // PLAYERS DEFAULTS
 
 void players::fast_forward(){
-    static int test = 2;
+    static int ff_sec = 1;
+    static bool holding = false;
+    
+    if(!holding){
+        holding = true;
+        
+    } else {
+        ff_sec++;
+        SLEEP(1);
+        if(holding) {
+            holding = false;
+            MESSAGE(std::to_string(ff_sec));
+            ff_sec = 1;
+        }
+    }
 
 }
 
