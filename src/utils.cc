@@ -151,11 +151,12 @@ void players::keylog(){
                 }).detach();
             break;
             case '.': //forward 10 seconds
-                std::jthread(&players::fast_forward, this).detach();
-
+                //std::jthread(&players::fast_forward, this).detach();
+                fast_forward();
             break;
             case ',':
-                std::jthread(&players::back_forward, this).detach();
+                //std::jthread(&players::back_forward, this).detach();
+                back_forward();
             break;
             case '>':
                 MESSAGE("Nexting...");
