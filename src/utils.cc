@@ -155,15 +155,7 @@ void players::keylog(){
 
             break;
             case ',':
-                MESSAGE("-10 sec", 0.5);
-                progress -=10;
-                if (progress < 0) progress = 0;
-                std::jthread([this]() {
-                    (void)cpr::Put(INTO("me/player/seek"),
-                                        cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
-                
-                }).detach();
-                SLEEP(0.5); // TOO POWERFUL
+                std::jthread(&players::back_forward, this).detach();
             break;
             case '>':
                 MESSAGE("Nexting...");
@@ -240,7 +232,7 @@ void players::back_forward(){
 
     if (ff_sec > min) min = ff_sec;
 
-    
+
     MESSAGE( "-" + std::to_string(min), 1); 
 
     SLEEP(1);
