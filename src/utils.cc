@@ -96,10 +96,8 @@ void players::col_update(){
 // CHARACTER INPUT  and keylog
 // any subclass
 void players::keylog(){
-        bool holding = false; //holding key
         while(type){
-    
-        
+            
         char buf = 0;
         struct termios old = {0};
         if (tcgetattr(0, &old) < 0)
@@ -156,6 +154,8 @@ void players::keylog(){
             break;
             case '.': //forward 10 seconds
                 std::jthread(&players::fast_forward, this).detach();
+
+                
 
                 /*
                 MESSAGE("+10 sec",0.5);
@@ -217,12 +217,13 @@ void players::fast_forward(){
 
     ff_sec++;
     ff_sec_prev = ff_sec;
-    SLEEP(1);
 
-    if (ff_sec_prev == ff_sec) {
-        ff_sec_prev = 0;
-        ff_sec = 1;
+    
+    while(ff_sec_prev < ff_sec){
+        SLEEP(1);
     }
+    ff_sec_prev = 0;
+    ff_sec = 1;
     
 
 }
