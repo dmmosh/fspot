@@ -303,8 +303,8 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         
         std::cout << CENTER(title) <<  NEW;
 
-        if (col_size > 20) {
-            int bar_size = col_size-20;
+        if (col_size > 10) {
+            int bar_size = (col_size-20 > 0) ? col_size-20 : col_size-10;
 
             std::string bar = std::string(bar_size, ' ');
             std::cout << BOLD_ON << CENTER("<" + bar + ">")  << BOLD_OFF << '\r';
