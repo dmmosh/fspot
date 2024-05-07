@@ -192,31 +192,33 @@ void players::fast_forward(){
     static int ff_sec_prev = 0;
     static int ff_sec = 1;
     static int x = 0; // x for quadratic growth
-    static bool call = true;
+    static int max = 1;
 
     x++;
     ff_sec= (int)((double)x*x/50);
     if (ff_sec < 5) ff_sec++;   
 
+    if (ff_sec > max) max = ff_sec;
 
-    MESSAGE( "+" + std::to_string(ff_sec), 1); 
+
+    MESSAGE( "+" + std::to_string(max), 1); 
 
     SLEEP(1);
-    if (ff_sec_prev == ff_sec && call){ // when user releases 
-        MESSAGE( "+" + std::to_string(ff_sec) + " sec..."); 
+    if (ff_sec_prev == ff_sec){ // when user releases 
+        MESSAGE( "+" + std::to_string(max) + " sec..."); 
 
         if (progress+ff_sec >  duration) { //if progress exceeds duration
             MESSAGE("Nexting...");
             (void)cpr::Post(INTO("me/player/next"));
         } else {   // if it doesnt
             (void)cpr::Put(INTO("me/player/seek"),
-                                cpr::Parameters{{"position_ms", std::to_string((progress +ff_sec)*1000)}});
+                                cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
             MESSAGE_OFF;
         }
         ff_sec_prev = 0;
         ff_sec = 1;
         x = 0;
-        call = false;
+        max = 1;
     }   
 
     ff_sec_prev = ff_sec; //sets previous ctr
