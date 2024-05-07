@@ -188,7 +188,7 @@ void players::fast_forward(){
 
     x++;
     ff_sec= (long)((double)x*x/50);
-    if (ff_sec < 5) ff_sec++;   
+    if (x < 5) ff_sec++;   
 
     if (ff_sec > max) max = ff_sec;
 
@@ -228,7 +228,7 @@ void players::back_forward(){
 
     x++;
     ff_sec= (long)((double)x*x/50);
-    if (ff_sec < 5) ff_sec++;   
+    if (x < 5) ff_sec++;   
 
     if (ff_sec > min) min = ff_sec;
 
