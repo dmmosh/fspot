@@ -187,6 +187,7 @@ void players::fast_forward(int& max){
         if (max >= 3600){
             MESSAGE("nice try buddy");
         } else {   // if it doesnt, actually go forward
+            duration += max;
 
             MESSAGE( "+" + std::to_string(max) + " sec..."); 
 
@@ -194,7 +195,6 @@ void players::fast_forward(int& max){
                             cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
         }
 
-        duration += max;
         MESSAGE_OFF;
         ff_sec_prev = 0;
         ff_sec = 1;
