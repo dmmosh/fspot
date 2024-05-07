@@ -97,7 +97,10 @@ void players::col_update(){
 // CHARACTER INPUT  and keylog
 // any subclass
 void players::keylog(){
-        static int max = 1;
+        int ff_sec_prev = 0;
+        int ff_sec = 1;
+        int x = 0;
+        int max = 1;
         while(type){
         
         char buf = 0;
@@ -141,7 +144,7 @@ void players::keylog(){
                 if (input.size()) input.resize(input.size() - 1);
             break;
             case '.': //forward 10 seconds
-                std::jthread(&players::fast_forward, this, std::ref(max)).detach();
+                std::jthread(&players::fast_forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max)).detach();
 
             break;
             case ',':
@@ -166,10 +169,7 @@ void players::keylog(){
 
 // PLAYERS DEFAULTS
 
-void players::fast_forward(int& max){
-    static long ff_sec_prev = 0;
-    static long ff_sec = 1;
-    static long x = 0; // x for quadratic growth
+void players::fast_forward(int& ff_sec_prev, int& ff_sec, int& x, int& max){
 
     x++;
     ff_sec= (long)((double)x*x/50);
@@ -186,6 +186,10 @@ void players::fast_forward(int& max){
         
         if (max >= 3600){
             MESSAGE("nice try buddy");
+
+        } else if (progress+max > duration){
+            MESSAGE("Nexting...");
+            (void)cpr::Post(INTO("me/player/next"));
 
         } else {   // if it doesnt, actually go forward
             MESSAGE( "+" + std::to_string(max) + " sec..."); 
