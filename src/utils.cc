@@ -218,6 +218,7 @@ void players::fast_forward(){
 
     x++;
     ff_sec= (int)((double)x*x/100);
+    if (ff_sec < 5) ff_sec++;
 
     SLEEP(2);
     if (ff_sec_prev == ff_sec){ // when user releases 
