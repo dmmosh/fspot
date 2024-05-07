@@ -206,7 +206,7 @@ void players::fast_forward(){
 
 
     SLEEP(1);
-    if (ff_sec_prev == ff_sec){ // when user releases 
+    if (ff_sec_prev == ff_sec && ff_sec == 1){ // when user releases 
         MESSAGE( "+" + std::to_string(ff_sec) + " sec..."); 
 
         if (progress+ff_sec >  duration) { //if progress exceeds duration
