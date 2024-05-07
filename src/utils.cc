@@ -211,9 +211,7 @@ void players::fast_forward(){
 
         if (progress+ff_sec >  duration) { //if progress exceeds duration
             MESSAGE("Nexting...");
-            std::jthread([this]() {
-                (void)cpr::Post(INTO("me/player/next"));
-            }).detach();
+            (void)cpr::Post(INTO("me/player/next"));
         } else {   // if it doesnt
             (void)cpr::Put(INTO("me/player/seek"),
                                 cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
