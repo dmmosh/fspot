@@ -211,7 +211,7 @@ void players::keylog(){
 
 void players::fast_forward(){
     static int ff_sec_prev = 0;
-    static int ff_sec = 1;
+    static int ff_sec = 0;
     static int x = 0; // x for quadratic growth
 
     MESSAGE( "+" + std::to_string(ff_sec) + " sec", 1); 
@@ -220,12 +220,12 @@ void players::fast_forward(){
     ff_sec= (int)((double)x*x/100);
     if (ff_sec < 5) ff_sec++;
 
-    SLEEP(2);
+    SLEEP(1);
     if (ff_sec_prev == ff_sec){ // when user releases 
         ff_sec_prev = 0;
         ff_sec = 1;
         x = 0;
-    }
+    }   
     ff_sec_prev = ff_sec;
 
     
