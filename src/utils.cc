@@ -217,7 +217,7 @@ void players::fast_forward(){
         } else {   // if it doesnt
             std::jthread([this]() {
                 (void)cpr::Put(INTO("me/player/seek"),
-                                    cpr::Parameters{{"position_ms", std::to_string((duration +max)*1000)}});
+                                    cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
                 MESSAGE_OFF;
             }).detach();
         }
