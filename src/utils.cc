@@ -96,6 +96,7 @@ void players::col_update(){
 // CHARACTER INPUT  and keylog
 // any subclass
 void players::keylog(){
+        bool holding = false; //holding key
         while(type){
     
         
@@ -209,20 +210,21 @@ void players::keylog(){
 // PLAYERS DEFAULTS
 
 void players::fast_forward(){
+    static int ff_sec_prev;
     static int ff_sec;
-    static bool holding = false;
 
-    if(!holding){
-        ff_sec = 1;
-    }
-    
     MESSAGE(std::to_string(ff_sec), 1);
 
-    holding = true;
-    ff_sec++;
-    SLEEP(1);
-    holding = false;
-    
+    if (ff_sec_prev == ff_sec) {
+        ff_sec_prev = 0;
+        ff_sec = 1;
+    } else {
+        ff_sec++;
+        SLEEP(1);
+        ff_sec_prev = ff_sec;
+    }
+
+
     
 
 }
