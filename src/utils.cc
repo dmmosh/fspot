@@ -215,16 +215,14 @@ void players::fast_forward(){
 
     MESSAGE(std::to_string(ff_sec), 1);
 
+    ff_sec++;
+    ff_sec_prev = ff_sec;
+    SLEEP(1);
+
     if (ff_sec_prev == ff_sec) {
         ff_sec_prev = 0;
         ff_sec = 1;
-    } else {
-        ff_sec_prev = ff_sec;
-        ff_sec++;
-        SLEEP(1);
     }
-
-
     
 
 }
