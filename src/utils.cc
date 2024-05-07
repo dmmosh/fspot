@@ -125,30 +125,21 @@ void players::keylog(){
                 input = "";
             break;  
             case SPACE:
-                std::jthread([this]() {
 
-                    if (is_playing){
-                        MESSAGE("Pausing...");
-                        is_playing = false;
-                        std::jthread([this]() {
-                            (void)cpr::Put(INTO("me/player/pause"));
-                            MESSAGE("Paused!", 1);
-                        }).detach();
-                    } else {
-                        MESSAGE("Playing...");
-
-                        is_playing = true;
-                        std::jthread([this]() {
-                            (void)cpr::Put(INTO("me/player/play"));
-                            MESSAGE("Playing now!", 1);
-                        }).detach();
-                    };
-                }).detach();
+                if (is_playing){
+                    MESSAGE("Pausing...");
+                    is_playing = false;
+                    (void)cpr::Put(INTO("me/player/pause"));
+                    MESSAGE("Paused!", 1);
+                } else {
+                    MESSAGE("Playing...");
+                    is_playing = true;
+                    (void)cpr::Put(INTO("me/player/play"));
+                    MESSAGE("Playing now!", 1);
+                };
             break;
             case BACKSPACE:
-                std::jthread([this]() {
-                    if (input.size()) input.resize(input.size() - 1);
-                }).detach();
+                if (input.size()) input.resize(input.size() - 1);
             break;
             case '.': //forward 10 seconds
                 std::jthread(&players::fast_forward, this).detach();
@@ -159,16 +150,12 @@ void players::keylog(){
             break;
             case '>':
                 MESSAGE("Nexting...");
-                std::jthread([this]() {
-                    (void)cpr::Post(INTO("me/player/next"));
-                }).detach();
+                (void)cpr::Post(INTO("me/player/next"));
                 SLEEP(0.5); //need a cooldown
             break;
             case '<':
                 MESSAGE("Previousing...");
-                std::jthread([this]() {
-                    (void)cpr::Post(INTO("me/player/previous"));
-                }).detach();
+                (void)cpr::Post(INTO("me/player/previous"));
                 SLEEP(0.5); //need a cooldown
             break;
             default:
