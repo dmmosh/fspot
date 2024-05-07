@@ -184,10 +184,10 @@ void players::forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const boo
     SLEEP(1);
     if (ff_sec_prev == ff_sec && max>1){ // when user releases 
         
-        switch(forward_back){
-            case true: // TO GO FORWARD
+        switch((int)forward_back){
+            case 1: // TO GO FORWARD
             if (max >= 3600){
-                MESSAGE("nice try buddy");
+                MESSAGE("nice try buddy", 3.0);
 
             } else if (progress+max > duration){
                 MESSAGE("Nexting...");
@@ -206,7 +206,7 @@ void players::forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const boo
             if (max >= 3600){
                 MESSAGE("nice try buddy");
             
-            } else if (progress-max < 0){
+            } else if (progress-max <= 0){
                 MESSAGE("wind it back!");
                 (void)cpr::Put(INTO("me/player/seek"),
                             cpr::Parameters{{"position_ms", "0"}});
