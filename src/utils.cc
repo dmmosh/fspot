@@ -128,12 +128,10 @@ void players::keylog(){
 
                 if (is_playing){
                     MESSAGE("Pausing...");
-                    is_playing = false;
                     (void)cpr::Put(INTO("me/player/pause"));
                     MESSAGE("Paused!", 1);
                 } else {
                     MESSAGE("Playing...");
-                    is_playing = true;
                     (void)cpr::Put(INTO("me/player/play"));
                     MESSAGE("Playing now!", 1);
                 };
@@ -183,7 +181,7 @@ void players::fast_forward(){
     MESSAGE( "+" + std::to_string(max), 1); 
 
     SLEEP(1);
-    if (ff_sec_prev == ff_sec){ // when user releases 
+    if (ff_sec_prev == ff_sec && max>1){ // when user releases 
         
         if (max >= 3600){
             MESSAGE("nice try buddy");
@@ -191,7 +189,8 @@ void players::fast_forward(){
         else if (progress+max >  duration) { //if progress exceeds duration
             MESSAGE("Nexting...");
             (void)cpr::Post(INTO("me/player/next"));
-        } else if (max> 1) {   // if it doesnt
+        } else {   // if it doesnt, actually go forward
+    
             MESSAGE( "+" + std::to_string(max) + " sec..."); 
             (void)cpr::Put(INTO("me/player/seek"),
                                 cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
@@ -283,12 +282,10 @@ void players::commands(){
     } else if (input == "pp") { //plays / pauses track
 
         if (is_playing){
-            is_playing= false;
             MESSAGE("Pausing...");
             (void)cpr::Put(INTO("me/player/pause"));
             MESSAGE("Paused!", 1);
         } else {
-            is_playing = true;
             MESSAGE("Playing...");
             (void)cpr::Put(INTO("me/player/play"));
             MESSAGE("Playing now!", 1);
