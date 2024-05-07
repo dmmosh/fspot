@@ -144,7 +144,6 @@ void players::keylog(){
                         }).detach();
                     };
                 }).detach();
-                SLEEP(0.5);
             break;
             case BACKSPACE:
                 std::jthread([this]() {
