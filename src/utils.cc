@@ -128,17 +128,20 @@ void players::keylog(){
                 std::jthread([this]() {
 
                     if (is_playing){
-                        is_playing = false;
                         MESSAGE("Pausing...");
-                        (void)cpr::Put(INTO("me/player/pause"));
-                        MESSAGE_OFF;
-                        MESSAGE("Paused!", 1);
+                        std::jthread([this]() {
+                            (void)cpr::Put(INTO("me/player/pause"));
+                            is_playing = false;
+                            MESSAGE("Paused!", 1);
+                        }).detach();
                     } else {
-                        is_playing = true;
                         MESSAGE("Playing...");
-                        (void)cpr::Put(INTO("me/player/play"));
-                        MESSAGE_OFF;
-                        MESSAGE("Playing now!", 1);
+
+                        std::jthread([this]() {
+                            (void)cpr::Put(INTO("me/player/play"));
+                            is_playing = true;
+                            MESSAGE("Playing now!", 1);
+                        }).detach();
                     };
                 }).detach();
                 SLEEP(0.5);
@@ -261,13 +264,11 @@ void players::commands(){
             is_playing= false;
             MESSAGE("Pausing...");
             (void)cpr::Put(INTO("me/player/pause"));
-            MESSAGE_OFF;
             MESSAGE("Paused!", 1);
         } else {
             is_playing = true;
             MESSAGE("Playing...");
             (void)cpr::Put(INTO("me/player/play"));
-            MESSAGE_OFF;
             MESSAGE("Playing now!", 1);
         };
 
