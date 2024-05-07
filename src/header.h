@@ -90,7 +90,7 @@ class players{
     void commands();
     void refresh();
     void col_update();
-    void fast_forward();
+    void fast_forward(int& max);
     void back_forward();
 
     std::string CENTER(std::string input);
