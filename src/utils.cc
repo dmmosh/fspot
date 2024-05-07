@@ -192,7 +192,6 @@ void players::fast_forward(){
     static int ff_sec_prev = 0;
     static int ff_sec = 1;
     static int x = 0; // x for quadratic growth
-    static bool call = true;
 
     x++;
     ff_sec= (int)((double)x*x/50);
@@ -202,7 +201,7 @@ void players::fast_forward(){
     MESSAGE( "+" + std::to_string(ff_sec), 1); 
 
     SLEEP(1);
-    if (ff_sec_prev == ff_sec && call){ // when user releases 
+    if (ff_sec_prev == ff_sec){ // when user releases 
         MESSAGE( "+" + std::to_string(ff_sec) + " sec..."); 
 
         if (progress+ff_sec >  duration) { //if progress exceeds duration
@@ -213,14 +212,13 @@ void players::fast_forward(){
                                 cpr::Parameters{{"position_ms", std::to_string((progress +ff_sec)*1000)}});
             MESSAGE_OFF;
         }
-        ff_sec_prev = 0;
-        ff_sec = 1;
-        x = 0;
-        call = false;
     }   
 
     ff_sec_prev = ff_sec; //sets previous ctr
-    
+    ff_sec_prev = 0;
+    ff_sec = 1;
+    x = 0;
+
 }
 
 // default commands
