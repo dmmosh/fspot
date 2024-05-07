@@ -212,15 +212,15 @@ void players::fast_forward(){
     static int ff_sec = 1;
     static bool holding = false;
     
+    MESSAGE(std::to_string(ff_sec), 1);
     if(!holding){
         holding = true;
-        
+
     } else {
         ff_sec++;
         SLEEP(1);
         if(holding) {
             holding = false;
-            MESSAGE(std::to_string(ff_sec));
             ff_sec = 1;
         }
     }
