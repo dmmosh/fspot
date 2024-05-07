@@ -90,8 +90,7 @@ class players{
     void commands();
     void refresh();
     void col_update();
-    void fast_forward(int& ff_sec_prev, int& ff_sec, int& x, int& max);
-    void back_forward();
+    void forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const bool forward_back);
 
     std::string CENTER(std::string input);
     void MESSAGE(const std::string msg, const double time);
