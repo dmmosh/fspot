@@ -211,13 +211,13 @@ void players::keylog(){
 
 void players::fast_forward(){
     static int ff_sec_prev = 0;
-    static int ff_sec = 0;
+    static int ff_sec = 1;
     static int x = 0; // x for quadratic growth
 
     MESSAGE( "+" + std::to_string(ff_sec) + " sec", 1); 
 
     x++;
-    ff_sec= (int)((double)x*x/100);
+    ff_sec= (int)((double)x*x/50);
     if (ff_sec < 5) ff_sec++;
 
     SLEEP(1);
