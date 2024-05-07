@@ -190,7 +190,7 @@ void players::fast_forward(){
             MESSAGE("Nexting...");
             (void)cpr::Post(INTO("me/player/next"));
         } else {   // if it doesnt, actually go forward
-        
+
             MESSAGE( "+" + std::to_string(max) + " sec..."); 
 
             if(is_playing){
@@ -207,6 +207,7 @@ void players::fast_forward(){
             
             MESSAGE_OFF;
         } 
+        progress + max;
         ff_sec_prev = 0;
         ff_sec = 1;
         x = 0;
