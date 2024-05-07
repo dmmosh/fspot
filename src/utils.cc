@@ -212,18 +212,20 @@ void players::keylog(){
 void players::fast_forward(){
     static int ff_sec_prev = 0;
     static int ff_sec = 1;
+    static bool type = true;
 
     MESSAGE(std::to_string(ff_sec), 1);
 
+    type = true;
     ff_sec++;
-    ff_sec_prev = ff_sec;
 
-    SLEEP(0.25);
-    while(ff_sec_prev < ff_sec){
-        SLEEP(1);
-    }
+    SLEEP(1);
+    if (ff_sec_prev == ff_sec){
     ff_sec_prev = 0;
     ff_sec = 1;
+    }
+    ff_sec_prev = ff_sec;
+
     
 
 }
