@@ -154,6 +154,9 @@ void players::keylog(){
                 }).detach();
             break;
             case '.': //forward 10 seconds
+                std::jthread(&players::fast_forward, this).detach();
+
+                /*
                 MESSAGE("+10 sec",0.5);
                 if (progress+10 >  duration) {
                     MESSAGE("Nexting...");
@@ -169,6 +172,7 @@ void players::keylog(){
                     }).detach();
                 }
                 SLEEP(0.5); //need a little break
+                */
             break;
             case ',':
                 MESSAGE("-10 sec", 0.5);
@@ -203,6 +207,11 @@ void players::keylog(){
 }
 
 // PLAYERS DEFAULTS
+
+void players::fast_forward(){
+    static int test = 2;
+
+}
 
 // default commands
 void players::commands(){
