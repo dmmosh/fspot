@@ -186,8 +186,9 @@ void players::fast_forward(int& max){
         
         if (max >= 3600){
             MESSAGE("nice try buddy");
+
         } else {   // if it doesnt, actually go forward
-            duration += max;
+            progress += max;
 
             MESSAGE( "+" + std::to_string(max) + " sec..."); 
 
