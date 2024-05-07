@@ -251,12 +251,12 @@ void players::back_forward(){
                 (void)cpr::Put(INTO("me/player/seek"),
                                     cpr::Parameters{{"position_ms", std::to_string((progress - min )*1000)}});
             }
-            ff_sec_prev = 0;
-            ff_sec = 1;
-            x = 0;
-            min = 1;
             MESSAGE_OFF;
         } 
+        ff_sec_prev = 0;
+        ff_sec = 1;
+        x = 0;
+        min = 1;
     }   
 
     ff_sec_prev = ff_sec; //sets previous ctr
