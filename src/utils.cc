@@ -210,8 +210,8 @@ void players::keylog(){
 // PLAYERS DEFAULTS
 
 void players::fast_forward(){
-    static int ff_sec_prev;
-    static int ff_sec;
+    static int ff_sec_prev = 0;
+    static int ff_sec = 1;
 
     MESSAGE(std::to_string(ff_sec), 1);
 
