@@ -196,7 +196,6 @@ void players::fast_forward(){
     static int x = 0; // x for quadratic growth
     static int max = 1; // max amount (amount to add in seconds)
 
-    MESSAGE( "+" + std::to_string(ff_sec) + " sec", 1); 
 
     x++;
     ff_sec= (int)((double)x*x/50);
@@ -204,10 +203,11 @@ void players::fast_forward(){
 
     if (ff_sec > max) max = ff_sec;
 
+    MESSAGE( "+" + std::to_string(max), 1); 
 
     SLEEP(1);
-    if (ff_sec_prev == ff_sec && ff_sec == 1){ // when user releases 
-        MESSAGE( "+" + std::to_string(ff_sec) + " sec..."); 
+    if (ff_sec_prev == ff_sec){ // when user releases 
+        MESSAGE( "+" + std::to_string(max) + " sec..."); 
 
         if (progress+ff_sec >  duration) { //if progress exceeds duration
             MESSAGE("Nexting...");
@@ -215,11 +215,9 @@ void players::fast_forward(){
                 (void)cpr::Post(INTO("me/player/next"));
             }).detach();
         } else {   // if it doesnt
-            std::jthread([this]() {
-                (void)cpr::Put(INTO("me/player/seek"),
-                                    cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
-                MESSAGE_OFF;
-            }).detach();
+            (void)cpr::Put(INTO("me/player/seek"),
+                                cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
+            MESSAGE_OFF;
         }
         ff_sec_prev = 0;
         ff_sec = 1;
