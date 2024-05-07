@@ -212,15 +212,13 @@ void players::keylog(){
 void players::fast_forward(){
     static int ff_sec_prev = 0;
     static int ff_sec = 1;
-    static bool type = true;
 
-    MESSAGE(std::to_string(ff_sec), 1);
+    MESSAGE( "+" + std::to_string(ff_sec) + " sec", 1); 
 
-    type = true;
-    ff_sec++;
+    ff_sec+= (int)(0.25*ff_sec);
 
     SLEEP(1);
-    if (ff_sec_prev == ff_sec){
+    if (ff_sec_prev == ff_sec){ // when user releases 
     ff_sec_prev = 0;
     ff_sec = 1;
     }
