@@ -76,6 +76,7 @@ def end():
 program = subprocess.Popen([FOLDER + 'librespot',
                     '--name', 'fspot player',
                     '--disable-audio-cache',
+                    '--emit-sink-events',
                     '--disable-credential-cache',
                     '-u', gl.auth_codes['user_id'],
                     '-p',  gl.auth_codes['password'], 
