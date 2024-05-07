@@ -11,6 +11,7 @@ type(true),
 progress(0), //progress is 0
 duration(100), //duration is 100 to avoid division errors
 percent(0.0),
+is_playing(false),
 artist_print(0), //prints no one duh
 artists({"no one yet"}), //default json array
 name("connecting ? maybe"),
@@ -125,20 +126,15 @@ void players::keylog(){
             break;  
             case SPACE:
                 std::jthread([this]() {
-                    json r;
-                    bool playing = false;
-                    try{
-                        json r = GET_JSON(INTO("me/player"));
-                        playing = (bool)r["is_playing"];
-                    }
-                    catch(...) {};
 
-                    if (playing){
+                    if (is_playing){
+                        is_playing = false;
                         MESSAGE("Pausing...");
                         (void)cpr::Put(INTO("me/player/pause"));
                         MESSAGE_OFF;
                         MESSAGE("Paused!", 1);
                     } else {
+                        is_playing = true;
                         MESSAGE("Playing...");
                         (void)cpr::Put(INTO("me/player/play"));
                         MESSAGE_OFF;
@@ -260,19 +256,15 @@ void players::commands(){
         MESSAGE("Paused!", 1);
 
     } else if (input == "pp") { //plays / pauses track
-        bool playing = false;
-        try{
-            r = GET_JSON(INTO("me/player"));
-            playing = (bool)r["is_playing"];
-        }
-        catch(...) {};
 
-        if (playing){
+        if (is_playing){
+            is_playing= false;
             MESSAGE("Pausing...");
             (void)cpr::Put(INTO("me/player/pause"));
             MESSAGE_OFF;
             MESSAGE("Paused!", 1);
         } else {
+            is_playing = true;
             MESSAGE("Playing...");
             (void)cpr::Put(INTO("me/player/play"));
             MESSAGE_OFF;
@@ -361,7 +353,7 @@ void main_player::song_update() {
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
             json data = json::parse(r.text);
-            
+            is_playing = (bool)data["is_playing"];
 
             progress = (int)data["progress_ms"]; //progress in seconds
             percent = (double)progress;
