@@ -207,7 +207,7 @@ void players::fast_forward(){
             
             MESSAGE_OFF;
         } 
-        progress + max;
+        progress += max;
         ff_sec_prev = 0;
         ff_sec = 1;
         x = 0;
