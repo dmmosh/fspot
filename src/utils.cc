@@ -304,9 +304,10 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
         std::cout << CENTER(title) <<  NEW;
 
         if (col_size > 9) {
-            std::string bar = std::string(col_size-6, ' ');
-            int dash_num = bar.size()*percent;
-            if (dash_num) bar.insert(0, std::string(dash_num, '-'));
+            int bar_size = col_size-6;
+
+            std::string bar = (((int)(bar_size*progress > 0)) ? std::string((int)(bar_size*progress), '-') : "") + 
+                               (((int)(bar_size*(1.0-progress))) ? std::string((int)(bar_size*(1.0-progress)), ' ') : "");
             std::cout << BOLD_ON  << "  " << CENTER("<" + bar + ">")  << BOLD_OFF << '\r';
         }
 
