@@ -155,25 +155,6 @@ void players::keylog(){
             case '.': //forward 10 seconds
                 std::jthread(&players::fast_forward, this).detach();
 
-                
-
-                /*
-                MESSAGE("+10 sec",0.5);
-                if (progress+10 >  duration) {
-                    MESSAGE("Nexting...");
-                    std::jthread([this]() {
-                        (void)cpr::Post(INTO("me/player/next"));
-                    }).detach();
-                } else {   
-                    progress +=10;
-                    std::jthread([this]() {
-                        (void)cpr::Put(INTO("me/player/seek"),
-                                            cpr::Parameters{{"position_ms", std::to_string(progress*1000)}});
-
-                    }).detach();
-                }
-                SLEEP(0.5); //need a little break
-                */
             break;
             case ',':
                 MESSAGE("-10 sec", 0.5);
@@ -222,11 +203,26 @@ void players::fast_forward(){
 
     SLEEP(1);
     if (ff_sec_prev == ff_sec){ // when user releases 
+        MESSAGE( "+" + std::to_string(ff_sec) + " sec..."); 
+
+        if (progress+ff_sec >  duration) { //if progress exceeds duration
+            MESSAGE("Nexting...");
+            std::jthread([this]() {
+                (void)cpr::Post(INTO("me/player/next"));
+            }).detach();
+        } else {   // if it doesnt
+            std::jthread([this]() {
+                (void)cpr::Put(INTO("me/player/seek"),
+                                    cpr::Parameters{{"position_ms", std::to_string(ff_sec*1000)}});
+                MESSAGE_OFF;
+            }).detach();
+        }
         ff_sec_prev = 0;
         ff_sec = 1;
         x = 0;
     }   
-    ff_sec_prev = ff_sec;
+
+    ff_sec_prev = ff_sec; //sets previous ctr
 
     
 
