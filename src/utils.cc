@@ -189,13 +189,13 @@ void players::keylog(){
 // PLAYERS DEFAULTS
 
 void players::fast_forward(){
-    static int ff_sec_prev = 0;
-    static int ff_sec = 1;
-    static int x = 0; // x for quadratic growth
-    static int max = 1;
+    static long ff_sec_prev = 0;
+    static long ff_sec = 1;
+    static long x = 0; // x for quadratic growth
+    static long max = 1;
 
     x++;
-    ff_sec= (int)((double)x*x/50);
+    ff_sec= (long)((double)x*x/50);
     if (ff_sec < 5) ff_sec++;   
 
     if (ff_sec > max) max = ff_sec;
