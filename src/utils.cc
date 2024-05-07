@@ -191,10 +191,10 @@ void players::keylog(){
 // PLAYERS DEFAULTS
 
 void players::fast_forward(){
-    static int ff_sec_prev = 0;
-    static int ff_sec = 1;
-    static int x = 0; // x for quadratic growth
-    static int max = 1; // max amount (amount to add in seconds)
+    static long ff_sec_prev = 0;
+    static long ff_sec = 1;
+    static long x = 0; // x for quadratic growth
+    static long max = 1; // max amount (amount to add in seconds)
 
 
     x++;
@@ -207,6 +207,7 @@ void players::fast_forward(){
 
     SLEEP(1);
     if (ff_sec_prev == ff_sec){ // when user releases 
+        MESSAGE_OFF;
         MESSAGE( "+" + std::to_string(max) + " sec..."); 
 
         if (progress+max >  duration) { //if progress exceeds duration
