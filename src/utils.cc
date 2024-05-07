@@ -213,6 +213,9 @@ void players::fast_forward(){
             MESSAGE( "+" + std::to_string(max) + " sec..."); 
             (void)cpr::Put(INTO("me/player/seek"),
                                 cpr::Parameters{{"position_ms", std::to_string((progress +max)*1000)}});
+        } else if (max >= 3600){
+            MESSAGE("nice try buddy");
+            SLEEP(1);
         }
         ff_sec_prev = 0;
         ff_sec = 1;
