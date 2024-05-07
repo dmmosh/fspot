@@ -203,7 +203,7 @@ void players::fast_forward(){
 
     if (ff_sec > max) max = ff_sec;
 
-    MESSAGE( "+" + std::to_string(max) + " sec", 1); 
+    MESSAGE( "+" + std::to_string(ff_sec) + " sec", 1); 
 
     SLEEP(1);
     if (ff_sec_prev == ff_sec){ // when user releases 
