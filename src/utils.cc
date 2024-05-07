@@ -178,7 +178,7 @@ void players::forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const boo
     if (ff_sec > max) max = ff_sec;
 
 
-    MESSAGE( "+" + std::to_string(max), 1); 
+    MESSAGE( ((forward_back) ? "+" : "-") + std::to_string(max), 1); 
 
 
     SLEEP(1);
