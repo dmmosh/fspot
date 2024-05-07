@@ -217,7 +217,7 @@ void players::fast_forward(){
     MESSAGE( "+" + std::to_string(ff_sec) + " sec", 1); 
 
     x++;
-    ff_sec+= (int)((double)x*x/100);
+    ff_sec= (int)((double)x*x/100);
 
     SLEEP(1);
     if (ff_sec_prev == ff_sec){ // when user releases 
