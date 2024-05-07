@@ -218,7 +218,7 @@ void players::fast_forward(){
 
     } else {
         ff_sec++;
-        SLEEP(0.25);
+        SLEEP(0.5);
         if(holding) {
             holding = false;
             ff_sec = 1;
