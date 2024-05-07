@@ -129,17 +129,17 @@ void players::keylog(){
 
                     if (is_playing){
                         MESSAGE("Pausing...");
+                        is_playing = false;
                         std::jthread([this]() {
                             (void)cpr::Put(INTO("me/player/pause"));
-                            is_playing = false;
                             MESSAGE("Paused!", 1);
                         }).detach();
                     } else {
                         MESSAGE("Playing...");
 
+                        is_playing = true;
                         std::jthread([this]() {
                             (void)cpr::Put(INTO("me/player/play"));
-                            is_playing = true;
                             MESSAGE("Playing now!", 1);
                         }).detach();
                     };
