@@ -188,11 +188,10 @@ void players::fast_forward(int& max){
             MESSAGE("nice try buddy");
 
         } else {   // if it doesnt, actually go forward
-            progress+=max;
             MESSAGE( "+" + std::to_string(max) + " sec..."); 
 
             (void)cpr::Put(INTO("me/player/seek"),
-                            cpr::Parameters{{"position_ms", std::to_string((progress)*1000)}});
+                            cpr::Parameters{{"position_ms", std::to_string((progress + max)*1000)}});
         }
 
         MESSAGE_OFF;
