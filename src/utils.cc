@@ -218,7 +218,7 @@ void players::fast_forward(){
     ff_sec++;
     ff_sec_prev = ff_sec;
 
-    
+    SLEEP(0.25);
     while(ff_sec_prev < ff_sec){
         SLEEP(1);
     }
