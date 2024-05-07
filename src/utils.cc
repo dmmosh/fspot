@@ -228,6 +228,49 @@ void players::fast_forward(){
 
 }
 
+void players::back_forward(){
+    static long ff_sec_prev = 0;
+    static long ff_sec = 1;
+    static long x = 0; // x for quadratic growth
+    static long min = 1;
+
+    x++;
+    ff_sec= (long)((double)x*x/50);
+    if (ff_sec < 5) ff_sec++;   
+
+    if (ff_sec > min) min = ff_sec;
+
+    
+    MESSAGE( "-" + std::to_string(min), 1); 
+
+    SLEEP(1);
+    if (ff_sec_prev == ff_sec){ // when user releases 
+
+        if (min >= 3600){
+            MESSAGE("nice try buddy");
+        } else if (min> 1) {   // if it doesnt
+
+            if (progress - min <= 0) {
+                MESSAGE("play it back!");
+                (void)cpr::Put(INTO("me/player/seek"),
+                                cpr::Parameters{{"position_ms", "0"}});
+            } else {
+                MESSAGE( "-" + std::to_string(min) + " sec..."); 
+                (void)cpr::Put(INTO("me/player/seek"),
+                                    cpr::Parameters{{"position_ms", std::to_string((progress - min )*1000)}});
+            }
+            ff_sec_prev = 0;
+            ff_sec = 1;
+            x = 0;
+            min = 1;
+            MESSAGE_OFF;
+        } 
+    }   
+
+    ff_sec_prev = ff_sec; //sets previous ctr
+
+}
+
 // default commands
 void players::commands(){
 

@@ -91,6 +91,7 @@ class players{
     void refresh();
     void col_update();
     void fast_forward();
+    void back_forward();
 
     std::string CENTER(std::string input);
     void MESSAGE(const std::string msg, const double time);
