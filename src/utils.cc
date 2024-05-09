@@ -353,6 +353,8 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
 
 
 void main_player::song_update() {
+    static int tmp_dur = 0;
+    static std::string tmp_name = "NO CONNECTION";
     while(type){    
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
@@ -368,12 +370,12 @@ void main_player::song_update() {
             auto item = data["item"];
 
 
-            int tmp_dur = (int)item["duration_ms"];
+            tmp_dur = (int)item["duration_ms"];
 
             percent /= tmp_dur;
 
             tmp_dur /= 1000;
-            std::string tmp_name = item["name"];
+            tmp_name = item["name"];
 
             // IF THERES BEEN A SONG SWITCH
             if(tmp_dur != duration && tmp_name != name){
