@@ -13,13 +13,7 @@
 #include <bits/stdc++.h> 
 #include <sys/ioctl.h>
 #include <nlohmann/json.hpp>
-#include <cstddef>
-#include <cstdint>
-#include <strings.h>
-#include <string.h>
-#include <glob.h>
-#include <unistd.h>
-#include <fnmatch.h>
+
 
 using json = nlohmann::json;
 
