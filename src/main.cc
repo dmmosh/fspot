@@ -38,9 +38,9 @@ int main(int argc, char* argv[]){
 
     // THESE CHANGE
     // are mutable
-    std::string ACCESS_TOKEN = argv[2];
-    std::string REFRESH_TOKEN = argv[3];
-    int EXPIRES_AT = std::stoi(argv[4]);
+    std::string ACCESS_TOKEN = base64::decode(argv[2]);
+    std::string REFRESH_TOKEN = base64::decode(argv[3]);
+    int EXPIRES_AT = std::stoi(base64::decode(argv[4]));
     
 
     main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
