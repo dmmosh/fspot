@@ -360,22 +360,23 @@ void main_player::song_update() {
         if(r.status_code == 200){
             json data = json::parse(r.text);
             is_playing = (bool)data["is_playing"];
+            auto item = data["item"];
+
+            
+
 
             progress = (int)data["progress_ms"]; //progress in seconds
             percent = (double)progress;
 
+            percent /= tmp_dur;
             progress /=1000; 
 
-            
-            auto item = data["item"];
-
-
-            tmp_dur = (int)item["duration_ms"];
-
-            percent /= tmp_dur;
-
+            duration = (int)item["duration_ms"];
             tmp_dur /= 1000;
-            tmp_name = item["name"];
+
+
+            name = item["name"];
+
 
             // IF THERES BEEN A SONG SWITCH
             if(tmp_dur != duration && tmp_name != name){
@@ -385,23 +386,28 @@ void main_player::song_update() {
                     type = false;    
                     ERROR("Song's too long. FSpot can't play songs longer than 1 hour.");
                 };
-
+                
                 if (POSIX_TIME + (tmp_dur-progress) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
-                duration = tmp_dur;
-                name = tmp_name;
                 artists = {};
                 for (const auto& artist: item["artists"]){
                     artists.push_back(artist["name"].get<std::string>());
                 }
             }
+
+            
+            tmp_dur = duration;
+            tmp_name = name;
+            SLEEP(1);
+
         } else {
             progress = 0;
             duration = 100;
             artists = {"mr. nuh uh"};
             name = "NO CONNECTION";
+            SLEEP(1);
         }   
         
-        SLEEP(1);
+
     }
 };
 
