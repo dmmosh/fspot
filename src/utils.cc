@@ -420,3 +420,4 @@ void main_player::artist_update() {
         SLEEP(2);
     }
 };
+
