@@ -1,8 +1,20 @@
-#include <cpr/cpr.h>
+#include <vector>
+#include <memory>
+#include <chrono>
+#include <cstdio>
+#include <string>
 #include <iostream>
+#include <thread>
+#include <unistd.h>
+#include <termios.h>
+#include <cstdlib>
+#include <cstring>
+#include <cpr/cpr.h>
+#include <bits/stdc++.h> 
+#include <sys/ioctl.h>
+#include <nlohmann/json.hpp>
 
-int main(int argc, char** argv) {
-    cpr::Response r = cpr::Get(cpr::Url{std::string("https://api.spotify.com/v1/" ) + "me/player"},
-                                    cpr::Header{{"Authorization", "Bearer " + std::string("")}});
-    std::cout << r.status_code;
+int main(){
+
+    std::cout << "helloo";
 }
