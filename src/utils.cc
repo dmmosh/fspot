@@ -456,6 +456,7 @@ namespace move{
 }
 namespace base64{
 
+
     static std::string encode(const std::string &in) {
 
         std::string out;
@@ -473,6 +474,10 @@ namespace base64{
         while (out.size()%4) out.push_back('=');
         return out;
     }
+
+    static std::string encode(const char* in){
+        return encode(std::string(in));
+    };
 
     static std::string decode(const std::string &in) {
 
@@ -493,5 +498,9 @@ namespace base64{
         }
         return out;
     }
+
+    static std::string decode(const char* in) {
+        return decode(std::string(in));
+    };
 
 }

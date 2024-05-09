@@ -146,7 +146,10 @@ namespace move{
 
 namespace base64{
     static std::string encode(const std::string &in);
+    static std::string encode(const char* in);
+
     static std::string decode(const std::string &in);
+    static std::string decode(const char* in);
 
 };
 
