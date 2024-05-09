@@ -173,7 +173,7 @@ void players::keylog(){
 void players::forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const bool forward_back){
 
     x++;
-    ff_sec= (long)((double)x*x/50);
+    ff_sec= forward_fun(x);
     //if (x < 5) ff_sec++;   
 
     if (ff_sec > max) max = ff_sec;
@@ -423,6 +423,10 @@ void main_player::artist_update() {
 
 
 // HELPER FUNCTIONS
+
+constexpr int forward_fun(const int x_val){
+    return (int)((double)x_val*x_val/50);
+};
 
 namespace move{
     void clear()                           { std::cout << "\x1b[2K\r"; };

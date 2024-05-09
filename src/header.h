@@ -121,6 +121,7 @@ class main_player: public players{
 
 // HELPER FUNCTIONS
 
+constexpr int forward_fun(const int x_val);
 namespace move{
     void clear();
     void clear(const std::string& newline);
