@@ -121,37 +121,89 @@ class main_player: public players{
 
 // HELPER FUNCTIONS
 
+
+// HELPER FUNCTIONS
+
 namespace move{
-    void clear();
-    void clear(const std::string& newline);
+    void clear()                           { std::cout << "\x1b[2K\r"; };
+    void clear(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
+    
+    void up()              { printf("\x1b[1A"); };
+    void up(const int amt) { printf("\x1b[%iA", amt); };
 
-    void up();
-    void up(const int amt);
+    void down()              { printf("\x1b[1B"); };
+    void down(const int amt) { printf("\x1b[%iB", amt); };
 
-    void down();
-    void down(const int amt);
+    void beginning() { printf("\r"); };
 
-    void beginning();
+    void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
+    void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
+    void up_clear(const std::string& word_above, const int col_size) {
+        if(word_above.size() < col_size) {
+            up_clear();
+        } else {
+            up_clear((int)ceil((double)word_above.size()/(double)col_size));
+        }
+    };
 
-    void up_clear();
-    void up_clear(int amt);
-    void up_clear(const std::string& word_above, const int col_size);
+    void left()              { printf("\x1b[1D"); };
+    void left(const int amt) { printf("\x1b[%iD", amt); };
 
-    void left();
-    void left(const int amt);
+    void right()              { printf("\x1b[1C"); };
+    void right(const int amt) { printf("\x1b[%iC", amt); };
 
-    void right();
-    void right(const int amt);
-};
 
+}
 namespace base64{
-    static std::string encode(const std::string &in);
-    static std::string encode(const char* in);
 
-    static std::string decode(const std::string &in);
-    static std::string decode(const char* in);
 
-};
+    static std::string encode(const std::string &in) {
+
+        std::string out;
+
+        int val = 0, valb = -6;
+        for (unsigned char c : in) {
+            val = (val << 8) + c;
+            valb += 8;
+            while (valb >= 0) {
+                out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[(val>>valb)&0x3F]);
+                valb -= 6;
+            }
+        }
+        if (valb>-6) out.push_back("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[((val<<8)>>(valb+8))&0x3F]);
+        while (out.size()%4) out.push_back('=');
+        return out;
+    }
+
+    static std::string encode(const char* in){
+        return encode(std::string(in));
+    };
+
+    static std::string decode(const std::string &in) {
+
+        std::string out;
+
+        std::vector<int> T(256,-1);
+        for (int i=0; i<64; i++) T["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[i]] = i;
+
+        int val=0, valb=-8;
+        for (unsigned char c : in) {
+            if (T[c] == -1) break;
+            val = (val << 6) + T[c];
+            valb += 6;
+            if (valb >= 0) {
+                out.push_back(char((val>>valb)&0xFF));
+                valb -= 8;
+            }
+        }
+        return out;
+    }
+
+    static std::string decode(const char* in) {
+        return decode(std::string(in));
+    };
+
+}
 
 
 
