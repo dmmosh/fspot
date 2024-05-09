@@ -146,7 +146,6 @@ void players::keylog(){
             break;
             case '.': //forward 10 seconds
                 std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
-                
             break;
             case ',':
                 std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), false).detach();
@@ -180,7 +179,6 @@ void players::forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const boo
 
 
     MESSAGE( ((forward_back) ? "+" : "-") + std::to_string(max), 1); 
-
 
     SLEEP(1);
     if (ff_sec_prev == ff_sec && max>1){ // when user releases 
@@ -228,6 +226,7 @@ void players::forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const boo
         ff_sec = 1;
         x = 0;
         max = 1;
+        return;
     }   
 
     ff_sec_prev = ff_sec; //sets previous ctr
