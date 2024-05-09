@@ -145,12 +145,10 @@ void players::keylog(){
             break;
             case '.': //forward 10 seconds
                 std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
-                SLEEP(0.5);
 
             break;
             case ',':
                 std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), false).detach();
-                SLEEP(0.5);
             break;
             case '>':
                 MESSAGE("Nexting...");
