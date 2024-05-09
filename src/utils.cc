@@ -130,6 +130,7 @@ void players::keylog(){
             break;  
             case SPACE:
 
+
                 if (is_playing){
                     MESSAGE("Pausing...");
                     (void)cpr::Put(INTO("me/player/pause"));
@@ -145,7 +146,7 @@ void players::keylog(){
             break;
             case '.': //forward 10 seconds
                 std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
-
+                
             break;
             case ',':
                 std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), false).detach();
@@ -163,7 +164,7 @@ void players::keylog(){
             default:
                 if (input.length() <15)
                     input.push_back(tolower(buf));
-        }
+        }       
     }
 }
 
