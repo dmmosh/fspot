@@ -169,7 +169,11 @@ void players::forward(const bool forward_back){
         x = (x+1) % 10000; 
         sec_ctr = forward_fun(x) % 3600;
         if (!sec_ctr) sec_ctr++;
-        MINI_MESSAGE(((forward_back) ?"+" : "-") + std::to_string(sec_ctr)); 
+        
+        
+
+        //printf("%02i:%02i\n\n", progress / 60, progress % 60);
+        MINI_MESSAGE(((forward_back) ?"+" : "-") + (sec_ctr/60 <10) ? "0" : "" + std::to_string(sec_ctr/60) + ":" + ((sec_ctr%60 <10) ? "0" : "") + std::to_string(sec_ctr/60)); 
         if (!get_char()) {
             SLEEP(0.1);
             if (!get_char())
