@@ -140,7 +140,7 @@ void players::keylog(){
                 //forward(ff_sec_prev, ff_sec, x, max, true);
                 
                 do{
-                    SLEEP(0.01);
+                    SLEEP(0.1);
 
                     x++;
                     ff_sec = forward_fun(x);
