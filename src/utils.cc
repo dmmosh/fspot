@@ -132,56 +132,10 @@ void players::keylog(){
                 if (input.size()) input.resize(input.size() - 1);
             break;
             case '.': //forward 10 seconds
-                //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
-                //forward(ff_sec_prev, ff_sec, x, max, true);
-                //SLEEP(0.1);
-                while(1){
-
-                    
-                    x++;
-                    sec_ctr = forward_fun(x);
-                    if (!sec_ctr) sec_ctr++;
-
-                    MINI_MESSAGE("+" + std::to_string(sec_ctr)); 
-
-                    if (!get_char()) {
-                        SLEEP(0.1);
-                        if (!get_char())
-                            break;
-                    }
-                    //while(!get_char() || hold_ctr > 0){
-                    //    std::this_thread::sleep_for(std::chrono::milliseconds(1));
-                    //    hold_ctr--;
-                    //}
-
-                    //MESSAGE_OFF;
-                    
-                }
-                
-                if (sec_ctr>1){
-                    //MESSAGE("+" + std::to_string(sec_ctr) + " sec...", 1.0);
-                    if (sec_ctr >= 3600){
-                        MESSAGE("nice try buddy", 3.0);
-
-                    } else if (progress+sec_ctr > duration){
-                        MINI_MESSAGE("Nexting...");
-                        (void)cpr::Post(INTO("me/player/next"));
-
-                    } else {   // if it doesnt, actually go forward
-                        MINI_MESSAGE( "+" + std::to_string(sec_ctr) + " sec...");
-
-                        (void)cpr::Put(INTO("me/player/seek"),
-                                    cpr::Parameters{{"position_ms", std::to_string((progress + sec_ctr)*1000)}});
-                        MESSAGE_OFF;   
-                    }
-
-                }
-                x =0;
-                sec_ctr= 1;
-
+                forward(true);
             break;
             case ',':
-                //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), false).detach();
+                forward(false);
             break;
             case '>':
                 MINI_MESSAGE("Nexting...");
@@ -205,72 +159,59 @@ void players::keylog(){
 
 // PLAYERS DEFAULTS
 
-void players::forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const bool forward_back){
+void players::forward(const bool forward_back){
 
-    x++;
-    ff_sec= forward_fun(x);
-    //if (x < 5) ff_sec++;   
+    unsigned int x = 1;
+    unsigned int sec_ctr = 1;
 
-    if (ff_sec > max) max = ff_sec;
+    while(1){ //iterates the ctr
+
+        x++;
+        sec_ctr = forward_fun(x);
+        if (!sec_ctr) sec_ctr++;
+        MINI_MESSAGE("+" + std::to_string(sec_ctr)); 
+        if (!get_char()) {
+            SLEEP(0.1);
+            if (!get_char())
+                break;
+        }
+    }
+
+    if (sec_ctr>=3600){
+        MESSAGE("nice try buddy", 3.0);
+        return;
+    }  
+    else if (sec_ctr ==1){
+        return;
+    }  
 
 
-    MESSAGE( ((forward_back) ? "+" : "-") + std::to_string(max), 1); 
+    if(forward_back) {
+        if (progress+sec_ctr > duration){
+            MINI_MESSAGE("Nexting...");
+            (void)cpr::Post(INTO("me/player/next"));
+        } else {
 
-    //SLEEP(1);
-    if (ff_sec_prev == ff_sec && max>1){ // when user releases 
-        
-        switch((int)forward_back){
-            case 1: // TO GO FORWARD
-            if (max >= 3600){
-                MESSAGE("nice try buddy", 3.0);
+            MINI_MESSAGE( "+" + std::to_string(sec_ctr) + " sec...");
+            (void)cpr::Put(INTO("me/player/seek"),
+                        cpr::Parameters{{"position_ms", std::to_string((progress + sec_ctr)*1000)}});
 
-            } else if (progress+max > duration){
-                MESSAGE("Nexting...");
-                (void)cpr::Post(INTO("me/player/next"));
-
-            } else {   // if it doesnt, actually go forward
-                MESSAGE( "+" + std::to_string(max) + " sec...");
-
-                (void)cpr::Put(INTO("me/player/seek"),
-                            cpr::Parameters{{"position_ms", std::to_string((progress + max)*1000)}});
-            }
-            
-            break;
-            default: // TO GO BACKWARD
-            
-
-            if (max >= 3600){
-                MESSAGE("nice try buddy");
-            
-            } else if (progress-max <= 0){
-                MESSAGE("wind it back!");
+        }
+    } else {
+        if (progress-sec_ctr <= 0){
+                MINI_MESSAGE("wind it back!");
                 (void)cpr::Put(INTO("me/player/seek"),
                             cpr::Parameters{{"position_ms", "0"}});
 
-            } else {   // if it doesnt, actually go forward
-                MESSAGE( "-" + std::to_string(max) + " sec...");
-
-                (void)cpr::Put(INTO("me/player/seek"),
-                            cpr::Parameters{{"position_ms", std::to_string((progress - max)*1000)}});
-            }
-
-
+        } else {   // if it doesnt, actually go forward
+            MINI_MESSAGE( "-" + std::to_string(sec_ctr) + " sec...");
+            (void)cpr::Put(INTO("me/player/seek"),
+                        cpr::Parameters{{"position_ms", std::to_string((progress - sec_ctr)*1000)}});
         }
 
-        MESSAGE_OFF;
-        ff_sec_prev = 0;
-        ff_sec = 1;
-        x = 0;
-        max = 1;
-        return;
-    }   
+    }
+    MESSAGE_OFF;
 
-
-    std::jthread([&ff_sec, &ff_sec_prev]() {
-                    SLEEP(1);
-                    ff_sec_prev = ff_sec;
-    });
-    
 }
 
 // default commands
