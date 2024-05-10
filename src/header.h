@@ -110,7 +110,7 @@ class main_player: public players{
     // VARIABLES
 
     // never updating
-    std::jthread artist_thread;
+    std::jthread song_thread;
 
     main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
     ~main_player();
