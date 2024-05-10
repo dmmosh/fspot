@@ -167,7 +167,7 @@ void players::forward(const bool forward_back){
     while(1){ //iterates the ctr
 
         x++;
-        sec_ctr = forward_fun(x);
+        sec_ctr = forward_fun(x) % 3600;
         if (!sec_ctr) sec_ctr++;
         MINI_MESSAGE(((forward_back) ?"+" : "-") + std::to_string(sec_ctr)); 
         if (!get_char()) {
@@ -177,11 +177,7 @@ void players::forward(const bool forward_back){
         }
     }
 
-    if (sec_ctr>=3600){
-        MESSAGE("nice try buddy", 3.0);
-        return;
-    }  
-    else if (sec_ctr ==1){
+    if (sec_ctr ==1){
         MESSAGE_OFF;
         return;
     }  
