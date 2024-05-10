@@ -110,6 +110,9 @@ void players::keylog(){
         char buf = get_char();
 
         switch(buf){
+            case '\0':
+                continue;
+            break;
             case ENTER:
                 commands();
                 input = "";
@@ -136,7 +139,7 @@ void players::keylog(){
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
                 //forward(ff_sec_prev, ff_sec, x, max, true);
 
-                while(get_char()){
+                while(get_char() == '.'){
                     ff_sec = forward_fun(x);
                     x++;
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
@@ -147,6 +150,7 @@ void players::keylog(){
 
                 MESSAGE(std::to_string(x), 1.0);
                 x =0;
+                ff_sec= 1;
                 
             break;
             case ',':
@@ -487,7 +491,7 @@ char get_char(){
             perror("tcsetattr()");
     old.c_lflag &= ~ICANON;
     old.c_lflag &= ~ECHO;
-    old.c_cc[VMIN] = 1;
+    old.c_cc[VMIN] = 0;
     old.c_cc[VTIME] = 0;
     if (tcsetattr(0, TCSANOW, &old) < 0)
             perror("tcsetattr ICANON");
@@ -498,7 +502,7 @@ char get_char(){
     if (tcsetattr(0, TCSADRAIN, &old) < 0)
             perror ("tcsetattr ~ICANON");
     
-    return buf;
+    return (buf) ? buf : '\0';
 
 };
 
