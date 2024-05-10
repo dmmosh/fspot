@@ -101,7 +101,7 @@ int players::refresh(){
 void players::keylog(){
         int ff_sec_prev = 0;
         int ff_sec = 1;
-        int x = 0;
+        int x = 1;
         int max = 1;
 
         
@@ -143,7 +143,7 @@ void players::keylog(){
                     x++;
                     ff_sec = forward_fun(x);
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
-                    SLEEP(0.1);
+                    SLEEP(0.01);
                     buf = get_char();
                     //MESSAGE_OFF;
                 } while (buf == '.');
