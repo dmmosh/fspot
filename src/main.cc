@@ -51,7 +51,7 @@ int main(int argc, char* argv[]){
     static int EXPIRES_AT = std::stoi(base64::decode(argv[4]));
 
     pid_encode = argv[5];  //reassigns the ptr 
-    
+        
 
     std::atexit(close);
 
