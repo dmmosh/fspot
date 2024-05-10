@@ -140,7 +140,6 @@ void players::keylog(){
                 //SLEEP(0.1);
 
                 do{
-                    if (!get_char()) break;
                     SLEEP(0.05);
                     
                     if (!get_char()) break;
