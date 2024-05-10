@@ -161,7 +161,7 @@ void players::keylog(){
                 }
                 
                 if (ff_sec>1){
-                    MESSAGE("+" + std::to_string((forward_fun(x)-forward_fun(x-1))) + " sec...", 1.0);
+                    MESSAGE("+" + std::to_string(ff_sec)) + " sec...", 1.0);
                     x =0;
                     ff_sec= 1;
                 }
