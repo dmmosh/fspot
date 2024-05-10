@@ -19,6 +19,7 @@ rm ./fspot/*f
 
 '''
 
+
 def update_term():
     while(1):
         gl.term_size = os.get_terminal_size().columns

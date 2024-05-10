@@ -19,6 +19,12 @@ every response json variable must be stored in some temp variable
 DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 */
 
+static char* pid_encode= NULL; //pid encode ptr
+
+void close(){
+        std::string pid = base64::decode(pid_encode);
+        system(("pkill -f "+pid+";sleep 2; pkill -9 -f "+pid).c_str());
+};
 
 int main(int argc, char* argv[]){
 
@@ -30,10 +36,10 @@ int main(int argc, char* argv[]){
     
     std::cin.get();
     */
-    #if defined(NOSYNC)
-        std::cout.sync_with_stdio(false);
-    #endif
-    
+
+    std::cout.sync_with_stdio(false);
+
+
     move::clear();
     move::up_clear(std::stoi(argv[1])); // clears the loading message
 
@@ -42,7 +48,11 @@ int main(int argc, char* argv[]){
     static std::string ACCESS_TOKEN = base64::decode(argv[2]);
     static std::string REFRESH_TOKEN = base64::decode(argv[3]);
     static int EXPIRES_AT = std::stoi(base64::decode(argv[4]));
+
+    pid_encode = argv[5];  //reassigns the ptr 
     
+
+    std::atexit(close);
 
     main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
 
