@@ -293,7 +293,6 @@ players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
 song_thread(std::jthread(&main_player::song_update, this)) //updates every second
  {
     song_thread.detach();
-    artist_thread.detach();
     
     std::jthread(&players::refresh, this).detach(); // refreshes the token
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
