@@ -44,7 +44,7 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 # FUNCTION CALLS WHEN PROGRAM ENDS
 def end():
-    threading.Thread(target=lambda: PUT('me/player/pause')).start()
+    PUT('me/player/pause')
 
     term_size = os.get_terminal_size().columns
 
@@ -78,8 +78,7 @@ program = subprocess.Popen([FOLDER + 'librespot',
                     '-u', gl.auth_codes['user_id'],
                     '-p',  gl.auth_codes['password'], 
                     '&>', '/dev/null'],
-                    stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                    preexec_fn=os.setpgrp)
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
 #atexit.register(end)
@@ -109,14 +108,13 @@ change_player.join() # joins the thread to mainsd
 #player.wait()
 
 
-atexit.register(lambda:os.system("{}fplayer {} {} {} {} {} {}".format(
+atexit.register(lambda:os.system("{}fplayer {} {} {} {} {}".format(
                             FOLDER,
                            str(erase_num),
                            base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode(),
                            base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode(),
                            base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode(),
                            base64.b64encode(str(int(program.pid)).encode("ascii") ).decode(),
-                           base64.b64encode(str(int(os.getpid())).encode("ascii") ).decode()
                            )))
 
 # runs after quit command

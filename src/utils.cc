@@ -436,6 +436,35 @@ constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/50);
 };
 
+static void print_logo(){
+    unsigned int col_size = col_update();
+
+    unsigned int title_num;
+
+
+    if (col_size < 42)
+        title_num = 1;
+    else if (col_size < 52)
+        title_num = 2;
+    else if (col_size < 123)
+        title_num = 3;
+    else 
+        title_num = 4;
+    
+    std::ifstream title_text(FOLDER + "titles/title" + std::to_string(title_num) + ".txt");
+
+    if (title_text.is_open()) {
+        std::string line;
+        while (std::getline(title_text, line)) {
+            std::cout << BOLD_ON << line << BOLD_OFF << NEW; // Print each line
+        }
+        title_text.close(); // Close the file
+    } else {
+        std::cout << BOLD_ON << "FSPOT" << BOLD_OFF << NEW;
+    }
+    move::up();
+};
+
 namespace move{
     void clear()                           { std::cout << "\x1b[2K\r"; };
     void clear(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
