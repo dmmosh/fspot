@@ -146,7 +146,7 @@ void players::keylog(){
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
                     //SLEEP(0.1);
                     //MESSAGE_OFF;
-                } while (buf = '.');
+                } while (buf == '.');
 
 
                 MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
