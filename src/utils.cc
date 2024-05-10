@@ -193,7 +193,7 @@ void players::forward(const bool forward_back){
             (void)cpr::Post(INTO("me/player/next"));
         } else {
 
-            MINI_MESSAGE( "+" + std::to_string(sec_ctr) + " sec...");
+            MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60) + "..."); 
             (void)cpr::Put(INTO("me/player/seek"),
                         cpr::Parameters{{"position_ms", std::to_string((progress + sec_ctr)*1000)}});
 
@@ -205,7 +205,7 @@ void players::forward(const bool forward_back){
                             cpr::Parameters{{"position_ms", "0"}});
 
         } else {   // if it doesnt, actually go forward
-            MINI_MESSAGE( "-" + std::to_string(sec_ctr) + " sec...");
+            MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60) + "..."); 
             (void)cpr::Put(INTO("me/player/seek"),
                         cpr::Parameters{{"position_ms", std::to_string((progress - sec_ctr)*1000)}});
         }
