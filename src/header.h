@@ -94,10 +94,11 @@ class players{
     void forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const bool forward_back);
 
     std::string CENTER(std::string input);
+    void MINI_MESSAGE(const std::string& msg);
     void MESSAGE(const std::string msg, const double time);
     void MESSAGE(const std::string msg);
     void MESSAGE();
-    void message_log(const std::string msg, const double time);
+    void message_log(const double time);
 
     // MESSAGE 
 
@@ -123,6 +124,7 @@ class main_player: public players{
 
 unsigned int col_update();
 void print_logo();
+char get_char();
 
 constexpr int forward_fun(const int x_val);
 

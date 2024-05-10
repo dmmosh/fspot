@@ -47,13 +47,13 @@ int main(int argc, char* argv[]){
     static std::string REFRESH_TOKEN = base64::decode(argv[3]);
     static int EXPIRES_AT = std::stoi(base64::decode(argv[4]));
 
-    // MANAGES PIDS
+    // kills librespot pid
     static char* pid_encode = argv[5];
 
     //std::cout <<  base64::decode(argv[5]) << NEW << NEW << NEW;  //reassigns the ptr 
     //std::cout << argv[5];   
 
-
+    // runs when program exits
     std::atexit([]{
         system((std::string("kill -9 ")+base64::decode(pid_encode)).c_str());
         print_logo();
