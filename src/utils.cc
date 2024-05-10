@@ -144,6 +144,8 @@ void players::keylog(){
                     
                     x++;
                     ff_sec = forward_fun(x);
+                    if (!ff_sec) ff_sec++;
+
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
 
                     SLEEP(0.05);
@@ -158,7 +160,7 @@ void players::keylog(){
                 }
                 
                 if (x>3){
-                    MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
+                    MESSAGE("+" + std::to_string(ff_sec) + " sec...", 1.0);
                     x =0;
                     ff_sec= 1;
                 }
