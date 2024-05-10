@@ -146,13 +146,14 @@ void players::keylog(){
                     ff_sec = forward_fun(x);
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
 
-                    while(!get_char() || hold_ctr > 0){
-                        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-                        hold_ctr--;
-                    }
-        
+                    //while(!get_char() || hold_ctr > 0){
+                    //    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                    //    hold_ctr--;
+                    //}
+                    if (get_char() != '.') break;
+
                     //MESSAGE_OFF;
-                } while (get_char());
+                } while (!get_char());
 
                 MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
                 x =0;
