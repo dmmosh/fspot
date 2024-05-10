@@ -19,11 +19,11 @@ every response json variable must be stored in some temp variable
 DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 */
 
-char* pid_encode= NULL; //pid encode ptr
+static char* pid_encode= NULL; //pid encode ptr
 
-void close(){
+static void close(){
         std::string pid = base64::decode(pid_encode);
-        system((std::string("pkill -f ")+pid_encode+";sleep 2; pkill -9 -f "+pid_encode).c_str());
+        system((std::string("pkill -f ")+pid+";sleep 2; pkill -9 -f "+pid).c_str());
 };
 
 int main(int argc, char* argv[]){
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
     static std::string REFRESH_TOKEN = base64::decode(argv[3]);
     static int EXPIRES_AT = std::stoi(base64::decode(argv[4]));
 
-    pid_encode = argv[5];  //reassigns the ptr 
+    std::cout <<  base64::decode(argv[5]) << NEW << NEW << NEW;  //reassigns the ptr 
     //std::cout << argv[5];   
 
     std::atexit(close);
