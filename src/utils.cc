@@ -290,8 +290,7 @@ std::string players::CENTER(std::string input){
 // main player constructor
 main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
 players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
-song_thread(std::jthread(&main_player::song_update, this)), //updates every second
-artist_thread(std::jthread(&main_player::artist_update, this)) //updates every second
+song_thread(std::jthread(&main_player::song_update, this)) //updates every second
  {
     song_thread.detach();
     artist_thread.detach();
@@ -393,18 +392,14 @@ void main_player::song_update() {
             refresh();
         }   
 
+        if (artists.size()) artist_print = (artist_print+1) % artists.size();
+
         SLEEP(1);
         
 
     }
 };
 
-void main_player::artist_update() {
-    while(1){
-        if (artists.size()) artist_print = (artist_print+1) % artists.size();
-        SLEEP(2);
-    }
-};
 
 
 // HELPER FUNCTIONS
