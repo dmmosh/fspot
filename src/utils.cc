@@ -108,7 +108,6 @@ void players::keylog(){
         while(type){
         
         char buf = get_char();
-        int buffer = 0;
         switch(buf){
             case 0: // if theres nothing in the buffer
                 continue;
@@ -138,17 +137,17 @@ void players::keylog(){
             case '.': //forward 10 seconds
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
                 //forward(ff_sec_prev, ff_sec, x, max, true);
-                buffer = 10;
+                SLEEP(0.1);
 
                 do{
 
                     x++;
                     ff_sec = forward_fun(x);
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
-                    buffer--;
-                    //SLEEP(0.1);
+                    SLEEP(0.1);
                     //MESSAGE_OFF;
-                } while (get_char() || buffer >0);
+                } while (get_char());
+
 
                 MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
                 x =0;
