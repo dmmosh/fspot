@@ -37,8 +37,9 @@ int main(int argc, char* argv[]){
     std::cin.get();
     */
 
-    std::cout.sync_with_stdio(false);
-
+    #if defined(NOSYNC)
+        std::cout.sync_with_stdio(false);
+    #endif
 
     move::clear();
     move::up_clear(std::stoi(argv[1])); // clears the loading message
