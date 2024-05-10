@@ -149,7 +149,7 @@ void players::keylog(){
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
 
                     SLEEP(0.05);
-                    
+
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
                     if (!get_char()) break;
                     //while(!get_char() || hold_ctr > 0){
@@ -470,7 +470,7 @@ unsigned int col_update(){
 }
 
 constexpr int forward_fun(const int x_val){
-    return (int)((double)x_val*x_val/50);
+    return (int)((double)x_val*x_val/70);
 };
 
 void print_logo(){
