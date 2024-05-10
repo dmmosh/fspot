@@ -41,6 +41,7 @@ using json = nlohmann::json;
 #define BASE_URL std::string("https://api.spotify.com/v1/" )
 #define CLIENT_ID std::string("bbdff8f6b6524edc90d968c3f971b5da")
 #define CLIENT_SECRET std::string(getenv("FSPOT_CLIENT_SECRET"))
+#define FOLDER (std::string(getenv("HOME")) + "/coding/fspot/fspot/")
 
 #define BOLD_ON "\033[1m"
 #define BOLD_OFF "\033[0m"
@@ -121,8 +122,10 @@ class main_player: public players{
 // HELPER FUNCTIONS
 
 unsigned int col_update();
+static void print_logo();
 
 constexpr int forward_fun(const int x_val);
+
 namespace move{
     void clear();
     void clear(const std::string& newline);

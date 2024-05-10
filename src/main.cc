@@ -19,11 +19,22 @@ every response json variable must be stored in some temp variable
 DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 */
 
+
+// CLOSING FUNCTIONS
 static char* pid_encode= NULL; //pid encode ptr
 
 static void close(){
         system((std::string("kill -9 ")+base64::decode(pid_encode)).c_str());
 };
+
+
+static void print_logo(){
+    (void)cpr::Put("me/player/pause");
+
+    print_logo();
+    std::cout << BOLD_ON << "[ see ya... vro ]" << BOLD_OFF << NEW;
+
+}
 
 int main(int argc, char* argv[]){
 
@@ -56,6 +67,7 @@ int main(int argc, char* argv[]){
     //std::cout << argv[5];   
 
     std::atexit(close);
+    std::atexit(print_logo);
 
     main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
 
