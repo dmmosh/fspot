@@ -112,9 +112,9 @@ os.system("{}fplayer {} {} {} {} {}".format(
                            str(erase_num),
                            base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode(),
                            base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode(),
-                           base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode()),
+                           base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode(),
                            base64.b64encode(str(int(program.pid)).encode("ascii") ).decode()
-                           )
+                           ))
 
 # runs after quit command
 #browser.terminate()
