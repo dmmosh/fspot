@@ -35,8 +35,16 @@ main_player::~main_player(){
 
 }
 
+// MINI MESSAGE : when it changes a lot
+// meant to be turned off, will stay forever if doesnt 
+void players::MINI_MESSAGE(const std::string& msg){
+    message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF ); //assigns new message
+}
+
+// standard message 
 void players::MESSAGE(const std::string msg, const double time){
-    std::jthread(&players::message_log, this, msg, time).detach();
+    MINI_MESSAGE(msg);
+    std::jthread(&players::message_log, this, time).detach();
 }
 
 void players::MESSAGE(const std::string msg){
@@ -47,8 +55,8 @@ void players::MESSAGE(){
     MESSAGE("Loading...", 5.0);
 }
 
-void players::message_log(const std::string msg, const double time){
-    message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF ); //assigns new message
+
+void players::message_log(const double time){
     std::string temp = message; // temp string
     SLEEP(time); // waits the time
     if (temp == message) MESSAGE_OFF; // turn message off only if theres no new message to replace it
@@ -58,7 +66,7 @@ void players::message_log(const std::string msg, const double time){
 // refreshes the token 
 int players::refresh(){
     // refresh post request response
-    MESSAGE("Refreshing...");
+    MINI_MESSAGE("Refreshing...");
     cpr::Response r = cpr::Post(cpr::Url{TOKEN_URL},
                                 cpr::Header{
                                 {"Content-Type", "application/x-www-form-urlencoded"},
@@ -95,25 +103,7 @@ void players::keylog(){
         
         while(type){
         
-        char buf = 0;
-        struct termios old = {0};
-        if (tcgetattr(0, &old) < 0)
-                perror("tcsetattr()");
-        old.c_lflag &= ~ICANON;
-        old.c_lflag &= ~ECHO;
-        old.c_cc[VMIN] = 1;
-        old.c_cc[VTIME] = 0;
-        if (tcsetattr(0, TCSANOW, &old) < 0)
-                perror("tcsetattr ICANON");
-        if (read(0, &buf, 1) < 0)
-                perror ("read()");
-        old.c_lflag |= ICANON;
-        old.c_lflag |= ECHO;
-        if (tcsetattr(0, TCSADRAIN, &old) < 0)
-                perror ("tcsetattr ~ICANON");
-        
-
-        if (!buf) return;
+        char buf = get_char();
 
         switch(buf){
             case ENTER:
@@ -124,11 +114,11 @@ void players::keylog(){
 
 
                 if (is_playing){
-                    MESSAGE("Pausing...");
+                    MINI_MESSAGE("Pausing...");
                     (void)cpr::Put(INTO("me/player/pause"));
                     MESSAGE("Paused!", 1);
                 } else {
-                    MESSAGE("Playing...");
+                    MINI_MESSAGE("Playing...");
                     (void)cpr::Put(INTO("me/player/play"));
                     MESSAGE("Playing now!", 1);
                 };
@@ -138,21 +128,26 @@ void players::keylog(){
             break;
             case '.': //forward 10 seconds
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
-                forward(ff_sec_prev, ff_sec, x, max, true);
+                //forward(ff_sec_prev, ff_sec, x, max, true);
+                
+                //while(get_char() == '.'){
+                //    MINI_MESSAGE( ((forward_back) ? "+" : "-") + std::to_string(max), 1); 
+                //
+                //}
                 
             break;
             case ',':
                 std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), false).detach();
             break;
             case '>':
-                MESSAGE("Nexting...");
+                MINI_MESSAGE("Nexting...");
 
 
                 (void)cpr::Post(INTO("me/player/next"));
                 SLEEP(0.5); //need a cooldown
             break;
             case '<':
-                MESSAGE("Previousing...");
+                MINI_MESSAGE("Previousing...");
                 (void)cpr::Post(INTO("me/player/previous"));
                 SLEEP(0.5); //need a cooldown
             break;
@@ -240,7 +235,7 @@ void players::commands(){
     // guranteed all commands will contain different first and last chars
     json r; // temp response variable
     if (input == "quit"){ //quit
-        MESSAGE("Quitting...");
+        MINI_MESSAGE("Quitting...");
         type = false;
         log_thread.request_stop();
 
@@ -253,25 +248,23 @@ void players::commands(){
     } else if (input == "hello") {
         MESSAGE("Hello vro...", 2.0);
     } else if (input == "play"){ // plays track
-        MESSAGE("Playing...");
+        MINI_MESSAGE("Playing...");
         (void)cpr::Put(INTO("me/player/play"));
-        MESSAGE_OFF;
         MESSAGE("Playing now!", 1);
 
     } else if (input == "pause"){ // pauses track
-        MESSAGE("Pausing...");
+        MINI_MESSAGE("Pausing...");
         (void)cpr::Put(INTO("me/player/pause"));
-        MESSAGE_OFF;
         MESSAGE("Paused!", 1);
 
     } else if (input == "pp") { //plays / pauses track
 
         if (is_playing){
-            MESSAGE("Pausing...");
+            MINI_MESSAGE("Pausing...");
             (void)cpr::Put(INTO("me/player/pause"));
             MESSAGE("Paused!", 1);
         } else {
-            MESSAGE("Playing...");
+            MINI_MESSAGE("Playing...");
             (void)cpr::Put(INTO("me/player/play"));
             MESSAGE("Playing now!", 1);
         };
@@ -464,6 +457,30 @@ void print_logo(){
     }
     move::up();
 };
+
+char get_char(){
+        
+    char buf = 0;
+    struct termios old = {0};
+    if (tcgetattr(0, &old) < 0)
+            perror("tcsetattr()");
+    old.c_lflag &= ~ICANON;
+    old.c_lflag &= ~ECHO;
+    old.c_cc[VMIN] = 1;
+    old.c_cc[VTIME] = 0;
+    if (tcsetattr(0, TCSANOW, &old) < 0)
+            perror("tcsetattr ICANON");
+    if (read(0, &buf, 1) < 0)
+            perror ("read()");
+    old.c_lflag |= ICANON;
+    old.c_lflag |= ECHO;
+    if (tcsetattr(0, TCSADRAIN, &old) < 0)
+            perror ("tcsetattr ~ICANON");
+    
+    return (!buf) ? '\0' : buf;
+
+};
+
 
 namespace move{
     void clear()                           { std::cout << "\x1b[2K\r"; };
