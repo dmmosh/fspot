@@ -138,8 +138,8 @@ void players::keylog(){
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
                 //forward(ff_sec_prev, ff_sec, x, max, true);
                 //SLEEP(0.1);
-                SLEEP(0.05);
                 while(1){
+                    SLEEP(0.05);
 
                     
                     x++;
