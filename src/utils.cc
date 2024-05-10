@@ -256,7 +256,7 @@ void players::commands(){
         log_thread.request_stop();
 
     } else if (input == "refresh") {
-        std::jthread(&players::refresh, this).detach();
+        refresh();
 
     } else if (input == "clear"){
         system("clear");
@@ -267,11 +267,15 @@ void players::commands(){
         MINI_MESSAGE("Playing...");
         (void)cpr::Put(INTO("me/player/play"));
         MESSAGE("Playing now!", 1);
+        is_playing= true;
+
 
     } else if (input == "pause"){ // pauses track
         MINI_MESSAGE("Pausing...");
         (void)cpr::Put(INTO("me/player/pause"));
         MESSAGE("Paused!", 1);
+        is_playing= false;
+
 
     } else if (input == "pp") { //plays / pauses track
 
@@ -279,10 +283,14 @@ void players::commands(){
             MINI_MESSAGE("Pausing...");
             (void)cpr::Put(INTO("me/player/pause"));
             MESSAGE("Paused!", 1);
+            is_playing= false;
+
         } else {
             MINI_MESSAGE("Playing...");
             (void)cpr::Put(INTO("me/player/play"));
             MESSAGE("Playing now!", 1);
+            is_playing= true;
+
         };
 
     }
