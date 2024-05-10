@@ -138,9 +138,10 @@ void players::keylog(){
             case '.': //forward 10 seconds
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
                 //forward(ff_sec_prev, ff_sec, x, max, true);
-
-                while(buf == '.'){
+                SLEEP(0.001);
+                while(1){
                     buf = get_char();
+                    if (buf != '.') break;
 
                     ff_sec = forward_fun(x);
                     x++;
