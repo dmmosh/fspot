@@ -138,7 +138,7 @@ void players::keylog(){
                 while(get_char() == '.'){
                     MINI_MESSAGE("+" + std::to_string(x)); 
                     
-                    SLEEP(0.001);
+                    SLEEP(0.1);
                 }
                 x =0;
                 
