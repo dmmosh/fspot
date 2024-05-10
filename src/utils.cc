@@ -137,16 +137,16 @@ void players::keylog(){
             case '.': //forward 10 seconds
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
                 //forward(ff_sec_prev, ff_sec, x, max, true);
-                SLEEP(0.1);
+                //SLEEP(0.1);
 
                 do{
-
+                    buf = get_char();
                     x++;
                     ff_sec = forward_fun(x);
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
                     //SLEEP(0.1);
                     //MESSAGE_OFF;
-                } while (get_char());
+                } while (buf = '.');
 
 
                 MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
