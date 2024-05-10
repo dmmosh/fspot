@@ -436,7 +436,7 @@ constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/50);
 };
 
-static void print_logo(){
+void print_logo(){
     unsigned int col_size = col_update();
 
     unsigned int title_num;
