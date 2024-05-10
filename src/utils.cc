@@ -110,7 +110,7 @@ void players::keylog(){
         char buf = get_char();
 
         switch(buf){
-            case '\0':
+            case 0: // if theres nothing in the buffer
                 continue;
             break;
             case ENTER:
@@ -139,16 +139,18 @@ void players::keylog(){
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
                 //forward(ff_sec_prev, ff_sec, x, max, true);
 
-                while(get_char() == '.'){
+                while(buf == '.'){
+                    buf = get_char();
+
                     ff_sec = forward_fun(x);
                     x++;
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
                     
-                    SLEEP(0.1);
+                    //SLEEP(0.1);
                     //MESSAGE_OFF;
                 }
 
-                MESSAGE(std::to_string(x), 1.0);
+                MESSAGE(std::to_string(ff_sec), 1.0);
                 x =0;
                 ff_sec= 1;
                 
@@ -502,7 +504,7 @@ char get_char(){
     if (tcsetattr(0, TCSADRAIN, &old) < 0)
             perror ("tcsetattr ~ICANON");
     
-    return (buf) ? buf : '\0';
+    return buf;
 
 };
 
