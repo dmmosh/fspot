@@ -139,13 +139,13 @@ void players::keylog(){
                 //forward(ff_sec_prev, ff_sec, x, max, true);
                 //SLEEP(0.1);
 
-                do{
+                while(1){
 
                     
                     x++;
                     ff_sec = forward_fun(x);
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
-                    
+
                     SLEEP(0.05);
                     if (!get_char()) break;
                     //while(!get_char() || hold_ctr > 0){
@@ -155,7 +155,7 @@ void players::keylog(){
 
                     //MESSAGE_OFF;
                     
-                } while (1);
+                }
 
 
                 MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
