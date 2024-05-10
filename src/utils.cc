@@ -135,11 +135,13 @@ void players::keylog(){
                 //forward(ff_sec_prev, ff_sec, x, max, true);
 
                 
-                while(get_char() == '.'){
+                while(buf == '.'){
+
                     MINI_MESSAGE("+" + std::to_string(x++)); 
                     
                     //SLEEP(0.1);
-                    MESSAGE_OFF;
+                    //MESSAGE_OFF;
+                    buf = get_char();
                 }
 
                 MESSAGE(std::to_string(x), 1.0);
