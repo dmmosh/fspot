@@ -68,7 +68,6 @@ class players{
 
     // always updating
     std::string input, message;
-    int col_size;
 
     int progress, duration, artist_print;
     bool is_playing;
@@ -83,14 +82,14 @@ class players{
     
     // never updating
     int row_size;
-    std::unique_ptr<std::jthread> log_thread, col_thread;
+    std::jthread log_thread;
 
     players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT, const int row_size);
     ~players();
     void keylog();
     void commands();
-    void refresh();
-    void col_update();
+    int refresh();
+    
     void forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const bool forward_back);
 
     std::string CENTER(std::string input);
@@ -109,7 +108,7 @@ class main_player: public players{
     // VARIABLES
 
     // never updating
-    std::unique_ptr<std::jthread> song_thread, artist_thread;
+    std::jthread song_thread, artist_thread;
 
     main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
     ~main_player();
@@ -120,6 +119,8 @@ class main_player: public players{
 };
 
 // HELPER FUNCTIONS
+
+unsigned int col_update();
 
 constexpr int forward_fun(const int x_val);
 namespace move{
@@ -153,7 +154,3 @@ namespace base64{
     std::string decode(const char* in);
 
 };
-
-
-
-

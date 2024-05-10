@@ -15,16 +15,13 @@ is_playing(false),
 artist_print(0), //prints no one duh
 artists({"no one yet"}), //default json array
 name("connecting ? maybe"),
-col_size(0),
 row_size(row_size),
 ACCESS_TOKEN(ACCESS_TOKEN),
 REFRESH_TOKEN(REFRESH_TOKEN),
 REFRESH_AT(REFRESH_AT),
-log_thread(std::make_unique<std::jthread>(&players::keylog, this)),
-col_thread(std::make_unique<std::jthread>(&players::col_update, this))
+log_thread(std::jthread(&players::keylog, this))
 {
-    log_thread->detach();
-    col_thread->detach();
+    log_thread.detach();
     
 };
 
@@ -59,7 +56,7 @@ void players::message_log(const std::string msg, const double time){
 
 
 // refreshes the token 
-void players::refresh(){
+int players::refresh(){
     // refresh post request response
     MESSAGE("Refreshing...");
     cpr::Response r = cpr::Post(cpr::Url{TOKEN_URL},
@@ -83,16 +80,9 @@ void players::refresh(){
     } else {
         MESSAGE("Token refresh failed");
     }
+    return r.status_code;
 }
 
-void players::col_update(){
-    struct winsize w;
-    while(1){
-        ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-        col_size = w.ws_col;
-        SLEEP(0.01);
-    }
-}
 
 // CHARACTER INPUT  and keylog
 // any subclass
@@ -101,6 +91,8 @@ void players::keylog(){
         int ff_sec = 1;
         int x = 0;
         int max = 1;
+
+        
         while(type){
         
         char buf = 0;
@@ -145,13 +137,17 @@ void players::keylog(){
                 if (input.size()) input.resize(input.size() - 1);
             break;
             case '.': //forward 10 seconds
-                std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
+                //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
+                forward(ff_sec_prev, ff_sec, x, max, true);
+                
             break;
             case ',':
                 std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), false).detach();
             break;
             case '>':
                 MESSAGE("Nexting...");
+
+
                 (void)cpr::Post(INTO("me/player/next"));
                 SLEEP(0.5); //need a cooldown
             break;
@@ -163,7 +159,8 @@ void players::keylog(){
             default:
                 if (input.length() <15)
                     input.push_back(tolower(buf));
-        }       
+        }     
+        SLEEP(0.0001);
     }
 }
 
@@ -180,7 +177,7 @@ void players::forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const boo
 
     MESSAGE( ((forward_back) ? "+" : "-") + std::to_string(max), 1); 
 
-    SLEEP(1);
+    //SLEEP(1);
     if (ff_sec_prev == ff_sec && max>1){ // when user releases 
         
         switch((int)forward_back){
@@ -229,8 +226,12 @@ void players::forward(int& ff_sec_prev, int& ff_sec, int& x, int& max, const boo
         return;
     }   
 
-    ff_sec_prev = ff_sec; //sets previous ctr
 
+    std::jthread([&ff_sec, &ff_sec_prev]() {
+                    SLEEP(1);
+                    ff_sec_prev = ff_sec;
+    });
+    
 }
 
 // default commands
@@ -241,7 +242,7 @@ void players::commands(){
     if (input == "quit"){ //quit
         MESSAGE("Quitting...");
         type = false;
-        if (log_thread) log_thread->request_stop();
+        log_thread.request_stop();
 
     } else if (input == "refresh") {
         std::jthread(&players::refresh, this).detach();
@@ -281,6 +282,7 @@ void players::commands(){
 
 // NOTE: changes the input variable if needs concat
 std::string players::CENTER(std::string input){
+    unsigned int col_size = col_update();
     if (input.empty()) {
         input = std::string("");
 
@@ -305,11 +307,11 @@ std::string players::CENTER(std::string input){
 // main player constructor
 main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
 players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
-song_thread(std::make_unique<std::jthread>(&main_player::song_update, this)), //updates every second
-artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this)) //updates every second
+song_thread(std::jthread(&main_player::song_update, this)), //updates every second
+artist_thread(std::jthread(&main_player::artist_update, this)) //updates every second
  {
-    song_thread->detach();
-    artist_thread->detach();
+    song_thread.detach();
+    artist_thread.detach();
     
     std::jthread(&players::refresh, this).detach(); // refreshes the token
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
@@ -318,7 +320,7 @@ artist_thread(std::make_unique<std::jthread>(&main_player::artist_update, this))
     move::up(row_size);
 
     while(type){ //keeps updating
-
+        unsigned int col_size = col_update();
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
         
@@ -405,6 +407,7 @@ void main_player::song_update() {
             duration = 100;
             artists = {"mr. nuh uh"};
             name = "NO CONNECTION";
+            refresh();
         }   
 
         SLEEP(1);
@@ -422,6 +425,12 @@ void main_player::artist_update() {
 
 
 // HELPER FUNCTIONS
+
+unsigned int col_update(){
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    return w.ws_col;
+}
 
 constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/50);
