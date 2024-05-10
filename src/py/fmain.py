@@ -109,7 +109,7 @@ change_player.join() # joins the thread to mainsd
 #player.wait()
 
 
-atexit.register(lambda:os.system("{}fplayer {} {} {} {} {}".format(
+atexit.register(lambda:os.system("{}fplayer {} {} {} {} {} {}".format(
                             FOLDER,
                            str(erase_num),
                            base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode(),
