@@ -139,9 +139,9 @@ void players::keylog(){
                     MINI_MESSAGE("+" + std::to_string(x++)); 
                     
                     //SLEEP(0.1);
-
+                    MESSAGE_OFF;
                 }
-            
+
                 MESSAGE(std::to_string(x), 1.0);
                 x =0;
                 
