@@ -122,7 +122,7 @@ class main_player: public players{
 // HELPER FUNCTIONS
 
 unsigned int col_update();
-static void print_logo();
+void print_logo();
 
 constexpr int forward_fun(const int x_val);
 
