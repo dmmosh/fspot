@@ -169,7 +169,7 @@ void players::forward(const bool forward_back){
         x++;
         sec_ctr = forward_fun(x);
         if (!sec_ctr) sec_ctr++;
-        MINI_MESSAGE("+" + std::to_string(sec_ctr)); 
+        MINI_MESSAGE(((forward_back) ?"+" : "-") + std::to_string(sec_ctr)); 
         if (!get_char()) {
             SLEEP(0.1);
             if (!get_char())

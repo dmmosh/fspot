@@ -91,7 +91,7 @@ class players{
     void commands();
     int refresh();
     
-    void forward(const bool forward_back);
+    void forward(const bool forward_back); //forward-backward function
 
     std::string CENTER(std::string input);
     void MINI_MESSAGE(const std::string& msg);
