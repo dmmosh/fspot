@@ -99,11 +99,8 @@ int players::refresh(){
 // CHARACTER INPUT  and keylog
 // any subclass
 void players::keylog(){
-        int ff_sec_prev = 0;
-        int ff_sec = 1;
+        int sec_ctr = 1;
         int x = 1;
-        int max = 1;
-        int hold_ctr = 1000;
         
         while(type){
         
@@ -142,12 +139,10 @@ void players::keylog(){
 
                     
                     x++;
-                    ff_sec = forward_fun(x);
-                    if (!ff_sec) ff_sec++;
+                    sec_ctr = forward_fun(x);
+                    if (!sec_ctr) sec_ctr++;
 
-
-
-                    MINI_MESSAGE("+" + std::to_string(ff_sec)); 
+                    MINI_MESSAGE("+" + std::to_string(sec_ctr)); 
 
                     if (!get_char()) {
                         SLEEP(0.1);
@@ -163,11 +158,26 @@ void players::keylog(){
                     
                 }
                 
-                if (ff_sec>1){
-                    MESSAGE("+" + std::to_string(ff_sec) + " sec...", 1.0);
-                    x =0;
-                    ff_sec= 1;
+                if (sec_ctr>1){
+                    MESSAGE("+" + std::to_string(sec_ctr) + " sec...", 1.0);
+                    if (sec_ctr >= 3600){
+                        MESSAGE("nice try buddy", 3.0);
+
+                    } else if (progress+sec_ctr > duration){
+                        MINI_MESSAGE("Nexting...");
+                        (void)cpr::Post(INTO("me/player/next"));
+
+                    } else {   // if it doesnt, actually go forward
+                        MINI_MESSAGE( "+" + std::to_string(sec_ctr) + " sec...");
+
+                        (void)cpr::Put(INTO("me/player/seek"),
+                                    cpr::Parameters{{"position_ms", std::to_string((progress + sec_ctr)*1000)}});
+                        MESSAGE_OFF;   
+                    }
+
                 }
+                x =0;
+                sec_ctr= 1;
 
 
 
