@@ -159,7 +159,7 @@ void players::keylog(){
                 }
                 
                 if (sec_ctr>1){
-                    MESSAGE("+" + std::to_string(sec_ctr) + " sec...", 1.0);
+                    //MESSAGE("+" + std::to_string(sec_ctr) + " sec...", 1.0);
                     if (sec_ctr >= 3600){
                         MESSAGE("nice try buddy", 3.0);
 
@@ -179,13 +179,9 @@ void players::keylog(){
                 x =0;
                 sec_ctr= 1;
 
-
-
-
-                
             break;
             case ',':
-                std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), false).detach();
+                //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), false).detach();
             break;
             case '>':
                 MINI_MESSAGE("Nexting...");
