@@ -145,7 +145,7 @@ void players::keylog(){
                     ff_sec = forward_fun(x);
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
 
-                    while(!get_char() && hold_ctr >0){
+                    while(hold_ctr>0){
                         std::this_thread::sleep_for(std::chrono::milliseconds(1));
                         hold_ctr--;
                     }
