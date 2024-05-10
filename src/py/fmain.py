@@ -113,7 +113,7 @@ os.system("{}fplayer {} {} {} {} {}".format(
                            base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode(),
                            base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode(),
                            base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode()),
-                           program.pid
+                           base64.b64encode(str(int(program.pid)).encode("ascii") ).decode()
                            )
 
 # runs after quit command
