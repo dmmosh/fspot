@@ -161,8 +161,8 @@ void players::keylog(){
 
 void players::forward(const bool forward_back){
 
-    unsigned int x = 1;
-    unsigned int sec_ctr = 1;
+    int x = 1;
+    int sec_ctr = 1;
 
     while(1){ //iterates the ctr
 
@@ -182,6 +182,7 @@ void players::forward(const bool forward_back){
         return;
     }  
     else if (sec_ctr ==1){
+        MESSAGE_OFF;
         return;
     }  
 
