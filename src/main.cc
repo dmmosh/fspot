@@ -21,20 +21,7 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 
 // CLOSING FUNCTIONS
-static char* pid_encode= NULL; //pid encode ptr
 
-static void close(){
-        system((std::string("kill -9 ")+base64::decode(pid_encode)).c_str());
-};
-
-
-static void print_logo(){
-    (void)cpr::Put("me/player/pause");
-
-    print_logo();
-    std::cout << BOLD_ON << "[ see ya... vro ]" << BOLD_OFF << NEW;
-
-}
 
 int main(int argc, char* argv[]){
 
@@ -61,13 +48,17 @@ int main(int argc, char* argv[]){
     static int EXPIRES_AT = std::stoi(base64::decode(argv[4]));
 
     // MANAGES PIDS
-    pid_encode = argv[5];
+    static char* pid_encode = argv[5];
 
     //std::cout <<  base64::decode(argv[5]) << NEW << NEW << NEW;  //reassigns the ptr 
     //std::cout << argv[5];   
 
-    std::atexit(close);
-    std::atexit(print_logo);
+
+    std::atexit([]{
+        system((std::string("kill -9 ")+base64::decode(pid_encode)).c_str());
+        print_logo();
+        std::cout << BOLD_ON << "[ see ya... vro ]" << BOLD_OFF << NEW;
+    });
 
     main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
 
