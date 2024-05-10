@@ -136,13 +136,12 @@ void players::keylog(){
 
                 
                 while(get_char() == '.'){
-                    x++;
-                    MINI_MESSAGE("+" + std::to_string(x)); 
+                    MINI_MESSAGE("+" + std::to_string(x++)); 
                     
-                    SLEEP(0.1);
+                    //SLEEP(0.1);
 
                 }
-
+            
                 MESSAGE(std::to_string(x), 1.0);
                 x =0;
                 
