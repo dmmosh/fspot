@@ -35,6 +35,10 @@ main_player::~main_player(){
 
 }
 
+// MESSAGES 
+// mini message: meant to be turned off, doesnt use thread
+// message: automatically turns off after a given time USE ONLY WHEN NEEDED
+
 // MINI MESSAGE : when it changes a lot
 // meant to be turned off, will stay forever if doesnt 
 void players::MINI_MESSAGE(const std::string& msg){
@@ -129,11 +133,14 @@ void players::keylog(){
             case '.': //forward 10 seconds
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
                 //forward(ff_sec_prev, ff_sec, x, max, true);
-                
-                //while(get_char() == '.'){
-                //    MINI_MESSAGE( ((forward_back) ? "+" : "-") + std::to_string(max), 1); 
-                //
-                //}
+                x++;
+
+                while(get_char() == '.'){
+                    MINI_MESSAGE("+" + std::to_string(x)); 
+                    
+                    SLEEP(0.001);
+                }
+                x =0;
                 
             break;
             case ',':
