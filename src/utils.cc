@@ -136,14 +136,13 @@ void players::keylog(){
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
                 //forward(ff_sec_prev, ff_sec, x, max, true);
 
-                
                 while(get_char()){
-                    
-                    MINI_MESSAGE("+" + std::to_string(x++)); 
+                    ff_sec = forward_fun(x);
+                    x++;
+                    MINI_MESSAGE("+" + std::to_string(ff_sec)); 
                     
                     //SLEEP(0.1);
                     //MESSAGE_OFF;
-
                 }
 
                 MESSAGE(std::to_string(x), 1.0);
@@ -499,7 +498,7 @@ char get_char(){
     if (tcsetattr(0, TCSADRAIN, &old) < 0)
             perror ("tcsetattr ~ICANON");
     
-    return (!buf) ? '\0' : buf;
+    return buf;
 
 };
 
