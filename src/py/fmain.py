@@ -78,7 +78,8 @@ program = subprocess.Popen([FOLDER + 'librespot',
                     '-u', gl.auth_codes['user_id'],
                     '-p',  gl.auth_codes['password'], 
                     '&>', '/dev/null'],
-                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                    preexec_fn=os.setpgrp)
 
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
 #atexit.register(end)
@@ -108,14 +109,15 @@ change_player.join() # joins the thread to mainsd
 #player.wait()
 
 
-os.system("{}fplayer {} {} {} {} {}".format(
+atexit.register(lambda:os.system("{}fplayer {} {} {} {} {}".format(
                             FOLDER,
                            str(erase_num),
                            base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode(),
                            base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode(),
                            base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode(),
-                           base64.b64encode(str(int(program.pid)).encode("ascii") ).decode()
-                           ))
+                           base64.b64encode(str(int(program.pid)).encode("ascii") ).decode(),
+                           base64.b64encode(str(int(os.getpid())).encode("ascii") ).decode()
+                           )))
 
 # runs after quit command
 #browser.terminate()
