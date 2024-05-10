@@ -166,7 +166,7 @@ void players::forward(const bool forward_back){
 
     while(1){ //iterates the ctr
 
-        x++;
+        x = (x+1) % INT_MAX; 
         sec_ctr = forward_fun(x) % 3600;
         if (!sec_ctr) sec_ctr++;
         MINI_MESSAGE(((forward_back) ?"+" : "-") + std::to_string(sec_ctr)); 
