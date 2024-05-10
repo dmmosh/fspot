@@ -140,6 +140,7 @@ void players::keylog(){
                 //SLEEP(0.1);
 
                 do{
+                    SLEEP(0.05);
                     x++;
                     ff_sec = forward_fun(x);
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
@@ -150,7 +151,6 @@ void players::keylog(){
                     //}
 
                     //MESSAGE_OFF;
-                    SLEEP(0.05);
                     
                 } while (get_char());
 
