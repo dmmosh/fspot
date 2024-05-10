@@ -133,13 +133,17 @@ void players::keylog(){
             case '.': //forward 10 seconds
                 //std::jthread(&players::forward, this, std::ref(ff_sec_prev), std::ref(ff_sec), std::ref(x), std::ref(max), true).detach();
                 //forward(ff_sec_prev, ff_sec, x, max, true);
-                x++;
 
+                
                 while(get_char() == '.'){
+                    x++;
                     MINI_MESSAGE("+" + std::to_string(x)); 
                     
                     SLEEP(0.1);
+
                 }
+
+                MESSAGE(std::to_string(x), 1.0);
                 x =0;
                 
             break;
