@@ -19,13 +19,9 @@ rm ./fspot/*f
 
 '''
 
-def update_term():
-    while(1):
-        gl.term_size = os.get_terminal_size().columns
-        time.sleep(0.05)
 
 # ALWAYS UPDATES THE TERMINAL SIZE
-threading.Thread(target=update_term, daemon=True).start()
+#threading.Thread(target=update_term, daemon=True).start()
 
 
 load_var = LOAD('auth.obj') # loads the authorization info
@@ -48,16 +44,17 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
 
 # FUNCTION CALLS WHEN PROGRAM ENDS
 def end():
-    PUT('me/player/pause')
-    
+    threading.Thread(target=lambda: PUT('me/player/pause')).start()
+
+    term_size = os.get_terminal_size().columns
 
     title = {'id': 1,   # the title slide properties
              'line_num': 3,
              'col_num': 10}
     # choose which title number to print (depending on column terminal size
-    if gl.term_size < 42: # TITLE 1 (under 42)
+    if term_size < 42: # TITLE 1 (under 42)
         title = {'id': 1, 'line_num': 3, 'col_num': 10}
-    elif gl.term_size < 52: # TITLE 2 (42 and over)
+    elif term_size < 52: # TITLE 2 (42 and over)
         title = {'id': 2, 'line_num': 9, 'col_num': 42}
     else: # TITLE 3 (52 and over)
         title = {'id': 3, 'line_num': 10, 'col_num': 52}
@@ -83,8 +80,8 @@ program = subprocess.Popen([FOLDER + 'librespot',
                     '&>', '/dev/null'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
-atexit.register(end)
+#atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
+#atexit.register(end)
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
 change_player.start() # starts thread
@@ -101,14 +98,23 @@ change_player.join() # joins the thread to mainsd
 #print('')
 
 
-player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
-                           str(erase_num),
-                            # basic encryption of files
-                           base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ),
-                           base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ),
-                           base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii"))])
+#player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
+#                           str(erase_num),
+#                            # basic encryption of files
+#                           base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ),
+#                           base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ),
+#                           base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii"))])
 
-player.wait()
+#player.wait()
+
+os.system("{}fplayer {} {} {} {} {}".format(
+                            FOLDER,
+                           str(erase_num),
+                           base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode(),
+                           base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode(),
+                           base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode()),
+                           base64.b64encode(os.getpgid(program.pid).encode("ascii") ).decode()
+                           )
 
 # runs after quit command
 #browser.terminate()

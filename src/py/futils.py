@@ -56,28 +56,6 @@ def PUT(where_from:str, params:dict = None, data:dict = None, json:dict = None, 
                          headers=HEADER(headers), 
                          allow_redirects=True)
 
-def POST(where_from:str, params:dict = None, data:dict = None, json:dict = None, headers:dict = None): # a put request, changes and/or replaces resources
-    return requests.post(BASE_URL + where_from, 
-                          params=params,
-                          data=data,
-                          json=json,
-                          headers=HEADER(headers), 
-                          allow_redirects=True)
-
-def DELETE(where_from:str, params:dict = None, data:dict = None, json:dict = None, headers:dict = None): # a delete request, deletes resources
-    return requests.delete(BASE_URL + where_from, 
-                            params=params,
-                            data=data,
-                            json=json,
-                            headers=HEADER(headers), 
-                            allow_redirects=True)
-
-
-# HELPER FUNCTIONS
-
-# centers the text, normal center doesnt work because it fills the right side with padding too
-def CENTER(input:str)-> str:
-    return (' '* ((gl.term_size-len(input))//2))+ input
 
 # a loading message, clears itself when finishes
 def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
@@ -85,15 +63,16 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
              'line_num': 3,
              'col_num': 10,
              }
+    term_size = os.get_terminal_size().columns
 
     # choose which title number to print (depending on column terminal size
-    if gl.term_size < 42: # TITLE 1 (under 42)
+    if term_size < 42: # TITLE 1 (under 42)
         title = {'id': 1, 'line_num': 3, 'col_num': 10}
 
-    elif gl.term_size < 52: # TITLE 2 (42 and over)
+    elif term_size < 52: # TITLE 2 (42 and over)
         title = {'id': 2, 'line_num': 9, 'col_num': 42}
 
-    elif gl.term_size < 123: # TITLE 3 (52 and over)
+    elif term_size < 123: # TITLE 3 (52 and over)
         title = {'id': 3, 'line_num': 10, 'col_num': 52}
 
     else: # TITLE 4 (123 and over)
@@ -108,8 +87,9 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
     print_msg = msg
     while(process.is_alive()):
+        term_size = os.get_terminal_size().columns
         for char in "/—\\|":
-            if gl.term_size < title['col_num']:
+            if term_size < title['col_num']:
 
                 title_text = open(FOLDER + 'titles/title1.txt', 'r')
                 
@@ -119,7 +99,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
 
             # everything message related
-            print_msg = msg[:gl.term_size-7] + '...  ' if (len(msg)+1 > gl.term_size) else msg # shortens the print message if need be
+            print_msg = msg[:term_size-7] + '...  ' if (len(msg)+1 > term_size) else msg # shortens the print message if need be
             sys.stdout.write( TEXT['invert_on'] + print_msg + char + '\r' + TEXT['invert_off'] )
             sys.stdout.flush()
             time.sleep(0.15)
