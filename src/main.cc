@@ -22,8 +22,7 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 static char* pid_encode= NULL; //pid encode ptr
 
 static void close(){
-        static std::string pid = base64::decode(pid_encode);
-        system((std::string("pkill -f ")+pid+";sleep 2; pkill -9 -f "+pid).c_str());
+        system((std::string("kill -9 ")+base64::decode(pid_encode)).c_str());
 };
 
 int main(int argc, char* argv[]){
