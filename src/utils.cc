@@ -150,7 +150,7 @@ void players::keylog(){
                     //}
 
                     //MESSAGE_OFF;
-                    SLEEP(0.04);
+                    SLEEP(0.05);
                     
                 } while (get_char());
 
