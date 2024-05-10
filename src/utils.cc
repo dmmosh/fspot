@@ -156,6 +156,7 @@ void players::keylog(){
                     //MESSAGE_OFF;
                     
                 }
+                MESSAGE_OFF;
 
 
                 MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
