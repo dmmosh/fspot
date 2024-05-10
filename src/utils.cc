@@ -140,11 +140,11 @@ void players::keylog(){
                 //SLEEP(0.1);
 
                 do{
-                    buf = get_char();
                     x++;
                     ff_sec = forward_fun(x);
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
-                    //SLEEP(0.1);
+                    SLEEP(0.1);
+                    buf = get_char();
                     //MESSAGE_OFF;
                 } while (buf == '.');
 
