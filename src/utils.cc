@@ -150,9 +150,10 @@ void players::keylog(){
                     //}
 
                     //MESSAGE_OFF;
+                    SLEEP(0.04);
                     
                 } while (get_char());
-                
+
 
                 MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
                 x =0;
