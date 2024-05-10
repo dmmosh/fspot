@@ -121,10 +121,12 @@ void players::keylog(){
                     MINI_MESSAGE("Pausing...");
                     (void)cpr::Put(INTO("me/player/pause"));
                     MESSAGE("Paused!", 1);
+                    is_playing= false;
                 } else {
                     MINI_MESSAGE("Playing...");
                     (void)cpr::Put(INTO("me/player/play"));
                     MESSAGE("Playing now!", 1);
+                    is_playing= true;
                 };
             break;
             case BACKSPACE:
@@ -143,6 +145,7 @@ void players::keylog(){
                     
                     //SLEEP(0.1);
                     //MESSAGE_OFF;
+
                 }
 
                 MESSAGE(std::to_string(x), 1.0);
