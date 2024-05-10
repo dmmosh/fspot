@@ -103,7 +103,7 @@ void players::keylog(){
         int ff_sec = 1;
         int x = 1;
         int max = 1;
-
+        int hold_ctr = 1000;
         
         while(type){
         
@@ -139,11 +139,18 @@ void players::keylog(){
                 //forward(ff_sec_prev, ff_sec, x, max, true);
                 //SLEEP(0.1);
 
+                
                 do{
+                    hold_ctr = 1000;
                     x++;
                     ff_sec = forward_fun(x);
                     MINI_MESSAGE("+" + std::to_string(ff_sec)); 
-                    SLEEP(0.04);
+
+                    while(!get_char() || hold_ctr >0){
+                        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                        hold_ctr--;
+                    }
+                
                     //MESSAGE_OFF;
                 } while (get_char());
 
