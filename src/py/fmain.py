@@ -107,6 +107,7 @@ change_player.join() # joins the thread to mainsd
 
 #player.wait()
 
+
 os.system("{}fplayer {} {} {} {} {}".format(
                             FOLDER,
                            str(erase_num),
