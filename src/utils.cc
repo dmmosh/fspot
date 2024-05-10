@@ -156,12 +156,14 @@ void players::keylog(){
                     //MESSAGE_OFF;
                     
                 }
-                MESSAGE_OFF;
+                
+                if (x>3){
+                    MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
+                    x =0;
+                    ff_sec= 1;
+                }
 
 
-                MESSAGE("+" + std::to_string(ff_sec) + "sec...", 1.0);
-                x =0;
-                ff_sec= 1;
 
 
                 
