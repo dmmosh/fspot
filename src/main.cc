@@ -50,10 +50,8 @@ int main(int argc, char* argv[]){
     static int EXPIRES_AT = std::stoi(base64::decode(argv[4]));
 
     // MANAGES PIDS
-    pid_encode = argv[6];
-    close();
-    
     pid_encode = argv[5];
+
     //std::cout <<  base64::decode(argv[5]) << NEW << NEW << NEW;  //reassigns the ptr 
     //std::cout << argv[5];   
 
