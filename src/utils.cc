@@ -395,8 +395,8 @@ void main_player::song_update() {
                     } else {
                         cover_str = "";
                     }
-                    std::cout<< NEW<< cover_str;
-                    move::up(size/2 +1);
+                    std::cout<< NEW << NEW<< cover_str;
+                    move::up(size/2 +2);
 
 
                 }
