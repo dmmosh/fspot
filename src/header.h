@@ -95,6 +95,7 @@ class players{
 
     std::string CENTER(std::string input);
     void MINI_MESSAGE(const std::string& msg);
+    void MINI_MESSAGE(const char* msg);
     void MESSAGE(const std::string msg, const double time);
     void MESSAGE(const std::string msg);
     void MESSAGE();
@@ -124,8 +125,9 @@ class main_player: public players{
 constexpr unsigned int col_update();
 void print_logo();
 char get_char();
+constexpr char* timer(const int seconds);
 
-consteval int forward_fun(const int x_val);
+constexpr int forward_fun(const int x_val);
 
 namespace move{
      void clear();
