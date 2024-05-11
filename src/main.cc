@@ -61,7 +61,7 @@ int main(int argc, char* argv[]){
 
     main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
     print_logo();
-    std::cout << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
+    std::cout << NEW << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
     
 
     // PRINTS THE ARGUMENTS
