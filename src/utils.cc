@@ -167,8 +167,7 @@ void players::forward(const bool forward_back){
 
     int x = 1;
     int sec_ctr = 1;
-    MINI_MESSAGE( std::string((forward_back) ?"+" : "-") +  timer(sec_ctr));
-
+    MINI_MESSAGE("aaaaa");
 
     while(1){ //iterates the ctr
 
