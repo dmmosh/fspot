@@ -133,7 +133,7 @@ static char* timer(const int seconds);
 
 std::string CENTER( std::string input);
 
-std::vector<std::string> exec(const std::string& cmd);
+std::string exec(const std::string& cmd);
 
 
 constexpr int forward_fun(const int x_val);
