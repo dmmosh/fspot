@@ -398,7 +398,7 @@ void main_player::song_update() {
                             n += 7;
                         }
 
-                        std::cout<< NEW << NEW << cover_str;
+                        std::cout<< NEW << NEW << "     " << cover_str;
                         move::up(size/2 +3);
 
                         // Close the file stream
