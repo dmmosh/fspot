@@ -55,6 +55,7 @@ int main(int argc, char* argv[]){
 
     // runs when program exits
     std::atexit([]{
+        system("rm " + FOLDER + ".cover.jpg");
         system((std::string("kill -9 ")+base64::decode(pid_encode)).c_str());
         print_logo();
         std::cout << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
