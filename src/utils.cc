@@ -392,14 +392,16 @@ void main_player::song_update() {
                         std::string cover_str = exec("icat --width " + std::to_string(size) + " " +  FOLDER + ".cover.jpg");
 
                         std::string::size_type n = 0;
+                        int new_line = 1;
                         while ( ( n = cover_str.find( "\n", n ) ) != std::string::npos )
-                        {
+                        {   
+                            new_line++;
                             cover_str.replace( n, 1, "\n     " );
                             n += 7;
                         }
 
                         std::cout<< NEW << NEW << "     " << cover_str;
-                        move::up(cover_str.size()*2);
+                        move::up(new_line+2);
 
                         // Close the file stream
                     }
