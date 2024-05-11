@@ -137,9 +137,11 @@ void players::keylog(){
             break;
             case '.': //forward 10 seconds
                 forward(true);
+                MESSAGE_OFF;
             break;
             case ',':
                 forward(false);
+                MESSAGE_OFF;
             break;
             case '>':
                 MINI_MESSAGE("Nexting...");
@@ -167,7 +169,6 @@ void players::forward(const bool forward_back){
 
     int x = 1;
     int sec_ctr = 1;
-    MINI_MESSAGE("aaaaa");
 
     while(1){ //iterates the ctr
 
@@ -188,7 +189,6 @@ void players::forward(const bool forward_back){
     }
 
     if (sec_ctr ==1){
-        MESSAGE_OFF;
         return;
     }  
 
@@ -217,7 +217,6 @@ void players::forward(const bool forward_back){
         }
 
     }
-    MESSAGE_OFF;
 
 }
 
