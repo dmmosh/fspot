@@ -518,7 +518,7 @@ void print_logo(){
 };
 
 std::string exec(const std::string& cmd){
-    exec(cmd, false);
+    return exec(cmd, false);
 };
 
 std::string exec(const std::string& cmd, const bool center){
