@@ -437,8 +437,8 @@ char* timer(const int seconds){
     if(sec<10){
         timer[4] = sec;
     } else {
-        timer[3] = min/10 + '0';
-        timer[4] = min%10 + '0';
+        timer[3] = sec/10 + '0';
+        timer[4] = sec%10 + '0';
     }
 
     return timer;
