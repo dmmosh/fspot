@@ -123,9 +123,9 @@ class main_player: public players{
 
 constexpr unsigned int col_update();
 void print_logo();
-constexpr char get_char();
+char get_char();
 
-constexpr int forward_fun(const int x_val);
+consteval int forward_fun(const int x_val);
 
 namespace move{
      void clear();

@@ -413,7 +413,7 @@ constexpr unsigned int col_update(){
     return w.ws_col;
 }
 
-constexpr int forward_fun(const int x_val){
+consteval int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/70);
 };
 
@@ -445,7 +445,7 @@ void print_logo(){
     }
 };
 
-constexpr char get_char(){
+char get_char(){
         
     char buf = 0;
     struct termios old = {0};
