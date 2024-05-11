@@ -359,20 +359,16 @@ void main_player::song_update() {
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
             json data = json::parse(r.text);
-            auto item = data["item"];
-
-
-
 
             is_playing.store((bool)data["is_playing"]);
             progress.store((int)data["progress_ms"]/1000); //progress in seconds
 
 
-            duration.store((int)item["duration_ms"]/1000);
+            duration.store((int)data["item"]["duration_ms"]/1000);
 
             percent.store((double)progress/duration);
 
-            name = item["name"];
+            name = data["item"]["name"];
 
             // IF THERES BEEN A SONG SWITCH
             if(tmp_dur != duration.load() && tmp_name != name){
@@ -388,7 +384,7 @@ void main_player::song_update() {
                 if (POSIX_TIME + (tmp_dur-progress.load()) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
                 if (cover.load()){ // if cover is shown
-                    auto images = item["album"]["images"];
+                    auto images = data["item"]["album"]["images"];
                     //std::string url = images["url"];
                     std::cout << images[1] << NEW << NEW << NEW << NEW;
 
@@ -414,7 +410,7 @@ void main_player::song_update() {
                 }
 
                 artists = {};
-                for (const auto& artist: item["artists"]){
+                for (const auto& artist: data["item"]["artists"]){
                     artists.push_back(artist["name"].get<std::string>());
                 }
             }
