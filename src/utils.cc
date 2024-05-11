@@ -45,6 +45,10 @@ void players::MINI_MESSAGE(const std::string& msg){
     message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF ); //assigns new message
 }
 
+void players::MINI_MESSAGE(const char* msg) {
+    message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF ); //assigns new message
+};
+
 // standard message 
 void players::MESSAGE(const std::string msg, const double time){
     MINI_MESSAGE(msg);
@@ -173,7 +177,8 @@ void players::forward(const bool forward_back){
         
 
         //printf("%02i:%02i\n\n", progress / 60, progress % 60);
-        MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60)); 
+        //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60)); 
+        MINI_MESSAGE(timer(sec_ctr));
         if (!get_char()) {
             SLEEP(0.1);
             if (!get_char())
@@ -192,8 +197,8 @@ void players::forward(const bool forward_back){
             MINI_MESSAGE("Nexting...");
             (void)cpr::Post(INTO("me/player/next"));
         } else {
-
-            MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60) + "..."); 
+            MINI_MESSAGE(timer(sec_ctr) + std::string("..."));
+            //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60) + "..."); 
             (void)cpr::Put(INTO("me/player/seek"),
                         cpr::Parameters{{"position_ms", std::to_string((progress + sec_ctr)*1000)}});
 
@@ -413,9 +418,33 @@ constexpr unsigned int col_update(){
     return w.ws_col;
 }
 
-consteval int forward_fun(const int x_val){
+constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/70);
 };
+
+constexpr char* timer(const int seconds){
+    char* timer = "00:00";
+    unsigned int min = seconds /60;
+    unsigned int sec = seconds%60;
+
+    if(min<10){
+        timer[1] = min+'0';
+    } else {
+        timer[0] = min/10 + '0';
+        timer[1] = min%10 + '0';
+    };
+
+    if(sec<10){
+        timer[4] = sec;
+    } else {
+        timer[3] = min/10 + '0';
+        timer[4] = min%10 + '0';
+    }
+
+    return timer;
+
+};
+
 
 void print_logo(){
     unsigned int col_size = col_update();
