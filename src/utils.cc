@@ -412,7 +412,7 @@ void main_player::song_update() {
 
 // HELPER FUNCTIONS
 
-constexpr unsigned int col_update(){
+unsigned int col_update(){
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     return w.ws_col;

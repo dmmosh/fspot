@@ -122,7 +122,7 @@ class main_player: public players{
 
 // HELPER FUNCTIONS
 
-constexpr unsigned int col_update();
+unsigned int col_update();
 void print_logo();
 char get_char();
 char* timer(const int seconds);
