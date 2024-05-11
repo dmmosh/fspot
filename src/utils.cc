@@ -399,7 +399,7 @@ void main_player::song_update() {
                         }
 
                         std::cout<< NEW << NEW << "     " << cover_str;
-                        move::up(size/2 +3);
+                        move::up(size/2 + 5);
 
                         // Close the file stream
                     }
