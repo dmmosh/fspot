@@ -401,7 +401,7 @@ void main_player::song_update() {
                         }
 
                         std::cout<< NEW << NEW << "     " << cover_str;
-                        move::up(new_line+2);
+                        move::up(new_line+1);
 
                         // Close the file stream
                     }
