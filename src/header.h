@@ -127,6 +127,7 @@ class main_player: public players{
 
 
 unsigned int col_update();
+unsigned int row_update();
 void print_logo();
 char get_char();
 static char* timer(const int seconds);

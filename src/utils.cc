@@ -371,7 +371,8 @@ void main_player::song_update() {
                 if (POSIX_TIME + (tmp_dur-progress.load()) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
                 if (cover.load()){ // if cover is shown
-                    unsigned int size = col_update()-10;
+                    unsigned int col_size = col_update()-10;
+                    unsigned int row_size = row_update()-10;
                     std::string url = data["item"]["album"]["images"][0]["url"];
                     //std::cout << url << NEW << NEW << NEW << NEW;
 
@@ -389,13 +390,18 @@ void main_player::song_update() {
                         imageFile.write(response.text.c_str(), response.text.length());
                         imageFile.close();
 
-                        std::string cover_str = exec("icat --width " + std::to_string(size) + " " +  FOLDER + ".cover.jpg");
+                        std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
 
                         std::string::size_type n = 0;
                         int new_line = 1;
                         while ( ( n = cover_str.find( "\n", n ) ) != std::string::npos )
                         {   
                             new_line++;
+
+                            if(new_line>=row_size){
+                                cover_str = cover_str.substr(0,new_line*(col_size+7));
+                                break;
+                            }
 
 
                             cover_str.replace( n, 1, "\n     " );
@@ -407,7 +413,7 @@ void main_player::song_update() {
                         
 
                         std::cout<< NEW << NEW << "     " << cover_str;
-                        move::up(size/2+3);
+                        move::up(col_size/2+3);
 
                         // Close the file stream
                     }
@@ -452,6 +458,13 @@ unsigned int col_update(){
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     return w.ws_col;
 }
+
+unsigned int row_update(){
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    return w.ws_row;
+};
+
 
 constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/70);
