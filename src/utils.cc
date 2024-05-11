@@ -384,9 +384,9 @@ void main_player::song_update() {
                 if (POSIX_TIME + (tmp_dur-progress.load()) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
                 if (cover.load()){ // if cover is shown
-                    auto images = data["item"]["album"]["images"];
+                    std::string url = data["item"]["album"]["images"][0]["url"];
                     //std::string url = images["url"];
-                    std::cout << images[1] << NEW << NEW << NEW << NEW;
+                    std::cout << url << NEW << NEW << NEW << NEW;
 
                     //std::string url = "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228";
     
