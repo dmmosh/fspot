@@ -8,6 +8,8 @@ players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned
 input(""), 
 message(""),
 type(true),
+cover(false),
+cover_str(""),
 progress(0), //progress is 0
 duration(100), //duration is 100 to avoid division errors
 percent(0.0),
@@ -230,6 +232,8 @@ void players::commands(){
         MINI_MESSAGE("Quitting...");
         type.store(false);
         log_thread.request_stop();
+    } else if (input=="cover"){
+        cover.store(true);
 
     } else if (input == "refresh") {
         refresh();
@@ -357,7 +361,7 @@ void main_player::song_update() {
             json data = json::parse(r.text);
             auto item = data["item"];
 
-            
+
 
 
             is_playing.store((bool)data["is_playing"]);
@@ -379,8 +383,37 @@ void main_player::song_update() {
                     ERROR("Song's too long. FSpot can't play songs longer than 1 hour.");
                 };
 
+
+
                 if (POSIX_TIME + (tmp_dur-progress.load()) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
+                if (cover.load()){ // if cover is shown
+                    auto album = item["album"];
+                    auto images = album["images"];
+                    std::string url = images["url"];
+                    std::cout << url << NEW << NEW << NEW << NEW;
+
+                    //std::string url = "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228";
+    
+                    //// Perform the HTTP GET request
+                    //auto response = cpr::Get(cpr::Url{url});
+                    //// Check if the request was successful
+                    //if (response.status_code == 200) {
+                    //    // Open a file stream to save the downloaded image
+                    //    std::ofstream imageFile(".image.jpg", std::ofstream::binary);
+                    //    
+                    //    // Write the image data to the file
+                    //    imageFile.write(response.text.c_str(), response.text.length());
+                    //    
+                    //    // Close the file stream
+                    //    imageFile.close();
+                    //}
+                //
+                    //std::cout << exec("icat  .image.jpg");
+
+
+                }
+
                 artists = {};
                 for (const auto& artist: item["artists"]){
                     artists.push_back(artist["name"].get<std::string>());
@@ -479,6 +512,22 @@ void print_logo(){
         std::cout << BOLD_ON << "FSPOT" << BOLD_OFF << NEW;
     }
 };
+
+std::string exec(const std::string& cmd) {
+    std::array<char, 200> buffer;
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
+    if (!pipe) { //exception handle
+        throw std::runtime_error("popen() failed!");
+    } 
+
+    std::string output = "";
+
+    while (fgets(buffer.data(), static_cast<int>(buffer.size()), pipe.get()) != nullptr) {
+
+        output.append(buffer.data());
+    }
+    return output;
+}
 
 char get_char(){
         
