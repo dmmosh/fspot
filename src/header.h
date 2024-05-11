@@ -70,22 +70,23 @@ class players{
     // always updating
     std::string input, message;
 
-    int progress, duration, artist_print;
-    bool is_playing;
-    double percent;
-    std::string name;
+    std::atomic<int> progress, duration, artist_print;
+    std::atomic<bool> is_playing;
+    std::atomic<double> percent;
     std::vector<std::string> artists;
+    std::string name;
     
     // sometimes updating
-    bool type;
-    std::string ACCESS_TOKEN, REFRESH_TOKEN;
-    long REFRESH_AT; // posix timestamp of when to refresh (seconds since 1970)
+    std::atomic<bool> type;
+
+    std::string ACCESS_TOKEN, REFRESH_TOKEN; //access and refrehs wokens
+    unsigned long REFRESH_AT; // posix timestamp of when to refresh (seconds since 1970)
     
     // never updating
-    int row_size;
+    std::atomic<int> row_size;
     std::jthread log_thread;
 
-    players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT, const int row_size);
+    players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT, const int row_size);
     ~players();
     void keylog();
     void commands();
@@ -113,14 +114,16 @@ class main_player: public players{
     // never updating
     std::jthread song_thread;
 
-    main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT);
+    main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT);
     ~main_player();
     
     void commands();
     void song_update(); //updates song info EVERY SECOND
 };
 
+
 // HELPER FUNCTIONS
+
 
 unsigned int col_update();
 void print_logo();
@@ -151,6 +154,7 @@ namespace move{
      void right();
      void right(const int amt);
 };
+
 
 namespace base64{
     std::string encode(const std::string &in);

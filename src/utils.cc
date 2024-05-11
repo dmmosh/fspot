@@ -4,7 +4,7 @@
 // CONSTRUCTORS
 
 // input and type initializer
-players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT, const int row_size): 
+players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT, const int row_size): 
 input(""), 
 message(""),
 type(true),
@@ -106,7 +106,7 @@ void players::keylog(){
         int sec_ctr = 1;
         int x = 1;
         
-        while(type){
+        while(type.load()){
         
         char buf = get_char();
         switch(buf){
@@ -193,18 +193,18 @@ void players::forward(const bool forward_back){
 
 
     if(forward_back) {
-        if (progress+sec_ctr > duration){
+        if (progress.load()+sec_ctr > duration.load()){
             MINI_MESSAGE("Nexting...");
             (void)cpr::Post(INTO("me/player/next"));
         } else {
             MINI_MESSAGE(std::string("+") + timer(sec_ctr) + "...");
-            //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60) + "..."); 
+
             (void)cpr::Put(INTO("me/player/seek"),
-                        cpr::Parameters{{"position_ms", std::to_string((progress + sec_ctr)*1000)}});
+                        cpr::Parameters{{"position_ms", std::to_string((progress.load() + sec_ctr)*1000)}});
 
         }
     } else {
-        if (progress-sec_ctr <= 0){
+        if (progress.load()-sec_ctr <= 0){
                 MINI_MESSAGE("wind it back!");
                 (void)cpr::Put(INTO("me/player/seek"),
                             cpr::Parameters{{"position_ms", "0"}});
@@ -212,7 +212,7 @@ void players::forward(const bool forward_back){
         } else {   // if it doesnt, actually go forward
             MINI_MESSAGE(std::string("-") + timer(sec_ctr) + "...");
             (void)cpr::Put(INTO("me/player/seek"),
-                        cpr::Parameters{{"position_ms", std::to_string((progress - sec_ctr)*1000)}});
+                        cpr::Parameters{{"position_ms", std::to_string((progress.load() - sec_ctr)*1000)}});
         }
 
     }
@@ -227,7 +227,7 @@ void players::commands(){
     json r; // temp response variable
     if (input == "quit"){ //quit
         MINI_MESSAGE("Quitting...");
-        type = false;
+        type.store(false);
         log_thread.request_stop();
 
     } else if (input == "refresh") {
@@ -242,29 +242,31 @@ void players::commands(){
         MINI_MESSAGE("Playing...");
         (void)cpr::Put(INTO("me/player/play"));
         MESSAGE("Playing now!", 1);
-        is_playing= true;
+        is_playing.store(true);
 
 
     } else if (input == "pause"){ // pauses track
         MINI_MESSAGE("Pausing...");
         (void)cpr::Put(INTO("me/player/pause"));
         MESSAGE("Paused!", 1);
-        is_playing= false;
+        is_playing.store(false);
 
 
     } else if (input == "pp") { //plays / pauses track
 
-        if (is_playing){
+        if (is_playing.load()){
             MINI_MESSAGE("Pausing...");
             (void)cpr::Put(INTO("me/player/pause"));
             MESSAGE("Paused!", 1);
-            is_playing= false;
+            is_playing.store(false);
+
 
         } else {
             MINI_MESSAGE("Playing...");
             (void)cpr::Put(INTO("me/player/play"));
             MESSAGE("Playing now!", 1);
-            is_playing= true;
+            is_playing.store(true);
+
 
         };
 
@@ -297,34 +299,34 @@ std::string players::CENTER(std::string input){
 
 
 // main player constructor
-main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, int& REFRESH_AT): 
+main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT): 
 players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
 song_thread(std::jthread(&main_player::song_update, this)) //updates every second
  {
     song_thread.detach();
     
-    std::jthread(&players::refresh, this).detach(); // refreshes the token
+    //std::jthread(&players::refresh, this).detach(); // refreshes the token
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
-    move::down(row_size);
-    move::up(row_size);
+    move::down(row_size.load());
+    move::up(row_size.load());
 
-    while(type){ //keeps updating
+    while(type.load()){ //keeps updating
         unsigned int col_size = col_update();
         // prints minutes / seconds  of progress (in sec)
-        std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print+1) + "] " : " : ") + artists[artist_print];
+        std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print.load()+1) + "] " : " : ") + artists[artist_print.load()];
         
         std::cout << CENTER(title) <<  NEW;
 
         if (col_size > 10) {
             int bar_size = (col_size-20 > 0) ? col_size-20 : col_size-10;
 
-            std::string bar = (((int)(bar_size*percent) > 0) ? std::string((int)(bar_size*percent), '-') : "") + 
-                              (((int)(bar_size*(1.0-percent)) > 0) ? std::string((int)(bar_size*(1.0-percent)), ' ') : "") ;
+            std::string bar = (((int)(bar_size*percent.load()) > 0) ? std::string((int)(bar_size*percent.load()), '-') : "") + 
+                              (((int)(bar_size*(1.0-percent.load())) > 0) ? std::string((int)(bar_size*(1.0-percent.load())), ' ') : "") ;
             std::cout << BOLD_ON << CENTER("<" + bar + ">")  << BOLD_OFF << '\r';
         }
 
-        printf("%02i:%02i\n\n", progress / 60, progress % 60);
+        printf("%02i:%02i\n\n", progress.load() / 60, progress.load() % 60);
         //timer(progress);
 
         std::cout<< INVERT_ON << " // " << input << TAB << message <<  INVERT_OFF; 
@@ -336,7 +338,7 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
         //move::right(3+input.length());
         //move::beginning();
 
-        move::up_clear(row_size-1);
+        move::up_clear(row_size.load()-1);
 
     }  
     move::down();
@@ -348,7 +350,7 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
 void main_player::song_update() {
     static int tmp_dur = 0;
     static std::string tmp_name = "NO CONNECTION";
-    while(type){    
+    while(type.load()){    
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
             json data = json::parse(r.text);
@@ -358,27 +360,25 @@ void main_player::song_update() {
             
 
 
-            progress = (int)data["progress_ms"]; //progress in seconds
-            progress /=1000; 
+            progress.store((int)data["progress_ms"]/1000); //progress in seconds
 
 
-            duration = (int)item["duration_ms"];
-            duration/=1000;
+            duration.store((int)item["duration_ms"]/1000);
 
-            percent = (double)progress/duration;
+            percent.store((double)progress/duration);
 
             name = item["name"];
 
             // IF THERES BEEN A SONG SWITCH
-            if(tmp_dur != duration && tmp_name != name){
+            if(tmp_dur != duration.load() && tmp_name != name){
                 MESSAGE("New track!", 1.0);
 
                 if (tmp_dur >= 3600) {
-                    type = false;    
+                    type.store(false);  
                     ERROR("Song's too long. FSpot can't play songs longer than 1 hour.");
                 };
 
-                if (POSIX_TIME + (tmp_dur-progress) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
+                if (POSIX_TIME + (tmp_dur-progress.load()) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
                 artists = {};
                 for (const auto& artist: item["artists"]){
@@ -387,21 +387,20 @@ void main_player::song_update() {
             }
 
 
-            tmp_dur = duration;
-            tmp_dur /= 1000;
+            tmp_dur = duration.load()/1000;
 
             tmp_name = name;
 
         } else {
-            progress = 0;
-            percent = 0;
-            duration = 100;
+            progress.store(0);
+            percent.store(0);
+            duration.store(100);
             artists = {"mr. nuh uh"};
             name = "NO CONNECTION";
             refresh();
         }   
 
-        if (artists.size()) artist_print = (artist_print+1) % artists.size();
+        if (artists.size()) artist_print.store((artist_print.load()+1) % artists.size());
 
         SLEEP(1);
         

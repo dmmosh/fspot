@@ -45,7 +45,7 @@ int main(int argc, char* argv[]){
     // are mutable
     static std::string ACCESS_TOKEN = base64::decode(argv[2]);
     static std::string REFRESH_TOKEN = base64::decode(argv[3]);
-    static int EXPIRES_AT = std::stoi(base64::decode(argv[4]));
+    static unsigned long EXPIRES_AT = std::stoi(base64::decode(argv[4]));
 
     // kills librespot pid
     static char* pid_encode = argv[5];
