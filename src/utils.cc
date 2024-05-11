@@ -178,7 +178,7 @@ void players::forward(const bool forward_back){
 
         //printf("%02i:%02i\n\n", progress / 60, progress % 60);
         //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60)); 
-        MINI_MESSAGE(timer(sec_ctr));
+        MINI_MESSAGE( std::string((forward_back) ?"+" : "-") +  timer(sec_ctr));
         if (!get_char()) {
             SLEEP(0.1);
             if (!get_char())
@@ -197,7 +197,7 @@ void players::forward(const bool forward_back){
             MINI_MESSAGE("Nexting...");
             (void)cpr::Post(INTO("me/player/next"));
         } else {
-            MINI_MESSAGE(timer(sec_ctr) + std::string("..."));
+            MINI_MESSAGE(std::string("-") + timer(sec_ctr) + "...");
             //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60) + "..."); 
             (void)cpr::Put(INTO("me/player/seek"),
                         cpr::Parameters{{"position_ms", std::to_string((progress + sec_ctr)*1000)}});
@@ -210,7 +210,7 @@ void players::forward(const bool forward_back){
                             cpr::Parameters{{"position_ms", "0"}});
 
         } else {   // if it doesnt, actually go forward
-            MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60) + "..."); 
+            MINI_MESSAGE(std::string("-") + timer(sec_ctr) + "...");
             (void)cpr::Put(INTO("me/player/seek"),
                         cpr::Parameters{{"position_ms", std::to_string((progress - sec_ctr)*1000)}});
         }
