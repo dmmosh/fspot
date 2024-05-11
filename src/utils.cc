@@ -407,7 +407,7 @@ void main_player::song_update() {
 
 // HELPER FUNCTIONS
 
-unsigned int col_update(){
+constexpr unsigned int col_update(){
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     return w.ws_col;
@@ -419,9 +419,7 @@ constexpr int forward_fun(const int x_val){
 
 void print_logo(){
     unsigned int col_size = col_update();
-
     unsigned int title_num;
-
 
     if (col_size < 42)
         title_num = 1;
@@ -447,7 +445,7 @@ void print_logo(){
     }
 };
 
-char get_char(){
+constexpr char get_char(){
         
     char buf = 0;
     struct termios old = {0};
