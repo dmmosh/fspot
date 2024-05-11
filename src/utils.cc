@@ -422,10 +422,9 @@ constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/70);
 };
 
-char* timer(const int seconds){
-    static char timer[6];
+std::string timer(const int seconds){
+    std::string timer = "00:00";
 
-    strcpy(timer, "00:00");
     unsigned int min = seconds /60;
     unsigned int sec = seconds%60;
 
