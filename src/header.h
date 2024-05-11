@@ -71,10 +71,10 @@ class players{
     std::string input, message;
 
     std::atomic<int> progress, duration, artist_print;
-    std::atomic<bool> is_playing;
+    std::atomic<bool> is_playing, cover;
     std::atomic<double> percent;
     std::vector<std::string> artists;
-    std::string name;
+    std::string name, cover_str;
     
     // sometimes updating
     std::atomic<bool> type;
@@ -85,6 +85,8 @@ class players{
     // never updating
     std::atomic<int> row_size;
     std::jthread log_thread;
+    
+
 
     players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT, const int row_size);
     ~players();
@@ -129,6 +131,8 @@ unsigned int col_update();
 void print_logo();
 char get_char();
 static char* timer(const int seconds);
+std::string exec(const std::string& cmd);
+
 
 constexpr int forward_fun(const int x_val);
 
