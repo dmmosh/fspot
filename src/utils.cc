@@ -423,7 +423,7 @@ constexpr int forward_fun(const int x_val){
 };
 
 static char* timer(const int seconds){
-    static char timer[6];
+    static char timer[] = "00:00";
 
     //strcpy(timer, "00:00");
 
