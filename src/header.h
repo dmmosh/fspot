@@ -74,7 +74,7 @@ class players{
     std::atomic<bool> is_playing, cover;
     std::atomic<double> percent;
     std::vector<std::string> artists;
-    std::string name, cover_str;
+    std::string name;
     
     // sometimes updating
     std::atomic<bool> type;
@@ -133,9 +133,7 @@ static char* timer(const int seconds);
 
 std::string CENTER( std::string input);
 
-
-std::string exec(const std::string& cmd);
-std::string exec(const std::string& cmd, const bool center);
+std::vector<std::string> exec(const std::string& cmd);
 
 
 constexpr int forward_fun(const int x_val);
@@ -156,7 +154,7 @@ namespace move{
      void up_clear(int amt);
      void up_clear(const std::string& word_above, const int col_size);
     
-        
+
      void left();
      void left(const int amt);
 
