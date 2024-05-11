@@ -324,8 +324,8 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
             std::cout << BOLD_ON << CENTER("<" + bar + ">")  << BOLD_OFF << '\r';
         }
 
-        //printf("%02i:%02i\n\n", progress / 60, progress % 60);
-        timer(progress);
+        printf("%02i:%02i\n\n", progress / 60, progress % 60);
+        //timer(progress);
 
         std::cout<< INVERT_ON << " // " << input << TAB << message <<  INVERT_OFF; 
         //move::right(3+input.length());
