@@ -392,7 +392,7 @@ void main_player::song_update() {
                         std::string cover_str = exec("icat --width " + std::to_string(size) + " " +  FOLDER + ".cover.jpg");
                         std::cout<< NEW << NEW << cover_str;
 
-                        move::up(size/2 +2);
+                        move::up(size/2 +3);
 
                         // Close the file stream
                     }
