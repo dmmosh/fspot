@@ -57,7 +57,7 @@ int main(int argc, char* argv[]){
     std::atexit([]{
         system((std::string("kill -9 ")+base64::decode(pid_encode)).c_str());
         print_logo();
-        std::cout << NEW << NEW << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
+        std::cout << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
     });
 
 
