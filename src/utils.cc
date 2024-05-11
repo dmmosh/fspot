@@ -217,6 +217,7 @@ void players::forward(const bool forward_back){
         }
 
     }
+    MESSAGE_OFF;
 
 }
 
