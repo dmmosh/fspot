@@ -138,10 +138,13 @@ void players::keylog(){
             case '.': //forward 10 seconds
                 MINI_MESSAGE("+00:00");
                 forward(true);
+                MESSAGE_OFF;
             break;
             case ',':
                 MINI_MESSAGE("-00:00");
                 forward(false);
+                MESSAGE_OFF;
+
             break;
             case '>':
                 MINI_MESSAGE("Nexting...");
