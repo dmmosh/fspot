@@ -56,13 +56,13 @@ int main(int argc, char* argv[]){
     // runs when program exits
     std::atexit([]{
         system((std::string("kill -9 ")+base64::decode(pid_encode)).c_str());
+        print_logo();
+        std::cout << NEW << NEW << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
     });
 
 
     main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
     
-    print_logo();
-    std::cout << NEW << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
 
     // PRINTS THE ARGUMENTS
 
