@@ -9,7 +9,6 @@ input(""),
 message(""),
 type(true),
 cover(false),
-cover_str(""),
 progress(0), //progress is 0
 duration(100), //duration is 100 to avoid division errors
 percent(0.0),
@@ -234,7 +233,7 @@ void players::commands(){
         log_thread.request_stop();
     } else if (input=="cover"){
 
-        if (exec("command -v icat").size()) {
+        if (exec("command -v icat")[0].size()) {
             MESSAGE("Covers on!");
             cover.store(true);
         } else {
@@ -381,22 +380,25 @@ void main_player::song_update() {
                     // Perform the HTTP GET request
                     auto response = cpr::Get(cpr::Url{url});
                     // Check if the request was successful
+
                     if (response.status_code == 200) {
                         // Open a file stream to save the downloaded image
                         std::ofstream imageFile(FOLDER+ ".cover.jpg", std::ofstream::binary);
                         
                         // Write the image data to the file
                         imageFile.write(response.text.c_str(), response.text.length());
+                        imageFile.close();
 
-                        cover_str = exec("icat --width " + std::to_string(size) + " " +  FOLDER + ".cover.jpg", true);
+                        std::vector<std::string> cover_str = exec("icat --width " + std::to_string(size) + " " +  FOLDER + ".cover.jpg");
+                        std::cout<< NEW << NEW;
+                        for (const std::string& line: cover_str){
+                            std::cout << CENTER(line) << NEW;
+                        }
+
+                        move::up(size/2 +2);
 
                         // Close the file stream
-                        imageFile.close();
-                    } else {
-                        cover_str = "";
                     }
-                    std::cout<< NEW << NEW<< cover_str;
-                    move::up(size/2 +2);
 
 
                 }
@@ -515,24 +517,21 @@ void print_logo(){
     }
 };
 
-std::string exec(const std::string& cmd){
-    return exec(cmd, false);
-};
-
-std::string exec(const std::string& cmd, const bool center){
+std::vector<std::string> exec(const std::string& cmd) {
     std::array<char, 200> buffer;
+    std::vector<std::string> result;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
     if (!pipe) { //exception handle
         throw std::runtime_error("popen() failed!");
     } 
 
-    std::string output = "";
-
     while (fgets(buffer.data(), static_cast<int>(buffer.size()), pipe.get()) != nullptr) {
 
-        output.append((center)? CENTER(buffer.data()) : buffer.data());
+        result.push_back(buffer.data()); // pushes the output to the back of the array
+        result.back().resize(result.back().size() - 1); //removes the newline character
+        
     }
-    return output;
+    return result;
 }
 
 char get_char(){
