@@ -96,7 +96,6 @@ class players{
     
     void forward(const bool forward_back); //forward-backward function
 
-    std::string CENTER(std::string input);
     void MINI_MESSAGE(const std::string& msg);
     void MINI_MESSAGE(const char* msg);
     void MESSAGE(const std::string msg, const double time);
@@ -131,7 +130,12 @@ unsigned int col_update();
 void print_logo();
 char get_char();
 static char* timer(const int seconds);
+
+std::string CENTER( std::string input);
+
+
 std::string exec(const std::string& cmd);
+std::string exec(const std::string& cmd, const bool center);
 
 
 constexpr int forward_fun(const int x_val);
@@ -151,7 +155,8 @@ namespace move{
      void up_clear();
      void up_clear(int amt);
      void up_clear(const std::string& word_above, const int col_size);
-
+    
+        
      void left();
      void left(const int amt);
 

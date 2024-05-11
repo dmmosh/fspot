@@ -233,7 +233,15 @@ void players::commands(){
         type.store(false);
         log_thread.request_stop();
     } else if (input=="cover"){
-        cover.store(true);
+
+        if (exec("command -v icat").size()) {
+            MESSAGE("Covers on!");
+            cover.store(true);
+        } else {
+            type.store(false);
+            ERROR("Icat not installed. This command required icat.");
+        }
+
 
     } else if (input == "refresh") {
         refresh();
@@ -279,27 +287,6 @@ void players::commands(){
     return;
 };
 
-// NOTE: changes the input variable if needs concat
-std::string players::CENTER(std::string input){
-    unsigned int col_size = col_update();
-    if (input.empty()) {
-        input = std::string("");
-
-    } else if (input.size()+4 >= col_size) {
-        input = CENTER(input.substr(0,col_size-8) + "...");
-    } else {
-        int padding = (col_size-input.size())/2;
-        input.insert(0, std::string((padding > 0) ? padding : 1, ' '));
-    };
-
-    return input;
-};
-
-
-
-
-
-
 // MAIN PLAYER CLASS
 
 
@@ -343,6 +330,11 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
         //move::right(3+input.length());
         //move::beginning();
 
+        if(cover.load()){
+            std::cout << cover_str;
+            move::up_clear(col_size/2);
+        }
+            
         move::up_clear(row_size.load()-1);
 
     }  
@@ -385,26 +377,28 @@ void main_player::song_update() {
                 
                 if (cover.load()){ // if cover is shown
                     std::string url = data["item"]["album"]["images"][0]["url"];
-                    //std::string url = images["url"];
-                    std::cout << url << NEW << NEW << NEW << NEW;
+                    //std::cout << url << NEW << NEW << NEW << NEW;
 
                     //std::string url = "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228";
     
-                    //// Perform the HTTP GET request
-                    //auto response = cpr::Get(cpr::Url{url});
-                    //// Check if the request was successful
-                    //if (response.status_code == 200) {
-                    //    // Open a file stream to save the downloaded image
-                    //    std::ofstream imageFile(".image.jpg", std::ofstream::binary);
-                    //    
-                    //    // Write the image data to the file
-                    //    imageFile.write(response.text.c_str(), response.text.length());
-                    //    
-                    //    // Close the file stream
-                    //    imageFile.close();
-                    //}
-                //
-                    //std::cout << exec("icat  .image.jpg");
+                    // Perform the HTTP GET request
+                    auto response = cpr::Get(cpr::Url{url});
+                    // Check if the request was successful
+                    if (response.status_code == 200) {
+                        // Open a file stream to save the downloaded image
+                        std::ofstream imageFile(FOLDER+ ".cover.jpg", std::ofstream::binary);
+                        
+                        // Write the image data to the file
+                        imageFile.write(response.text.c_str(), response.text.length());
+
+                        cover_str = exec("icat --width " + std::to_string(col_update()/2) + " " +  FOLDER + ".cover.jpg", true);
+
+                        // Close the file stream
+                        imageFile.close();
+                    } else {
+                        cover_str = "";
+                    }
+                
 
 
                 }
@@ -479,6 +473,21 @@ static char* timer(const int seconds){
 
 };
 
+// NOTE: changes the input variable if needs concat
+std::string CENTER( std::string input){
+    unsigned int col_size = col_update();
+    if (input.empty()) {
+        input = std::string("");
+
+    } else if (input.size()+4 >= col_size) {
+        input = CENTER(input.substr(0,col_size-8) + "...");
+    } else {
+        int padding = (col_size-input.size())/2;
+        input.insert(0, std::string((padding > 0) ? padding : 1, ' '));
+    };
+
+    return input;
+};
 
 void print_logo(){
     unsigned int col_size = col_update();
@@ -508,7 +517,11 @@ void print_logo(){
     }
 };
 
-std::string exec(const std::string& cmd) {
+std::string exec(const std::string& cmd){
+    exec(cmd, false);
+};
+
+std::string exec(const std::string& cmd, const bool center){
     std::array<char, 200> buffer;
     std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
     if (!pipe) { //exception handle
@@ -519,7 +532,7 @@ std::string exec(const std::string& cmd) {
 
     while (fgets(buffer.data(), static_cast<int>(buffer.size()), pipe.get()) != nullptr) {
 
-        output.append(buffer.data());
+        output.append((center)? CENTER(buffer.data()) : buffer.data());
     }
     return output;
 }
