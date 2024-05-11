@@ -423,7 +423,7 @@ constexpr int forward_fun(const int x_val){
 };
 
 char* timer(const int seconds){
-    char timer[] = "00:00";
+    static char timer[] = "00:00";
     unsigned int min = seconds /60;
     unsigned int sec = seconds%60;
 
