@@ -398,7 +398,7 @@ void main_player::song_update() {
                             new_line++;
 
 
-                            cover_str.replace( n, 1, "     \n     " );
+                            cover_str.replace( n, 1, "\n     " );
 
                             n += 7;
 
@@ -406,8 +406,8 @@ void main_player::song_update() {
 
                         
 
-                        std::cout<< NEW << NEW << "     " << cover_str;
-                        move::up(new_line+1);
+                        std::cout<< NEW << NEW << NEW << "     " << cover_str;
+                        move::up(new_line+2);
 
                         // Close the file stream
                     }
