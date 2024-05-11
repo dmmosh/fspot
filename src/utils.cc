@@ -197,7 +197,7 @@ void players::forward(const bool forward_back){
             MINI_MESSAGE("Nexting...");
             (void)cpr::Post(INTO("me/player/next"));
         } else {
-            MINI_MESSAGE(std::string("-") + timer(sec_ctr) + "...");
+            MINI_MESSAGE(std::string("+") + timer(sec_ctr) + "...");
             //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60) + "..."); 
             (void)cpr::Put(INTO("me/player/seek"),
                         cpr::Parameters{{"position_ms", std::to_string((progress + sec_ctr)*1000)}});
@@ -468,7 +468,7 @@ void print_logo(){
     std::ifstream title_text(FOLDER + "titles/title" + std::to_string(title_num) + ".txt");
 
 
-    //move::up();
+    move::up();
     if (title_text.is_open()) {
         std::string line;
         while (std::getline(title_text, line)) {
