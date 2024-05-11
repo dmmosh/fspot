@@ -388,7 +388,7 @@ void main_player::song_update() {
                         // Write the image data to the file
                         imageFile.write(response.text.c_str(), response.text.length());
 
-                        cover_str = exec("icat --width " + std::to_string(size) + " " +  FOLDER + ".cover.jpg", false);
+                        cover_str = exec("icat --width " + std::to_string(size) + " " +  FOLDER + ".cover.jpg", true);
 
                         // Close the file stream
                         imageFile.close();
