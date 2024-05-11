@@ -371,7 +371,7 @@ void main_player::song_update() {
                 if (POSIX_TIME + (tmp_dur-progress.load()) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
                 if (cover.load()){ // if cover is shown
-                    unsigned int col_size = std::min(col_update(), row_update()) -10;
+                    unsigned int col_size = std::min(col_update()-10, row_update());
                     std::string url = data["item"]["album"]["images"][0]["url"];
                     //std::cout << url << NEW << NEW << NEW << NEW;
 
