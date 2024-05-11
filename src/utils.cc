@@ -136,11 +136,11 @@ void players::keylog(){
                 if (input.size()) input.resize(input.size() - 1);
             break;
             case '.': //forward 10 seconds
-                MESSAGE("+00:00");
+                MINI_MESSAGE("+00:00");
                 forward(true);
             break;
             case ',':
-                MESSAGE("-00:00");
+                MINI_MESSAGE("-00:00");
                 forward(false);
             break;
             case '>':
