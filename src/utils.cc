@@ -425,12 +425,13 @@ constexpr int forward_fun(const int x_val){
 static char* timer(const int seconds){
     static char timer[6];
 
-    strcpy(timer, "00:00");
+    //strcpy(timer, "00:00");
 
     unsigned int min = seconds /60;
     unsigned int sec = seconds%60;
 
     if(min<10){
+        timer[0] = '0';
         timer[1] = min+'0';
     } else {
         timer[0] = min/10 + '0';
@@ -438,6 +439,7 @@ static char* timer(const int seconds){
     };
 
     if(sec<10){
+        timer[3] = '0';
         timer[4] = sec+'0';
     } else {
         timer[3] = sec/10 + '0';
