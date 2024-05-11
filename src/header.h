@@ -117,38 +117,37 @@ class main_player: public players{
     
     void commands();
     void song_update(); //updates song info EVERY SECOND
-    void artist_update();
 };
 
 // HELPER FUNCTIONS
 
-unsigned int col_update();
+constexpr unsigned int col_update();
 void print_logo();
-char get_char();
+constexpr char get_char();
 
 constexpr int forward_fun(const int x_val);
 
 namespace move{
-    void clear();
-    void clear(const std::string& newline);
+    constexpr void clear();
+    constexpr void clear(const std::string& newline);
 
-    void up();
-    void up(const int amt);
+    constexpr void up();
+    constexpr void up(const int amt);
 
-    void down();
-    void down(const int amt);
+    constexpr void down();
+    constexpr void down(const int amt);
 
-    void beginning();
+    constexpr void beginning();
 
-    void up_clear();
-    void up_clear(int amt);
-    void up_clear(const std::string& word_above, const int col_size);
+    constexpr void up_clear();
+    constexpr void up_clear(int amt);
+    constexpr void up_clear(const std::string& word_above, const int col_size);
 
-    void left();
-    void left(const int amt);
+    constexpr void left();
+    constexpr void left(const int amt);
 
-    void right();
-    void right(const int amt);
+    constexpr void right();
+    constexpr void right(const int amt);
 };
 
 namespace base64{
