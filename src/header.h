@@ -125,7 +125,7 @@ class main_player: public players{
 constexpr unsigned int col_update();
 void print_logo();
 char get_char();
-constexpr char* timer(const int seconds);
+char* timer(const int seconds);
 
 constexpr int forward_fun(const int x_val);
 

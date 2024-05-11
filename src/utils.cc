@@ -422,8 +422,8 @@ constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/70);
 };
 
-constexpr char* timer(const int seconds){
-    char* timer = "00:00";
+char* timer(const int seconds){
+    char timer[] = "00:00";
     unsigned int min = seconds /60;
     unsigned int sec = seconds%60;
 
