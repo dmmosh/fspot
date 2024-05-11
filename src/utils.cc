@@ -396,7 +396,7 @@ void main_player::song_update() {
                         cover_str = "";
                     }
                     std::cout << cover_str;
-                    move::up(size+5);
+                    move::up(10);
 
 
                 }
