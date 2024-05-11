@@ -435,7 +435,7 @@ void print_logo(){
     std::ifstream title_text(FOLDER + "titles/title" + std::to_string(title_num) + ".txt");
 
 
-    move::up();
+    //move::up();
     if (title_text.is_open()) {
         std::string line;
         while (std::getline(title_text, line)) {
