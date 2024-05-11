@@ -391,7 +391,7 @@ void main_player::song_update() {
                     auto album = item["album"];
                     auto images = album["images"];
                     //std::string url = images["url"];
-                    std::cout << images << NEW << NEW << NEW << NEW;
+                    std::cout << images[1] << NEW << NEW << NEW << NEW;
 
                     //std::string url = "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228";
     
