@@ -398,10 +398,7 @@ void main_player::song_update() {
                         {   
                             new_line++;
 
-                            if(new_line>=row_size){
-                                cover_str = cover_str.substr(0,new_line*(col_size+7));
-                                break;
-                            }
+                            
 
 
                             cover_str.replace( n, 1, "\n     " );
