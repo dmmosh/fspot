@@ -236,6 +236,13 @@ void players::volume(const bool add_substr){
     json resp = json::parse(r.text);
     int volume = resp["device"]["volume_percent"];
 
+    if(volume == 100 && add_substr == true){
+        MESSAGE("Max vol", 1.0);
+        return;
+    } else if (volume == 0 && add_substr == false){
+        MESSAGE("Muted", 1.0);
+        return;
+    }
 
     while(1){ //iterates the ctr
         
@@ -256,9 +263,15 @@ void players::volume(const bool add_substr){
         }
     }
 
-    MESSAGE( "vol " +  std::to_string(volume) + "...", 1.0);
-    (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
+    if(volume == 100 && add_substr == true)
+        MINI_MESSAGE("max vol...");
+    else if (volume == 0 && add_substr == false)
+        MINI_MESSAGE("muting...");
+    else 
+        MINI_MESSAGE( "vol " +  std::to_string(volume) + "...");
 
+    (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
+    MESSAGE_OFF;
 };
 
 
