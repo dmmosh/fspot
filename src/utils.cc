@@ -30,6 +30,11 @@ log_thread(std::jthread(&players::keylog, this))
 players::~players(){};
 
 main_player::~main_player(){
+    if(cover.load()){
+        unsigned int col_size = std::min(col_update()-4, row_update()*2-14);
+        move::down(col_size);
+        move::up_clear(col_size/2+3);
+    }
 
     move::clear();
     move::up_clear(row_size-2);
@@ -300,8 +305,8 @@ void players::commands(){
         if (exec("command -v icat").size()) {
             if(cover.load()) {
                 // CLEARS THE COVER ALREADY PRESENT
-                unsigned int col_size = std::min(col_update()-4, row_update()*2-14);
                 MESSAGE("Covers off!");
+                unsigned int col_size = std::min(col_update()-4, row_update()*2-14);
                 move::down(col_size);
                 move::up_clear(col_size/2+3);
                 cover.store(false);

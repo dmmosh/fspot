@@ -18,6 +18,12 @@ rm ./fspot/*f
 
 '''
 
+for arg in sys.argv[1:]:
+    if arg == "--help" or arg == "-h":
+        if os.path.exists(FOLDER+'help.txt'):
+            print(open(FOLDER+'help.txt', 'r').read())
+        
+
 
 # ALWAYS UPDATES THE TERMINAL SIZE
 #threading.Thread(target=update_term, daemon=True).start()
@@ -59,7 +65,7 @@ me_volume = GET('me/player')
 if (me_volume.status_code == 200):
     me_volume = me_volume.json()['device']['volume_percent']
 else:
-    me_volume = 50
+    me_volume = 83
 
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player

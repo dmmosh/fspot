@@ -1,0 +1,24 @@
+
+   FSPOT
+A lightweight Spotify TUI client made in C++ and Python.
+https://github.com/dmmosh/fspot
+By Dmytro Moshkovskyi.
+
+USAGE:
+   // [options]... 
+OPTIONS:
+   clear      Clears the screen. Basically "clear" command.
+   refresh    Refreshes the access token.
+   hello      Hello vro...
+   cover      Covers/uncovers the track's cover. REQUIRES ICAT.
+   play       Plays the track.
+   pause      Pauses the track.
+   pp         Plays/Pauses track.
+   quit       Quits the program.
+   v          Switches , & . keys to volume adjust mode (default forward mode).
+MACROS:
+   <          Goes to the previous track.
+   >          Go the next track.
+   , (comma)  Rewinds track (forward mode) or volume down (volume adjust mode).
+   . (dot)    Forwards track (forward mode) or volume up (volume adjust mode).
+   ENTER      Takes user input. What do you think it does?
