@@ -391,6 +391,7 @@ void main_player::song_update() {
                         unsigned int col_size = col_update()-10;
                         unsigned int row_size = row_update()-10; //max row size
 
+
                         std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
 
                         std::string::size_type n = 0;
@@ -402,11 +403,6 @@ void main_player::song_update() {
                             cover_str.replace( n, 1, "\n     " );
 
                             n += 7;
-
-                            if(new_line >=row_size-10){
-                                cover_str = cover_str.substr(0, new_line*(col_size+7));
-                                break;
-                            } 
 
                         }
 
