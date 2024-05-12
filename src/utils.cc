@@ -302,7 +302,7 @@ void players::commands(){
                 unsigned int col_size = std::min(col_update()-4, row_update()*2-14);
                 MESSAGE("Covers off!");
                 move::down(col_size);
-                move::up_clear(col_size);
+                move::up_clear(col_size/2);
                 cover.store(false);
             } else {
                 MESSAGE("Covers on!");
