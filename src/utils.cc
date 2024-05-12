@@ -389,6 +389,7 @@ void main_player::song_update() {
                         imageFile.close();
 
                         unsigned int col_size = std::min(col_update(), row_update()*2-10) -10;
+                        unsigned int spacing = col_update()/2; //center with spacing
 
 
                         std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
@@ -399,7 +400,7 @@ void main_player::song_update() {
                         {   
                             new_line++;
 
-                            cover_str.replace( n, 1, "\n     " );
+                            cover_str.replace( n, 1, "\n" + std::string(spacing,' ') );
 
                             n += 7;
 
