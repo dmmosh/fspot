@@ -1,7 +1,6 @@
 from fglobal import *
 from futils import *
 from flogin import *
-from fuser import *
 import fglobal as gl
 '''
 FSPOT
@@ -56,7 +55,7 @@ program = subprocess.Popen([FOLDER + 'librespot',
 
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
 #atexit.register(end)
-volume = GET('me/player').json()['device']['volume_percent']
+
 
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
@@ -74,7 +73,6 @@ change_player.join() # joins the thread to mainsd
 
 #player.wait()
 
-PUT('me/player/volume',data={'volume_percent': volume})
 
 
 atexit.register(lambda:os.system("{}fplayer {} {} {} {} {}".format(
