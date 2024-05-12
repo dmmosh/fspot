@@ -388,7 +388,7 @@ void main_player::song_update() {
                         imageFile.write(response.text.c_str(), response.text.length());
                         imageFile.close();
 
-                        unsigned int col_size = std::min(col_update(), row_update()*2-10) -10;
+                        unsigned int col_size = std::min(col_update()-4, row_update()*2-10);
                         std::string spacing = "\n" + std::string((col_update()-col_size) /2, ' '); //center with spacing
 
 
