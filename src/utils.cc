@@ -279,8 +279,8 @@ void players::volume(const bool add_substr){
             MINI_MESSAGE( "vol " +  std::to_string(volume) + "...");
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
-        input="";
     }
+    input="";
 
 };
 
