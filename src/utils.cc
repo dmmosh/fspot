@@ -141,16 +141,16 @@ void players::keylog(){
                     volume(true);
                 else 
                     forward(true);
-                SLEEP(0.5);
                 MESSAGE_OFF;
+                SLEEP(0.5);
             break;
             case ',':
                 if (input == "v")
                     volume(false);
                 else
                     forward(false);
-                SLEEP(0.5);
                 MESSAGE_OFF;
+                SLEEP(0.5);
             break;
             case '>':
                 MESSAGE("Nexting...", 2.0);
