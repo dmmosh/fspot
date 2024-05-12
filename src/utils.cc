@@ -371,7 +371,6 @@ void main_player::song_update() {
                 if (POSIX_TIME + (tmp_dur-progress.load()) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
                 if (cover.load()){ // if cover is shown
-                    unsigned int col_size = std::min(col_update(), row_update());
                     std::string url = data["item"]["album"]["images"][0]["url"];
                     //std::cout << url << NEW << NEW << NEW << NEW;
 
@@ -389,6 +388,9 @@ void main_player::song_update() {
                         imageFile.write(response.text.c_str(), response.text.length());
                         imageFile.close();
 
+                        unsigned int col_size = col_update()-10;
+                        unsigned int row_size = row_update()-10; //max row size
+
                         std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
 
                         std::string::size_type n = 0;
@@ -397,16 +399,21 @@ void main_player::song_update() {
                         {   
                             new_line++;
 
-                            //cover_str.replace( n, 1, "\n     " );
+                            cover_str.replace( n, 1, "\n     " );
 
                             n += 7;
+
+                            if(new_line >=row_size-10){
+                                cover_str = cover_str.substr(0, new_line*(col_size+7));
+                                break;
+                            } 
 
                         }
 
                         
 
                         std::cout<< NEW << NEW << "     " << cover_str;
-                        move::up(col_size+1);
+                        move::up(new_line+1);
 
                         // Close the file stream
                     }
