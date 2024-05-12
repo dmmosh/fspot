@@ -280,8 +280,6 @@ void players::volume(const bool add_substr){
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
         input="";
-    } else {
-        input="";
     }
 
 };
