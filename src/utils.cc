@@ -307,18 +307,18 @@ void players::commands(){
         if (exec("command -v icat").size()) {
             if(cover.load()) {
                 // CLEARS THE COVER ALREADY PRESENT
-                MESSAGE("Covers off!");
-                unsigned int col_size = std::min(col_update()-4, row_update()*2-14);
+                unsigned int col_size = std::min(col_update()-2, row_update()*2-6);
                 move::down(col_size);
                 move::up_clear(col_size/2+3);
                 cover.store(false);
+                MESSAGE("Covers off!", 1.0);
             } else {
                 r = cpr::Get(INTO("me/player"));
                 if(r.status_code == 200)
                     cover_fun(std::string(json::parse(r.text)["item"]["album"]["images"][0]["url"]));
 
-                MESSAGE("Covers on!");
                 cover.store(true); 
+                MESSAGE("Covers on!", 1.0);
             }
         } else {
             type.store(false);
