@@ -298,11 +298,11 @@ void players::commands(){
 
         if (exec("command -v icat").size()) {
             if(cover.load()) {
-                MESSAGE("Covers on!");
-                cover.store(true);
-            } else {
                 MESSAGE("Covers off!");
                 cover.store(false);
+            } else {
+                MESSAGE("Covers on!");
+                cover.store(true);
             }
         } else {
             type.store(false);
