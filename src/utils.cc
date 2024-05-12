@@ -141,8 +141,8 @@ void players::keylog(){
                     volume(true);
                 else 
                     forward(true);
-                MESSAGE_OFF;
                 SLEEP(0.5);
+                MESSAGE_OFF;
             break;
             case ',':
                 if (input == "v")
