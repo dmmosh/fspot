@@ -262,6 +262,7 @@ void players::volume(const bool add_substr){
         //printf("%02i:%02i\n\n", progress / 60, progress % 60);
         //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60)); 
         MINI_MESSAGE( "vol " +  std::to_string(volume));
+        SLEEP(0.05);
         if (!get_char()) {
             SLEEP(0.1);
             if (!get_char())
