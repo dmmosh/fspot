@@ -301,8 +301,8 @@ void players::commands(){
                 // CLEARS THE COVER ALREADY PRESENT
                 unsigned int col_size = std::min(col_update()-4, row_update()*2-14);
                 MESSAGE("Covers off!");
-                move::down(col_size+1);
-                move::up_clear(col_size);
+                move::down(10);
+                move::up_clear(10);
                 cover.store(false);
             } else {
                 MESSAGE("Covers on!");
