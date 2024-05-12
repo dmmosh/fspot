@@ -303,7 +303,7 @@ void players::commands(){
                 MESSAGE("Covers off!");
                 cover.store(false);
                 move::down(col_size+1);
-                move::up_clear(col_size)-4;
+                move::up_clear(col_size-3);
             } else {
                 MESSAGE("Covers on!");
                 cover.store(true);
