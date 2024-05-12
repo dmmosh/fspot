@@ -289,7 +289,8 @@ void players::volume(const bool add_substr){
 void players::commands(){
 
     // guranteed all commands will contain different first and last chars
-    json r; // temp response variable
+    json data; // temp response variable
+    cpr::Response r; //temp r variable
     if (input == "quit"){ //quit
         MINI_MESSAGE("Quitting...");
         type.store(false);
@@ -305,8 +306,12 @@ void players::commands(){
                 move::up_clear(col_size/2+3);
                 cover.store(false);
             } else {
+                r = cpr::Get(INTO("me/player"));
+                if(r.status_code == 200)
+                    cover_fun(std::string(json::parse(r.text)["item"]["album"]["images"][0]["url"]));
+
                 MESSAGE("Covers on!");
-                cover.store(true);
+                cover.store(true); 
             }
         } else {
             type.store(false);
@@ -444,46 +449,7 @@ void main_player::song_update() {
                 
                 if (cover.load()){ // if cover is shown
                     std::string url = data["item"]["album"]["images"][0]["url"];
-                    //std::cout << url << NEW << NEW << NEW << NEW;
-
-                    //std::string url = "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228";
-    
-                    // Perform the HTTP GET request
-                    auto response = cpr::Get(cpr::Url{url});
-                    // Check if the request was successful
-
-                    if (response.status_code == 200) {
-                        // Open a file stream to save the downloaded image
-                        std::ofstream imageFile(FOLDER+ ".cover.jpg", std::ofstream::binary);
-                        
-                        // Write the image data to the file
-                        imageFile.write(response.text.c_str(), response.text.length());
-                        imageFile.close();
-
-                        unsigned int col_size = std::min(col_update()-4, row_update()*2-14);
-                        std::string spacing = "\n" + std::string((col_update()-col_size) /2, ' '); //center with spacing
-
-
-                        std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
-
-                        std::string::size_type n = 0;
-                        int new_line = 1;
-                        while ( ( n = cover_str.find( "\n", n ) ) != std::string::npos )
-                        {   
-                            new_line++;
-
-                            cover_str.replace( n, 1, spacing);
-
-                            n += 7;
-
-                        }
-
-                        std::cout<<  NEW << spacing << cover_str;
-                        move::up(new_line+1);
-
-                        // Close the file stream
-                    }
-
+                    cover_fun(url);
 
                 }
 
@@ -514,6 +480,39 @@ void main_player::song_update() {
 
     }
 };
+
+
+// cover function where data is a pointer to json of "me/player"
+void players::cover_fun(const std::string& url){
+       //std::cout << url << NEW << NEW << NEW << NEW;
+       //std::string url = "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228";
+
+       // Perform the HTTP GET request
+       auto response = cpr::Get(cpr::Url{url});
+       // Check if the request was successful
+       if (response.status_code == 200) {
+           // Open a file stream to save the downloaded image
+           std::ofstream imageFile(FOLDER+ ".cover.jpg", std::ofstream::binary);
+           
+           // Write the image data to the file
+           imageFile.write(response.text.c_str(), response.text.length());
+           imageFile.close();
+           unsigned int col_size = std::min(col_update()-4, row_update()*2-14);
+           std::string spacing = "\n" + std::string((col_update()-col_size) /2, ' '); //center with spacing
+           std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
+           std::string::size_type n = 0;
+           int new_line = 1;
+           while ( ( n = cover_str.find( "\n", n ) ) != std::string::npos )
+           {   
+               new_line++;
+               cover_str.replace( n, 1, spacing);
+               n += 7;
+           }
+           std::cout<<  NEW << spacing << cover_str;
+           move::up(new_line+1);
+           // Close the file stream
+       }
+}
 
 
 
