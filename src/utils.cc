@@ -142,7 +142,7 @@ void players::keylog(){
                 else 
                     forward(true);
                 SLEEP(0.5);
-
+                MESSAGE_OFF;
             break;
             case ',':
                 if (input == "v")
@@ -150,7 +150,7 @@ void players::keylog(){
                 else
                     forward(false);
                 SLEEP(0.5);
-
+                MESSAGE_OFF;
             break;
             case '>':
                 MESSAGE("Nexting...", 2.0);
@@ -240,10 +240,10 @@ void players::volume(const bool add_substr){
     int volume = resp["device"]["volume_percent"];
 
     if(volume == 100 && add_substr == true){
-        MESSAGE("Max vol", 1.0);
+        MINI_MESSAGE("Max vol");
         return;
     } else if (volume == 0 && add_substr == false){
-        MESSAGE("Muted", 1.0);
+        MINI_MESSAGE("Muted");
         return;
     }
 
@@ -275,7 +275,6 @@ void players::volume(const bool add_substr){
 
     (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
 
-    MESSAGE_OFF;
 };
 
 
