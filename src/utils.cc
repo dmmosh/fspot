@@ -144,14 +144,14 @@ void players::keylog(){
 
             break;
             case '>':
-                MINI_MESSAGE("Nexting...");
+                MESSAGE("Nexting...", 2.0);
 
 
                 (void)cpr::Post(INTO("me/player/next"));
                 SLEEP(0.5); //need a cooldown
             break;
             case '<':
-                MINI_MESSAGE("Previousing...");
+                MESSAGE("Previousing...", 2.0);
                 (void)cpr::Post(INTO("me/player/previous"));
                 SLEEP(0.5); //need a cooldown
             break;
