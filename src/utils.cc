@@ -307,7 +307,7 @@ void players::commands(){
         if (exec("command -v icat").size()) {
             if(cover.load()) {
                 // CLEARS THE COVER ALREADY PRESENT
-                unsigned int col_size = std::min(col_update()-2, row_update()*2-6);
+                unsigned int col_size = std::min(col_update()-2, row_update()*2-2);
                 move::down(col_size);
                 move::up_clear(col_size/2+3);
                 cover.store(false);
