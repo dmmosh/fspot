@@ -388,7 +388,7 @@ void main_player::song_update() {
                         imageFile.write(response.text.c_str(), response.text.length());
                         imageFile.close();
 
-                        unsigned int col_size = std::min(col_update(), row_update()*2-1) -10;
+                        unsigned int col_size = std::min(col_update(), row_update()*2-10) -10;
 
 
                         std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
