@@ -149,8 +149,8 @@ void players::keylog(){
                     volume(false);
                 else
                     forward(false);
-                MESSAGE_OFF;
                 SLEEP(0.5);
+                MESSAGE_OFF;
             break;
             case '>':
                 MESSAGE("Nexting...", 2.0);
