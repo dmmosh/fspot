@@ -141,13 +141,16 @@ void players::keylog(){
                     volume(true);
                 else 
                     forward(true);
+                SLEEP(0.5);
+
             break;
             case ',':
                 if (input == "v")
                     volume(false);
                 else
                     forward(false);
-
+                SLEEP(0.5);
+                
             break;
             case '>':
                 MESSAGE("Nexting...", 2.0);
@@ -271,6 +274,8 @@ void players::volume(const bool add_substr){
         MINI_MESSAGE( "vol " +  std::to_string(volume) + "...");
 
     (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
+
+    input= "";
     MESSAGE_OFF;
 };
 
