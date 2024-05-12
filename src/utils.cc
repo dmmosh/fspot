@@ -298,11 +298,12 @@ void players::commands(){
 
         if (exec("command -v icat").size()) {
             if(cover.load()) {
+                // CLEARS THE COVER ALREADY PRESENT
                 unsigned int col_size = std::min(col_update()-4, row_update()*2-14);
                 MESSAGE("Covers off!");
                 cover.store(false);
                 move::down(col_size);
-                move::up_clear(col_size-1);
+                move::up_clear(col_size-2);
             } else {
                 MESSAGE("Covers on!");
                 cover.store(true);
