@@ -297,8 +297,13 @@ void players::commands(){
     } else if (input=="cover"){
 
         if (exec("command -v icat").size()) {
-            MESSAGE("Covers on!");
-            cover.store(true);
+            if(cover.load()) {
+                MESSAGE("Covers on!");
+                cover.store(true);
+            } else {
+                MESSAGE("Covers off!");
+                cover.store(false);
+            }
         } else {
             type.store(false);
             ERROR("Icat not installed. This command required icat.");
