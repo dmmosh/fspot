@@ -346,7 +346,7 @@ void main_player::song_update() {
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
             json data = json::parse(r.text);
-
+                
             is_playing.store((bool)data["is_playing"]);
             progress.store((int)data["progress_ms"]/1000); //progress in seconds
 
