@@ -230,11 +230,35 @@ void players::forward(const bool forward_back){
 
 void players::volume(const bool add_substr){
     cpr::Response r = cpr::Get(INTO("me/player"));
-    if (r.status_code == 200){
-        json resp = json::parse(r.text);
-        int volume = resp["device"]["volume_percent"];
-        MESSAGE(std::to_string(volume));
-    };
+    if (r.status_code != 200)
+        return;
+
+    json resp = json::parse(r.text);
+    int volume = resp["device"]["volume_percent"];
+
+
+    while(1){ //iterates the ctr
+        
+        volume += (add_substr) ? 1 : -1;
+        if (volume < 0)
+            volume = 0;
+        else if (volume > 100)
+            volume = 100;
+        
+
+        //printf("%02i:%02i\n\n", progress / 60, progress % 60);
+        //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60)); 
+        MINI_MESSAGE( "vol " +  std::to_string(volume));
+        if (!get_char()) {
+            SLEEP(0.1);
+            if (!get_char())
+                break;
+        }
+    }
+
+    MESSAGE( "vol " +  std::to_string(volume) + "...", 1.0);
+    (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
+
 };
 
 
