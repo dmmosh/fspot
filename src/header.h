@@ -95,6 +95,7 @@ class players{
     int refresh();
     
     void forward(const bool forward_back); //forward-backward function
+    void volume(const bool add_substr);
 
     void MINI_MESSAGE(const std::string& msg);
     void MINI_MESSAGE(const char* msg);

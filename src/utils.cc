@@ -137,10 +137,16 @@ void players::keylog(){
                 if (input.size()) input.resize(input.size() - 1);
             break;
             case '.': //forward 10 seconds
-                forward(true);
+                if (input == "v")
+                    volume(true);
+                else 
+                    forward(true);
             break;
             case ',':
-                forward(false);
+                if (input == "v")
+                    volume(false);
+                else
+                    forward(false);
 
             break;
             case '>':
@@ -221,6 +227,16 @@ void players::forward(const bool forward_back){
     MESSAGE_OFF;
 
 }
+
+void players::volume(const bool add_substr){
+    cpr::Response r = cpr::Get(INTO("me/player"));
+    if (r.status_code == 200){
+        json resp = json::parse(r.text);
+        int volume = resp["device"]["volume_percent"];
+        MESSAGE(std::to_string(volume));
+    };
+};
+
 
 // default commands
 void players::commands(){
@@ -346,7 +362,7 @@ void main_player::song_update() {
         cpr::Response r = cpr::Get(INTO("me/player"));
         if(r.status_code == 200){
             json data = json::parse(r.text);
-                
+
             is_playing.store((bool)data["is_playing"]);
             progress.store((int)data["progress_ms"]/1000); //progress in seconds
 

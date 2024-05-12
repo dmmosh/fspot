@@ -8,6 +8,10 @@ COMPILE MANUALLY:
 python -m PyInstaller src/py/fmain.py --onefile --name fstart && cp dist/fstart fspot/
 git-all && clang++ -lcpr -std=c++20 src/main.cc src/utils.cc -o fspot/fplayer 
 
+everything:
+clang++ -lcpr -std=c++20 src/main.cc src/utils.cc -o fspot/fplayer & python -m PyInstaller src/py/fmain.py --onefile --name fstart && cp dist/fstart fspot/
+
+
 
 git-all && clang++ -Bdynamic -lcpr -Bstatic -l:libstdc++.a -l:libc.a -std=c++20 src/main.cc src/utils.cc -o fspot/fplayer -v
 
