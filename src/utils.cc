@@ -406,12 +406,8 @@ void main_player::song_update() {
 
                         }
 
-                        new_line++;
-                        move::down(new_line+1);
-                        move::up_clear(new_line+1);
-
                         std::cout<<  NEW << spacing << cover_str;
-                        move::up(new_line);
+                        move::up(new_line+1);
 
                         // Close the file stream
                     }
