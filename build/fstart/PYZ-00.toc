@@ -607,7 +607,6 @@
   ('fnmatch', '/usr/lib/python3.12/fnmatch.py', 'PYMODULE'),
   ('fractions', '/usr/lib/python3.12/fractions.py', 'PYMODULE'),
   ('ftplib', '/usr/lib/python3.12/ftplib.py', 'PYMODULE'),
-  ('fuser', '/home/wetsock/coding/fspot/src/py/fuser.py', 'PYMODULE'),
   ('futils', '/home/wetsock/coding/fspot/src/py/futils.py', 'PYMODULE'),
   ('getopt', '/usr/lib/python3.12/getopt.py', 'PYMODULE'),
   ('getpass', '/usr/lib/python3.12/getpass.py', 'PYMODULE'),
