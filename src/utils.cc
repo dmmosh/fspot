@@ -141,6 +141,7 @@ void players::keylog(){
                     volume(true);
                 else 
                     forward(true);
+                input="";
                 SLEEP(0.5);
                 MESSAGE_OFF;
             break;
@@ -149,6 +150,7 @@ void players::keylog(){
                     volume(false);
                 else
                     forward(false);
+                input="";
                 SLEEP(0.5);
                 MESSAGE_OFF;
             break;
