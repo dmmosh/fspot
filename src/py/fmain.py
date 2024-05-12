@@ -41,7 +41,6 @@ me = GET('me') # testing
 if me.status_code != 200: # if token is still invalid, rerun the login page
     login_start() # starts login
 
-
 # fspot/librespot --name 'fspot player' --disable-audio-cache --disable-credential-cache -u '' -p ''
 program = subprocess.Popen([FOLDER + 'librespot',
                     '--name', 'fspot player',
@@ -56,6 +55,11 @@ program = subprocess.Popen([FOLDER + 'librespot',
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
 #atexit.register(end)
 
+me_volume = GET('me/player')
+if (me_volume.status_code == 200):
+    me_volume = me_volume.json()['device']['volume_percent']
+else:
+    me_volume = 50
 
 
 change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
@@ -73,7 +77,7 @@ change_player.join() # joins the thread to mainsd
 
 #player.wait()
 
-
+PUT('me/player/volume?volume_percent='+ str(me_volume)) # sets the volume
 
 atexit.register(lambda:os.system("{}fplayer {} {} {} {} {}".format(
                             FOLDER,
