@@ -9,6 +9,7 @@ input(""),
 message(""),
 type(true),
 cover(false),
+aclear(false),
 progress(0), //progress is 0
 duration(100), //duration is 100 to avoid division errors
 percent(0.0),
@@ -328,6 +329,15 @@ void players::commands(){
         }
 
 
+    } else if (input == "aclear"){
+        if(aclear.load()){
+            MESSAGE("AClear off", 1.0);
+            aclear.store(false);
+        } else {
+            MESSAGE("AClear on", 1.0);
+            aclear.store(true);
+        }
+
     } else if (input == "refresh") {
         refresh();
 
@@ -390,6 +400,10 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
 
     while(type.load()){ //keeps updating
         unsigned int col_size = col_update();
+
+        if (aclear.load()) //auto clear
+            system("clear");
+
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print.load()+1) + "] " : " : ") + artists[artist_print.load()];
         
