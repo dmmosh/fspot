@@ -439,7 +439,6 @@ void main_player::song_update() {
             is_playing.store((bool)data["is_playing"]);
             progress.store((int)data["progress_ms"]/1000); //progress in seconds
 
-
             duration.store((int)data["item"]["duration_ms"]/1000);
 
             percent.store((double)progress/duration);
@@ -580,8 +579,8 @@ std::string CENTER( std::string input){
     unsigned int col_size = col_update();
     if (input.empty()) {
         input = std::string("");
-
-    } else if (input.size()+4 >= col_size) {
+    
+    } else if (input.size()+4 >= col_size && (input[0] != '[' && input.back() != ']')) {
         input = CENTER(input.substr(0,col_size-8) + "...");
     } else {
         int padding = (col_size-input.size())/2;
@@ -590,6 +589,8 @@ std::string CENTER( std::string input){
 
     return input;
 };
+
+
 
 void print_logo(){
     unsigned int col_size = col_update();
