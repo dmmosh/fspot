@@ -71,7 +71,7 @@ class players{
     std::string input, message;
 
     std::atomic<int> progress, duration, artist_print;
-    std::atomic<bool> is_playing, cover;
+    std::atomic<bool> is_playing, cover, aclear;
     std::atomic<double> percent;
     std::vector<std::string> artists;
     std::string name;
@@ -135,6 +135,7 @@ char get_char();
 static char* timer(const int seconds);
 
 std::string CENTER( std::string input);
+std::string CENTER( std::string input, const unsigned int col_size);
 
 std::string exec(const std::string& cmd);
 
