@@ -9,7 +9,6 @@ input(""),
 message(""),
 type(true),
 cover(false),
-aclear(false),
 progress(0), //progress is 0
 duration(100), //duration is 100 to avoid division errors
 percent(0.0),
@@ -327,17 +326,6 @@ void players::commands(){
             type.store(false);
             ERROR("Icat not installed. This command required icat.");
         }
-
-
-    } else if (input == "aclear"){
-        if(aclear.load()){
-            MESSAGE("AClear off", 1.0);
-            aclear.store(false);
-        } else {
-            MESSAGE("AClear on", 1.0);
-            aclear.store(true);
-        }
-
     } else if (input == "refresh") {
         refresh();
 
@@ -438,10 +426,7 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
         //move::right(3+input.length());
         //move::beginning();
 
-        if (aclear.load()) //auto clear
-            system("clear");
-        else
-            move::up_clear(row_size.load()-1);
+        move::up_clear(row_size.load()-1);
 
     }  
     move::down();
