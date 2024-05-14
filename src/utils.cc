@@ -408,14 +408,17 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
 
 
         int padding = (col_size-message.size())/2;
-        std::cout << std::string((padding > 0) ? padding : 1, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
+        if (padding)
+            std::cout << std::string(padding, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
         //std::cout<< CENTER(message) << '\r';
         std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF; 
         //move::right(3+input.length());
         SLEEP(0.03);
         move::clear();
-
-        std::cout << std::string((padding > 0) ? padding : 1, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
+        
+        padding = (col_size-message.size())/2;
+        if (padding)
+            std::cout << std::string(padding, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
         //std::cout<< CENTER(message) << '\r';
         std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF; 
 
