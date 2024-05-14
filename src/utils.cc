@@ -306,6 +306,7 @@ void players::commands(){
 
         if (exec("command -v icat").size()) {
             if(cover.load()) {
+	
                 // CLEARS THE COVER ALREADY PRESENT
                 unsigned int col_size = std::min(col_update()-2, row_update()*2-12);
                 move::down(col_size);
@@ -313,6 +314,7 @@ void players::commands(){
                 cover.store(false);
                 MESSAGE("Covers off!", 1.0);
             } else {
+		MINI_MESSAGE("Covering...");
                 r = cpr::Get(INTO("me/player"));
                 if(r.status_code == 200)
                     cover_fun(std::string(json::parse(r.text)["item"]["album"]["images"][0]["url"]));
