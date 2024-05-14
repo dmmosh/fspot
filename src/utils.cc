@@ -401,8 +401,7 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
     while(type.load()){ //keeps updating
         unsigned int col_size = col_update();
 
-        if (aclear.load()) //auto clear
-            system("clear");
+        
 
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print.load()+1) + "] " : " : ") + artists[artist_print.load()];
@@ -439,8 +438,10 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
         //move::right(3+input.length());
         //move::beginning();
 
-            
-        move::up_clear(row_size.load()-1);
+        if (aclear.load()) //auto clear
+            system("clear");
+        else
+            move::up_clear(row_size.load()-1);
 
     }  
     move::down();
