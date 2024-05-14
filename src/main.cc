@@ -26,8 +26,11 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 // CLOSING FUNCTIONS
 
+static std::array<std::string, 5> argv;
 
-int main(int argc, char* argv[]){
+
+
+int main(void){
 
     /*
     std::cout << argc << NEW;
@@ -42,17 +45,36 @@ int main(int argc, char* argv[]){
         std::cout.sync_with_stdio(false);
     #endif
 
+    std::ifstream file(FOLDER+ ".tmp.txt");
+    if (file.is_open())
+    {
+    	std::string tmp;
+        int i =0;
+    	while (getline(file, tmp))
+        {
+            argv[i] = tmp;
+            i++;
+        	// note that the newline character is not included
+            // in the getline() function
+        	
+        }
+    }
+    file.close();
+    system(("rm " + FOLDER + ".tmp.txt &> /dev/null").c_str());
+
+
     move::clear();
-    move::up_clear(std::stoi(argv[1])); // clears the loading message
+    move::up_clear(std::stoi(argv[0])); // clears the loading message
 
     // THESE CHANGE
     // are mutable
-    static std::string ACCESS_TOKEN = base64::decode(argv[2]);
-    static std::string REFRESH_TOKEN = base64::decode(argv[3]);
-    static unsigned long EXPIRES_AT = std::stoi(base64::decode(argv[4]));
+
+
+    static std::string ACCESS_TOKEN = base64::decode(argv[1]);
+    static std::string REFRESH_TOKEN = base64::decode(argv[2]);
+    static unsigned long EXPIRES_AT = std::stoi(base64::decode(argv[3]));
 
     // kills librespot pid
-    static char* pid_encode = argv[5];
 
     //std::cout <<  base64::decode(argv[5]) << NEW << NEW << NEW;  //reassigns the ptr 
     //std::cout << argv[5];   
@@ -61,7 +83,7 @@ int main(int argc, char* argv[]){
     std::atexit([]{
 
         system(("rm " + FOLDER + ".cover.jpg &> /dev/null").c_str());
-        system((std::string("kill -9 ")+base64::decode(pid_encode)).c_str());
+        system((std::string("kill -9 ")+base64::decode(argv[4])).c_str());
         print_logo();
         std::cout << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
     });
