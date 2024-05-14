@@ -71,7 +71,7 @@ class players{
     std::string input, message;
 
     std::atomic<int> progress, duration, artist_print;
-    std::atomic<bool> is_playing, cover, aclear;
+    std::atomic<bool> is_playing, cover;
     std::atomic<double> percent;
     std::vector<std::string> artists;
     std::string name;
