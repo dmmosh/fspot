@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# executes fspot
+
+FOLDER="$HOME/coding/fspot/fspot" # change 
+
+eval "$FOLDER/fstart"
+eval "$FOLDER/fplayer"
