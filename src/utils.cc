@@ -302,6 +302,9 @@ void players::commands(){
         MINI_MESSAGE("Quitting...");
         type.store(false);
         log_thread.request_stop();
+    } else if (input == "clear"){
+        cover.store(false);
+        system("clear");
     } else if (input=="cover"){
 
         if (exec("command -v icat").size()) {
@@ -328,11 +331,6 @@ void players::commands(){
         }
     } else if (input == "refresh") {
         refresh();
-
-    } else if (input == "clear"){
-        cover.store(false);
-        system("clear");
-
     } else if (input == "hello") {
         MESSAGE("Hello vro...", 2.0);
     } else if (input == "play"){ // plays track
