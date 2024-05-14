@@ -330,6 +330,7 @@ void players::commands(){
         refresh();
 
     } else if (input == "clear"){
+        cover.store(false);
         system("clear");
 
     } else if (input == "hello") {
