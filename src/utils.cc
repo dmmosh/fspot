@@ -314,6 +314,7 @@ void players::commands(){
                 cover.store(false);
                 MESSAGE("Covers off!", 1.0);
             } else {
+		MINI_MESSAGE("Covering...");
                 r = cpr::Get(INTO("me/player"));
                 if(r.status_code == 200)
                     cover_fun(std::string(json::parse(r.text)["item"]["album"]["images"][0]["url"]));
