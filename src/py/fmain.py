@@ -74,6 +74,7 @@ change_player.start() # starts thread
 erase_num = loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
 change_player.join() # joins the thread to mainsd
 
+
 #player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
 #                           str(erase_num),
 #                            # basic encryption of files
@@ -85,11 +86,26 @@ change_player.join() # joins the thread to mainsd
 
 PUT('me/player/volume?volume_percent='+ str(me_volume)) # sets the volume
 
-atexit.register(lambda:os.system("{}fplayer {} {} {} {} {}".format(
-                            FOLDER,
-                           str(erase_num),
-                           base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode(),
-                           base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode(),
-                           base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode(),
-                           base64.b64encode(str(int(program.pid)).encode("ascii") ).decode()
-                           )))
+
+#Process(target=os.system("{}fplayer {} {} {} {} {}".format(
+#                            FOLDER,
+#                           str(erase_num),
+#                           base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode(),
+#                           base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode(),
+#                           base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode(),
+#                           base64.b64encode(str(int(program.pid)).encode("ascii") ).decode()
+#                           ))).start()
+
+
+# makes a tmp file 
+with open(FOLDER+'.tmp.txt', 'w') as f:
+    f.write(str(erase_num) + '\n' + 
+    base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode() + '\n' + 
+    base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode() + '\n' + 
+    base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode() + '\n' + 
+    base64.b64encode(str(int(program.pid)).encode("ascii") ).decode())
+    
+
+
+os._exit(1)
+
