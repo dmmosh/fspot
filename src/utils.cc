@@ -508,7 +508,7 @@ void players::cover_fun(const std::string& url){
            // Write the image data to the file
            imageFile.write(response.text.c_str(), response.text.length());
            imageFile.close();
-            unsigned int col_size = std::min(col_update()-2, row_update()*2-12);
+            unsigned int col_size = std::min(col_update()-2, row_update()*2-6);
            std::string spacing = "\n" + std::string((col_update()-col_size) /2, ' '); //center with spacing
            std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
            std::string::size_type n = 0;
