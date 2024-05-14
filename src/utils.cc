@@ -518,12 +518,12 @@ void players::cover_fun(const std::string& url){
             unsigned int col_size = std::min(col_update()-2, row_update()*2-10);
            std::string spacing = "\n" + std::string((col_update()-col_size) /2, ' '); //center with spacing
            std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
+            cover_str.resize(cover_str.size()-1);
+
            std::string::size_type n = 0;
            int new_line = 1;
            while ( ( n = cover_str.find( "\n", n ) ) != std::string::npos )
            {   
-                if (n+7 >= cover_str.size())
-                    break;
                new_line++;
                cover_str.replace( n, 1, spacing);
                n += 7;
