@@ -396,23 +396,24 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
         std::cout << CENTER(title) <<  NEW;
 
         if (col_size > 10) {
-            int bar_size = (col_size-20 > 0) ? col_size-20 : col_size-10;
+            int bar_size = col_size-10;
 
             std::string bar = (((int)(bar_size*percent.load()) > 0) ? std::string((int)(bar_size*percent.load()), '-') : "") + 
                               (((int)(bar_size*(1.0-percent.load())) > 0) ? std::string((int)(bar_size*(1.0-percent.load())), ' ') : "") ;
-            std::cout << BOLD_ON << CENTER("<" + bar + ">")  << BOLD_OFF << '\r';
+            std::cout << "  " << BOLD_ON << CENTER("<" + bar + ">")  << BOLD_OFF << '\r';
         }
 
         printf("%02i:%02i\n\n", progress.load() / 60, progress.load() % 60);
         //timer(progress);
 
-
-        std::cout<< INVERT_ON << " // " << input << TAB << ((col_size> 30) ? message : "") <<  INVERT_OFF; 
+        std::cout<< CENTER(message) << '\r';
+        std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF; 
         //move::right(3+input.length());
         SLEEP(0.03);
         move::clear();
 
-        std::cout<< INVERT_ON << " // " << input << TAB << ((col_size> 30) ? message : "") <<  INVERT_OFF; 
+        std::cout<< CENTER(message) << '\r';
+        std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF; 
 
         //move::right(3+input.length());
         //move::beginning();
