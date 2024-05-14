@@ -50,11 +50,11 @@ main_player::~main_player(){
 // MINI MESSAGE : when it changes a lot
 // meant to be turned off, will stay forever if doesnt 
 void players::MINI_MESSAGE(const std::string& msg){
-    message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF ); //assigns new message
+    message = (std::string("[ ") + msg + " ]"); //assigns new message
 }
 
 void players::MINI_MESSAGE(const char* msg) {
-    message = (std::string(INVERT_ON) + "[ " + msg + " ]" + INVERT_OFF ); //assigns new message
+    message = (std::string("[ ") + msg + " ]"); //assigns new message
 };
 
 // standard message 
@@ -393,26 +393,30 @@ song_thread(std::jthread(&main_player::song_update, this)) //updates every secon
         // prints minutes / seconds  of progress (in sec)
         std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print.load()+1) + "] " : " : ") + artists[artist_print.load()];
         
-        std::cout << CENTER(title) <<  NEW;
+        std::cout << CENTER(title, col_size) <<  NEW;
 
         if (col_size > 10) {
             int bar_size = col_size-10;
 
             std::string bar = (((int)(bar_size*percent.load()) > 0) ? std::string((int)(bar_size*percent.load()), '-') : "") + 
                               (((int)(bar_size*(1.0-percent.load())) > 0) ? std::string((int)(bar_size*(1.0-percent.load())), ' ') : "") ;
-            std::cout << "  " << BOLD_ON << CENTER("<" + bar + ">")  << BOLD_OFF << '\r';
+            std::cout << "  " << BOLD_ON << CENTER("<" + bar + ">", col_size)  << BOLD_OFF << '\r';
         }
 
         printf("%02i:%02i\n\n", progress.load() / 60, progress.load() % 60);
         //timer(progress);
 
-        std::cout<< CENTER(message) << '\r';
+
+        int padding = (col_size-message.size())/2;
+        std::cout << std::string((padding > 0) ? padding : 1, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
+        //std::cout<< CENTER(message) << '\r';
         std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF; 
         //move::right(3+input.length());
         SLEEP(0.03);
         move::clear();
 
-        std::cout<< CENTER(message) << '\r';
+        std::cout << std::string((padding > 0) ? padding : 1, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
+        //std::cout<< CENTER(message) << '\r';
         std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF; 
 
         //move::right(3+input.length());
@@ -574,13 +578,19 @@ static char* timer(const int seconds){
 
 };
 
-// NOTE: changes the input variable if needs concat
+// default center
 std::string CENTER( std::string input){
-    unsigned int col_size = col_update();
+    return CENTER(input, col_update());
+}
+
+// center function, has unsigned int to reduce col_update calls
+// usually called in loops, which usually have their own col_size variable
+// NOTE: changes the input variable if needs concat
+std::string CENTER( std::string input, const unsigned int col_size){
     if (input.empty()) {
         input = std::string("");
     
-    } else if (input.size()+4 >= col_size && (input[0] != '[' && input.back() != ']')) {
+    } else if (input.size()+4 >= col_size) {
         input = CENTER(input.substr(0,col_size-8) + "...");
     } else {
         int padding = (col_size-input.size())/2;
