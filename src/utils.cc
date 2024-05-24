@@ -535,6 +535,7 @@ void player::connect_player(){
         for(const auto& device: devices["devices"]){
             std::cout << device["name"].get<std::string>() << NEW;
         }
+        std::cout << NEW << NEW << NEW << NEW;
 
         timer--;    
     }
