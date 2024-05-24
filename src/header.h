@@ -91,6 +91,7 @@ class player{
     void commands();
     int refresh();
     
+    void connect_player();
     void forward(const bool forward_back); //forward-backward function
     void volume(const bool add_substr);
     void cover_fun(const std::string& url);

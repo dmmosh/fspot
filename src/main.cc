@@ -79,7 +79,7 @@ int main(void){
     std::atexit([]{
 
         system(("rm " + FOLDER + ".cover.jpg &> /dev/null").c_str());
-        system((std::string("kill -9 ")+argv[4]).c_str());
+        system(("kill -9 "+argv[4]).c_str());
         print_logo();
         std::cout << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
     });

@@ -87,9 +87,10 @@ player::~player(){
         move::down(col_size+4);
         move::clear();
         move::up_clear(col_size/2+4);
+    //move::clear();
+    //move::up_clear(2);
+
     }
-    move::clear();
-    move::up_clear(2);
 };
 
 // MES   SAGES 
@@ -373,6 +374,8 @@ void player::commands(){
             type.store(false);
             ERROR("Icat not installed. This command required icat.");
         }
+    } else if (input == "connect"){
+        connect_player();
     } else if (input == "refresh") {
         refresh();
     } else if (input == "hello") {
@@ -514,6 +517,13 @@ void player::cover_fun(const std::string& url){
            // Close the file stream
        }
 }
+
+void player::connect_player(){
+    MINI_MESSAGE("Playering...");
+
+
+    MESSAGE_OFF;
+};
 
 
 
