@@ -448,7 +448,7 @@ void player::song_update() {
 
 
 
-                if (POSIX_TIME + (tmp_dur-progress.load()) >= REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
+                if (POSIX_TIME + (tmp_dur-progress.load()) >= *REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
                 if (cover.load()){ // if cover is shown
                     std::string url = data["item"]["album"]["images"][0]["url"];
