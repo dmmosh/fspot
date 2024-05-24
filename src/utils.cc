@@ -423,9 +423,9 @@ void player::song_update() {
             json data = json::parse(r.text);
 
             is_playing.store((bool)data["is_playing"]);
-            progress.store((unsigned short)data["progress_ms"]/1000); //progress in seconds
+            progress.store((unsigned int)data["progress_ms"]/1000); //progress in seconds
 
-            duration.store((unsigned short)data["item"]["duration_ms"]/1000);
+            duration.store((unsigned int)data["item"]["duration_ms"]/1000);
 
             percent.store((double)progress/duration);
 
