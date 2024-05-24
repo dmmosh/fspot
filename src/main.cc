@@ -86,7 +86,7 @@ int main(void){
 
 
     unsigned long EXPIRES_AT = std::stoul(argv[3]);
-    player play(argv[1], argv[2], EXPIRES_AT);
+    player play(&argv[1], &argv[2], &EXPIRES_AT);
     
 
     // PRINTS THE ARGUMENTS
