@@ -107,7 +107,11 @@ inline void player::MINI_MESSAGE(const char* msg) {
 // standard message 
 inline void player::MESSAGE(const std::string msg, const double time){
     MINI_MESSAGE(msg);
-    std::jthread(&player::message_log, this, time).detach();
+    std::jthread( [this, time] {
+        std::string temp = message; // temp string
+        SLEEP(time); // waits the time
+        if (temp == message) MESSAGE_OFF; // turn message off only if theres no new message to replace it
+    }).detach();
 }
 
 inline void player::MESSAGE(const std::string msg){
