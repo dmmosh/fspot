@@ -520,7 +520,7 @@ void player::cover_fun(const std::string& url){
 
 void player::connect_player(){
     MINI_MESSAGE("Playering...");
-    unsigned short timer = 400;
+    unsigned short timer = 100;
     while(timer){
         SLEEP(0.05);
         cpr::Response r = cpr::Get(INTO("me/player/devices"));
@@ -535,6 +535,7 @@ void player::connect_player(){
         auto devices = device_list["devices"];
         for(const auto& device: devices){
             std::string name = device["name"];
+            std::cout << name;
             std::string id = device["id"];
             if (name == "fspot player"){
                 cpr::Response change = cpr::Put(INTO("me/player"), cpr::Payload{{"device_ids", "[" + id + "]"}, {"play", "False"}});
