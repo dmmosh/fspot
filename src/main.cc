@@ -26,7 +26,7 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 // CLOSING FUNCTIONS
 
-static std::array<std::string, 7> argv;
+static std::array<std::string, 5> argv;
 
 
 
