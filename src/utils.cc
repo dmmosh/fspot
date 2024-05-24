@@ -144,8 +144,8 @@ int player::refresh(){
         //std::cout << r.text << NEW << NEW << NEW << NEW;
         MESSAGE("Token refreshed!", 1.0); // message
         json new_token = json::parse(r.text); // new token
-        *ACCESS_TOKEN = new_token["access_token"];
-        *REFRESH_AT = new_token["expires_in"];
+        *ACCESS_TOKEN = new_token["access_token"].get<std::string>();
+        *REFRESH_AT = new_token["expires_in"].get<unsigned long>();
         *REFRESH_AT += POSIX_TIME;
     } else {
         MESSAGE("Token refresh failed");
@@ -365,7 +365,7 @@ void player::commands(){
 		MINI_MESSAGE("Covering...");
                 r = cpr::Get(INTO("me/player"));
                 if(r.status_code == 200)
-                    cover_fun(std::string(json::parse(r.text)["item"]["album"]["images"][0]["url"]));
+                    cover_fun(json::parse(r.text)["item"]["album"]["images"][0]["url"].get<std::string>());
 
                 cover.store(true); 
                 MESSAGE("Covers on!", 1.0);
@@ -450,8 +450,7 @@ void player::song_update() {
                 if (POSIX_TIME + (tmp_dur-progress.load()) >= *REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
                 if (cover.load()){ // if cover is shown
-                    std::string url = data["item"]["album"]["images"][0]["url"];
-                    cover_fun(url);
+                    cover_fun(data["item"]["album"]["images"][0]["url"].get<std::string>());
 
                 }
 
@@ -520,13 +519,14 @@ void player::cover_fun(const std::string& url){
 
 void player::connect_player(){
     MINI_MESSAGE("Playering...");
-    unsigned short timer = 100;
+    unsigned short timer = 40;
     while(timer){
         SLEEP(0.05);
         cpr::Response r = cpr::Get(INTO("me/player/devices"));
 
         if (r.status_code != 200){
             MESSAGE_OFF;
+            type.store(false);  
             ERROR("Something else happened. Failed to connect player.");
             return;
         }
