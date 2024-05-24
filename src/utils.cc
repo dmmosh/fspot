@@ -4,7 +4,7 @@
 // CONSTRUCTORS
 
 // input and type initializer
-players::players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT, const int row_size): 
+player::player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT): 
 input(""), 
 message(""),
 type(true),
@@ -16,63 +16,109 @@ is_playing(false),
 artist_print(0), //prints no one duh
 artists({"no one yet"}), //default json array
 name("connecting ? maybe"),
-row_size(row_size),
 ACCESS_TOKEN(ACCESS_TOKEN),
 REFRESH_TOKEN(REFRESH_TOKEN),
 REFRESH_AT(REFRESH_AT),
-log_thread(std::jthread(&players::keylog, this))
+log_thread(std::jthread(&player::keylog, this)),
+song_thread(std::jthread(&player::song_update, this)) //updates every second
 {
     log_thread.detach();
+    song_thread.detach();
     
+    //std::jthread(&players::refresh, this).detach(); // refreshes the token
+    //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
+    
+    const short int row_clear = 4;
+
+    move::down(row_clear);
+    move::up(row_clear);
+
+    while(type.load()){ //keeps updating
+        unsigned int col_size = col_update();
+
+        // prints minutes / seconds  of progress (in sec)
+        std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print.load()+1) + "] " : " : ") + artists[artist_print.load()];
+        
+        std::cout << CENTER(title, col_size) <<  NEW;
+
+        if (col_size > 10) {
+            int bar_size = col_size-10;
+
+            std::string bar = (((int)(bar_size*percent.load()) > 0) ? std::string((int)(bar_size*percent.load()), '-') : "") + 
+                              (((int)(bar_size*(1.0-percent.load())) > 0) ? std::string((int)(bar_size*(1.0-percent.load())), ' ') : "") ;
+            std::cout << "  " << BOLD_ON << CENTER("<" + bar + ">", col_size)  << BOLD_OFF << '\r';
+        }
+
+        printf("%02i:%02i\n\n", progress.load() / 60, progress.load() % 60);
+        //timer(progress);
+
+
+        int padding = (col_size-message.size())/2;
+        if (padding)
+            std::cout << std::string(padding, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
+        //std::cout<< CENTER(message) << '\r';
+        std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF << " "; 
+        //move::right(3+input.length());
+        SLEEP(0.03);
+        move::clear();
+        
+        padding = (col_size-message.size())/2;
+        if (padding)
+            std::cout << std::string(padding, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
+        //std::cout<< CENTER(message) << '\r';
+        std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF << " "; 
+
+        //move::right(3+input.length());
+        //move::beginning();
+
+        move::up_clear(row_clear-1);
+
+    }  
+    move::down();
+
 };
 
 // CLASS DESTRUCTORS
-players::~players(){
+player::~player(){
     if(cover.load()){
-        unsigned int col_size = std::min(col_update()-2, row_update()*2-12);
-        move::down(col_size);
+        unsigned int col_size = std::min(col_update()-2, row_update()*2-10);
+        move::down(col_size+3);
         move::up_clear(col_size/2+3);
     }
+    move::clear();
+    move::up_clear(2);
 };
 
-main_player::~main_player(){
-    
-
-    move::clear();
-    move::up_clear(row_size-2);
-
-}
-
-// MESSAGES 
+// MES   SAGES 
 // mini message: meant to be turned off, doesnt use thread
 // message: automatically turns off after a given time USE ONLY WHEN NEEDED
 
 // MINI MESSAGE : when it changes a lot
 // meant to be turned off, will stay forever if doesnt 
-void players::MINI_MESSAGE(const std::string& msg){
+void player::MINI_MESSAGE(const std::string& msg){
     message = (std::string("[ ") + msg + " ]"); //assigns new message
 }
 
-void players::MINI_MESSAGE(const char* msg) {
+void player::MINI_MESSAGE(const char* msg) {
     message = (std::string("[ ") + msg + " ]"); //assigns new message
 };
 
 // standard message 
-void players::MESSAGE(const std::string msg, const double time){
+void player::MESSAGE(const std::string msg, const double time){
     MINI_MESSAGE(msg);
-    std::jthread(&players::message_log, this, time).detach();
+    std::jthread(&player::message_log, this, time).detach();
 }
 
-void players::MESSAGE(const std::string msg){
+void player::MESSAGE(const std::string msg){
     MESSAGE(msg, 5.0);
 };
 
-void players::MESSAGE(){
+void player::MESSAGE(){
     MESSAGE("Loading...", 5.0);
 }
 
 
-void players::message_log(const double time){
+void player::message_log(const double time){
     std::string temp = message; // temp string
     SLEEP(time); // waits the time
     if (temp == message) MESSAGE_OFF; // turn message off only if theres no new message to replace it
@@ -80,7 +126,7 @@ void players::message_log(const double time){
 
 
 // refreshes the token 
-int players::refresh(){
+int player::refresh(){
     // refresh post request response
     MINI_MESSAGE("Refreshing...");
     cpr::Response r = cpr::Post(cpr::Url{TOKEN_URL},
@@ -110,7 +156,7 @@ int players::refresh(){
 
 // CHARACTER INPUT  and keylog
 // any subclass
-void players::keylog(){
+void player::keylog(){
         int sec_ctr = 1;
         int x = 1;
         
@@ -181,7 +227,7 @@ void players::keylog(){
 
 // PLAYERS DEFAULTS
 
-void players::forward(const bool forward_back){
+void player::forward(const bool forward_back){
 
     int x = 1;
     int sec_ctr = 1;
@@ -238,7 +284,7 @@ void players::forward(const bool forward_back){
 
 }
 
-void players::volume(const bool add_substr){
+void player::volume(const bool add_substr){
     cpr::Response r = cpr::Get(INTO("me/player"));
     if (r.status_code != 200)
         return;
@@ -293,7 +339,7 @@ void players::volume(const bool add_substr){
 
 
 // default commands
-void players::commands(){
+void player::commands(){
 
     // guranteed all commands will contain different first and last chars
     json data; // temp response variable
@@ -312,8 +358,8 @@ void players::commands(){
 	
                 // CLEARS THE COVER ALREADY PRESENT
                 unsigned int col_size = std::min(col_update()-2, row_update()*2-10);
-                move::down(col_size+1);
-                move::up_clear(col_size/2+2);
+                move::down(col_size+3);
+                move::up_clear(col_size/2+3);
                 cover.store(false);
                 MESSAGE("Covers off!", 1.0);
             } else {
@@ -372,69 +418,7 @@ void players::commands(){
 // MAIN PLAYER CLASS
 
 
-// main player constructor
-main_player::main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT): 
-players(ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_AT, 4),
-song_thread(std::jthread(&main_player::song_update, this)) //updates every second
- {
-    song_thread.detach();
-    
-    //std::jthread(&players::refresh, this).detach(); // refreshes the token
-    //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
-    
-    move::down(row_size.load());
-    move::up(row_size.load());
-
-    while(type.load()){ //keeps updating
-        unsigned int col_size = col_update();
-
-        
-
-        // prints minutes / seconds  of progress (in sec)
-        std::string title = name + ((artists.size() >1) ? " : [" + std::to_string(artist_print.load()+1) + "] " : " : ") + artists[artist_print.load()];
-        
-        std::cout << CENTER(title, col_size) <<  NEW;
-
-        if (col_size > 10) {
-            int bar_size = col_size-10;
-
-            std::string bar = (((int)(bar_size*percent.load()) > 0) ? std::string((int)(bar_size*percent.load()), '-') : "") + 
-                              (((int)(bar_size*(1.0-percent.load())) > 0) ? std::string((int)(bar_size*(1.0-percent.load())), ' ') : "") ;
-            std::cout << "  " << BOLD_ON << CENTER("<" + bar + ">", col_size)  << BOLD_OFF << '\r';
-        }
-
-        printf("%02i:%02i\n\n", progress.load() / 60, progress.load() % 60);
-        //timer(progress);
-
-
-        int padding = (col_size-message.size())/2;
-        if (padding)
-            std::cout << std::string(padding, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
-        //std::cout<< CENTER(message) << '\r';
-        std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF << " "; 
-        //move::right(3+input.length());
-        SLEEP(0.03);
-        move::clear();
-        
-        padding = (col_size-message.size())/2;
-        if (padding)
-            std::cout << std::string(padding, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
-        //std::cout<< CENTER(message) << '\r';
-        std::cout<< INVERT_ON << " // " << input <<  INVERT_OFF << " "; 
-
-        //move::right(3+input.length());
-        //move::beginning();
-
-        move::up_clear(row_size.load()-1);
-
-    }  
-    move::down();
-
-}
-
-
-
-void main_player::song_update() {
+void player::song_update() {
     static int tmp_dur = 0;
     static std::string tmp_name = "NO CONNECTION";
     while(type.load()){    
@@ -500,7 +484,7 @@ void main_player::song_update() {
 
 
 // cover function where data is a pointer to json of "me/player"
-void players::cover_fun(const std::string& url){
+void player::cover_fun(const std::string& url){
        //std::cout << url << NEW << NEW << NEW << NEW;
        //std::string url = "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228";
 

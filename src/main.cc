@@ -89,7 +89,7 @@ int main(void){
     });
 
 
-    main_player player(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
+    player play(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
     
 
     // PRINTS THE ARGUMENTS
