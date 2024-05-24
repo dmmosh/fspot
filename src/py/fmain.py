@@ -99,13 +99,16 @@ PUT('me/player/volume?volume_percent='+ str(me_volume)) # sets the volume
 
 # makes a tmp file 
 with open(FOLDER+'.tmp.txt', 'w') as f:
-    f.write(str(erase_num) + '\n' + 
-    base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode() + '\n' + 
-    base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode() + '\n' + 
-    base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode() + '\n' + 
-    base64.b64encode(str(int(program.pid)).encode("ascii") ).decode())
-    
-
+    f.write(str(erase_num) + '\n')
+    for args in [gl.auth_codes['access_token'],
+                 gl.auth_codes['refresh_token'], 
+                 str(int(gl.auth_codes['expires_at'])), 
+                 str(int(program.pid)),
+                 gl.auth_codes['user_id'],
+                 gl.auth_codes['password']]:
+        
+        f.write(base64.b64encode(args.encode("ascii")).decode() + '\n')
+                                                                                    
 
 os._exit(1)
 

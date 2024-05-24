@@ -73,7 +73,9 @@ class player{
     std::atomic<bool> type;
 
     std::string* ACCESS_TOKEN;
-    std::string* REFRESH_TOKEN; //access and refrehs wokens
+    std::string* REFRESH_TOKEN; 
+    std::string* USER; //username
+    std::string* PASS; //password
     unsigned long* REFRESH_AT; // posix timestamp of when to refresh (seconds since 1970)
     
     // never updating
@@ -81,7 +83,7 @@ class player{
     
 
 
-    player(std::string* ACCESS_TOKEN, std::string* REFRESH_TOKEN, unsigned long* REFRESH_AT);
+    player(std::string* ACCESS_TOKEN, std::string* REFRESH_TOKEN, std::string* USER, std::string* PASS, unsigned long* REFRESH_AT);
     ~player();
     void song_update(); //updates song info EVERY SECOND
 

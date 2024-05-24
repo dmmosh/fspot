@@ -26,7 +26,7 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 // CLOSING FUNCTIONS
 
-static std::array<std::string, 5> argv;
+static std::array<std::string, 7> argv;
 
 
 
@@ -86,7 +86,7 @@ int main(void){
 
 
     unsigned long EXPIRES_AT = std::stoul(argv[3]);
-    player play(&argv[1], &argv[2], &EXPIRES_AT);
+    player play(&argv[1], &argv[2], &argv[5], &argv[6], &EXPIRES_AT);
     
 
     // PRINTS THE ARGUMENTS

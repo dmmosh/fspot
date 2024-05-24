@@ -3070,8 +3070,6 @@ imported by:
  &#8226;   <a href="#chardet.utf8prober">chardet.utf8prober</a>
  &#8226;   <a href="#chardet.version">chardet.version</a>
  &#8226;   <a href="#requests">requests</a>
- &#8226;   <a href="#requests.compat">requests.compat</a>
- &#8226;   <a href="#requests.packages">requests.packages</a>
 
   </div>
 
@@ -3981,8 +3979,6 @@ imported by:
  &#8226;   <a href="#charset_normalizer.utils">charset_normalizer.utils</a>
  &#8226;   <a href="#charset_normalizer.version">charset_normalizer.version</a>
  &#8226;   <a href="#requests">requests</a>
- &#8226;   <a href="#requests.compat">requests.compat</a>
- &#8226;   <a href="#requests.packages">requests.packages</a>
 
   </div>
 
@@ -11756,7 +11752,6 @@ imports:
  &#8226;   <a href="#importlib">importlib</a>
  &#8226;   <a href="#importlib._bootstrap">importlib._bootstrap</a>
  &#8226;   <a href="#importlib._bootstrap_external">importlib._bootstrap_external</a>
- &#8226;   <a href="#importlib.machinery">importlib.machinery</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#warnings">warnings</a>
 
@@ -11782,6 +11777,7 @@ imported by:
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#jinja2.loaders">jinja2.loaders</a>
  &#8226;   <a href="#pkgutil">pkgutil</a>
+ &#8226;   <a href="#requests.compat">requests.compat</a>
 
   </div>
 
@@ -11897,8 +11893,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#importlib">importlib</a>
- &#8226;   <a href="#importlib.abc">importlib.abc</a>
+    <a href="#importlib.abc">importlib.abc</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#pkgutil">pkgutil</a>
  &#8226;   <a href="#py_compile">py_compile</a>
@@ -15997,11 +15992,14 @@ imports:
  &#8226;   <a href="#requests.structures">requests.structures</a>
  &#8226;   <a href="#requests.utils">requests.utils</a>
  &#8226;   <a href="#socket">socket</a>
+ &#8226;   <a href="#typing">typing</a>
  &#8226;   <a href="#urllib3.contrib.socks">urllib3.contrib.socks</a>
  &#8226;   <a href="#urllib3.exceptions">urllib3.exceptions</a>
  &#8226;   <a href="#urllib3.poolmanager">urllib3.poolmanager</a>
  &#8226;   <a href="#urllib3.util">urllib3.util</a>
  &#8226;   <a href="#urllib3.util.retry">urllib3.util.retry</a>
+ &#8226;   <a href="#urllib3.util.ssl_">urllib3.util.ssl_</a>
+ &#8226;   <a href="#warnings">warnings</a>
 
   </div>
   <div class="import">
@@ -16080,13 +16078,12 @@ imported by:
   <a target="code" href="/usr/lib/python3.12/site-packages/requests/compat.py" type="text/plain"><tt>requests.compat</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#chardet">chardet</a>
- &#8226;   <a href="#charset_normalizer">charset_normalizer</a>
- &#8226;   <a href="#collections">collections</a>
+    <a href="#collections">collections</a>
  &#8226;   <a href="#collections.abc">collections.abc</a>
  &#8226;   <a href="#http">http</a>
  &#8226;   <a href="#http.cookiejar">http.cookiejar</a>
  &#8226;   <a href="#http.cookies">http.cookies</a>
+ &#8226;   <a href="#importlib">importlib</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#json">json</a>
  &#8226;   <a href="#requests">requests</a>
@@ -16104,6 +16101,7 @@ imported by:
  &#8226;   <a href="#requests.cookies">requests.cookies</a>
  &#8226;   <a href="#requests.exceptions">requests.exceptions</a>
  &#8226;   <a href="#requests.models">requests.models</a>
+ &#8226;   <a href="#requests.packages">requests.packages</a>
  &#8226;   <a href="#requests.sessions">requests.sessions</a>
  &#8226;   <a href="#requests.structures">requests.structures</a>
  &#8226;   <a href="#requests.utils">requests.utils</a>
@@ -16218,11 +16216,9 @@ imported by:
   <a target="code" href="/usr/lib/python3.12/site-packages/requests/packages.py" type="text/plain"><tt>requests.packages</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
-    <a href="#chardet">chardet</a>
- &#8226;   <a href="#charset_normalizer">charset_normalizer</a>
- &#8226;   <a href="#requests">requests</a>
+    <a href="#requests">requests</a>
+ &#8226;   <a href="#requests.compat">requests.compat</a>
  &#8226;   <a href="#sys">sys</a>
- &#8226;   <a href="#warnings">warnings</a>
 
   </div>
   <div class="import">
@@ -17757,6 +17753,7 @@ imported by:
  &#8226;   <a href="#jinja2.visitor">jinja2.visitor</a>
  &#8226;   <a href="#markupsafe">markupsafe</a>
  &#8226;   <a href="#markupsafe._native">markupsafe._native</a>
+ &#8226;   <a href="#requests.adapters">requests.adapters</a>
  &#8226;   <a href="#typing_extensions">typing_extensions</a>
  &#8226;   <a href="#werkzeug">werkzeug</a>
  &#8226;   <a href="#werkzeug._internal">werkzeug._internal</a>
@@ -18826,7 +18823,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#urllib3.connection">urllib3.connection</a>
+    <a href="#requests.adapters">requests.adapters</a>
+ &#8226;   <a href="#urllib3.connection">urllib3.connection</a>
  &#8226;   <a href="#urllib3.contrib.pyopenssl">urllib3.contrib.pyopenssl</a>
  &#8226;   <a href="#urllib3.util">urllib3.util</a>
  &#8226;   <a href="#urllib3.util.proxy">urllib3.util.proxy</a>
@@ -19077,8 +19075,8 @@ imported by:
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#re._parser">re._parser</a>
  &#8226;   <a href="#requests">requests</a>
+ &#8226;   <a href="#requests.adapters">requests.adapters</a>
  &#8226;   <a href="#requests.auth">requests.auth</a>
- &#8226;   <a href="#requests.packages">requests.packages</a>
  &#8226;   <a href="#requests.utils">requests.utils</a>
  &#8226;   <a href="#runpy">runpy</a>
  &#8226;   <a href="#shutil">shutil</a>
