@@ -531,9 +531,7 @@ void player::connect_player(){
             return;
         }
 
-        json device_list = json::parse(r.text);
-        auto devices = device_list["devices"];
-        for(const auto& device: devices){
+        for(const auto& device: json::parse(r.text)["devices"]){
             std::string name = device["name"];
             std::cout << name;
             std::string id = device["id"];
