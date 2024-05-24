@@ -534,7 +534,8 @@ void player::connect_player(){
 
         for(const auto& device: devices["devices"]){
             if (device["name"].get<std::string>() == "fspot player"){
-                std::cout << "kdfjklsjfl" << NEW;
+                cpr::Response change = cpr::Put(INTO("me/player"), cpr::Payload{{ "device_ids", "[" + device["id"].get<std::string>() + "]"}});
+                std::cout <<change.status_line << NEW ;
             }
         }
         std::cout << NEW << NEW << NEW << NEW;
