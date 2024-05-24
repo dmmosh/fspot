@@ -96,25 +96,25 @@ player::~player(){
 
 // MINI MESSAGE : when it changes a lot
 // meant to be turned off, will stay forever if doesnt 
-void player::MINI_MESSAGE(const std::string& msg){
+inline void player::MINI_MESSAGE(const std::string& msg){
     message = (std::string("[ ") + msg + " ]"); //assigns new message
 }
 
-void player::MINI_MESSAGE(const char* msg) {
+inline void player::MINI_MESSAGE(const char* msg) {
     message = (std::string("[ ") + msg + " ]"); //assigns new message
 };
 
 // standard message 
-void player::MESSAGE(const std::string msg, const double time){
+inline void player::MESSAGE(const std::string msg, const double time){
     MINI_MESSAGE(msg);
     std::jthread(&player::message_log, this, time).detach();
 }
 
-void player::MESSAGE(const std::string msg){
+inline void player::MESSAGE(const std::string msg){
     MESSAGE(msg, 5.0);
 };
 
-void player::MESSAGE(){
+inline void player::MESSAGE(){
     MESSAGE("Loading...", 5.0);
 }
 
