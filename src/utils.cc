@@ -533,7 +533,9 @@ void player::connect_player(){
         json devices = json::parse(r.text);
 
         for(const auto& device: devices["devices"]){
-            std::cout << device["name"].get<std::string>() << NEW;
+            if (device["name"].get<std::string>() == "fspot player"){
+                std::cout << "kdfjklsjfl" << NEW;
+            }
         }
         std::cout << NEW << NEW << NEW << NEW;
 
