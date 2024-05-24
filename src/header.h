@@ -98,7 +98,6 @@ class player{
     inline void MESSAGE(const std::string msg, const double time);
     inline void MESSAGE(const std::string msg);
     inline void MESSAGE();
-    void message_log(const double time);
 
 
 };
@@ -106,8 +105,8 @@ class player{
 // HELPER FUNCTIONS
 
 
-unsigned int col_update();
-unsigned int row_update();
+unsigned short int col_update();
+unsigned short int row_update();
 void print_logo();
 char get_char();
 static char* timer(const int seconds);
