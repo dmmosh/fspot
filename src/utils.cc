@@ -530,7 +530,9 @@ void player::connect_player(){
             ERROR("Something else happened. Failed to connect player.");
             return;
         }
-        for(const auto& device: json::parse(r.text)["devices"]){
+        json devices = json::parse(r.text);
+
+        for(const auto& device: devices["devices"]){
             std::cout << device["name"].get<std::string>() << NEW;
         }
 
