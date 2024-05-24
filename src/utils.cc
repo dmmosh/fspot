@@ -83,6 +83,7 @@ player::~player(){
     if(cover.load()){
         unsigned int col_size = std::min(col_update()-2, row_update()*2-10);
         move::down(col_size+4);
+        move::clear();
         move::up_clear(col_size/2+4);
     }
     move::clear();
@@ -359,6 +360,7 @@ void player::commands(){
                 // CLEARS THE COVER ALREADY PRESENT
                 unsigned int col_size = std::min(col_update()-2, row_update()*2-10);
                 move::down(col_size+4);
+                move::clear();
                 move::up_clear(col_size/2+4);
                 cover.store(false);
                 MESSAGE("Covers off!", 1.0);
