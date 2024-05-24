@@ -133,7 +133,7 @@ int player::refresh(){
     cpr::Response r = cpr::Post(cpr::Url{TOKEN_URL},
                                 cpr::Header{
                                 {"Content-Type", "application/x-www-form-urlencoded"},
-                                {"Authorization", "Basic " + base64::encode(CLIENT_ID + ':' + CLIENT_SECRET)}
+                                {"Authorization", "Basic " + base64::encode(std::string(CLIENT_ID) + ':' + CLIENT_SECRET)}
                                 }, 
                                 cpr::Parameters{
                                 {"grant_type", "refresh_token"},
