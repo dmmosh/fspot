@@ -52,8 +52,7 @@ int main(void){
         int i =0;
     	while (getline(file, tmp))
         {
-            argv[i] = base64::decode(tmp);
-            i++;
+            argv[i] = (i) ? base64::decode(tmp) : tmp;
         	// note that the newline character is not included
             // in the getline() function
         	
@@ -80,13 +79,13 @@ int main(void){
     std::atexit([]{
 
         system(("rm " + FOLDER + ".cover.jpg &> /dev/null").c_str());
-        system((std::string("kill -9 ")+base64::decode(argv[4])).c_str());
+        system((std::string("kill -9 ")+argv[4]).c_str());
         print_logo();
         std::cout << TAB << INVERT_ON << "[ see ya... vro ]" << INVERT_OFF << NEW;
     });
 
 
-    unsigned long EXPIRES_AT = std::stoul(base64::decode(argv[3]));
+    unsigned long EXPIRES_AT = std::stoul(argv[3]);
     player play(argv[1], argv[2], EXPIRES_AT);
     
 
