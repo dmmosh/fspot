@@ -4,5 +4,5 @@
 
 FOLDER="$HOME/coding/fspot/fspot" # change 
 
-eval "$FOLDER/fstart"
+eval "$FOLDER/fstart $@"
 eval "$FOLDER/fplayer"

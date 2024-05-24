@@ -62,7 +62,7 @@ using json = nlohmann::json;
 
 
 // PLAYER BASE CLASS
-class players{
+class player{
     public:
 
     // VARIABLES
@@ -83,13 +83,14 @@ class players{
     unsigned long REFRESH_AT; // posix timestamp of when to refresh (seconds since 1970)
     
     // never updating
-    std::atomic<int> row_size;
-    std::jthread log_thread;
+    std::jthread log_thread, song_thread;
     
 
 
-    players(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT, const int row_size);
-    ~players();
+    player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT);
+    ~player();
+    void song_update(); //updates song info EVERY SECOND
+
     void keylog();
     void commands();
     int refresh();
@@ -106,24 +107,9 @@ class players{
     void message_log(const double time);
 
     // MESSAGE 
-
-};
-
-// MAIN PLAYER SUBCLASS
-class main_player: public players{
-    public:
-    // VARIABLES
-
-    // never updating
-    std::jthread song_thread;
-
-    main_player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT);
-    ~main_player();
-    
     void commands();
-    void song_update(); //updates song info EVERY SECOND
-};
 
+};
 
 // HELPER FUNCTIONS
 
