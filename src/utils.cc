@@ -520,7 +520,32 @@ void player::cover_fun(const std::string& url){
 
 void player::connect_player(){
     MINI_MESSAGE("Playering...");
+    unsigned short timer = 400;
+    while(timer){
+        SLEEP(0.05);
+        cpr::Response r = cpr::Get(INTO("me/player/devices"));
 
+        if (r.status_code != 200){
+            MESSAGE_OFF;
+            ERROR("Something else happened. Failed to connect player.");
+            return;
+        }
+
+        json device_list = json::parse(r.text);
+        auto devices = device_list["devices"];
+        for(const auto& device: devices){
+            std::string name = device["name"];
+            std::string id = device["id"];
+            if (name == "fspot player"){
+                cpr::Response change = cpr::Put(INTO("me/player"), cpr::Payload{{"device_ids", "[" + id + "]"}, {"play", "False"}});
+                if (change.status_code == 204){
+                    MESSAGE("Playered!", 1.0);
+                    return;
+                }
+            }
+        }
+        timer--;    
+    }
 
     MESSAGE_OFF;
 };
