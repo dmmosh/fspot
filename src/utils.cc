@@ -4,7 +4,7 @@
 // CONSTRUCTORS
 
 // input and type initializer
-player::player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT): 
+player::player(std::string* ACCESS_TOKEN, std::string* REFRESH_TOKEN, unsigned long* REFRESH_AT): 
 input(""), 
 message(""),
 type(true),
@@ -137,7 +137,7 @@ int player::refresh(){
                                 }, 
                                 cpr::Parameters{
                                 {"grant_type", "refresh_token"},
-                                {"refresh_token", REFRESH_TOKEN}
+                                {"refresh_token", *REFRESH_TOKEN}
                                 });
 
     //if successful
@@ -145,9 +145,9 @@ int player::refresh(){
         //std::cout << r.text << NEW << NEW << NEW << NEW;
         MESSAGE("Token refreshed!", 1.0); // message
         json new_token = json::parse(r.text); // new token
-        ACCESS_TOKEN = new_token["access_token"];
-        REFRESH_AT = new_token["expires_in"];
-        REFRESH_AT += POSIX_TIME;
+        *ACCESS_TOKEN = new_token["access_token"];
+        *REFRESH_AT = new_token["expires_in"];
+        *REFRESH_AT += POSIX_TIME;
     } else {
         MESSAGE("Token refresh failed");
     }

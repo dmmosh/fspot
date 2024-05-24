@@ -26,22 +26,15 @@ using json = nlohmann::json;
 #define SPACE 32
 #define BACKSPACE 127
 
-#define INTO(x) cpr::Url{BASE_URL + x}, cpr::Header{{"Authorization", "Bearer " + ACCESS_TOKEN}}
+#define INTO(x) cpr::Url{std::string(BASE_URL) + x}, cpr::Header{{"Authorization", "Bearer " + *ACCESS_TOKEN}}
 
 
-#define GET_JSON(params) json::parse(cpr::Get(params).text)  // returns get request output in json format
-#define POST_JSON(params) json::parse(cpr::Post(params).text)  // returns get request output in json format
-#define PUT_JSON(params) json::parse(cpr::Put(params).text)  // returns get request output in json format
-#define DELETE_JSON(params) json::parse(cpr::Delete(params).text)  // returns get request output in json format
-
-
-
-#define AUTH_URL std::string("https://accounts.spotify.com/authorize") 
-#define TOKEN_URL std::string("https://accounts.spotify.com/api/token" )
-#define BASE_URL std::string("https://api.spotify.com/v1/" )
-#define CLIENT_ID std::string("bbdff8f6b6524edc90d968c3f971b5da")
-#define CLIENT_SECRET std::string(getenv("FSPOT_CLIENT_SECRET"))
-#define FOLDER (std::string(getenv("HOME")) + "/coding/fspot/fspot/")
+#define AUTH_URL "https://accounts.spotify.com/authorize"
+#define TOKEN_URL "https://accounts.spotify.com/api/token" 
+#define BASE_URL "https://api.spotify.com/v1/" 
+#define CLIENT_ID "bbdff8f6b6524edc90d968c3f971b5da"
+#define CLIENT_SECRET getenv("FSPOT_CLIENT_SECRET")
+#define FOLDER (std::string(getenv("HOME")) + "/coding/fspot/fspot/") //fspot folder
 
 #define BOLD_ON "\033[1m"
 #define BOLD_OFF "\033[0m"
@@ -79,15 +72,16 @@ class player{
     // sometimes updating
     std::atomic<bool> type;
 
-    std::string ACCESS_TOKEN, REFRESH_TOKEN; //access and refrehs wokens
-    unsigned long REFRESH_AT; // posix timestamp of when to refresh (seconds since 1970)
+    std::string* ACCESS_TOKEN;
+    std::string* REFRESH_TOKEN; //access and refrehs wokens
+    unsigned long* REFRESH_AT; // posix timestamp of when to refresh (seconds since 1970)
     
     // never updating
     std::jthread log_thread, song_thread;
     
 
 
-    player(std::string& ACCESS_TOKEN, std::string& REFRESH_TOKEN, unsigned long& REFRESH_AT);
+    player(std::string* ACCESS_TOKEN, std::string* REFRESH_TOKEN, unsigned long* REFRESH_AT);
     ~player();
     void song_update(); //updates song info EVERY SECOND
 
