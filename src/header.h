@@ -106,9 +106,6 @@ class player{
     void MESSAGE();
     void message_log(const double time);
 
-    // MESSAGE 
-    void commands();
-
 };
 
 // HELPER FUNCTIONS
