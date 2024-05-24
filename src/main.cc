@@ -61,7 +61,9 @@ int main(void){
     file.close();
     system(("rm " + FOLDER + ".tmp.txt &> /dev/null").c_str());
 
-
+    for(const std::string out: argv){
+        std::cout << out << NEW;
+    }
     move::clear();
     move::up_clear(std::stoi(argv[0])); // clears the loading message
 
