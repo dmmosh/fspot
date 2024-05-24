@@ -93,11 +93,11 @@ class player{
     void volume(const bool add_substr);
     void cover_fun(const std::string& url);
 
-    void MINI_MESSAGE(const std::string& msg);
-    void MINI_MESSAGE(const char* msg);
-    void MESSAGE(const std::string msg, const double time);
-    void MESSAGE(const std::string msg);
-    void MESSAGE();
+    inline void MINI_MESSAGE(const std::string& msg);
+    inline void MINI_MESSAGE(const char* msg);
+    inline void MESSAGE(const std::string msg, const double time);
+    inline void MESSAGE(const std::string msg);
+    inline void MESSAGE();
     void message_log(const double time);
 
 
