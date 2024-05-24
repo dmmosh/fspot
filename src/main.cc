@@ -26,7 +26,7 @@ DO NOT USE EXIT(1), MEMORY LEAK WITH SMART POINTERS
 
 // CLOSING FUNCTIONS
 
-static std::array<std::string, 5> argv;
+static std::array<std::string, 7> argv;
 
 
 
@@ -52,7 +52,7 @@ int main(void){
         int i =0;
     	while (getline(file, tmp))
         {
-            argv[i] = tmp;
+            argv[i] = base64::decode(tmp);
             i++;
         	// note that the newline character is not included
             // in the getline() function
@@ -70,9 +70,6 @@ int main(void){
     // are mutable
 
 
-    static std::string ACCESS_TOKEN = base64::decode(argv[1]);
-    static std::string REFRESH_TOKEN = base64::decode(argv[2]);
-    static unsigned long EXPIRES_AT = std::stoi(base64::decode(argv[3]));
 
     // kills librespot pid
 
@@ -89,7 +86,8 @@ int main(void){
     });
 
 
-    player play(ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES_AT);
+    unsigned long EXPIRES_AT = std::stoul(base64::decode(argv[3]));
+    player play(argv[1], argv[2], EXPIRES_AT);
     
 
     // PRINTS THE ARGUMENTS
