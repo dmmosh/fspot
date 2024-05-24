@@ -53,6 +53,7 @@ int main(void){
     	while (getline(file, tmp))
         {
             argv[i] = (i) ? base64::decode(tmp) : tmp;
+            i++;
         	// note that the newline character is not included
             // in the getline() function
         	
@@ -61,8 +62,8 @@ int main(void){
     file.close();
     system(("rm " + FOLDER + ".tmp.txt &> /dev/null").c_str());
 
-    //move::clear();
-    //move::up_clear(std::stoi(argv[0])); // clears the loading message
+    move::clear();
+    move::up_clear(std::stoi(argv[0])); // clears the loading message
 
     // THESE CHANGE
     // are mutable
