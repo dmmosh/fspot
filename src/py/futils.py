@@ -111,9 +111,10 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     
 
 def connect_player():
-    timer = 60 # 30 seconds (iterates every half a second)
+    timer = 400 # 20 seconds 
     while(timer):
         
+        time.sleep(0.05)
         device_list = GET('me/player/devices').json()
         if 'devices' not in device_list:
             ERROR('Something else happened. Failed to connect player.')
@@ -126,10 +127,8 @@ def connect_player():
                 request = PUT('me/player', json=player)
 
                 if(request.status_code == 204): # exits the function
-                    time.sleep(1) # wait an extra second for the put request
                     return
         
-        time.sleep(0.5)
         timer-=1
         
     # once timer runs out
