@@ -28,7 +28,7 @@ song_thread(std::jthread(&player::song_update, this)) //updates every second
     //std::jthread(&players::refresh, this).detach(); // refreshes the token
     //std::jthread log_thread(&main_player::keylog, this); //keylogging enabled
     
-    const short int row_clear = 4;
+    const short row_clear = 4;
 
     move::down(row_clear);
     move::up(row_clear);
@@ -53,7 +53,7 @@ song_thread(std::jthread(&player::song_update, this)) //updates every second
         //timer(progress);
 
 
-        int padding = (col_size-message.size())/2;
+        short padding = (col_size-message.size())/2;
         if (padding)
             std::cout << std::string(padding, ' ') << INVERT_ON << message << INVERT_OFF << '\r';
         //std::cout<< CENTER(message) << '\r';
@@ -81,7 +81,7 @@ song_thread(std::jthread(&player::song_update, this)) //updates every second
 // CLASS DESTRUCTORS
 player::~player(){
     if(cover.load()){
-        unsigned int col_size = std::min(col_update()-2, row_update()*2-10);
+        unsigned short col_size = std::min(col_update()-2, row_update()*2-10);
         move::down(col_size+4);
         move::clear();
         move::up_clear(col_size/2+4);
@@ -122,14 +122,6 @@ inline void player::MESSAGE(){
     MESSAGE("Loading...", 5.0);
 }
 
-
-void player::message_log(const double time){
-    std::string temp = message; // temp string
-    SLEEP(time); // waits the time
-    if (temp == message) MESSAGE_OFF; // turn message off only if theres no new message to replace it
-}
-
-
 // refreshes the token 
 int player::refresh(){
     // refresh post request response
@@ -162,8 +154,6 @@ int player::refresh(){
 // CHARACTER INPUT  and keylog
 // any subclass
 void player::keylog(){
-        int sec_ctr = 1;
-        int x = 1;
         
         while(type.load()){
         
@@ -234,8 +224,8 @@ void player::keylog(){
 
 void player::forward(const bool forward_back){
 
-    int x = 1;
-    int sec_ctr = 1;
+    unsigned int x = 1;
+    unsigned short sec_ctr = 1;
 
     while(1){ //iterates the ctr
 
@@ -295,8 +285,8 @@ void player::volume(const bool add_substr){
         return;
 
     json resp = json::parse(r.text);
-    int volume = resp["device"]["volume_percent"];
-    int init_volume = volume;
+    unsigned short volume = resp["device"]["volume_percent"];
+    unsigned short init_volume = volume;
 
     if(volume == 100 && add_substr == true){
         input="";
@@ -362,7 +352,7 @@ void player::commands(){
             if(cover.load()) {
 	
                 // CLEARS THE COVER ALREADY PRESENT
-                unsigned int col_size = std::min(col_update()-2, row_update()*2-10);
+                unsigned short col_size = std::min(col_update()-2, row_update()*2-10);
                 move::down(col_size+4);
                 move::clear();
                 move::up_clear(col_size/2+4);
@@ -433,9 +423,9 @@ void player::song_update() {
             json data = json::parse(r.text);
 
             is_playing.store((bool)data["is_playing"]);
-            progress.store((int)data["progress_ms"]/1000); //progress in seconds
+            progress.store((unsigned short)data["progress_ms"]/1000); //progress in seconds
 
-            duration.store((int)data["item"]["duration_ms"]/1000);
+            duration.store((unsigned short)data["item"]["duration_ms"]/1000);
 
             percent.store((double)progress/duration);
 
@@ -504,7 +494,7 @@ void player::cover_fun(const std::string& url){
            // Write the image data to the file
            imageFile.write(response.text.c_str(), response.text.length());
            imageFile.close();
-            unsigned int col_size = std::min(col_update()-2, row_update()*2-10);
+            unsigned short col_size = std::min(col_update()-2, row_update()*2-10);
            std::string spacing = "\n" + std::string((col_update()-col_size) /2, ' '); //center with spacing
            std::string cover_str = exec("icat --width " + std::to_string(col_size) + " " +  FOLDER + ".cover.jpg");
             cover_str.resize(cover_str.size()-1);
@@ -527,13 +517,13 @@ void player::cover_fun(const std::string& url){
 
 // HELPER FUNCTIONS
 
-unsigned int col_update(){
+unsigned short col_update(){
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     return w.ws_col;
 }
 
-unsigned int row_update(){
+unsigned short row_update(){
     struct winsize w;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     return w.ws_row;
