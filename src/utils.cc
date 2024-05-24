@@ -4,7 +4,7 @@
 // CONSTRUCTORS
 
 // input and type initializer
-player::player(std::string* ACCESS_TOKEN, std::string* REFRESH_TOKEN, unsigned long* REFRESH_AT): 
+player::player(std::string* ACCESS_TOKEN, std::string* REFRESH_TOKEN, std::string* USER, std::string* PASS, unsigned long* REFRESH_AT):
 input(""), 
 message(""),
 type(true),
@@ -18,6 +18,8 @@ artists({"no one yet"}), //default json array
 name("connecting ? maybe"),
 ACCESS_TOKEN(ACCESS_TOKEN),
 REFRESH_TOKEN(REFRESH_TOKEN),
+USER(USER),
+PASS(PASS),
 REFRESH_AT(REFRESH_AT),
 log_thread(std::jthread(&player::keylog, this)),
 song_thread(std::jthread(&player::song_update, this)) //updates every second
@@ -539,8 +541,8 @@ static char* timer(const int seconds){
 
     //strcpy(timer, "00:00");
 
-    unsigned int min = seconds /60;
-    unsigned int sec = seconds%60;
+    unsigned short min = seconds /60;
+    unsigned short sec = seconds%60;
 
     if(min<10){
         timer[0] = '0';
