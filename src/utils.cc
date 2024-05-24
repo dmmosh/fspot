@@ -530,19 +530,10 @@ void player::connect_player(){
             ERROR("Something else happened. Failed to connect player.");
             return;
         }
-
         for(const auto& device: json::parse(r.text)["devices"]){
-            std::string name = device["name"];
-            std::cout << name;
-            std::string id = device["id"];
-            if (name == "fspot player"){
-                cpr::Response change = cpr::Put(INTO("me/player"), cpr::Payload{{"device_ids", "[" + id + "]"}, {"play", "False"}});
-                if (change.status_code == 204){
-                    MESSAGE("Playered!", 1.0);
-                    return;
-                }
-            }
+            std::cout << device["name"].get<std::string>() << NEW;
         }
+
         timer--;    
     }
 
