@@ -61,7 +61,8 @@ class player{
     // VARIABLES
 
     // always updating
-    std::string input, message;
+    char input[16];// 16 chars (15 + null terminator)
+    std::string message;
 
     std::atomic<int> progress, duration, artist_print;
     std::atomic<bool> is_playing, cover;
