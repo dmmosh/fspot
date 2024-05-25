@@ -18,42 +18,10 @@
 #include <string>
 #include <cmath>
 
-std::string exec(const std::string& cmd) {
-    std::array<char, 200> buffer;
-    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd.c_str(), "r"), pclose);
-    if (!pipe) { //exception handle
-        throw std::runtime_error("popen() failed!");
-    } 
-
-    std::string output = "";
-
-    while (fgets(buffer.data(), static_cast<int>(buffer.size()), pipe.get()) != nullptr) {
-
-        output.append(buffer.data());
+int main(){
+    char test[] = "hell\0o there";
+    if(!strcmp(test, "hell")){
+        std::cout << "ajhdfskjf";
     }
-    return output;
-}
-
-int main() {
-    // Specify image file path
-    std::string url = "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228";
-    
-    // Perform the HTTP GET request
-    auto response = cpr::Get(cpr::Url{url});
-    // Check if the request was successful
-    if (response.status_code == 200) {
-        // Open a file stream to save the downloaded image
-        std::ofstream imageFile(".image.jpg", std::ofstream::binary);
-        
-        // Write the image data to the file
-        imageFile.write(response.text.c_str(), response.text.length());
-        
-        // Close the file stream
-        imageFile.close();
-    }
-
-    std::cout << exec("icat  .image.jpg");
-    system("rm .image.jpg");
-
     return 0;
 }

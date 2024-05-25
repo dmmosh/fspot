@@ -5,7 +5,7 @@
 
 // input and type initializer
 player::player(std::string* ACCESS_TOKEN, std::string* REFRESH_TOKEN, std::string* USER, std::string* PASS, unsigned long* REFRESH_AT):
-input(""), 
+input("\0"),
 message(""),
 type(true),
 cover(false),
@@ -157,7 +157,8 @@ int player::refresh(){
 // CHARACTER INPUT  and keylog
 // any subclass
 void player::keylog(){
-        
+        static unsigned short input_len = 0; //length of input string (without null terminator)
+
         while(type.load()){
         
         char buf = get_char();
@@ -167,7 +168,8 @@ void player::keylog(){
             break;
             case ENTER:
                 commands();
-                input = "";
+                input_len = 0;
+                input[0] = '\0';
             break;  
             case SPACE:
 
@@ -184,22 +186,32 @@ void player::keylog(){
                     is_playing= true;
                 };
             break;
-            case BACKSPACE:
-                if (input.size()) input.resize(input.size() - 1);
+            case BACKSPACE: 
+                if(input_len){ //substract a character from input
+                    input_len--;
+                    input[input_len] = '\0';
+                }
             break;
             case '.': //forward 10 seconds
-                if (input == "v")
+                if (input == "v") {
                     volume(true);
-                else 
+                    input_len = 0;
+                    input[0] = '\0';
+                } else {
                     forward(true);
+                }
+                
                 SLEEP(0.5);
                 MESSAGE_OFF;
             break;
             case ',':
-                if (input == "v")
+                if (input == "v") {
                     volume(false);
-                else
+                    input_len = 0;
+                    input[0] = '\0';
+                } else {
                     forward(false);
+                }
                 SLEEP(0.5);
                 MESSAGE_OFF;
             break;
@@ -216,8 +228,12 @@ void player::keylog(){
                 SLEEP(0.5); //need a cooldown
             break;
             default:
-                if (input.length() <15)
-                    input.push_back(tolower(buf));
+                if (input_len < 15) { //make sure the string is within bounds
+                    input[input_len] = tolower(buf);
+                    input_len++;
+                    input[input_len] = '\0';
+                }
+
         }     
         SLEEP(0.0001);
     }
@@ -292,11 +308,9 @@ void player::volume(const bool add_substr){
     unsigned short init_volume = volume;
 
     if(volume == 100 && add_substr == true){
-        input="";
         MINI_MESSAGE("Max vol");
         return;
     } else if (volume == 0 && add_substr == false){
-        input="";
         MINI_MESSAGE("Muted");
         return;
     }
@@ -330,7 +344,6 @@ void player::volume(const bool add_substr){
             MINI_MESSAGE( "vol " +  std::to_string(volume) + "...");
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
-        input="";
     }
 
 };
@@ -342,14 +355,49 @@ void player::commands(){
     // guranteed all commands will contain different first and last chars
     json data; // temp response variable
     cpr::Response r; //temp r variable
-    if (input == "quit"){ //quit
+
+    if (!strcmp(input, "play")){ // plays track
+        MINI_MESSAGE("Playing...");
+        (void)cpr::Put(INTO("me/player/play"));
+        MESSAGE("Playing now!", 1);
+        is_playing.store(true);
+
+
+    } else if (!strcmp(input, "pause")){ // pauses track
+        MINI_MESSAGE("Pausing...");
+        (void)cpr::Put(INTO("me/player/pause"));
+        MESSAGE("Paused!", 1);
+        is_playing.store(false);
+
+
+    } else if (!strcmp(input, "pp")) { //plays / pauses track
+
+        if (is_playing.load()){
+            MINI_MESSAGE("Pausing...");
+            (void)cpr::Put(INTO("me/player/pause"));
+            MESSAGE("Paused!", 1);
+            is_playing.store(false);
+
+
+        } else {
+            MINI_MESSAGE("Playing...");
+            (void)cpr::Put(INTO("me/player/play"));
+            MESSAGE("Playing now!", 1);
+            is_playing.store(true);
+
+
+        };
+
+    } else if (!strcmp(input, "quit")){ //quit
         MINI_MESSAGE("Quitting...");
         type.store(false);
         log_thread.request_stop();
-    } else if (input == "clear"){
+
+    } else if (!strcmp(input, "clear")){
         cover.store(false);
         system("clear");
-    } else if (input=="cover"){
+
+    } else if (!strcmp(input, "cover")){
 
         if (exec("command -v icat").size()) {
             if(cover.load()) {
@@ -374,45 +422,18 @@ void player::commands(){
             type.store(false);
             ERROR("Icat not installed. This command required icat.");
         }
-    } else if (input == "connect"){
+
+    } else if (!strcmp(input, "connect")){
         connect_player();
-    } else if (input == "refresh") {
+        
+    } else if (!strcmp(input, "refresh")) {
         refresh();
-    } else if (input == "hello") {
+
+    } else if (!strcmp(input, "hello")) {
         MESSAGE("Hello vro...", 2.0);
-    } else if (input == "play"){ // plays track
-        MINI_MESSAGE("Playing...");
-        (void)cpr::Put(INTO("me/player/play"));
-        MESSAGE("Playing now!", 1);
-        is_playing.store(true);
-
-
-    } else if (input == "pause"){ // pauses track
-        MINI_MESSAGE("Pausing...");
-        (void)cpr::Put(INTO("me/player/pause"));
-        MESSAGE("Paused!", 1);
-        is_playing.store(false);
-
-
-    } else if (input == "pp") { //plays / pauses track
-
-        if (is_playing.load()){
-            MINI_MESSAGE("Pausing...");
-            (void)cpr::Put(INTO("me/player/pause"));
-            MESSAGE("Paused!", 1);
-            is_playing.store(false);
-
-
-        } else {
-            MINI_MESSAGE("Playing...");
-            (void)cpr::Put(INTO("me/player/play"));
-            MESSAGE("Playing now!", 1);
-            is_playing.store(true);
-
-
-        };
-
+        
     }
+
     return;
 };
 
