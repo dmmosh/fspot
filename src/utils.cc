@@ -421,12 +421,22 @@ void player::commands(){
 
 void player::song_update() {
     static int tmp_dur = 0;
+    static bool error = false;
     static std::string tmp_name = "NO CONNECTION";
     while(type.load()){    
-        cpr::Response r = cpr::Get(INTO("me/player"));
-        if(r.status_code == 200){
-            json data = json::parse(r.text);
+        if (POSIX_TIME + (tmp_dur-progress.load()) >= *REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
 
+        cpr::Response r = cpr::Get(INTO("me/player"));
+        json data = json::parse(r.text);
+
+
+        switch(r.status_code){
+        
+        case 200:
+            if(error){
+                MESSAGE_OFF;
+                error = false;
+            }
             is_playing.store((bool)data["is_playing"]);
             progress.store((unsigned int)data["progress_ms"]/1000); //progress in seconds
 
@@ -434,7 +444,7 @@ void player::song_update() {
 
             percent.store((double)progress/duration);
 
-            name = data["item"]["name"];
+            name = data["item"]["name"].get<std::string>();
 
             // IF THERES BEEN A SONG SWITCH
             if(tmp_dur != duration.load() && tmp_name != name){
@@ -447,7 +457,6 @@ void player::song_update() {
 
 
 
-                if (POSIX_TIME + (tmp_dur-progress.load()) >= *REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
                 
                 if (cover.load()){ // if cover is shown
                     cover_fun(data["item"]["album"]["images"][0]["url"].get<std::string>());
@@ -465,7 +474,10 @@ void player::song_update() {
 
             tmp_name = name;
 
-        } else {
+        break;
+        default:
+            MINI_MESSAGE("ERR " + std::to_string(r.status_code));
+            error = true;
             progress.store(0);
             percent.store(0);
             duration.store(100);
