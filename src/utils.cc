@@ -471,7 +471,7 @@ void player::song_update() {
             duration.store(100);
             artists = {"mr. nuh uh"};
             name = "NO CONNECTION";
-            refresh();
+            //refresh();
         }   
 
         if (artists.size()) artist_print.store((artist_print.load()+1) % artists.size());
