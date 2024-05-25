@@ -112,10 +112,10 @@ unsigned short int col_update();
 unsigned short int row_update();
 void print_logo();
 char get_char();
-static char* timer(const int seconds);
+static char* timer(const unsigned int seconds);
 
-std::string CENTER( std::string input);
-std::string CENTER( std::string input, const unsigned int col_size);
+inline std::string CENTER( std::string input);
+inline std::string CENTER( std::string input, const unsigned short col_size);
 
 std::string exec(const std::string& cmd);
 
@@ -123,27 +123,27 @@ std::string exec(const std::string& cmd);
 constexpr int forward_fun(const int x_val);
 
 namespace move{
-     void clear();
-     void clear(const std::string& newline);
+     inline void clear();
+     inline void clear(const std::string& newline);
 
-     void up();
-     void up(const int amt);
+     inline void up();
+     inline void up(const int amt);
 
-     void down();
-     void down(const int amt);
+     inline void down();
+     inline void down(const int amt);
 
-     void beginning();
+     inline void beginning();
 
-     void up_clear();
+     inline void up_clear();
      void up_clear(int amt);
      void up_clear(const std::string& word_above, const int col_size);
     
 
-     void left();
-     void left(const int amt);
+     inline void left();
+     inline void left(const int amt);
 
-     void right();
-     void right(const int amt);
+     inline void right();
+     inline void right(const int amt);
 };
 
 

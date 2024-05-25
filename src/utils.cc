@@ -424,10 +424,8 @@ void player::song_update() {
     static bool error = false;
     static std::string tmp_name = "NO CONNECTION";
     while(type.load()){    
-        if (POSIX_TIME + (tmp_dur-progress.load()) >= *REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
 
         cpr::Response r = cpr::Get(INTO("me/player"));
-
 
         if(r.status_code == 200){
             if(error){
@@ -473,6 +471,9 @@ void player::song_update() {
 
             tmp_name = name;
 
+        } else if (r.status_code == 204){
+            artists = {"none"};
+            name= "NO PLAYBACK";
         } else {
             MINI_MESSAGE("ERR " + std::to_string(r.status_code));
             error = true;
@@ -484,6 +485,7 @@ void player::song_update() {
             //refresh();
         }   
 
+        if (POSIX_TIME + (tmp_dur-progress.load()) >= *REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
         if (artists.size()) artist_print.store((artist_print.load()+1) % artists.size());
 
         SLEEP(1);
@@ -577,7 +579,7 @@ constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/70);
 };
 
-static char* timer(const int seconds){
+static char* timer(const unsigned int seconds){
     static char timer[] = "00:00";
 
     //strcpy(timer, "00:00");
@@ -606,21 +608,21 @@ static char* timer(const int seconds){
 };
 
 // default center
-std::string CENTER( std::string input){
+inline std::string CENTER( std::string input){
     return CENTER(input, col_update());
 }
 
 // center function, has unsigned int to reduce col_update calls
 // usually called in loops, which usually have their own col_size variable
 // NOTE: changes the input variable if needs concat
-std::string CENTER( std::string input, const unsigned int col_size){
+inline std::string CENTER( std::string input, const unsigned short col_size){
     if (input.empty()) {
         input = std::string("");
     
     } else if (input.size()+4 >= col_size) {
         input = CENTER(input.substr(0,col_size-8) + "...");
     } else {
-        int padding = (col_size-input.size())/2;
+        unsigned short padding = (col_size-input.size())/2;
         input.insert(0, std::string((padding > 0) ? padding : 1, ' '));
     };
 
@@ -630,8 +632,8 @@ std::string CENTER( std::string input, const unsigned int col_size){
 
 
 void print_logo(){
-    unsigned int col_size = col_update();
-    unsigned int title_num;
+    unsigned short col_size = col_update();
+    unsigned short title_num;
 
     if (col_size < 42)
         title_num = 1;
@@ -698,18 +700,18 @@ char get_char(){
 
 
 namespace move{
-    void clear()                           { std::cout << "\x1b[2K\r"; };
-    void clear(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
+    inline void clear()                           { std::cout << "\x1b[2K\r"; };
+    inline void clear(const std::string& newline) { std::cout << "\x1b[2K\r" <<  newline;  };
     
-    void up()              { printf("\x1b[1A"); };
-    void up(const int amt) { printf("\x1b[%iA", amt); };
+    inline void up()              { printf("\x1b[1A"); };
+    inline void up(const int amt) { printf("\x1b[%iA", amt); };
 
-    void down()              { printf("\x1b[1B"); };
-    void down(const int amt) { printf("\x1b[%iB", amt); };
+    inline void down()              { printf("\x1b[1B"); };
+    inline void down(const int amt) { printf("\x1b[%iB", amt); };
 
-    void beginning() { printf("\r"); };
+    inline void beginning() { printf("\r"); };
 
-    void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
+    inline void up_clear()        { std::cout << "\x1b[1A\x1b[2K\r"; };
     void up_clear(int amt) { while(amt) { std::cout << "\x1b[1A\x1b[2K\r"; amt--; } };
     void up_clear(const std::string& word_above, const int col_size) {
         if(word_above.size() < col_size) {
@@ -719,11 +721,11 @@ namespace move{
         }
     };
 
-    void left()              { printf("\x1b[1D"); };
-    void left(const int amt) { printf("\x1b[%iD", amt); };
+    inline void left()              { printf("\x1b[1D"); };
+    inline void left(const int amt) { printf("\x1b[%iD", amt); };
 
-    void right()              { printf("\x1b[1C"); };
-    void right(const int amt) { printf("\x1b[%iC", amt); };
+    inline void right()              { printf("\x1b[1C"); };
+    inline void right(const int amt) { printf("\x1b[%iC", amt); };
 
 
 }
