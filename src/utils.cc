@@ -427,16 +427,15 @@ void player::song_update() {
         if (POSIX_TIME + (tmp_dur-progress.load()) >= *REFRESH_AT) refresh(); //if next song is over the token expire, refresh it
 
         cpr::Response r = cpr::Get(INTO("me/player"));
-        json data = json::parse(r.text);
 
 
-        switch(r.status_code){
-        
-        case 200:
+        if(r.status_code == 200){
             if(error){
                 MESSAGE_OFF;
                 error = false;
             }
+
+            json data = json::parse(r.text);
             is_playing.store((bool)data["is_playing"]);
             progress.store((unsigned int)data["progress_ms"]/1000); //progress in seconds
 
@@ -474,8 +473,7 @@ void player::song_update() {
 
             tmp_name = name;
 
-        break;
-        default:
+        } else {
             MINI_MESSAGE("ERR " + std::to_string(r.status_code));
             error = true;
             progress.store(0);
