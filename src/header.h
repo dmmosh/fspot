@@ -94,7 +94,7 @@ class player{
     
     void connect_player();
     void forward(const bool forward_back); //forward-backward function
-    void volume(const bool add_substr);
+    void volume(const bool add_substr, unsigned short& input_len);
     void cover_fun(const std::string& url);
 
     inline void MINI_MESSAGE(const std::string& msg);

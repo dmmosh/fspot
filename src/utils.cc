@@ -196,7 +196,7 @@ void player::keylog(){
                 if (!strcmp(input, "v")) {
                     input_len = 0;
                     input[0] = '\0';
-                    volume(true);
+                    volume(true, input_len);
                 } else {
                     forward(true);
                 }
@@ -206,7 +206,7 @@ void player::keylog(){
             break;
             case ',':
                 if (!strcmp(input, "v")) {
-                    volume(false);
+                    volume(false, input_len);
                     input_len = 0;
                     input[0] = '\0';
                 } else {
@@ -298,7 +298,7 @@ void player::forward(const bool forward_back){
 
 }
 
-void player::volume(const bool add_substr){
+void player::volume(const bool add_substr, unsigned short& input_len){
     cpr::Response r = cpr::Get(INTO("me/player"));
     if (r.status_code != 200)
         return;
@@ -344,6 +344,8 @@ void player::volume(const bool add_substr){
             MINI_MESSAGE( "vol " +  std::to_string(volume) + "...");
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
+        input[0] = '\0';
+        input_len = 0;
     }
 
 };
