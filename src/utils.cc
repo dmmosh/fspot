@@ -194,8 +194,6 @@ void player::keylog(){
             break;
             case '.': //forward 10 seconds
                 if (!strcmp(input, "v")) {
-                    input_len = 0;
-                    input[0] = '\0';
                     volume(true, input_len);
                 } else {
                     forward(true);
@@ -207,8 +205,6 @@ void player::keylog(){
             case ',':
                 if (!strcmp(input, "v")) {
                     volume(false, input_len);
-                    input_len = 0;
-                    input[0] = '\0';
                 } else {
                     forward(false);
                 }
