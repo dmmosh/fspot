@@ -196,23 +196,23 @@ void player::keylog(){
                 if (!strcmp(input, "v")) {
                     volume(true);
                     input_len = 0;
-                    input[0] = '\0';
                 } else {
                     forward(true);
                 }
                 
                 SLEEP(0.5);
+                input[0] = '\0';
                 MESSAGE_OFF;
             break;
             case ',':
                 if (!strcmp(input, "v")) {
                     volume(false);
                     input_len = 0;
-                    input[0] = '\0';
                 } else {
                     forward(false);
                 }
                 SLEEP(0.5);
+                input[0] = '\0';
                 MESSAGE_OFF;
             break;
             case '>':
