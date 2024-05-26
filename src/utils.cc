@@ -201,7 +201,6 @@ void player::keylog(){
                 }
                 
                 SLEEP(0.5);
-                input[0] = '\0';
                 MESSAGE_OFF;
             break;
             case ',':
@@ -212,7 +211,6 @@ void player::keylog(){
                     forward(false);
                 }
                 SLEEP(0.5);
-                input[0] = '\0';
                 MESSAGE_OFF;
             break;
             case '>':
@@ -345,6 +343,8 @@ void player::volume(const bool add_substr){
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
     }
+    input[0] = '\0';
+
 
 };
 
