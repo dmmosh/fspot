@@ -19,10 +19,14 @@ rm ./fspot/*f
 '''
 
 for arg in sys.argv[1:]:
+    if arg == "--reset" or "-r":
+        login_start()
     if arg == "--help" or arg == "-h":
         if os.path.exists(FOLDER+'help.txt'):
             print(open(FOLDER+'help.txt', 'r').read())
         
+
+
 
 
 # ALWAYS UPDATES THE TERMINAL SIZE
@@ -74,27 +78,7 @@ change_player.start() # starts thread
 erase_num = loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
 change_player.join() # joins the thread to mainsd
 
-
-#player = subprocess.Popen([FOLDER + 'fplayer', # fplayer executable
-#                           str(erase_num),
-#                            # basic encryption of files
-#                           base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ),
-#                           base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ),
-#                           base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii"))])
-
-#player.wait()
-
 PUT('me/player/volume?volume_percent='+ str(me_volume)) # sets the volume
-
-
-#Process(target=os.system("{}fplayer {} {} {} {} {}".format(
-#                            FOLDER,
-#                           str(erase_num),
-#                           base64.b64encode(gl.auth_codes['access_token'].encode("ascii") ).decode(),
-#                           base64.b64encode(gl.auth_codes['refresh_token'].encode("ascii") ).decode(),
-#                           base64.b64encode(str(int(gl.auth_codes['expires_at'])).encode("ascii")).decode(),
-#                           base64.b64encode(str(int(program.pid)).encode("ascii") ).decode()
-#                           ))).start()
 
 
 # makes a tmp file 

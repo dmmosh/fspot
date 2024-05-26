@@ -1,24 +1,18 @@
 from datetime import datetime, timedelta
-from flask import Flask, redirect, request, jsonify, session
+from flask import Flask, redirect, request
 from getpass import getpass
-from random import randint
 import requests
-import atexit
 import os
 import time
 import pyAesCrypt
 import sys
 import threading
 from multiprocessing import Process
-import subprocess
-import math
-import signal 
 import webbrowser
 import urllib
-import io
+import subprocess
 import base64
 import pickle
-import json
 
 '''
 GLOBAL VARIABLES AND IMPORTS
