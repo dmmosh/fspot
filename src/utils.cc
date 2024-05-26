@@ -194,8 +194,9 @@ void player::keylog(){
             break;
             case '.': //forward 10 seconds
                 if (!strcmp(input, "v")) {
-                    volume(true);
                     input_len = 0;
+                    input[0] = '\0';
+                    volume(true);
                 } else {
                     forward(true);
                 }
@@ -207,6 +208,7 @@ void player::keylog(){
                 if (!strcmp(input, "v")) {
                     volume(false);
                     input_len = 0;
+                    input[0] = '\0';
                 } else {
                     forward(false);
                 }
@@ -343,8 +345,6 @@ void player::volume(const bool add_substr){
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
     }
-    input[0] = '\0';
-
 
 };
 
