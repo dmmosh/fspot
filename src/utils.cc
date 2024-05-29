@@ -335,11 +335,10 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         //MESSAGE(message.substr(2, 6), 1.5);
         input[0] = '\0';
         input_len = 0;
-        
+        MESSAGE_OFF;
     } else {
         MESSAGE(message.substr(2,8), 1.5);
     }
-    MESSAGE_OFF;
 };
 
 
