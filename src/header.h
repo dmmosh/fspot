@@ -121,7 +121,7 @@ inline std::string CENTER( std::string input, const unsigned short col_size);
 std::string exec(const std::string& cmd);
 
 
-constexpr int forward_fun(const int x_val);
+inline constexpr int forward_fun(const int x_val);
 
 namespace move{
      inline void clear();
