@@ -286,7 +286,7 @@ void player::forward(const bool forward_back){
             MINI_MESSAGE("Nexting...");
             (void)cpr::Post(INTO("me/player/next"));
         } else {
-            message.insert(8, "...");
+            if (message.size()> 8) message.insert(8, "...");
             //MINI_MESSAGE(std::string("+") + timer(sec_ctr) + "...");
 
             (void)cpr::Put(INTO("me/player/seek"),
@@ -300,8 +300,9 @@ void player::forward(const bool forward_back){
                             cpr::Parameters{{"position_ms", "0"}});
 
         } else {   // if it doesnt, actually go forward
-            message.insert(8, "...");
-
+            
+            if (message.size()> 8) message.insert(8, "...");
+            
             (void)cpr::Put(INTO("me/player/seek"),
                         cpr::Parameters{{"position_ms", std::to_string((progress.load() - sec_ctr)*1000)}});
         }
