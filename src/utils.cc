@@ -325,7 +325,7 @@ void player::volume(const bool add_substr, unsigned short& input_len){
             message[6] = volume/10 + '0';
             message[7] = volume%10 + '0';
         } else {
-            MINI_MESSAGE( "vol " +  std::to_string(volume));
+            MINI_MESSAGE( "hid " +  std::to_string(volume));
         }
 
         volume += (add_substr) ? 1 : -1;
