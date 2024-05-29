@@ -321,17 +321,9 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         volume += (add_substr) ? 1 : -1;
         if (volume < 0) {
             volume = 0;
-            MINI_MESSAGE("mute");
         } else if (volume >= 100) {
             volume = 100;
-            MINI_MESSAGE("max vol");
-        } else if (message[2] == 'v') { //default 
-            message[6] = volume/10 + '0';
-            message[7] = volume%10 + '0';
-        } else {
-            MINI_MESSAGE( "vol " +  std::to_string(volume));
         }
-        
         
 
         if (!get_char()) {
