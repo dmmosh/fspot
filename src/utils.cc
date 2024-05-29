@@ -235,7 +235,8 @@ void player::keylog(){
 void player::forward(const bool forward_back){
 
     unsigned int x = 1;
-    unsigned short sec_ctr = 1;
+    unsigned short sec_ctr, min, sec;
+    MINI_MESSAGE("+00:00");
 
     while(1){ //iterates the ctr
 
@@ -243,11 +244,29 @@ void player::forward(const bool forward_back){
         sec_ctr = forward_fun(x) % 3600;
         if (!sec_ctr) sec_ctr++;
         
+         min = sec_ctr /60;
+         sec = sec_ctr%60;
+    
+        if(min<10){
+            message[3] = '0';
+            message[4] = min+'0';
+        } else {
+            message[3] = min/10 + '0';
+            message[4] = min%10 + '0';
+        };
+    
+        if(sec<10){
+            message[6] = '0';
+            message[7] = sec+'0';
+        } else {
+            message[6] = sec/10 + '0';
+            message[7] = sec%10 + '0';
+        }
         
 
         //printf("%02i:%02i\n\n", progress / 60, progress % 60);
         //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60)); 
-        MINI_MESSAGE( std::string((forward_back) ?"+" : "-") +  timer(sec_ctr));
+        //MINI_MESSAGE( std::string((forward_back) ?"+" : "-") +  timer(sec_ctr));
         if (!get_char()) {
             SLEEP(0.1);
             if (!get_char())
