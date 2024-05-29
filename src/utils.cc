@@ -345,7 +345,8 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
         input[0] = '\0';
         input_len = 0;
-
+    } else {
+        MESSAGE(message, 2.0);
     }
 
 };
