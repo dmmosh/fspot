@@ -256,7 +256,7 @@ void player::forward(const bool forward_back){
     }
 
     if (sec_ctr ==1){
-        MESSAGE(message.substr(2, 5), 1.0);
+        MESSAGE(message.substr(2, 6), 1.0);
         return;
     }  
 
