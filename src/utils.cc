@@ -276,7 +276,7 @@ void player::forward(const bool forward_back){
     }
 
     if (sec_ctr <2){
-        MESSAGE(message.substr(2, 6), 3.0);
+        MESSAGE(message.substr(2, 6), 2.0);
         return;
     }  
 
@@ -352,7 +352,7 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         else if (volume == 0)
             MINI_MESSAGE("muting...");
         else   
-            message.insert(8, "...");
+            if (message.size()> 8) message.insert(8, "...");
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
         //MESSAGE(message.substr(2, 6), 1.5);
