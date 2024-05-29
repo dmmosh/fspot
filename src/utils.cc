@@ -345,7 +345,19 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         input_len = 0;
         MESSAGE_OFF;
     } else {
-        MESSAGE(message.substr(2, 6), 2.0);
+        std::jthread( [this, &input_len] {
+        std::string temp = message; // temp string
+        
+        SLEEP(1.5); // waits the time
+        if (temp == message) {
+            MESSAGE_OFF;
+            input[0] = '\0';
+            input_len = 0;
+        }; // turn message off only if theres no new message to replace it
+
+        }).detach();
+
+        //MESSAGE(message.substr(2, 6), 1.5);
     }
 };
 
