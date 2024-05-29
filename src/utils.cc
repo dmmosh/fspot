@@ -199,7 +199,6 @@ void player::keylog(){
                     forward(true);
                 }
                 
-                SLEEP(0.5);
                 MESSAGE_OFF;
             break;
             case ',':
@@ -208,7 +207,6 @@ void player::keylog(){
                 } else {
                     forward(false);
                 }
-                SLEEP(0.5);
                 MESSAGE_OFF;
             break;
             case '>':
@@ -294,6 +292,8 @@ void player::forward(const bool forward_back){
 
 }
 
+
+// RETURNS WHETHER OR NOT TO CLEAR THE MESSAGE
 void player::volume(const bool add_substr, unsigned short& input_len){
     cpr::Response r = cpr::Get(INTO("me/player"));
     if (r.status_code != 200)
@@ -356,6 +356,7 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
         input[0] = '\0';
         input_len = 0;
+
     }
 
 };
