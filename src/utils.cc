@@ -300,19 +300,6 @@ void player::volume(const bool add_substr, unsigned short& input_len){
     unsigned short volume = resp["device"]["volume_percent"];
     unsigned short init_volume = volume;
 
-
-    if(volume == 100 && add_substr == true){
-        input[0] = '\0';
-        input_len = 0;
-        MESSAGE("Max vol", 1.5);
-        return;
-    } else if (volume == 0 && add_substr == false){
-        input[0] = '\0';
-        input_len = 0;
-        MESSAGE("Muted", 1.5);
-        return;
-    }
-
     MINI_MESSAGE("vol   ");
     while(1){ //iterates the ctr
 
