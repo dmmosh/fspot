@@ -315,18 +315,25 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         return;
     }
 
+    MINI_MESSAGE( "vol " +  std::to_string(volume));
     while(1){ //iterates the ctr
         
         volume += (add_substr) ? 1 : -1;
-        if (volume < 0)
+        if (volume < 0) {
             volume = 0;
-        else if (volume > 100)
+            MINI_MESSAGE("mute");
+        } else if (volume >= 100) {
             volume = 100;
+            MINI_MESSAGE("max vol");
+        } else if (message[2] == 'v') { //default 
+            message[6] = volume/10 + '0';
+            message[7] = volume%10 + '0';
+        } else {
+            MINI_MESSAGE( "vol " +  std::to_string(volume));
+        }
+        
         
 
-        //printf("%02i:%02i\n\n", progress / 60, progress % 60);
-        //MINI_MESSAGE(((forward_back) ?"+" : "-") + std::string(((sec_ctr/60 <10) ? "0" : "")) + std::to_string(sec_ctr/60) + ":" + std::string(((sec_ctr%60 <10)) ? "0" : "") + std::to_string(sec_ctr%60)); 
-        MINI_MESSAGE( "vol " +  std::to_string(volume));
         if (!get_char()) {
             SLEEP(0.1);
             if (!get_char())
