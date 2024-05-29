@@ -317,25 +317,16 @@ void player::volume(const bool add_substr, unsigned short& input_len){
 
     MINI_MESSAGE("vol   ");
     while(1){ //iterates the ctr
-        if(volume == 0 && message[3] != 'a') {
-            MINI_MESSAGE("mute");
-        } else if (volume ==100 && message[3] != 'u'){
-            MINI_MESSAGE("max vol");
-        } else if (message[3] == 'o'){
             message[6] = volume/10 + '0';
             message[7] = volume%10 + '0';
+
+        volume = (add_substr) ? std::min(100, volume+1) : std::max(0, volume-1);
+
+        if (volume == 100){
+            message[5] = '1'; message[6] = '0'; message[7] = '0';
         } else {
-            MINI_MESSAGE( "hid " +  std::to_string(volume));
+            message[6] = volume/10 + '0'; message[7] = volume%10 + '0';
         }
-
-        volume += (add_substr) ? 1 : -1;
-        if (volume < 0) {
-            volume = 0;
-        } else if (volume >= 100) {
-            volume = 100;
-        }
-        
-
 
         if (!get_char()) {
             SLEEP(0.1);
