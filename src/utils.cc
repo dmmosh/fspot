@@ -292,8 +292,7 @@ void player::forward(const bool forward_back){
 
 // RETURNS WHETHER OR NOT TO CLEAR THE MESSAGE
 void player::volume(const bool add_substr, unsigned short& input_len){
-    input[0] = '\0';
-    input_len = 0;
+    
 
     cpr::Response r = cpr::Get(INTO("me/player"));
     if (r.status_code != 200)
@@ -304,10 +303,6 @@ void player::volume(const bool add_substr, unsigned short& input_len){
     unsigned short init_volume = volume;
 
     MINI_MESSAGE("vol   ");
-
-    if (input_len <0){
-        SLEEP(0.5);
-    }
 
     while(1){ //iterates the ctr
 
@@ -322,6 +317,7 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         if (!get_char()) {
             SLEEP(0.1);
             if (!get_char())
+
                 break;
         }
     }
@@ -337,6 +333,14 @@ void player::volume(const bool add_substr, unsigned short& input_len){
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
         //MESSAGE(message.substr(2, 6), 1.5);
+        input[0] = '\0';
+        input_len = 0;
+        MESSAGE_OFF;
+    } else if (input_len >-1) {
+        input[0] = '\0';
+        input_len = 0;
+        unsigned short neg = -1;
+        this->volume(add_substr, neg);
     }
 };
 
