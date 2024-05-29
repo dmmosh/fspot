@@ -256,7 +256,7 @@ void player::forward(const bool forward_back){
     }
 
     if (sec_ctr ==1){
-        MESSAGE("+00:00", 1.0);
+        MESSAGE("+00:01", 1.0);
         return;
     }  
 
