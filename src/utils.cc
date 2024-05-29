@@ -344,6 +344,8 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         input[0] = '\0';
         input_len = 0;
         MESSAGE_OFF;
+    } else {
+        MESSAGE(message);
     }
 };
 
@@ -595,7 +597,7 @@ unsigned short row_update(){
 };
 
 
-constexpr int forward_fun(const int x_val){
+inline constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/70);
 };
 
