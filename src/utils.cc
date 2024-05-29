@@ -338,7 +338,7 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         else if (volume == 0)
             MINI_MESSAGE("muting...");
         else   
-            message.insert(7, "...");
+            message.insert(8, "...");
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
         input[0] = '\0';
