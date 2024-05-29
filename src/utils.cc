@@ -304,9 +304,13 @@ void player::volume(const bool add_substr, unsigned short& input_len){
     unsigned short init_volume = volume;
 
     if(volume == 100 && add_substr == true){
+        input[0] = '\0';
+        input_len = 0;
         MINI_MESSAGE("Max vol");
         return;
     } else if (volume == 0 && add_substr == false){
+        input[0] = '\0';
+        input_len = 0;
         MINI_MESSAGE("Muted");
         return;
     }
@@ -598,7 +602,7 @@ constexpr int forward_fun(const int x_val){
     return (int)((double)x_val*x_val/70);
 };
 
-static char* timer(const unsigned int seconds){
+inline static char* timer(const unsigned int seconds){
     static char timer[] = "00:00";
 
     //strcpy(timer, "00:00");

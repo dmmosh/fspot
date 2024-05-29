@@ -113,7 +113,7 @@ unsigned short int col_update();
 unsigned short int row_update();
 void print_logo();
 char get_char();
-static char* timer(const unsigned int seconds);
+inline static char* timer(const unsigned int seconds);
 
 inline std::string CENTER( std::string input);
 inline std::string CENTER( std::string input, const unsigned short col_size);
