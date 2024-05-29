@@ -317,8 +317,6 @@ void player::volume(const bool add_substr, unsigned short& input_len){
 
     MINI_MESSAGE("vol   ");
     while(1){ //iterates the ctr
-            message[6] = volume/10 + '0';
-            message[7] = volume%10 + '0';
 
         volume = (add_substr) ? std::min(100, volume+1) : std::max(0, volume-1);
 
