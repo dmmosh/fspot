@@ -304,12 +304,12 @@ void player::volume(const bool add_substr, unsigned short& input_len){
     if(volume == 100 && add_substr == true){
         input[0] = '\0';
         input_len = 0;
-        MINI_MESSAGE("Max vol");
+        MESSAGE("Max vol", 1.5);
         return;
     } else if (volume == 0 && add_substr == false){
         input[0] = '\0';
         input_len = 0;
-        MINI_MESSAGE("Muted");
+        MESSAGE("Muted", 1.5);
         return;
     }
 
@@ -346,14 +346,13 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         MESSAGE_OFF;
     } else {
         std::jthread( [this, &input_len] {
-        std::string temp = message; // temp string
-        
-        SLEEP(1.5); // waits the time
-        if (temp == message) {
-            MESSAGE_OFF;
-            input[0] = '\0';
-            input_len = 0;
-        }; // turn message off only if theres no new message to replace it
+            std::string temp = message; // temp string
+            SLEEP(1.5); // waits the time
+            if (temp == message) {
+                MESSAGE_OFF;
+                input[0] = '\0';
+                input_len = 0;
+            }; // turn message off only if theres no new message to replace it
 
         }).detach();
 
