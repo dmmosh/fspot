@@ -344,8 +344,6 @@ void player::volume(const bool add_substr, unsigned short& input_len){
         input[0] = '\0';
         input_len = 0;
         MESSAGE_OFF;
-    } else {
-        MESSAGE()
     }
 };
 
