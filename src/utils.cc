@@ -237,6 +237,7 @@ void player::forward(const bool forward_back){
     unsigned int x = 1;
     unsigned short sec_ctr, min, sec;
     MINI_MESSAGE("+00:00");
+    if(!forward_back) message[2] = '-';
 
     while(1){ //iterates the ctr
 
