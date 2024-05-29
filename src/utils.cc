@@ -333,9 +333,9 @@ void player::volume(const bool add_substr, unsigned short& input_len){
 
     if(abs(volume-init_volume) >1){
 
-        if(volume == 100 && add_substr == true)
+        if(volume == 100)
             MINI_MESSAGE("max vol...");
-        else if (volume == 0 && add_substr == false)
+        else if (volume == 0)
             MINI_MESSAGE("muting...");
         else   
             message.insert(7, "...");
