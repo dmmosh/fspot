@@ -292,6 +292,9 @@ void player::forward(const bool forward_back){
 
 // RETURNS WHETHER OR NOT TO CLEAR THE MESSAGE
 void player::volume(const bool add_substr, unsigned short& input_len){
+    input[0] = '\0';
+    input_len = 0;
+
     cpr::Response r = cpr::Get(INTO("me/player"));
     if (r.status_code != 200)
         return;
@@ -301,6 +304,11 @@ void player::volume(const bool add_substr, unsigned short& input_len){
     unsigned short init_volume = volume;
 
     MINI_MESSAGE("vol   ");
+
+    if (input_len <0){
+        SLEEP(0.5);
+    }
+
     while(1){ //iterates the ctr
 
         volume = (add_substr) ? std::min(100, volume+1) : std::max(0, volume-1);
@@ -328,21 +336,6 @@ void player::volume(const bool add_substr, unsigned short& input_len){
             message.insert(8, "...");
 
         (void)cpr::Put(INTO("me/player/volume?volume_percent=" + std::to_string(volume)));
-        input[0] = '\0';
-        input_len = 0;
-        MESSAGE_OFF;
-    } else {
-        std::jthread( [this, &input_len] {
-            std::string temp = message; // temp string
-            SLEEP(1.5); // waits the time
-            if (temp == message) {
-                MESSAGE_OFF;
-                input[0] = '\0';
-                input_len = 0;
-            }; // turn message off only if theres no new message to replace it
-
-        }).detach();
-
         //MESSAGE(message.substr(2, 6), 1.5);
     }
 };
