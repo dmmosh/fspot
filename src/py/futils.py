@@ -128,7 +128,6 @@ def connect_player():
 
                 if(request.status_code == 204): # exits the function
                     return
-        
         timer-=1
         
     # once timer runs out
