@@ -82,15 +82,10 @@ song_thread(std::jthread(&player::song_update, this)) //updates every second
 
 // CLASS DESTRUCTORS
 player::~player(){
-    if(cover.load()){
-        unsigned short col_size = std::min(col_update()-2, row_update()*2-10);
-        move::down(col_size+4);
-        move::clear();
-        move::up_clear(col_size/2+4);
+
     //move::clear();
     //move::up_clear(2);
 
-    }
 };
 
 // MES   SAGES 
@@ -407,10 +402,17 @@ void player::commands(){
 
     } else if (!strcmp(input, "quit")){ //quit
         MINI_MESSAGE("Quitting...");
+
         type.store(false);
         log_thread.request_stop();
+        if(cover.load()){
+            unsigned short col_size = std::min(col_update()-2, row_update()*2-10);
+            move::down(col_size+4);
+            move::clear();
+            move::up_clear(col_size/2+4);
+        }
         exit(0);
-    } else if (!strcmp(input, "clear")){
+    } else if (!strcmp(input, "clear") || !strcmp(input, "c")){
         cover.store(false);
         system("clear");
 
