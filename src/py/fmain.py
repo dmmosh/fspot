@@ -58,10 +58,7 @@ program = subprocess.Popen(['librespot',
                     '--name', 'fspot player',
                     '--disable-audio-cache',
                     '--emit-sink-events',
-                    '--disable-credential-cache',
-                    '-u', gl.auth_codes['user_id'],
-                    '-p',  gl.auth_codes['password'], 
-                    '&>', '/dev/null'],
+                    '--disable-credential-cache'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
