@@ -433,7 +433,7 @@ void player::commands(){
                     cover_fun(json::parse(r.text)["item"]["album"]["images"][0]["url"].get<std::string>());
 
                 cover.store(true); 
-                MESSAGE("\e[6n", 1.0);
+                MESSAGE("Covers on!", 1.0);
             }
         } else {
             type.store(false);
