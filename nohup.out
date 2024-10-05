@@ -1,0 +1,59 @@
+[2024-10-05T20:57:11Z INFO  librespot] librespot 0.4.2 22f8aed3 (Built on 2024-10-05, Build ID: 1728157542, Profile: release)
+[2024-10-05T20:57:11Z TRACE librespot] Command line argument(s):
+[2024-10-05T20:57:11Z TRACE librespot] 		name "fspot player"
+[2024-10-05T20:57:11Z TRACE librespot] 		disable-audio-cache
+[2024-10-05T20:57:11Z TRACE librespot] 		verbose
+[2024-10-05T20:57:11Z TRACE librespot] 		emit-sink-events
+[2024-10-05T20:57:11Z TRACE librespot] 		disable-credential-cache
+[2024-10-05T20:57:11Z DEBUG librespot_discovery::server] Zeroconf server listening on 0.0.0.0:43763
+[2024-10-05T20:57:22Z DEBUG librespot_discovery::server] POST "/" {}
+[2024-10-05T20:57:22Z WARN  librespot_core::apresolve] Ignoring blacklisted access point ap-gue1.spotify.com:4070
+[2024-10-05T20:57:22Z WARN  librespot_core::apresolve] Ignoring blacklisted access point ap-gue1.spotify.com:443
+[2024-10-05T20:57:22Z WARN  librespot_core::apresolve] Ignoring blacklisted access point ap-gue1.spotify.com:80
+[2024-10-05T20:57:22Z WARN  librespot_core::apresolve] Ignoring blacklisted access point ap-gew4.spotify.com:80
+[2024-10-05T20:57:22Z INFO  librespot_core::session] Connecting to AP "ap-gae2.spotify.com:4070"
+[2024-10-05T20:57:23Z INFO  librespot_core::session] Authenticated as "hek540f5m5dbjqxp85fcv5i1g" !
+[2024-10-05T20:57:23Z DEBUG librespot_core::session] new Session[0]
+[2024-10-05T20:57:23Z INFO  librespot_playback::mixer::softmixer] Mixing with softvol and volume control: Log(60.0)
+[2024-10-05T20:57:23Z DEBUG librespot_connect::spirc] new Spirc[0]
+[2024-10-05T20:57:23Z DEBUG librespot_connect::spirc] canonical_username: hek540f5m5dbjqxp85fcv5i1g
+[2024-10-05T20:57:23Z DEBUG librespot::component] new MercuryManager
+[2024-10-05T20:57:23Z DEBUG librespot_playback::mixer::mappings] Input volume 58958 mapped to: 49.99%
+[2024-10-05T20:57:23Z DEBUG librespot_playback::player] new Player[0]
+[2024-10-05T20:57:23Z DEBUG librespot_core::session] Session[0] strong=3 weak=2
+[2024-10-05T20:57:23Z INFO  librespot_playback::convert] Converting with ditherer: tpdf
+[2024-10-05T20:57:23Z INFO  librespot_core::session] Country: "US"
+[2024-10-05T20:57:23Z INFO  librespot_playback::audio_backend::rodio] Using Rodio sink with format S16 and cpal host: ALSA
+[2024-10-05T20:57:23Z INFO  librespot_playback::audio_backend::rodio] Using audio device: default
+[2024-10-05T20:57:23Z DEBUG librespot_playback::audio_backend::rodio] Rodio sink was created
+[2024-10-05T20:57:23Z DEBUG librespot_playback::player] command=AddEventSender
+[2024-10-05T20:57:23Z DEBUG librespot_playback::player] command=VolumeSet(58958)
+[2024-10-05T20:57:23Z DEBUG librespot_core::mercury] subscribed uri=hm://remote/user/hek540f5m5dbjqxp85fcv5i1g/ count=0
+[2024-10-05T20:57:24Z DEBUG librespot_connect::spirc] kMessageTypeNotify "wetsock" 3722fee8eb52748fb8e022ff5c2d79fde829aebe 1584991549 1728161843737 kPlayStatusStop
+[2024-10-05T20:57:24Z DEBUG librespot_connect::spirc] kMessageTypeLoad "wetsock" 3722fee8eb52748fb8e022ff5c2d79fde829aebe 1584991936 1728161840959 kPlayStatusPlay
+[2024-10-05T20:57:24Z DEBUG librespot_connect::spirc] State: context_uri: "spotify:playlist:6yUMXUndM0t66uhtuMfuZQ" index: 4 position_ms: 20402 status: kPlayStatusPlay position_measured_at: 1728161844268 context_description: "" shuffle: true repeat: false playing_from_fallback: true row: 0 playing_track_index: 4 track {gid: "\217F\363;L\342N(\271\023\355\215\013\217=\\"} track {gid: "\361\363G\nz\356K\362\216\275\257\206\337b^\000"} track {gid: "n\024\210\252$\312F\316\230:\276F\356\377}\200"} track {gid: "\347\232\256\315\205\000@8\212ez\261<u\202\312"} track {gid: "\246\375\201\324h\373E\306\205Lad\276\330\014\333"} track {gid: "\251Z\254\301\334\025G\302\227\262W0*eB2"} track {gid: "G\255af\302\354A\221\202\212\334$\\\036\306G"} track {gid: "\306G\256G\346cL0\224\276\234\201\363\326\314\327"} track {gid: "\017\203\321\216\233\261D\313\252\374\246\237?v!B"} track {gid: "z\"v\202K\007O\255\222\2638\'\214\257\353\323"} track {gid: "\305\233eb\327\274Ng\2015\374R\213\331\275\205"}
+[2024-10-05T20:57:24Z DEBUG librespot_connect::spirc] Frame has 11 tracks
+[2024-10-05T20:57:24Z TRACE librespot_connect::spirc] Sending status to server: [kPlayStatusPlay]
+[2024-10-05T20:57:24Z DEBUG librespot_playback::player] command=SetAutoNormaliseAsAlbum(false)
+[2024-10-05T20:57:24Z DEBUG librespot_playback::player] command=Load(SpotifyId { id: 221968131665204881289065409465403575515, audio_type: Track }, true, 20402)
+[2024-10-05T20:57:24Z TRACE librespot_connect::spirc] Sending status to server: [kPlayStatusPlay]
+[2024-10-05T20:57:25Z INFO  librespot_playback::player] Loading <Что нам делать?> with Spotify URI <spotify:track:556zV64ShWgiycII2WZell>
+[2024-10-05T20:57:25Z DEBUG librespot_audio::fetch] Downloading file a1e91033235b3ff86b5a1cc9067d03196e74734a
+[2024-10-05T20:57:25Z DEBUG librespot::component] new ChannelManager
+[2024-10-05T20:57:25Z DEBUG librespot::component] new AudioKeyManager
+[2024-10-05T20:57:28Z INFO  librespot_playback::player] <Что нам делать?> (222786 ms) loaded
+[2024-10-05T20:57:28Z TRACE librespot_playback::player] == Starting sink ==
+[2024-10-05T20:57:28Z TRACE librespot_connect::spirc] Sending status to server: [kPlayStatusPlay]
+[2024-10-05T20:57:28Z TRACE librespot_connect::spirc] ==> kPlayStatusPlay
+[2024-10-05T20:57:37Z INFO  librespot] Gracefully shutting down
+[2024-10-05T20:57:37Z DEBUG librespot_playback::player] command=Stop
+[2024-10-05T20:57:37Z TRACE librespot_playback::player] == Stopping sink ==
+[2024-10-05T20:57:37Z DEBUG librespot_connect::spirc] drop Spirc[0]
+[2024-10-05T20:57:37Z DEBUG librespot_playback::player] Shutting down player thread ...
+[2024-10-05T20:57:37Z DEBUG librespot_playback::player] drop PlayerInternal[0]
+[2024-10-05T20:57:37Z DEBUG librespot_playback::player] PlayerInternal thread finished.
+[2024-10-05T20:57:37Z DEBUG librespot_core::session] drop Session[0]
+[2024-10-05T20:57:37Z DEBUG librespot::component] drop AudioKeyManager
+[2024-10-05T20:57:37Z DEBUG librespot::component] drop ChannelManager
+[2024-10-05T20:57:37Z DEBUG librespot::component] drop MercuryManager
+[2024-10-05T20:57:37Z DEBUG librespot_core::session] drop Dispatch
