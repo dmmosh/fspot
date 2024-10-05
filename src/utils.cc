@@ -410,8 +410,8 @@ void player::commands(){
         type.store(false);
         log_thread.request_stop();
 
-    } else if (!strcmp(input, "clear")){
-        cover.store(false);
+    } else if (!strcmp(input, "clear") || !strcmp(input, "c")){
+        //cover.store(false);
         system("clear");
 
     } else if (!strcmp(input, "cover")){
