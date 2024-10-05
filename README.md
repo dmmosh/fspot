@@ -16,6 +16,10 @@ Written in Python and C++. The main branch incorporates C++ as it is faster and 
 The elephant in the room: Ncurses. Ncurses overrides the entire terminal screen. I do not want to do that because I want my player to be small and compact. Therefore, I have taken the long route of creating a functioning TUI on my own. 
 
 ## Installation: ##
+- Librespot (v5.0.0) (dev branch as of 10/05/2024)
+
+
+## Installation: ##
 ```
 # No proper installation script as of yet.
 ```
