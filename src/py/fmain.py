@@ -82,7 +82,8 @@ change_player.join() # joins the thread to mainsd
 
 PUT('me/player/volume?volume_percent='+ str(me_volume)) # sets the volume
 
-
+if (debug):
+    DEBUG("CONNECTED TO:", GET('me/player/devices').json())
 # makes a tmp file 
 with open(FOLDER+'.tmp.txt', 'w') as f:
     f.write(str(erase_num) + '\n')
