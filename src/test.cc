@@ -17,6 +17,7 @@
 #include <fstream>
 #include <string>
 #include <cmath>
+#include <nlohmann
 
 int main(){
     char test[] = "hell\0o there";
