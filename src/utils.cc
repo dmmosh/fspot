@@ -423,10 +423,10 @@ void player::commands(){
                 unsigned short col_size = std::min(col_update()-2, row_update()*2-10);
                 move::down(col_size+4);
                 move::clear();
-                
                 move::up_clear(col_size/2+3);
                 cover.store(false);
-                MESSAGE("\033[6n");
+                std::cout << "\033[6n\n";
+                MESSAGE("Covers off!", 1.0);
             } else {
 		        MINI_MESSAGE("Covering...");
                 r = cpr::Get(INTO("me/player"));
