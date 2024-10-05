@@ -72,7 +72,7 @@ else:
     me_volume = 83
 
 
-change_player = threading.Thread(target=lambda:connect_player(debug), daemon=True) # runs connection to the player
+change_player = threading.Thread(target=lambda:connect_player(debug_on=debug, librespot=program), daemon=True) # runs connection to the player
 change_player.start() # starts thread
 #print(GET('me/player/devices').json())
 
