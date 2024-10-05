@@ -58,6 +58,7 @@ program = subprocess.Popen(['librespot',
                     '--name', 'fspot player',
                     '--disable-audio-cache',
                     '--emit-sink-events',
+                    '--zeroconf-port',
                     '--disable-credential-cache'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -83,13 +84,9 @@ change_player.join() # joins the thread to mainsd
 PUT('me/player/volume?volume_percent='+ str(me_volume)) # sets the volume
 
 if (debug):
-    DEBUG("CONNECTED TO:", GET('me/player/devices').json())
-    print()
-    print()
-    print()
-    print()
-    print()
-    print()
+    DEBUG("CONNECTED TO:", GET('me/player/devices').json()['devices'])
+    for i in range(0,10):
+        print()
 # makes a tmp file 
 with open(FOLDER+'.tmp.txt', 'w') as f:
     f.write(str(erase_num) + '\n')
