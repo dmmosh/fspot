@@ -411,7 +411,7 @@ void player::commands(){
         log_thread.request_stop();
 
     } else if (!strcmp(input, "clear") || !strcmp(input, "c")){
-        //cover.store(false);
+        cover.store(false);
         system("clear");
 
     } else if (!strcmp(input, "cover")){
