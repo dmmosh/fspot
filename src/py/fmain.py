@@ -58,9 +58,8 @@ program = subprocess.Popen(['librespot',
                     '--name', 'fspot player',
                     '--disable-audio-cache',
                     '--emit-sink-events',
-                    '--zeroconf-port',
                     '--disable-credential-cache'],
-                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    stdout=(sys.stdout if (debug) else subprocess.PIPE), stderr=(sys.stderr if (debug) else subprocess.PIPE))
 
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
 #atexit.register(end)
