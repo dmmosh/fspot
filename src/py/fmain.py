@@ -54,7 +54,7 @@ if me.status_code != 200: # if token is still invalid, rerun the login page
     login_start() # starts login
 
 # fspot/librespot --name 'fspot player' --disable-audio-cache --disable-credential-cache -u '' -p ''
-program = subprocess.Popen([FOLDER + 'librespot',
+program = subprocess.Popen(['librespot',
                     '--name', 'fspot player',
                     '--disable-audio-cache',
                     '--emit-sink-events',
