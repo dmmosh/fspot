@@ -63,7 +63,7 @@ def PUT(where_from:str, params:dict = None, data:dict = None, json:dict = None, 
 
 
 # a loading message, clears itself when finishes
-def loading_msg(process:threading.Thread, msg:str = 'Loading...')->None:
+def loading_msg(process:threading.Thread, msg:str = 'Loading...'):
     title = {'id': 1,   # the title slide properties
              'line_num': 3,
              'col_num': 10,

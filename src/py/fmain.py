@@ -75,6 +75,7 @@ change_player = threading.Thread(target=lambda:connect_player(debug), daemon=Tru
 change_player.start() # starts thread
 #print(GET('me/player/devices').json())
 
+erase_num = 0
 if not (debug): # if it's not debugging, display the loading message
     erase_num = loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
 change_player.join() # joins the thread to mainsd
