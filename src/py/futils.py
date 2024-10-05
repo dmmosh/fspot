@@ -35,7 +35,7 @@ def ERROR(*args:str)->None: # prints error message
 
 def DEBUG(*args:str)->None:
     for to_print in args:
-        print('\t - ' + to_print)
+        print('\t - ' + str(to_print))
         print()
 
 # adds the authorization code to the header
@@ -116,7 +116,6 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...'):
 def connect_player(debug_on:bool = False):
     timer = 400 # 20 seconds 
     while(timer):
-        
         time.sleep(0.05)
         device_list = GET('me/player/devices').json()
         if 'devices' not in device_list:
