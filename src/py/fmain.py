@@ -84,6 +84,12 @@ PUT('me/player/volume?volume_percent='+ str(me_volume)) # sets the volume
 
 if (debug):
     DEBUG("CONNECTED TO:", GET('me/player/devices').json())
+    print()
+    print()
+    print()
+    print()
+    print()
+    print()
 # makes a tmp file 
 with open(FOLDER+'.tmp.txt', 'w') as f:
     f.write(str(erase_num) + '\n')
