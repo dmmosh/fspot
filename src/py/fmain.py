@@ -62,6 +62,8 @@ program = subprocess.Popen(['librespot',
                     '--disable-credential-cache'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+if (debug):
+    print(program.stdout.read())
 
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
 #atexit.register(end)
