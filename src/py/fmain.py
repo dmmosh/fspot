@@ -65,7 +65,7 @@ program = subprocess.Popen([FOLDER+'librespot',
 
 
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
-#atexit.register(end)
+#atexit.register(end) fsdf
 
 me_volume = GET('me/player')
 if (me_volume.status_code == 200):
