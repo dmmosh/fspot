@@ -410,7 +410,7 @@ void player::commands(){
         type.store(false);
         log_thread.request_stop();
 
-    } else if (!strcmp(input, "clear") || !strcmp(input, "c")){
+    } else if (!strcmp(input, "clear")){
         cover.store(false);
         system("clear");
 
@@ -423,12 +423,11 @@ void player::commands(){
                 unsigned short col_size = std::min(col_update()-2, row_update()*2-10);
                 move::down(col_size+4);
                 move::clear();
-                move::up_clear(col_size/2+3);
+                move::up_clear(col_size/2+4);
                 cover.store(false);
-                std::cout << "\033[6n\n";
                 MESSAGE("Covers off!", 1.0);
             } else {
-		        MINI_MESSAGE("Covering...");
+		MINI_MESSAGE("Covering...");
                 r = cpr::Get(INTO("me/player"));
                 if(r.status_code == 200)
                     cover_fun(json::parse(r.text)["item"]["album"]["images"][0]["url"].get<std::string>());
