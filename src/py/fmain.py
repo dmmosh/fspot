@@ -59,10 +59,8 @@ program = subprocess.Popen(['librespot',
                     '--disable-audio-cache',
                     '--verbose',
                     '--emit-sink-events',
-                    '--disable-credential-cache',
-                    '&',
-                    'echo', 'LIBRESPOT', 'COMMANDS:'],
-                    stdout=(sys.stdout if (debug) else subprocess.PIPE), stderr=(sys.stderr if (debug) else subprocess.PIPE),)
+                    '--disable-credential-cache'],
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
 #atexit.register(end)

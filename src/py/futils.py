@@ -120,21 +120,21 @@ def connect_player(debug_on:bool = False):
         device_list = GET('me/player/devices').json()
         if 'devices' not in device_list:
             ERROR('Something else happened. Failed to connect player.')
+        if(debug_on):
+            DEBUG(device_list, subprocess.Popen.communicate()[0])
 
-        if not (debug_on):
-            for device in device_list['devices']:
-                if device['name'] == 'fspot player':
-                    player = {'device_ids': [device['id']],
-                              'play': False}
-                    
-                    request = PUT('me/player', json=player)
-    
-                    if(request.status_code == 204): # exits the function
-                        return
+        for device in device_list['devices']:
+            if device['name'] == 'fspot player':
+                player = {'device_ids': [device['id']],
+                          'play': False}
+                request = PUT('me/player', json=player)
+                if(request.status_code == 204): # exits the function
+                    return
         timer-=1
         
     # once timer runs out
-    ERROR('Request took too long. Maybe get better internet.', 'You might have set the wrong password. Run \"fpost --reset\"')
+    if not (debug_on):
+        ERROR('Request took too long. Maybe get better internet.', 'You might have set the wrong password. Run \"fpost --reset\"')
 
 
 
