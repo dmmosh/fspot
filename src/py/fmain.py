@@ -59,6 +59,7 @@ program = subprocess.Popen(['librespot',
                     '--disable-audio-cache',
                     '--verbose',
                     '--emit-sink-events',
+                    '--zeroconf-port=10000',
                     '--disable-credential-cache'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
