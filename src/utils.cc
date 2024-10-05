@@ -144,6 +144,7 @@ int player::refresh(){
         //std::cout << r.text << NEW << NEW << NEW << NEW;
         MESSAGE("Token refreshed!", 1.0); // message
         json new_token = json::parse(r.text); // new token
+        
         *ACCESS_TOKEN = new_token["access_token"].get<std::string>();
         *REFRESH_AT = new_token["expires_in"].get<unsigned long>();
         *REFRESH_AT += POSIX_TIME;
