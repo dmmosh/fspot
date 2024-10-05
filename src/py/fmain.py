@@ -19,12 +19,12 @@ rm ./fspot/*f
 '''
 debug = False
 for arg in sys.argv[1:]:
-    if arg == "--reset" or "-r":
+    if (arg == "--reset") or (arg == "-r"):
         login_start()
-    if arg == "--help" or arg == "-h":
+    if (arg == "--help") or (arg == "-h"):
         if os.path.exists(FOLDER+'help.txt'):
             print(open(FOLDER+'help.txt', 'r').read())
-    if arg == "--debug" or arg == "-d":
+    if (arg == "--debug") or (arg == "-d"):
         debug = True
         
 
