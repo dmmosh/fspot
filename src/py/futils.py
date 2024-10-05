@@ -33,6 +33,11 @@ def ERROR(*args:str)->None: # prints error message
         print('\t' + to_print)
     os._exit(0)
 
+def DEBUG(*args:str)->None:
+    for to_print in args:
+        print('\t - ' + to_print)
+        print()
+
 # adds the authorization code to the header
 def HEADER(request:dict = None)-> dict: # returns a dict
     return gl.def_header if request is None else request.update(gl.def_header)
@@ -58,7 +63,7 @@ def PUT(where_from:str, params:dict = None, data:dict = None, json:dict = None, 
 
 
 # a loading message, clears itself when finishes
-def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
+def loading_msg(process:threading.Thread, msg:str = 'Loading...'):
     title = {'id': 1,   # the title slide properties
              'line_num': 3,
              'col_num': 10,
@@ -86,18 +91,16 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
 
 
     print_msg = msg
+
+
     while(process.is_alive()):
         term_size = os.get_terminal_size().columns
         for char in "/—\\|":
             if term_size < title['col_num']:
-
                 title_text = open(FOLDER + 'titles/title1.txt', 'r')
-                
                 print(title_text.read())
                 title_text.close()
                 title = {'id': 1, 'line_num': 3, 'col_num': 10, 'len': 11}
-
-
             # everything message related
             print_msg = msg[:term_size-7] + '...  ' if (len(msg)+1 > term_size) else msg # shortens the print message if need be
             sys.stdout.write( TEXT['invert_on'] + print_msg + char + '\r' + TEXT['invert_off'] )
@@ -110,7 +113,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...')-> None:
     #print("\r") # carriage return
     
 
-def connect_player():
+def connect_player(debug_on:bool = False):
     timer = 400 # 20 seconds 
     while(timer):
         
@@ -118,6 +121,8 @@ def connect_player():
         device_list = GET('me/player/devices').json()
         if 'devices' not in device_list:
             ERROR('Something else happened. Failed to connect player.')
+        if (debug_on):
+            DEBUG(device_list)
 
         for device in device_list['devices']:
             if device['name'] == 'fspot player':

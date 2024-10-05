@@ -17,13 +17,15 @@ remove the pickled files:
 rm ./fspot/*f
 
 '''
-
+debug = False
 for arg in sys.argv[1:]:
     if arg == "--reset" or "-r":
         login_start()
     if arg == "--help" or arg == "-h":
         if os.path.exists(FOLDER+'help.txt'):
             print(open(FOLDER+'help.txt', 'r').read())
+    if arg == "--debug" or arg == "-d":
+        debug = True
         
 
 
@@ -72,10 +74,12 @@ else:
     me_volume = 83
 
 
-change_player = threading.Thread(target=connect_player, daemon=True) # runs connection to the player
+change_player = threading.Thread(target=lambda:connect_player(debug), daemon=True) # runs connection to the player
 change_player.start() # starts thread
 #print(GET('me/player/devices').json())
-erase_num = loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
+
+if not (debug): # if it's not debugging, display the loading message
+    erase_num = loading_msg(change_player, msg="Connecting to the World Wide Web...  ") # starts the starting loading message
 change_player.join() # joins the thread to mainsd
 
 PUT('me/player/volume?volume_percent='+ str(me_volume)) # sets the volume
