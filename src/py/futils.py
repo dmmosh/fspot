@@ -113,7 +113,7 @@ def loading_msg(process:threading.Thread, msg:str = 'Loading...'):
     #print("\r") # carriage return
     
 
-def connect_player(debug_on:bool = False, librespot:subprocess.Popen = None):
+def connect_player(debug_on:bool = False):
     timer = 400 # 20 seconds 
     while(timer):
         time.sleep(0.05)
@@ -121,7 +121,7 @@ def connect_player(debug_on:bool = False, librespot:subprocess.Popen = None):
         if 'devices' not in device_list:
             ERROR('Something else happened. Failed to connect player.')
         if(debug_on):
-            DEBUG(device_list, librespot.communicate()[0])
+            DEBUG(device_list)
 
         for device in device_list['devices']:
             if device['name'] == 'fspot player':

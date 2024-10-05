@@ -62,6 +62,8 @@ program = subprocess.Popen(['librespot',
                     '--disable-credential-cache'],
                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
+print(program.communicate())
+
 #atexit.register(lambda:os.killpg(os.getpgid(program.pid), signal.SIGKILL))
 #atexit.register(end)
 
@@ -72,7 +74,7 @@ else:
     me_volume = 83
 
 
-change_player = threading.Thread(target=lambda:connect_player(debug_on=debug, librespot=program), daemon=True) # runs connection to the player
+change_player = threading.Thread(target=lambda:connect_player(debug_on=debug), daemon=True) # runs connection to the player
 change_player.start() # starts thread
 #print(GET('me/player/devices').json())
 
