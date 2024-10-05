@@ -409,7 +409,7 @@ void player::commands(){
         MINI_MESSAGE("Quitting...");
         type.store(false);
         log_thread.request_stop();
-
+        exit(0);
     } else if (!strcmp(input, "clear")){
         cover.store(false);
         system("clear");
